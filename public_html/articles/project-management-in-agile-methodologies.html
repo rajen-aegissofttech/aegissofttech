@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>What is Kanban and Agile Methodology in Project Management?</title>
+	<meta name="description" content="This article introduces the benefits of agile Kanban and the traditional model, and how you can recruit this to your benefits in the form of traditional project management." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/project-management-in-agile-methodologies.html"/>
+	 
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Traditional Project Management in Agile Methodologies & Agile Kanban Board</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.jpg" class="img-fluid" loading="lazy" width="1920" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">Serverless Computing with AWS Lambda</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<div class="single-article-img"><img data-src="images/agile_methodologies.jpg" class="lazyload" alt="Agile_Methodologies" /></div>
+								<h2>Overview of Agile Methodologies :</h2>
+								<p>Is Agile just for Developers and Project Managers? No, it isn't. Agile is for anyone and everybody. There square measure staff from completely different organizations, completely different roles, completely different regions/countries, industries, etc. applying Agile in their comes.</p>
+								<ul class="listing">
+									<li>Does Agile equate to Scrum? Square measure them equal or identical thing? Technically no, essentially affirmative. Allow ME to elucidate this, beginning is one amongst varied agile methods, nonetheless beginning is that the most well-known and broadly speaking used of each agile system. Afterwards, once people square measure discussing "Dexterous" they're for the foremost half alluding to beginning. If I actually say then many folks even do not know their square measure different methodologies besides beginning.</li>
+									<li>If you wish to be told additional regarding the opposite methodologies, but, is not there a similar to the PMI (Project Management Institute) for Agile? Or an additional "formal" thanks to get certified? No, not really. There square measure varied organizations giving "Agile Course & Certification" and that they energize from $500 to an enormous variety of bucks to point out you basically what you may notice during this course. Indeed, trust me. I even have been in varied Agile training's, with varied organizations in varied nations. They’ll get into additional profundity and take hours to point out you consumer stories, nonetheless primarily, the preparation you may expertise is that the equivalent.</li>
+								</ul>
+								<h3>An interpretation of a Companies that offers Agile course and Certification :</h3>
+								<p>I would in any case favor one thing else "formal" just like the PMI. While not a doubt, there square measure several. Contingent upon the state you dwell in, you may discover varied alternatives. In Australia, Asia, Europe and also the U.S., a model is Rally. Here square measure two further instances of organizations giving Agile confirmations: the PMI itself and also the Scrum Alliance. The latter is widely known for its CSM Training (Certified ScrumMaster Training). Be that because it might, do not hesitate to Google or Microsoft's "Agile Certification" — you may discover varied alternatives.</p>
+								<h2>What are the Ways to start doing Agile:</h2>
+								<ul class="listing">
+									<li>Finish this course then begin associate Agile project. Like anything, practice, practice, practice. It is not onerous, and you may appreciate operating with Agile. Like something new it's going to seem to be modified toward the beginning and maybe outlandish, but once it slow you may get it suspend and start to feel additional associated additional like a knowledgeable. Next time you are during a space packed with individuals and somebody asks what a User story is or what the word Retrospective means that you may be able to justify that simply.</li>
+									<li>Do you've have to stay to the book? E.g. does one want to satisfy with my team daily for fifteen minutes (the "Stand-Up")? No one will force you. That’s entirely up to you. Agile as associate approach/Methodologies urges you to try and do intrinsically, which is that the hypothesis. However, however regarding we tend to take this gift to the current} present reality. We tend to as a full notice that coaching changes from hypothesis. State as an example you're splintering away at ten ventures at the same time. Indeed, it occurs. within the event merely that you just} were meeting fifteen minutes daily for every enterprise that suggests you'd bear a hundred and fifty minutes of your day simply in stand-ups which might be altogether wasteful and useless. During this manner, you'll got to flip your everyday face a “weekly” standup for a few of those ten tasks. Indeed, I notice this is not ideal or what hypothesis directs. However, we'd like to regulate. We tend to should be pliant, the Agile manner. Another alternative is discussion to your Manager therefore you'll simply zero in on a couple/significant wants</li>
+									<li>Is it true that Agile means that no coming up with and no documentation? No, nothing is a far from the reality. In Agile you intend and document all the time, however you retain it clean. You are doing it quickly and expeditiously. You do not compose 50-page records that nobody can examine. Within the event that you simply compose one thing you retain it short and basic. You perform coming up with in your Sprint coming up with conferences before starting every run and you archive perpetually by recording your consumer stories. You likewise archive your retrospectives and before starting your task you besides play out your due ingenuity (business set up, resourcing, etc. such as you would on any project).</li>
+									<li>Is Agile just for IT projects? No, it isn't. Agile was born in IT trade, however it's followed and used across all industries. So, primarily individuals use Agile for sales, operations, procurance, selling comes and additional. Just about for all the world you'll think about. Individuals even use it for things like coming up with weddings. So, for his or her personal comes</li>
+									<li>Is Agile is appropriate for any quite specific project? No, I am not language that. Agile to be honestly aforementioned isn't appropriate for each project. However it's for the overwhelming majority of comes.</li>
+								</ul>
+								<h2>How do you know if your project is an Agile project or not :</h2>
+								<ul class="listing">
+									<li>Ask yourself inquiries to confirm whether or not the characteristics of the project match the Associate in Nursing Agile project. As an example, the client, will it need to be concerned within the Java application development method Associate in Nursing have input on the way? Is that the client willing to receive an initial product quickly and so increased versions over time? Is that the delivery time-frame a brief one, a year top? Or is it a lot of s a multiyear project, terribly advanced, terribly formal, government officials, etc.? And then on? You get the image. After you place the project to the check with this kind of query (and others you'll be able to assume of), you may be ready to answer yourself whether or not the project is appropriate for Agile or not. Trust your instinct, trust what you've got learned...</li>
+									<li>What will MVP stand for? MVP is nothing however Associate in Nursing abbreviation for Minimum Viable Product. It implies keep it straightforward!!! Strive to not assemble a Ferrari if all you need could be a skateboard! an excellent deal of times people over confuse things in ventures and currently and so find yourself in uninterrupted patterns of finding the "awesome" arrangement, or building the "perfect" application or item; or they ought to check, fix, test, fix, test, etc. which generally finishes up within the endeavor superfluously increasing itself. Coordinated, urges you to fabricate the bottom you actually would like (without talks nature obviously) and later on accenting when your time. So, do not be hesitant to deliver one thing to the market or into the creation and later on up it. Organizations try this constantly! So, even settled organizations have it off, once they become Agile.</li>
+								</ul>
+								<h3>Agile Key Concepts :</h3>
+								<p>Let’s check some key ideas and terms that area unit utilized in Agile. I even have mentioned all the main points as below with adequate rationalization and examples:</p>
+								<h3>User Stories</h3>
+								<ul class="listing">
+									<li>User stories area unit essentially product options, necessities, or tasks that add worth to the top client. By adding worth, I mean that whatever it's, it's one thing that that the top client would get, or they might notice very valuable and vital.</li>
+									<li>If one thing doesn't add worth to the client, then it cannot be thought of as an Associate in the Nursing user story and will stay a task, sub-task, or demand. User stories area unit written in an exceedingly specific format that you'll be able to refer herein below. As an example, I need to be ready to use my Facebook login credentials to login to the eCommerce web site, so I ought not to produce a replacement account.</li>
+									<li>As you'll be able to see the user story provides worth to the client since it helps in avoiding making a replacement user and passwords and therefore saving him time.</li>
+								</ul>
+								<h3>User Stories summaries :</h3>
+								<ul class="listing">
+									<li>As a ->who) ->I want!!! So...</li>
+									<li>+ Story points + acceptance criteria. Ought to follow “INVEST”: freelance, Negotiable, Valuable, Estimable, Sized suitably, and Testable.</li>
+								</ul>
+								<h3>Story points</h3>
+								<ul class="listing">
+									<li>The story purpose merely denotes the amount of complexness a user story has. So, you assign story points to every user story you produce. So, usually it's suggested to use a basic scale of 1, 3 and 5. One being low complexness, 3 being medium complexness 5 being high complexness.</li>
+									<li>Now you must not waste your heap of your time estimating your story points. however, could story purpose are some things you'll be able to increase every user story as a team otherwise you can raise the person acting on the user story what level of complexness, they think about it. You’ll be able to use existing scale Fibonacci.</li>
+								</ul>
+								<h3>Story points Summary</h3>
+								<ul class="listing">
+									<li>Story points live} a relative unit of measure to assess whether or not a user story is massive or little. You’ll be able to otherwise scale here for story points (e.g. 1, three or five; shirt sizes s, m, l, XL, xxl).</li>
+								</ul>
+								<h3> Product Backlog</h3>
+								<ul class="listing">
+									<li>Product backlog sometimes contains all the user stories which will be the part of the project however after all in Agile which will be a dynamical list. Since you may begin with say fifty users’ stories and over time add fifty more.</li>
+									<li>How several you add or take away can rely upon what you and your team outline throughout execution and you've got the pliability to outline that.</li>
+									<li>An ordered list of everything that may be required within the product (also referred to as Master Story List).</li>
+								</ul>
+								<h3>Sprint Backlog</h3>
+								<ul class="listing">
+									<li>Sprint backlog is simply taking a few of user stories from your product backlog and adding them to your sprint and committing the delivery of these user stories in this sprint.</li>
+									<li>The set of Backlog things chosen to be delivered over an amount of your time.</li>
+								</ul>
+								<h3>Velocity</h3>
+								<ul class="listing">
+									<li>Basically, rate of Associate in Nursing Agile project is that the variety of story points the team delivers over a sprint. And after all, you may see variations of that. Particularly at the start after your area unit simply learning that what percentage user stories, you're really ready to deliver as a team.</li>
+									<li>So, at the terribly starting your area unit quite estimate or estimating what percentage story points you'll be able to deliver in an exceedingly sprint. however, when a few of sprints, you may be ready to average the amount of story points and so conclude as an example that on the average your team is in a position to deliver twenty story points per sprint which is your rate. You may systematically have the choice to work out your speed toward the end of your Sprint.</li>
+								</ul>
+								<h3> Swimlanes</h3>
+								<p>Swimlanes is nothing however a visual illustration of stories (y axis) vs. standing on the Kanban/agile board: To Do; Doing; done (x pivot). Swimlanes let the cluster see improvement on individual stories, whereas that includes specific territories that require thought.</p>
+								<h3> Minimum Viable Product (MVP)</h3>
+								<p>Basically, MVP suggests that the blank minimum product you'll be able to deliver that meets the client’s expectations. Includes all prerequisites and excludes all nice to haves (no bells and whistles). MVP is absolutely powerful as a result of this may permit you to deliver quickly and ingeminate and build up and enhance your answer over time. This can be a key agile principle.</p>
+								<h3>Release</h3>
+								<p>A release because the name implies is after you move your user stories to production env. It comprised of many iterations or sprints.</p>
+								<h3>Sprint</h3>
+								<p>A Sprint could be an amount of your time during which the team can work on an outlined set of user stories. Generally, a sprint last period. However, some groups could have their sprint created for 3-4 weeks. You would like to outline what works best for you and your team giving your specific context and project dynamics.</p>
+								<h2>Agile Smart Packs :</h2>
+								<p>This agenda offers a summing up of things to think throughout the origin/disclosure amount of a Project. It’s planned as a manual for assist you with puzzling over your standing to begin your initial run.</p>
+								<p>This ought not to be viewed as a radical summing up – what's needed can dissent for every endeavor. Neither ought to it's viewed as a summing up of required things that ought to be finished before starting – activities can systematically begin with a degree of vulnerability, and also the underlying spotlight ought to air deciding the bottom arrangement of what's required for work to start.</p>
+								<h3> Agile Principles :</h3>
+								<ul class="listing">
+									<li>Agile is quite simply a technique or some way of doing things. It’s really a lot of sort of a culture. And like in any culture their area unit rituals or belongings you ought to do. In Agile, you've got four main rituals. Sprint designing, daily standups, sprint reviews or demo sessions and retrospectives. All area unit vital and everyone contribute to Associate in Nursing agile atmosphere and culture.</li>
+									<li>In  the sprint planning meeting, team gets along, and that they outline that user stories they're going to work on over successive a pair of weeks. So, during this session, you're reviewing as a Team, the scope of labor, priorities and what you suspect is realizable throughout successive sprint. The scrummage master facilitates this meeting; however, everybody participates. Throughout Sprint planning, team reviews the backlogs and decide the user stories they're going to work on over successive sprint.</li>
+									<li>And generally, groups can place the chosen user stories in their <a href="https://en.wikipedia.org/wiki/Kanban_board" target="_blank">Kanban Board</a> below hoo-hah the sprint designing meeting, team gets along, and that they outline that user stories they're going to work on over successive a pair of weeks. So, during this session, you're reviewing as a Team, the scope of labor, priorities and what you suspect is realizable throughout successive sprint. The scrummage master facilitates this meeting; however, everybody participates. Throughout Sprint designing, team reviews the backlogs and decide the user stories they're going to work on over successive sprint. And generally, groups can place the chosen user stories in their Kanban Board TO-DO.</li>
+									<li>Daily stand-ups as their name indicate area unit known as stand-ups as a result of the idea is that everybody ought to be standing up throughout the meeting. The idea behind is that by standing up, it helps make sure the meeting is brief, targeted and productive. Day by day stand-ups have a sense of familiarity and that they work sort of a spherical table. Everybody on the team says what they did the day before, what they're going to do these days and if they need any impediments, problems or something they have support with.</li>
+									<li>Sprint review (demo/showcases) area unit conferences wherever team gets along to review what was delivered in last sprint. So, this can be scheduled right when a sprint finishes and through the meeting, the team goes over user stories that were delivered and also the ones that weren’t. To not the purpose of going over metallic element is guilty for not delivering, however, to be told and adapt a lot of for the team’s reflection. Sprint reviews area unit usually internal. With everyone within the cluster, nevertheless once in an exceedingly whereas folks incorporate the item proprietor to survey progress. Actually, this could be attainable severally.</li>
+									<li>Retrospectives meetings specialize in lessons learnt and what you'll be able to do to boost. Or what your team ought to accommodate improve the delivery and execution. It’s a flash for reflection. You are doing this meeting perpetually right when the sprint and before successive sprint designing session. During retrospectives, you and your team ought to answer three basic queries. This I even have mention within the on top of section. During retrospectives, you and your team should answer 3 basic questions. This I have mention in the above section. </li>
+								</ul>
+								<h3> Misconception about Agile Methodologies :</h3>
+								<ul class="listing">
+									<li>There could be an immense idea around Agile is that Agile is anti-documentation and documenting is meritless. Agile has ne'er aforementioned that we must always not document. On the contrary, with Agile you're documenting all the time. Consider user stories and retrospectives. What Agile needs you to know although is that you just mustn't pay hours and hours in documenting. Keep it straightforward and keep it clean.</li>
+									<li>Another myth is that Agile is undisciplined and it needs loads of work on. However already as I actually have explained that this is often not true.</li>
+									<li>And some folks say that Agile is anti-planning. However, in Agile, you're coming up with all the time and doubtless loads a lot of usually that you just would in the other project management certification. Before you begin any sprint, you are doing a brief and centered coming up with session.</li>
+									<li>Another myth in agile is that “Agile solves everything”. Actually, the reality is that it doesn't solve everything. Agile could be a framework, a strategy and it will facilitate North American country with loads of things.</li>
+									<li>But it’s not excellent and it’s not reaching to save the globe or solve all of your issues. You want to be creative and proactive to require care of your problems. You have got to act not simply to assume. You have got to figure with folks and along realize the most effective answer.</li>
+									<li>The one amongst the most important misconceptions around Agile is that Agile is barely for IT comes. Actually, truth is that it's not just for IT comes. Agile was born in IT business however it's presently used across just about each business within the world and folks even use it for private comes like coming up with weddings then on.</li>
+								</ul>
+								<h3> Agile Project Kick-Off Checklist:</h3>
+								<table>
+									<tr><th class="w-230px"><strong>Agile / Scrum Knowledge</strong></th><th><strong>Comments/Details</strong></th></tr>
+									<tr><td><strong>Requirement Overview Given for team</strong></td><td>The requirement for this will rely upon the experience of the group.<br />Could in like manner run a brief multi week run for the gathering to familiarize them with the Agile traditions (yet guarantee goal/object is clear).</td></tr>
+									<tr><td><strong>Any required  training</strong></td><td>e.g. group interest in Agile preparing as well as instruments prefer Trello. In a perfect world, all colleagues ought to have experienced preparing. The "Crash Course on Agile: Project Management with applying Agiles; Agile Delivery" is suggested</td></tr>
+									<tr><td><strong>Any required KT/Support trainings</strong></td><td>This could also include joining other project’s scrum activities, or having more experienced representatives from other teams join yours</td></tr>
+								</table>
+								<table>
+									<tr><th class="w-230px"><strong>Team Work Practices</strong></th><th><strong>Comments/Details</strong></th></tr>
+									<tr><td><strong>Identified Team Roles (Scrum Master or Product Owner, etc.)</strong></td><td>Affirm who is satisfying every job and distinguish anybody helping them or going about as an intermediary.<br />For experienced groups, the scrum master job could be pivoted.</td></tr>
+									<tr><td><strong>Ensuring Sprint timing</strong></td><td>Sprints are normally fourteen days.<br />Think about starting Sprints during the week rather than running them Mon – Fri yet work out what is best for you and your gathering. Each workplace is different.</td></tr>
+									<tr><td><strong>Location and Daily stand-up time </strong></td><td>Find a suitable time and location that works for everyone.</td></tr>
+									<tr><td><strong>Location of Team members </strong></td><td>Guarantee appropriate convenience for group (co-find if conceivable), in a perfect world with divider space for the scrum board, post-its, and so forth<br />Decide in what manner you will oversee group correspondences and collaborations if everybody isn't co-found.</td></tr>
+									<tr><td><strong>Morality of Team and Expectation</strong></td><td>The Team ought to figure out what they anticipate from one another – for example working hours, interest in stand-ups, open and reasonable correspondence, shared obligation, perceiving disillusionment.</td></tr>
+									<tr><td><strong>Ready/DONE story/task definition </strong></td><td>Project specific definitions meaning of when a story is all set into a run, and when it is finished. Ensure everybody concurs on how this will be overseen. It might be as direct as everyone agreeing a client story is good to go into a run and everyone agreeing a client story is done after gathering discussion or testing results</td></tr>
+								</table>
+								<table>
+									<tr><th class="w-230px"><strong>Product/Project Vision</strong></th><th><strong>Comments/Details</strong></th></tr>
+									<tr><td><strong>Team Vision and Team Goals</strong></td><td>Could be caught in various manners for instance: - Elevator pitch, In/Out of degree list and so forth</td></tr>
+									<tr><td><strong>MVP identified</strong></td><td>Distinguish the base that can be remembered for a first delivery, that will convey some customer/Client esteem and give input</td></tr>
+									<tr><td><strong>Importance/Trade-offs/Priorities defined</strong></td><td>Affirm what is generally significant for this venture - scope, quality, cost or timetable</td></tr>
+									<tr><td><strong>Identification of dependencies / blockers and risk</strong></td><td>What may cause the Project to come back up short? Distinguish rapidly, moderate or kill wherever conceivable.</td></tr>
+									<tr><td><strong>Mapping of Priority/Key stakeholders </strong></td><td>Determine who the key players are, and what their level of interest/involvement is</td></tr>
+								</table>
+								<table>
+									<tr><th class="w-230px"><strong>Solution, Tools & Technology</strong></th><th><strong>Comments/Details</strong></th></tr>
+									<tr><td><strong>High-level architectural solution identification</strong></td><td>Guarantee any crucial decisions round the resolution design and advancements to be used area unit created and concurred on</td></tr>
+									<tr><td><strong>Production deployment process</strong></td><td>Do cycles and data ought to be stirred from previous frameworks to the improved one?<br />Are migrations through varied conditions mean varied atmosphere required?</td></tr>
+									<tr><td><strong>Dev/test/Prod environment identification</strong></td><td>Are for the foremost half the necessary conditions recognized and accessible for improvement, testing, getting ready then forth?</td></tr>
+									<tr><td><strong>Identification of Dev/Test tools </strong></td><td>All python web development tools area unit obtainable and designed</td></tr>
+									<tr><td><strong>Identification of Scrum tools</strong></td><td>Are you utilizing associate degree actual physical Kanban board, advanced Kanban board (for example Trello) or a blend? Have these been arrangement/designed and will the cluster notice the way to utilize them?</td></tr>
+									<tr><td><strong>Identification of Testing tools</strong></td><td>Any test instruments are accessible and arranged (for example Jira Capture, unit <a href="https://www.aegissofttech.com/insights/test-automation-frameworks/" target="_blank">testing frameworks</a>)</td></tr>
+									<tr><td><strong>Identification of communication tools across Teams</strong></td><td>Any cluster coordinated effort apparatuses area unit arrangement (Phone/Video Conferencing, Skype, Slack, Trello, Teams, and so on)</td></tr>
+									<tr><td><strong>Individual electronic accessories </strong></td><td>All colleagues have important instrumentality (telephones, PCs, network access then forth)</td></tr>
+								</table>
+								<table>
+									<tr><th class="w-230px"><strong>Initial Backlog</strong></th><th><strong>Comments/Details</strong></th></tr>
+									<tr><td><strong>Identification of primary Features or Functions </strong></td><td>Distinguish key highlights and elements of the item</td></tr>
+									<tr><td><strong>Identifying backlogs that should be ready for dev phase</strong></td><td>Use higher than to form associate degree underlying summation of stories for development. Organize and estimate story focuses for each user story</td></tr>
+									<tr><td><strong>Planning the Agile properly</strong></td><td>Agile plan/schedule Build up associate degree underlying unpleasant arrangement/plan for the work which will be refined because it advances</td></tr>
+								</table>
+								<table>
+									<tr><th class="w-230px"><strong>Socialisation</strong></th><th><strong>Comments/Details</strong></th></tr>
+									<tr><td><strong>Maintaining email communications for every phase starting from initial</strong></td><td>Initial communications Send out any initial project communications to start participating stakeholders</td></tr>
+									<tr><td><strong>Scheduling Project Kick-off meeting involving the stakeholders</strong></td><td>Kick-off meeting to interact neutrals Hold a kick-off meeting with the additional intensive stakeholder cluster (Business and Management, Operations and Support teams etc) to mingle vision and vital high=level plans</td></tr>
+								</table>
+								<h2>Template of a User Story :</h2>
+								<ul class="listing">
+									<li>In theory, user stories area unit essentially product options, needs or tasks that add worth to the top client	</li>
+									<li> In practice, most Agile groups use user stories as tasks that mirror what they're attempting to accomplish, that in fact is directed to meeting a client want or demand</li>
+									<li>In theory they ought to be written like this:</li>
+								</ul>
+								<p>As a &#60;user&#62; (who) I need to… &#60;what&#62; therefore… &#60;why&#62;</p>
+								<p><span class="bold underline">Example</span>: As a <a href="https://www.aegissofttech.com/articles/hire-front-end-developers.html" target="_blank">front-end developers</a> I would like to confirm the app is responsive in order that it will work on completely different screen sizes		</p>
+								<ul class="listing">
+									<li>But exploitation the format on top of to write down user stories, needs a lot of effort and area (which is restricted if you are exploitation Post-It notes). And it will get a touch repetitive and redundant, so…</li>
+									<li> In practice, most Agile groups write user stories as short tasks that begin with a verb.</li>
+									<li>&#60;verb&#62; and the task that’s being performed (written in a very short and concise manner)</li>
+								</ul>
+								<p><span class="bold underline">Example</span>: Ensure the app is responsive so that it can work on different screen sizes.</p>
+								<p>Examples of verbs to start a user story would be:</p>
+								<table>
+									<tr><td><strong>Create</strong></td><td>Analysis</td></tr>
+									<tr><td><strong>Develop</strong></td><td>Perform</td></tr>
+									<tr><td><strong>Build</strong></td><td>Test</td></tr>
+									<tr><td><strong>Plan</strong></td><td></td></tr>
+								</table>
+								<h3>Velocity Chart Template :</h3>
+								<ul class="listing">
+									<li>Velocity = Total Story Points Delivered over a Sprint. The instance below illustrates a basic example of a four Sprint Project. Being the Sprints during this case a pair of weeks long this can be a 2-month project.</li>
+									<li>It has fifteen user stories in total. I've used the name "User Story #" within the essence of your time, however you'd in fact write the particular user story exploitation the format represented within the different tab</li>
+								</ul>
+								<h3>Agile: Retrospective</h3>
+								<p>In the Agile retrospective meetings, the team members have to clearly mention about the following things after sprint end:</p>
+                                <ul class="listing">
+    								<li>What went well during this sprint?</li>
+    								<li>What didn’t go well during this sprint?</li>
+    								<li>What could we do differently so that we can improvise in coming sprints?</li>
+                                </ul>
+								<h4 class="mt-2">Conclusion:</h4>
+								<p>Here I have explained the very basic fundamentals of Agile Methodologies and its impact and usage in project management.</p>								
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+                        <div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+                    </div>
+					<div class="article-section spt spb">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<div class="section-header">
+										<div class="article-head">Related article</div>
+									</div>
+								</div>
+							</div>
+							<div class="bs-row">
+								<div class="col-4 col-sm-12 col-md-6">
+									<div class="inner-new-blogs min-he bg_img2">
+										<div class="blog-heading">
+											<div class="b-head"><a href="know-about-python-software-test-automation.html" target="_blank">Test Automation Accelerator Requires Top-Notch Python Software Development</a></div>
+										</div>
+										<div class="blog-short-desc">
+											<p>We began going along the road of Agile Testing in the field of Agile Development a long time ago. We've improved the research methods including capabilities to meet customer expectations if we've encountered roadblocks.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/project-management-in-agile-methodologies.html"
+			},
+			"headline": "Traditional Project Management in Agile Methodologies & Agile Kanban Board",
+			"description": "learn about how Agile Methodologies is effective in Project Management",
+			"image": "https://www.aegissofttech.com/articles/images/agile_methodologies.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2021-02-15",
+			"dateModified": "2021-02-15"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img data-src="../images/ast.jpg" class="lazyload" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fproject-management-in-agile-methodologies.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=What is Kanban and Agile Methodology in Project Management?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fproject-management-in-agile-methodologies.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fproject-management-in-agile-methodologies.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/project-management-in-agile-methodologies.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fproject-management-in-agile-methodologies.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=What is Kanban and Agile Methodology in Project Management?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fproject-management-in-agile-methodologies.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fproject-management-in-agile-methodologies.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/project-management-in-agile-methodologies.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

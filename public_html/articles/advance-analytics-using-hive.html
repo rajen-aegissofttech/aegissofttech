@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+    <title>Hadoop: Advanced Data Analysis Using Apache Hive Framework</title>
+    <meta name="description" content="What is Apache Hive used for Hadoop data analysis? Hive provides an advanced interface to run queries against the data analytics in Hadoop File System storage." />
+    <link rel="canonical" href="https://www.aegissofttech.com/articles/advance-analytics-using-hive.html" />
+    
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Hadoop: Advanced Data Analysis Using Apache Hive Framework" />
+	<meta property="og:description" content="What is Apache Hive used for Hadoop data analysis? Hive provides an advanced interface to run queries against the data analytics in Hadoop File System storage." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/advance-analytics-using-hive.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/articles/images/advance-analytics-hive.jpg" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/articles/images/advance-analytics-hive.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="What is Apache Hive used for Hadoop data analysis? Hive provides an advanced interface to run queries against the data analytics in Hadoop File System storage." />
+	<meta name="twitter:title" content="Hadoop: Advanced Data Analysis Using Apache Hive Framework" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/articles/images/advance-analytics-hive.jpg" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+            <div class="hire-popup fix-top">
+            <i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+                <a href="../careers">
+                    <div class="hire-flexy">
+                        <div class="hiring-box">
+                            <div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+                            <div class="hiring-head">We are hiring!</div>
+                            <p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Why Apache Hive is used to Perform Advanced Analytics?</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">Advance Analytics Using Hive</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<p>With the growing size of data everyday, the need for business Intelligence is also thriving like never before. Business Intelligence is about analyzing data to gather some business insights to take better business action and this analysis can be performed with the help of some ETL tools.</p>
+								<p>Apache Hive is an ETL tool that can query large datasets stored on a Hadoop Distributed File System. The Hive framework was originally designed by Facebook for their business analysts who had limited programming language knowledge but were proficient in running SQL queries to extract business insights. For those interested in leveraging Apache Hive and similar tools in their data analytics workflows, our <a href="https://www.aegissofttech.com/software-development/java" target="_blank">Java development company</a> can provide valuable insights and support to optimize these processes effectively.</p>
+								<div id="link1"></div>
+								<h2>Characteristics of Apache Hive</h2>
+								<div class="single-article-img"><img class="lazyload" src="images/aauh1.jpg" alt="Advance Analytics Using Hive" /></div>
+								<h3>Schema on Read:</h3>
+								<p>Hive is not a database because it does not keep data and schema together. Data is always stored on a Hadoop distributed file system, Hive just imposes schema on top of that data too while reading and that is why it is called schema on Read.</p>
+								<h3>SQL like Syntax:</h3>
+								<p>Hive uses SQL-Like language called Hive Query Language (HQL) to perform analytics on top of data. Apache Hive is extremely famous among Business Analysts & testers who are well acquainted with SQL queries.</p>
+								<h3>Higher Abstraction:</h3>
+								<p>Apache Hive is built on top of Hadoop Framework development and it runs MapReduce jobs in the background. HQL queries are converted into Java programs, which run as Mappers & Reducers on top of Hadoop to perform analysis.</p>
+								<div id="link2"></div>
+								<h2>Hive Architecture</h2>
+								<div class="single-article-img"><img class="lazyload" src="images/advance-analytics-hive.jpg" alt="Advance Analytics Using Hive" /></div>
+								<h3>User Interface:</h3>
+								<p>Hive provides an interface between User and HDFS to run HQL queries against data stored in Hadoop File System.Various supported interfaces by Hive are Hive Command Line, Hive Web UI and Hive HDInsight.</p>
+								<h3>Meta Store:</h3>
+								<p>Hive stores the schema and table metadata such as column name, column type, HDFS location (where data is actually stored) on a separate database. By default, a Derby database is used internally to store the schema but it can be replaced by any other database such as postgres, mysql for production environments.</p>
+								<h3>HiveQL Process Engine:</h3>
+								<p>This process engine communicates with the metastore to compile and parse HQL queries.</p>
+								<h3>Execution Engine:</h3>
+								<p>It processes the HQL queries to create a corresponding MapReduce job to run on top of the Hadoop distributed file system to access data and to produce the final output.</p>
+								<div id="link3"></div>
+								<h2>Create Database in Hive</h2>
+								<p>To start working with Hive, we need a database in which we can create tables.Below commands can be used to create, describe and drop a database in Hive.</p>
+								<h3>Hive Database</h3>
+<xmp class="codding-box">
+Create Database if not exists company;
+Describe Database company;
+Drop Database company;
+</xmp>
+								<h3>External/Managed Tables</h3>
+								<p>There are two types of tables in Hive – External & Managed tables. Major difference between the two is that if you drop a Managed table, both data & schema attached to the table will be deleted whereas if you drop an external table then only schema associated with the table will be deleted although the data will remain intact on HDFS.</p>
+								
+								<h4>Create Managed Table</h4>
+<xmp class="codding-box">
+CREATE TABLE employees
+( custId INT, fName STRING, lName STRING, city STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '|'
+STORED AS TEXTFILE;
+</xmp>
+								
+								<h4>Create External Table</h4>
+<xmp class="codding-box">
+CREATE EXTERNAL TABLE employees
+(empId INT, fName STRING, lName STRING, city STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '|'
+STORED AS TEXTFILE
+LOCATION '/user/cloudera/employees;
+</xmp>
+								<h3>Hive Analysis</h3>
+								<div class="single-article-img"><img class="lazyload" src="images/aauh3.jpg" alt="Advance Analytics Using Hive" /></div>
+								<p>Hive supports various ways to perform data analysis such as</p>
+								<h4>Aggregation:</h4>
+								<p>You can aggregate data using <a href="https://en.wikipedia.org/wiki/Data_aggregation" target="_blank">various aggregation API</a> provided by Hive such as count, sum, avg etc.</p>
+								<h4>Ordering:</h4>
+								<p>You can order the data based on one or more columns. Ordering/Sorting in distribution is little different from traditional systems. Either you can sort the data across all machines that will result in data shuffling or you can sort the data within a single machine. Sorting the data within a single machine will not guarantee order across all machines.</p>
+								<div id="link18"></div>
+								<p><strong>Joining:</strong></p>
+								<p>You can also join the data based on some keys to perform aggregation on top of that joined data.</p>
+								<h4>Windowing:</h4>
+								<p>With the concept of windowing in Hive, you can perform analysis on data falling in some window. For example, you want to find the top searched websites in the last 10 minutes or the highest sold product in the last 7 days.</p>
+								<h4>Partitioning:</h4>
+								<p>You can also partition your data in HDFS. Concept of partitioning data can make queries run faster. For example, in population based data, you can partition data based on country and then on city. Suppose I want to perform some aggregation on population data based on country/city, I can directly jump to partition based on country/city instead of searching entire data that will ultimately decrease query latency.</p>
+								<p>In this Blog, we will look into Aggregation, Partitioning and Joining.</p>
+								<h3>Aggregation</h3>
+								<p>Suppose I want to find out all the cities in which the number of employees is greater than 100. I can run below HQL query.</p>
+								<h4>City with more than 100 Employees</h4>
+<xmp class="codding-box">
+SELECT city, count(*)
+FROM employees
+GROUP BY city
+HAVING count(*) > 100
+</xmp>
+								<p>There are numerous built-in aggregation operations provided by hive such as sum, Min, Max, Avg. In addition, Hive provides String, Date and Math operations to perform advanced Analytics to perform some formatting or advanced analytics.</p>
+								<h3>Partitioning</h3>
+								<p>As already discussed, partitioning makes HQL run faster. In below example, we partitioned the employees data based on employee city. Running the query below will create physical directories on HDFS based on the number of cities and all data belonging to the same city will go to the same partition. For example, Partition with Newyork City will have all employees from Newyork city.</p>
+								<h4>Partitioned based on city</h4>
+<xmp class="codding-box">
+CREATE EXTERNAL TABLE employees_partitioned
+(empId INT, fname STRING, lname STRING)
+PARTITIONED BY (city STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',' ;
+</xmp>
+								<h3>Joining</h3>
+								<p>You can also join data using Hive. For example, we have department and employee data on HDFS and we want to join this data to fetch our employee with department information in the final result. There are various types of joins supported by Hive – Inner Join, Left Outer Join and Right Outer Join. You can join multiple tables together using Join queries in Hive.</p>
+								<p>Let’s take an example, Suppose we have employee and department information at two separate locations and I want to join this data to get the employee name & his department name in the final result. Below figures represent the dataset and final outcome after applying inner join.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/aauh4.jpg" alt="Advance Analytics Using Hive" /></div>
+								<h4>Inner Join based on EmpId</h4>
+<xmp class="codding-box">
+SELECT e.emp_name,d.dep_name
+FROM employee e JOIN department d
+ON (e.dep_id==d.dep_id)
+</xmp>
+								<div class="single-article-img"><img class="lazyload" src="images/apache-hive.webp" alt="apache hive" /></div>	
+								<p>Image source: https://www.analyticsvidhya.com/blog/2022/06/everything-about-apache-hive-and-its-advantages/</p>
+								<div id="link4"></div>
+								<h2>Use Cases and Industry Applications</h2>
+								<h3>1. Analyzing customer behavior in the e-commerce business</h3>
+								<p>The quite valued user cases for Apache Hive towards eCommerce business is inspecting customer behavior. In the present digital landscape, knowing customer behavior is vital for companies to create informed decisions and enhance their complete performance.</p>
+								<p>Apache Hive comes with commanding data inquiring and dealing out competencies, lets eCommerce businesses investigate profound client data, and excerpt expressive understandings. By analyzing customer wants, firms could get known material regarding clients' favorites, buying patterns, and connections to have a website platform.</p>
+								<h3>2. Finance Industry</h3>
+								<p>Using Apache Spark, financial organizations that operate retail investment and selling activities can lower the number of clients which leaves the corporate by twenty-five percent. The marketing, finance, exchange, and investing platforms have been separated by the financial organization into their respective categories. Instead, the banks wish to find a picture of the client, irrespective of whether the consumer is a person or a business organization. Apache Spark serves as the uniting layer that the bank employs so that it gets a combined picture of the customer. Banks can mechanize analytics by using machine learning having the assistance of Apache Spark. It’s accomplished by obtaining the information via every repository for the consumers. By this, the data hurried together into just one file, which is then passed on to the marketing department.</p>
+								<h3>3. Apache Hive in the healthcare sector</h3>
+								<p>With the assistance of Apache Hive, the massive data which are generated in the healthcare sector are handled and evaluated. Hive is used in the healthcare business to generate innovations that are determined via data and to progress the quality of treatment offered to patients. These applications comprise the management of electronic health archives, prognostic modeling for disease eruptions, customized medication, medical picture analytics, and distant surveillance of patients. In addition to this, it includes several case studies that illustrate the impact that Spark has had on reducing the number of patients who need readmission to the hospital, recognizing sepsis at an earlier stage, improving cancer investigation and treatment, and accelerating the development of new drugs.</p>
+								<h3>4. Enhancing marketing policies via Apache Hive in the retail sector</h3>
+								<p>When the retail industry is increasing, towards in opposition is indispensable. The finest way to get a modest edge is by leveraging the control of big data analytics. Apache Hive is a <a href="https://www.aegissofttech.com/insights/what-is-data-warehousing/" target="_blank">data warehousing</a> and SQL-like query language software that has come as a beneficial tool for improving advertising policies in the retail sector.</p>
+								<p>As a consequence of this, retail establishments saw a significant increase in the amount of data they collected, which made it difficult for store owners to evaluate the data using conventional business intelligence equipment. Merchants may get a complete perspective of their consumers' preferences, habits, and buying patterns by combining data from different sources, like sales transactions, customer demographics, internet conversations, and social media involvement. This allows merchants to better serve their clients.</p>
+								<div id="link5"></div>
+								<h2>Performance Optimization Tips</h2>
+								<div class="single-article-img"><img class="lazyload" src="images/apache-hive-hands.webp" alt="Apache Hive Hands" /></div>
+								<p>Image source: https://machinelearninggeek.com/apache-hive-hands-0n/</p>
+								<h3>1 Avoid locking of tables</h3>
+								<p>It is tremendously significant to ensure that the tables are getting used in all the Hive queries as sources cannot be applied by additional procedures. This can give barring of the board and the query could stop for the unidentified time.</p>
+								<h3>2 Use the Hive performance TEZ</h3>
+								<p>While completing Hive queries, TEZ completing engine is the favored selection as it removes superfluous disk access. It creates data via disk once, functions calculations, and offers productivity, by saving us via numerous disk traversals.</p>
+								<h3>3. Hive Partitioning</h3>
+								<p>Division of the Hive Using Hive Optimization Techniques, Hive accesses all of the data contained inside the directory without splitting it. Not only that, but it also attaches the query filters to it. Because every piece of data has to be read, this process is both time-consuming and costly.</p>
+								<h3>4. Leverage partitions and bucketing</h3>
+								<p>To get the most out of dividers and grouping, it is very necessary to choose the dividing and bucketing sections with great care. A perfect scenario would be for such columns to have a large cardinality which indicates that they contain a significant number of unique values.</p>
+								<h3>5. Optimizing data formats</h3>
+								<p>In Apache Hive, partitioning data is an essential strategy for optimizing the speed at which queries are executed. You may dramatically increase the efficiency of your queries and minimize the amount of time it takes to run them if you divide your dataset into smaller fragments that are easier to handle depending on certain criteria.</p>
+								<p>Comparison with Other Data Processing Tools:</p>
+								<p>Apache Hive is quite appropriate for multifarious inquiries and ad hoc examination, as compared to HBase and traditional relational databases which is more suitable for real-time queries on huge datasets. At its core, Apache Spark is intended to use data processing tasks, allowing users to route and examine huge data. Spark even offers an extensive variety of libraries and APIs that support countless data processing jobs.</p>
+								<p>With the help of Apache Hive, we can assist by creating the necessary SQL queries on the database to retrieve the data easily. Contact us today!</p>
+								<div id="link6"></div>
+								<h2>When to use Apache Hive?</h2>
+								<p>The usage of Apache Hive is recommended for situations in which developers do not want to develop complex MapReduce software and when there are needs for <a href="https://www.aegissofttech.com/data-warehouse-services" target="_blank">data warehousing solutions</a>. On the other hand, <a href="https://www.aegissofttech.com/data/apache-spark-consulting-services" target="_blank">Apache Spark services</a> may be used to tackle any difficulties.</p>
+								<div id="link7"></div>
+								<h2>When to use HBase?</h2>
+								<p>When it comes to real-time analytics, Hadoop is not the ideal big data framework. This is the point at which HBase may be used, specifically for real-time data querying.</p>
+								<p>After doing an in-depth comparison of Apache Hive, Spark, HBase, and Relational Databases, it has become abundantly clear that each of these tools contains distinctive capabilities and features that are tailored to meet the specific requirements of various data processing tasks.</p>
+								<h3>Integration with Data Visualization Tools</h3>
+								<p>1. By integrating Apache Hive with Tableau, Power BI, and Apache Superset, enterprises may have access to a wide range of valuable data insights. By integrating the robust data processing abilities of Apache Hive with the user-friendly graphical capabilities offered by these widely-used tools, organizations may get deeper knowledge and make better-informed choices.</p>
+								<p>2. An advantage of combining is the capability to rapidly and effectively analyze and display huge quantities of data. Apache Hive enables enterprises to efficiently manage large information and execute intricate queries by using its distributed processing platform. Consequently, enterprises may use the whole capabilities of their extensive data resources without sacrificing speed.</p>
+								<p>3. Tableau, Power BI, and Apache Super Set provide intuitive interfaces and powerful visualization features. These technologies empower users to generate interactive dashboards, accounts, and visualizations that promote comprehension and communication of intricate data insights. By incorporating such visualization tools into Apache Hive, enterprises can effortlessly establish a connection with their data sources in Hive and convert unprocessed data into relevant visual representations that facilitate useful conclusions.</p>
+								<p>4. By enabling connectivity to Hive tables, customers can effortlessly investigate and scrutinize data using the well-known dashboards of these tools. Users may use the sophisticated querying features of Hive to execute intricate data manipulations and computations, and then display the results in all three.</p>
+								<p>5. In addition, the integration of Apache Hive with various visualization tools enhances information management and safety. Apache Hive has strong security capabilities, such as authorization, login, and encoding that may be used when viewing Hive data via Tableau, Power BI, or Apache Superset. This guarantees the preservation of confidential information and restricts its release to approved people only.</p>
+								<h3>Security Features and Best Practices:</h3>
+								<p>In the present landscape of digital, data security is very prominent. As companies take care of huge data, safeguarding the privacy, honesty, and obtainability of these data is quite vital. This is a fact for the Apache Hive, an influential data warehousing and analysis tool for the Hadoop bionetwork.</p>
+								<ul class="listing">
+									<li>Apache Hive lets customers demand and analyze hefty sets of data kept in a <a href="https://www.databricks.com/glossary/hadoop-distributed-file-system-hdfs" target="_blank">Hadoop Dispersed File System (HDFS)</a> or additional well-matched file organizations. Though, the size and understanding of data upsurges, so does the essential for best security features inside Hive.</li>
+									<li>One of the primary reasons for highlighting security in Hive is to defend complex data through from illegal access. Data openings can get plain consequences, leading to monetary fatalities, reputation harm, and also lawful suggestions. Consequently, knowing the requirement for healthy security features has been authoritative.</li>
+									<li>Compliance having norms and standards stipulated by the industry is still another crucial component. The government, the healthcare industry, and the financial sector are just a few of the areas that have severe rules surrounding the privacy and security of data. Through the implementation of stringent security measures in Hive, enterprises can guarantee compliance with these standards and successfully protect their data.</li>
+									<li>Control and responsibility over the access to and manipulation of data are also provided by robust security mechanisms. Fine-grained access controls allow companies to set and enforce user rights based on roles, groups, or particular data items. These functions may be performed by the organization. In this way, it is possible to prevent unauthorized users from accessing sensitive data and ensure that only authorized workers can perform certain activities on the data.</li>
+									<li>In addition, safeguarding Hive protects against attacks that originate from inside the organization. When workers with valid access credentials misuse or abuse data, it is not commonplace for firms to face insider threats. This kind of danger is becoming more widespread. Strong security procedures, such as auditing and monitoring, make it possible for enterprises to monitor and track the activity of their users, identify any irregularities, and take the necessary precautions to reduce any dangers.</li>
+								</ul>
+								<h3>Best practices for securing sensitive data with data protection regulations</h3>
+								<h4>1. Conduct a Data Discovery Process</h4>
+								<p>Identifying the data that is already there, determining how much of it is sensitive or essential to the company, and determining which data must comply with security rules is the first stage in the process of securing the data contained inside your firm.</p>
+								<h4>2. Manage who has access to sensitive information</h4>
+								<p>There is a requirement for different employees inside the organization to have access to different information. How come? When more individuals have access to sensitive information, there is a greater potential for data theft, loss, and/or breaches inside the organization.</p>
+								<h4>3. Encrypt the Data You Have</h4>
+								<p>Over the last several years, there has been an exponential growth in the number of breaches in cybersecurity, which implies that personal data is easily susceptible to assaults without any protection.</p>
+								<h4>4.  Set up software that helps prevent malware</h4>
+								<p>If your devices are infected with malware, data that is considered sensitive may be compromised by cybercriminals. Taking precautions to ensure that you have anti-malware software installed can lessen the likelihood of being attacked by malware.</p>
+								<h4>5. Training employee</h4>
+								<p>In terms of data security and compliance, employees play a very important role. Training and education programs should be provided regularly to create knowledge about the best practices for protecting data privacy, security standards, and the possible consequences associated with improperly managing sensitive data.</p>
+								<h3>Tips and tricks for writing efficient HiveQL queries</h3>
+								<h4>1. Partitioning and Bucketing</h4>
+								<p>The company of data is important for query performance. If you use a star diagram or a de-normalized (preferred) data warehouse based on the firm choice, dividing helps with query presentation optimization. It becomes smoother when you get professional <a href="https://www.aegissofttech.com/data-warehouse-services/consulting" target="_blank">data warehouse consulting</a> for this process.</p>
+								<h4>2. Make use of proper file formats</h4>
+								<p>It is essential to make use of the right file formats to guarantee the easy interchange of digital information and interoperability between them. This is done to guarantee that consumers are unable to access, edit, or duplicate the source code and then resell it as their product.</p>
+								<h4>3. De-normalizing data</h4>
+								<p>In the realm of database administration, de-normalizing data is an essential procedure that entails reorganizing data to enhance performance and simplify complicated queries.</p>
+								<h4>4. Utilize the Hive Cost Based Optimizer (CBO) tool</h4>
+								<p>An optimizer that is based on costs is provided by Apache Hive to increase performance. It does this by analyzing the query cost, enabling it to produce effective deployment strategies such as how to arrange arrives, the sort of join to do, the level of paralleling, and so on.</p>
+								<h4>5. optimize table format</h4>
+								<p>The overall efficacy and readability of a table may be significantly improved only by optimizing the format of the table. Hive supports a variety of table formats, including ORC, and Avro, all of which are suited for a particular use.</p>
+								<h3>Community Resources and Support</h3>
+								<h4>1. Stack Exchange</h4>
+								<p>Several mechanisms are indispensable to a flourishing big data bionetwork. Stack Exchange uses a popular community question-and-answer platform and it hosts several sites, including Stack Overflow and Server Fault.</p>
+								<h4>2. Google Cloud Community</h4>
+								<p>Google Cloud Community swarms peer-to-peer product environments and it's an amazing resource to get Apache hive-related answers. You can make a post to the best conversation environment, and an additional community associate will get back to your question. You can also participate in this where there is ask me anything.</p>
+								<h3>Explore the future developments and roadmap of Apache Hive</h3>
+								<ul class="listing">
+									<li>Apache Hive is extensively used by enterprises across many sectors, including e-commerce giants and social media platforms, because of its flexibility and ability to integrate with current SQL-based tools and frameworks. Nevertheless, despite its triumph, Hive still has some obstacles that must be resolved for it to maintain its position as a leader in big data analytics.</li>
+									<li>Moreover, the changing data environment and rising technologies provide further difficulties for Hive. In light of the increasing prevalence of streamed data and the demand for immediate data analysis, Hive must adjust and adopt fresh techniques for data input and processing. By incorporating Hive with Apache Kafka, a widely used distributed broadcasting system, and investigating possibilities for integrating frameworks for machine learning such as Apache Spark, Hive can ensure its continued relevance in the swiftly developing big data environment.</li>
+									<li>An important development is the implementation of Hive LLAP (Live Long and Process).</li>
+									<li>Another significant advancement is the integration of Hive with Apache Tez, a powerful information processing framework known for its excellent performance. Tez offers a very effective running engine for Hive, enhancing query processing and optimizing resource consumption.</li>
+									<li>In addition, Hive has prioritized improving its integration with SQL and growing its strengths in SQL. Hive is being more resilient and dependable option for multi-row modifications and deletes with the implementation of Hive ACID (Atomicity, Integrity, Separation, and Persistence) procedures. This enhancement makes Hive ideal for scenarios that include modifying information operations.</li>
+								</ul>
+								<h3>Upcoming enhancements</h3>
+								<ul class="listing">
+									<li>The newest version of Apache Hive presents better-quality support for indexing, letting people make indexes on Hive boards for quicker data recovery.</li>
+									<li>ACID dealings in Hive get a new phase of dependability and data integrity to the policy.</li>
+									<li>Apache Hive is a dynamic project that is well-regarded within the big data ecosystem. Hive is actively enhancing its capabilities in analytics, reporting, and bilateral queries, while the community is making efforts to enhance support and address many additional features and use cases.</li>
+									<li>There are the most recent and advanced features and optimizations which is implemented in this project for 2023. The benchmarks include several aspects like as LLAP, Apache Druid's realized views and integrating, management of workloads, ACID enhancements, use of Hive in cloud environments, and performance enhancements.</li>
+								</ul>
+								<h3>Some testimonials or quotes with experiences with Apache Hive</h3>
+								<h4>1. Instagram</h4>
+								<p>As the Instagram industry grew exponentially, and with that the data also grew. They were hostile to professional work and examined such data to get actionable insights. The current infrastructure showed insufficient information that led to delays, disorganization, and wasted chances. Apache Hive is an amazing software that can query and check data. Its simplicity of use and best performance in managing it created it to be the amazing <a href="https://www.aegissofttech.com/software-testing-services/data-warehouse" target="_blank">ETL testing Solution</a>. With the help of applying Apache Hive, Instagram could rationalize its data handing outflow of work and meaningfully enhance its analysis competencies. The platform's capability to function with organized and semi-structured data made it simple for its team to excerpt expressive understandings through an extensive variety of data sources.</p>
+								<h4>2. Amazon</h4>
+								<p>One such story comes from an important Amazon that was struggling to examine and practice vast amounts of customer data appropriately. With an increasing customer base and a growing capacity for dealing, their current database organization structure was powerless to keep up with the demands. As a result, there were delays in producing valuable insights, which impeded their capacity to make choices based on data. In response to the requirement for improved efficiency, the organization opted to use Apache Hive.</p>
+								<h4>3. Flipkart</h4>
+								<p>Flipkart ventured into the realm of ecommerce similarly to Amazon, by first focusing on the sale of books. Subsequently, it has swiftly grown to include several additional retail sectors inside its domain. It is renowned in the ecommerce industry for offering very cost-effective electronic products such as mobile phones and home appliances. The important nature of Hive lies in its capacity to effectively manage data that is structured as well as unstructured originating from many sources. The firm successfully integrated client records, outcomes, and other pertinent data to get a comprehensive perspective of the data profile.</p>
+								<h3>Streaming Analytics with Hive</h3>
+								<p>Many industries demand data streaming in real-time and Apache Hive is the oldest platform to process it. Getting authentic analytics is complex as social media, virtual gaming, or IoT constantly spew data. Apache Hive is one of the best platforms for real-time/streaming analytics. Being an open-source software, it is easy to manage continuous data sets emerging in real-time. It is an SQL-based declarative language that allows developers to add their scripts when required. It also offers a core hub for centralized data. With Schema-on-read it is ideally suited for queries and diverse data storage types. </p>
+								<p>Keeping implementation concerns in mind, it is possible to process streaming data by using Hive. The concerns relate to reducing latency, NameNode reaching capacity, and maximizing per-thread throughput. This design can be applied with a simple example. Ten columns of data can be serialized at the 1row/100ms. Check the configuration capacity to support Hive Streaming for making the tables. The Hive table can be supported in the ORC format. The table can be specific, for example, ‘transactional’ equals to be true. When a property is well-defined the Hive streaming feature is supported to produce the best results. The same can be added to other buckets like customer information with Schema.</p>
+								<div id="link8"></div>
+								<h2>Conclusion</h2>
+								<p>Apache Hive is liked by Business Analyst, Testers, Data Analyst & even Developers because of its flexibility and easiness to run SQL-Like query on top of <a href="https://www.aegissofttech.com/data/big-data-consulting-services" target="_blank">Big Data solution companies</a>.
+								<p>However, there are other ETL tools coming into the marketplace everyday such as Presto, Impala but Hive has already secured its place and is well used across the industry.</p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">Characteristics of Apache Hive</a></div>
+								<div class="para1"><a href="#link2">Hive Architecture</a></div>
+								<div class="para1"><a href="#link3">Create Database in Hive</a></div>
+								<div class="para1"><a href="#link4">Use Cases and Industry Applications</a></div>
+								<div class="para1"><a href="#link5">Performance Optimization Tips</a></div>
+								<div class="para1"><a href="#link6">When to use Apache Hive?</a></div>
+								<div class="para1"><a href="#link7">When to use HBase?</a></div>
+								<div class="para1"><a href="#link8">Conclusion</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="article-section spt spb">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="section-header">
+									<div class="article-head">Related article</div>
+								</div>
+							</div>
+						</div>
+						<div class="bs-row">
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img9">
+									<div class="blog-heading">
+										<div class="b-head"><a href="apache-spark-big-data-tune-it-to-your-tunes.html" target="_blank">Apache Spark: Tune it to your tunes</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>Big data world comes with big challenges and even more challenging is tuning the big data development application for optimal performance.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- # Blogs contain -->
+			<script type="application/ld+json">
+				{
+				"@context": "https://schema.org",
+				"@type": "Article",
+				"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": "https://www.aegissofttech.com/articles/advance-analytics-using-hive.html"
+				},
+				"headline": "Why Apache Hive is used to Perform Advanced Analytics?",
+				"description": "Let's learn how to perform advanced Data Analytics in Hadoop",
+				"image": "https://www.aegissofttech.com/articles/images/aauh1.jpg",
+				"author": {
+				"@type": "Organization",
+				"name": "Aegis Softtech"
+				},
+				"publisher": {
+				"@type": "Organization",
+				"name": "Aegis Softtech",
+				"logo": {
+				"@type": "ImageObject",
+				"url": "https://www.aegissofttech.com/images/logo.webp"
+				}
+				},
+				"datePublished": "2020-02-01",
+				"dateModified": "2024-01-03"
+				}
+			</script>
+			
+</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fadvance-analytics-using-hive.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Hadoop: Advanced Data Analysis Using Apache Hive Framework&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fadvance-analytics-using-hive.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fadvance-analytics-using-hive.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/advance-analytics-using-hive.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fadvance-analytics-using-hive.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Hadoop: Advanced Data Analysis Using Apache Hive Framework&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fadvance-analytics-using-hive.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fadvance-analytics-using-hive.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/advance-analytics-using-hive.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+</body>
+</html>

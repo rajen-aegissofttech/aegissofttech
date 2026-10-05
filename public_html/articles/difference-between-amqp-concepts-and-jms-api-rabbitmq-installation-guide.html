@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>How to Install AMQP and RabbitMQ in Local Machine?</title>
+	<meta name="description" content="RabbitMQ is one of the messaging brokers, it provides a portable platform for sending or receiving messages. RabbitMQ is based on AMQP (Advanced Message Queuing Protocol)." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/difference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html"/>
+	
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:title" content="How to Install AMQP and RabbitMQ in Local Machine?" />
+	<meta property="og:description" content="RabbitMQ is one of the messaging brokers, it provides a portable platform for sending or receiving messages. RabbitMQ is based on AMQP (Advanced Message Queuing Protocol)." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/difference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/articles/images/amqp/1.jpg" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/articles/images/amqp/1.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="RabbitMQ is one of the messaging brokers, it provides a portable platform for sending or receiving messages. RabbitMQ is based on AMQP (Advanced Message Queuing Protocol)." />
+	<meta name="twitter:title" content="How to Install AMQP and RabbitMQ in Local Machine?" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/articles/images/amqp/1.jpg" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+            <div class="hire-popup fix-top">
+            <i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+                <a href="../careers">
+                    <div class="hire-flexy">
+                        <div class="hiring-box">
+                            <div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+                            <div class="hiring-head">We are hiring!</div>
+                            <p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>AMQP Concepts and RabbitMQ installation in Local Machine</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">AMQP Concepts and RabbitMQ installation in Local Machine</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<p>Hello friends, today we will learn about AMQP concept, will understand the differences between AMQP and traditional JMS API and see how to install RabbitMQ message broker on our local machine. AMQP is a new but very popular concept in the messaging world. Its popularity today is due to its improvements over the conventional messaging like JMS such as. So, let’s first introduce about AMQP and then we will see how we can install RabbitMQ on our local machine. In the next post, we will see how we can use AMQP in a Spring-based application and interact with RabbitMQ for messaging. So, let’s get started with the AMQP concepts today.</p>
+								<div id="link1"></div>
+								<h2>What is AMQP?</h2>
+								<p>AMQP means <strong>Advanced  Message Queuing Protocol</strong>, which is a network level message protocol</p>
+								<p>Which operates in Application Layer (Layer 7) of OSI TCP/IP model. So AMQP is a protocol, unlike earlier popular messaging components mostly API based like Java Messaging Service (JMS). AMQP provides an interoperable messaging protocol where different types of clients can interact with it simultaneously, unlike in JMS only Java-based clients can interact with each other. So, till now it has been clear that AMQP is a messaging protocol designed to simplify and overcome the difficulties of traditional JMS based API, also AMQP is getting momentum today and new messaging components are being built using this only. In the next sections, we will touch upon on the problems of JMS API and will see how AMQP comes into the picture and solves the problem.</p>
+								<div id="link2"></div>
+								<h3>Why is it relevant?</h3>
+								<p>Traditional messages which we are familiar about with JMS has few limitations; mostly it expects homogeneous publisher and consumers to interact with the message broker and the message format was somehow tightly coupled with the API we choose to interact like JMS in Java world. To overcome these, few products like WebSphere MQ and Hire Tibco Developers with came into pictures, but those are also not fully loosely coupled and most importantly those are very costly in terms of the license cost. Also, the interoperability problem that those products tried to solve resulted in creating new proprietary message protocols which do not interoperate with others, therefore resulting in ‘vendor lock-in.’</p>
+								<p><b>AMQP has various design areas, but two of the most vital are:</b></p>
+								<ul class="listing">
+									<li>To&nbsp;deliver&nbsp;an&nbsp;open&nbsp;standard for&nbsp;informing&nbsp;middleware</li>
+									<li>To&nbsp;empower interoperability between&nbsp;different&nbsp;technologies and&nbsp;stages</li>
+								</ul>
+								<p>There is a many of software running on many operating systems worked with different programming languages running on different hardware structures and virtual machines. AMQP does not just make it possible for these dissimilar systems to speak with each other, yet additionally empowers different products that actualize AMQP to exchange data.</p>
+								<div id="link3"></div>
+								<h3>What are message Brokers?</h3>
+								<p>Messaging brokers are the real messaging middleware that receives messages from producers (applications that publish them) and routes them to consumers (applications that process them).</p>
+								<div id="link4"></div>
+								<h3>How AMQP works</h3>
+								<p>Unlike JMS where publisher applications directly send messages in Queues/Topics and Consumers also directly point to those queues for message consume, AMQP is a bit different in terms of message exchange.</p>
+								<ul class="listing">
+									<li>Here is message is first sent to a component of Message Broker (like RabbitMQ) called Exchange. Exchange in AMQP can think about post office or mailbox sort of thing where it takes care of routing the messages in right recipients, in messaging world it is the message Queues which is again connected to multiple consumers.</li>
+									<li>Exchanges distribute message copies to queues using rules called bindings.</li>
+									<li>Then AMQP brokers either deliver messages to consumers subscribed to queues, or consumers fetch/pull messages from queues on demand.</li>
+								</ul>
+								<p>Here is the sample interaction diagram on how AMQP works.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/amqp/1.jpg" alt="amqp" /></div>
+								<p>So, Exchange is the Middleman of the message routing process and route messages in different Queues based on the binding producer's mention. Now we will see what message attributes in AMQP perspective is.</p>
+								<p><strong>Message Attributes –</strong> Those are metadata of messages some are used by the broker and rest are used by consumers directly. The important message attribute that is used by the broker is binding. Other message attributes can be custom</p>
+								<p><strong>Message Acknowledgements:</strong> As messages are sent over networks which are sometimes unreliable, and applications then fail to process messages resulting failure in the business goal of the applications, so we need some sort of message acknowledgments system which confirms that the messages that have been published have been routed to the consumers properly. In this process, the consumer sends the ack to the message broker in tern passed to the publishers.</p>
+								<p>At the point when message affirmations are being used, an agent will just totally remove a message from a line when it gets a notification for that message (or group of messages).</p>
+								<p>When messages can be sent to a dead letter queue if there is any problem of routing the messages to designated consumers.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/amqp/2.jpg" alt="amqp" /></div>
+								<div id="link5"></div>
+								<h3>Different Exchange patterns</h3>
+								<p>Till now we have understood the role of Exchanges and how messages are routed to Queues in simple routing way, but there are few new models of routing in AMQP which are a heart of the messaging. Exchanges take a message and course it into at least zero lines. The steering algorithm used depends upon the exchange compose and rules called bindings. Currently, those are the message routing types possible with AMQP.</p>
+								<p><b>Direct exchange – </b>This is mostly the simple routing that we have seen above, in this communication pattern 1-1 communication of queues or unicasting, means in each message is routed to a single target queue provided in the binding of the messages. A direct exchange distributes messages to queues based on the message steering key. The steps of direct exchange are:</p>
+								<ul class="listing">
+									<li>A queue binds with the exchange with a routing key when created.</li>
+									<li>When a new message arrived in the exchange with routing key, the exchange routes it to the right queue matching the routing key.</li>
+								</ul>
+								<p>The AMQP Direct Exchange closely matches the Point-to-Point messaging model of JMS</p>
+								<div class="single-article-img"><img class="lazyload" src="images/amqp/3.jpg" alt="amqp" /></div>
+								<p><strong>Fanout exchange:</strong> This is 1-to-n communication or broadcasting between publishers and consumers. Fanout exchange routes messages to all the queues that are bound to it and here routing key are ignored.</p>
+								<p>If multiple queues are bound to a fanout exchange when a new message is published to that exchange a copy of the message is delivered to all queues aligned to the same exchange in fanout way. Fanout interactions are ideal for the broadcast steering of posts.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/amqp/4.jpg" alt="amqp" /></div>
+								<p><strong>Topic exchange -</strong> Subject exchanges route messages to one or several lines dependent on coordinating between a message routing key and the pattern that was utilized to bind a line to an exchange. The topic exchange composes is regularly used to actualize different distribute/subscribe in pattern varieties. Topic exchanges are ordinarily used for the multicast steering of messages.</p>
+								<p><strong>Headers exchange -</strong> Header exchange is designed for routing on multiple attributes that are more easily expressed as message headers than a routing key. In Headers exchanges communication it ignores the routing key attribute. Instead, the characteristics used for steering are taken from the headers trait. A message is viewed matching if the estimation of the header equals the value specified upon binding.</p>
+								<div id="link6"></div>
+								<h3>A Quick Comparison with JMS</h3>
+								<p>So, we have learned the basic concepts around AMQP and seen why it has been grown up from the limitations of JMS. In this section, we will see bit more details about the comparison with JMS and finally will try to close when we should use JMS and when we should go for AMQP. To understand the importance of AMQP over JMS we will start with a problem statement and will see how JMS has limitations but AMQP can solve the scenario properly.</p>
+								<p>While JMS defines an API for interoperability within the Java platform, it does not extend support to other platforms. In such cases, businesses often rely on <a href="https://www.aegissofttech.com/software-development/java" target="_blank">Custom Java Application Development</a> to build integration solutions that bridge the gap between Java and non-Java systems, minimizing dependency on proprietary tools and reducing the risk of vendor lock-in.</p>
+								<table>
+									<tr>
+										<th><strong>Scenario</strong></th>
+										<th><strong>JMS Capability</strong></th>
+										<th><strong>AMQP Capability</strong></th>
+										<th><strong>Conclusion</strong></th>
+									</tr>
+									<tbody>
+										<tr>
+											<td>Messaging between two or more Java clients within java platform.</td>
+											<td>In this case JMS can solves the problem easily as JMS is designed to be work between java clients.</td>
+											<td>AMQP can also solve the same problem easily.</td>
+											<td>So, if all the clients are Java based and we have already some existing modules interact with JMS then in this scenario JMS will be best to use. AMQP here will lead to unnecessary complexity unless in future we don&rsquo;t have any extension plan to include non-java clients.</td>
+										</tr>
+										<tr>
+											<td>Messaging between Java producer and Ruby Client.</td>
+											<td>Here JMS can&rsquo;t work directly with the standard JMS based message broker as for Java side we need JMS compatibility and in Ruby side we need STOMP. So, to solve this interoperability problem, we need some message broker which supports both JMS and STOMP. ActiveMQ can be such broker and we can use this. </td>
+											<td>As AMQP is a protocol and implementation of AMQP based message broker like RabbitMQ gives API in multiple languages, we can use AMQP also with different API compatible to the programming language/platform</td>
+											<td>We can think about using AMQP here as it will significantly reduce the dependency on the particular vendor like in this case ActiveMQ. But if we write our code in AMQP then code will be generic and we can replace the message broker easily in future.</td>
+										</tr>
+										<tr>
+											<td>Messaging between .NET C# and Ruby</td>
+											<td>Here .NET C# uses NMS API whereas Ruby uses STOMP, but we don&rsquo;t have any popular vendor who solves this interoperability by providing a bridge between those two different types of client.</td>
+											<td>Here we can easily use AMQP as it is a protocol and AMQP based message broker like RabbitMQ gives API in multiple languages. So we can easily solve this using AMQP.</td>
+											<td>Same as above, we should use AMQP based message broker and language API.</td>
+										</tr>
+									</tbody>
+								</table>
+								<div id="link7"></div>
+								<h3>Rabbit MQ installation using Docker</h3>
+								<p>Now we will see how we can run RabbitMQ server in local machine using Docker. RabbitMQ is an AMQP compliant message broker and very popular today.</p>
+								<p>I have done all my testing in MAC O/S, but the docker commands are generic, so will work in windows as well.</p>
+								<p>To start docker image of RabbitMQ, we need to use the below command, it will download and start RabbitMQ image in local M/C.</p>
+								<p><span class="yellow_color">docker run -d --hostname my-rabbit --name rabitmq-server rabbitmq:3</span></p>
+								<p>Now we need to install the RabbitMQ management container using the following command. We are here exposing the 15672 port from the container to the local machine so that we can use the console from a browser.</p>
+								<p><span class="yellow_color">docker run -d --hostname my-rabbit -p 15672:15672 --name some-rabbit-management rabbitmq:3-management</span></p>
+								<p>If both commands work well, then both RabbitMQ and RabbitMQ management part starts up and we can use the console at <span class="locallink">http://localhost:15672/</span></p>
+								<div class="single-article-img">
+									<img class="lazyload" src="images/amqp/5.jpg" alt="amqp" />
+								</div>
+								<p>The default user of RabbitMQ is guest/guest, once login we can see the RabbitMQ console as below.</p>
+								<div class="single-article-img">
+									<img class="lazyload" src="images/amqp/amqp-concepts-6.jpg" alt="amqp" />
+								</div>
+								<p>Now we can do further things like creating Exchange. Queue, Bindings and sending sample message and reading. Those are very straightforward, I will suggest you do a basic validation of the concept we discussed by doing some hands-on in RabbitMQ.</p>
+								<p>In the next post, the developers of <a href="https://www.aegissofttech.com/software-development/java/outsourcing" target="_blank">Outsourcing Java Development</a> Company will see how they can write applications using spring and RabbitMQ as a message broker.</p>
+								<p>Happy Learning.</p>
+								<p>You can find references in below link:</p>
+								<p>https://www.amqp.org/</p>
+								<p>https://www.rabbitmq.com/</p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex"> 
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">What is AMQP?</a></div>
+								<div class="para1"><a href="#link2">Why is it relevant?</a></div>
+								<div class="para1"><a href="#link3">What are message Brokers?</a></div>
+								<div class="para1"><a href="#link4">How AMQP works</a></div>
+								<div class="para2"><a href="#link5">Different Exchange patterns</a></div>
+								<div class="para2"><a href="#link6">A Quick Comparison with JMS</a></div>
+								<div class="para1"><a href="#link7">Rabbit MQ installation using Docker</a></div>
+							</div>
+						</div>
+                        <div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="article-section spt spb">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="section-header">
+									<div class="article-head">Related article</div>
+								</div>
+							</div>
+						</div>
+						<div class="bs-row">
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img6">
+									<div class="blog-heading">
+										<div class="b-head"><a href="how-to-show-message-box-on-window-close-button.html" target="_blank">How to Show Message Box On Window Close Button?</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>This post will make you learn about the steps that will help you in showing message box on window close button.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img4">
+									<div class="blog-heading">
+										<div class="b-head"><a href="json-serializtion-deserializaion-asp.net-mvc-development.html" target="_blank">How developers use JSON serialization and deserialization in asp.net mvc development</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>Json is a lightweight format that is used in asp.net development for data exchange.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img1">
+									<div class="blog-heading">
+										<div class="b-head"><a href="bcrypt-password-encoding-spring-security.html" target="_blank">How to Set BCrypt Password Encoding in Spring Boot Security?</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>In this blog I will help you understand the Bcrypt cryptography algorithm and how to use the decrypt password encoder in a spring boot project with spring security.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- # Blogs contain -->
+			<script type="application/ld+json">
+				{
+				"@context": "https://schema.org",
+				"@type": "Article",
+				"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": "https://www.aegissofttech.com/articles/difference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html"
+				},
+				"headline": "AMQP Concepts and RabbitMQ installation in Local Machine",
+				"description": "how to install the RabbitMQ message broker on our local machine",
+				"image": "https://www.aegissofttech.com/articles/images/amqp/amqp-concepts-6.jpg",
+				"author": {
+				"@type": "Organization",
+				"name": "Aegis Softtech"
+				},
+				"publisher": {
+				"@type": "Organization",
+				"name": "Aegis Softtech",
+				"logo": {
+				"@type": "ImageObject",
+				"url": "https://www.aegissofttech.com/images/logo.webp"
+				}
+				},
+				"datePublished": "2018-10-20",
+				"dateModified": "2018-10-20"
+				}
+			</script>
+			
+</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdifference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How to Install AMQP and RabbitMQ in Local Machine?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdifference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdifference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/difference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdifference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How to Install AMQP and RabbitMQ in Local Machine?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdifference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdifference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/difference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

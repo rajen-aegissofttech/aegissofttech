@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+    <title>Transforming Azure Synapse Analytics with Power BI Visualizations</title>
+    <meta name="description" content="Integration of Power BI visualizations using Azure Synapse Analytics empowers organizations to unlock valuable insights from their data like never before." />
+	
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/embedding-power-bi-visualizations-into-azure.html" />
+	
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Transforming Azure Synapse Analytics with Power BI Visualizations" />
+	<meta property="og:description" content="Integration of Power BI visualizations using Azure Synapse Analytics empowers organizations to unlock valuable insights from their data like never before." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/embedding-power-bi-visualizations-into-azure.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/articles/images/power-bi-into-azure.webp" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/articles/images/power-bi-into-azure.webp" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="Integration of Power BI visualizations using Azure Synapse Analytics empowers organizations to unlock valuable insights from their data like never before." />
+	<meta name="twitter:title" content="Transforming Azure Synapse Analytics with Power BI Visualizations" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/articles/images/power-bi-into-azure.webp" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Embedding Power BI Visualizations into Azure Synapse Analytics</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+		    <div class="container">
+		        <div class="row">
+		            <div class="col-12">
+		                <ol class="breadcrumb">
+		                    <li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+		                    <li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+		                    <li class="active">Embedding Power BI Visualizations into Azure Synapse Analytics</li>
+		                </ol>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<div class="single-article-img"><picture><img data-src="images/power-bi-into-azure.webp" class="lazyload" width="800" height="524" alt="Power BI into Azure Synapse" /></picture></div>
+								
+								<p><a href="https://3cloudsolutions.com/" target="_blank">Image Source</a></p>
+								<p>Struggling to Make Data Insights Consumable across Your Organization? Embed Power BI Visuals Directly into Azure Synapse Workspaces</p>
+								<p><a href="https://www.aegissofttech.com/microsoft/azure-synapse-analytics-services" target="_blank">Azure Synapse Analytics provides</a> immense processing capabilities for transforming enterprise-scale data into business intelligence.</p>
+								<p>But bringing insights to life for decision-makers requires crisp interactive visualizations readily accessible to users beyond isolated portals.</p>
+								<p>Luckily, seamlessly embedding fully configurable Power BI reports and dashboards directly into Synapse workspace bridges that last mile putting insights into action.</p>
+								<p>As data volumes explode across cloud data platforms like Azure Synapse Analytics, deriving value involves more than just transformations happening behind the scenes.</p>
+								<div id="link1"></div>
+								<h2>How insights get conveyed to those guiding strategic decisions matters immensely.</h2>
+								<p>Synapse workspaces allow collaboratively curating analytics pipelines but fall short creating consumable views for broader business users comfortable with interactive Power BI dashboards always in sight.</p>
+								<p>Rather than forcing uncomfortable tool shifts extracting data into external views, Azure architecture empowers embedding fully functional Power BI reports, grids and visuals directly into Synapse workspace experiences users already operationalize daily driving impact.</p>
+								<p>With a few configuration clicks, data scientists fuel customizable visuals while business teams gain self-service access adjusting views catered to their needs - no complex handoff required.</p>
+								<p>The integrity from data to discovery remains seamlessly connected, accelerating data maturity. Now let’s explore how to make this embedding magic happen.</p>
+								<div id="link2"></div>
+								<h3>Step 1: Provision Resources and Connect Data</h3>
+								<p>Of course, before visualizing data, foundational elements need establishing to support embedding:</p>
+								<p><strong>Ensure Access Permissions</strong></p>
+								<p>Confirm identity administration rights to allocate resources across Azure subscriptions including <a href="https://www.aegissofttech.com/microsoft/power-bi-consulting" target="_blank">Power BI development services</a> and Synapse workspaces. Global administrators manage governance.</p>
+								<p><strong>Create a Dedicated Power BI Workspace</strong></p>
+								<p>It stores datasets, reports and dashboards ultimately embedded. Apply least privilege security inheriting access from Azure Active Directory groups. Manage permissions granularly.</p>
+								<p><strong>Provision Synapse Workspace</strong></p>
+								<p>Enable core SQL, Spark pools, data integration pipelines and workspace collaboration capabilities undergirding enterprise data transformations.</p>
+								<p>Steelbridge reference architectures provide configuration blueprints.</p>
+								<p><strong>Ingest and Transform Data</strong></p>
+								<p>Bring together relevant datasets using Synapse pipelines into workable formats.</p>
+								<p>Shape and enrich through Mapper data flows to ready for analytics use cases. Cover data integration basics before visualization complexity.</p>
+								<p><strong>Model Data in Power BI</strong></p>
+								<p>Connect Synapse data pools then expand relationships, calculated metrics and dimensional hierarchies fueling robust reporting later. Power BI Desktop facilitates modeling cooked datasets backed by Synapse transformations.</p>
+								<p>With permissions, resources and data flow connected enable embedding. Now focus shifts to creating reports worth embedding.</p>
+								<div id="link3"></div>
+								<h3>Step 2: Design Power BI Reports for Consumption</h3>
+								<div class="single-article-img"><picture><img data-src="images/power-bi-report.webp" class="lazyload" width="800" height="524" alt="power bi report" /></picture></div>
+								<p><a href="https://techcommunity.microsoft.com/" target="_blank">Image Source</a></p>
+								<p>While Power BI supports numerous visualization types from tables to charts to layered maps, considerations optimizing embeddable reports differ from standard experiences. Keep the end user top of your mind.</p>
+								<p><strong>Scope Insight Types</strong></p>
+								<p>Categorize reporting needs upfront - high-level KPI monitoring? Drill-down diagnostics? Statistical anomaly detection? Knowing core scenarios informs better embedding experiences later.</p>
+								<p><strong>Structure for Self-Service</strong></p>
+								<p>Embed only key views required rather than entire multifaceted reports.</p>
+								<p>Present parameters, filters and visuals simplifying data interactions catered to target user sophistication levels. Don’t assume power user expertise querying data.</p>
+								<p><strong>Use Enterprise Templates</strong></p>
+								<p>Format reports consistently leverage organizational branding color palettes, iconography, and text styling and chart layouts.</p>
+								<p>Promote clarity with reduced clutter aligned to company standards. Accessible designs facilitate comprehension.</p>
+								<p><strong>Simplify Visualizations</strong></p>
+								<p>Avoid dense or overly complicated visuals with confusing legends requiring training.</p>
+								<p>Lean into intuitive charts, key data highlights and explanative supporting text guiding interpretation. Embed to enlighten not overwhelm.</p>
+								<p>Well-crafted designs promote engaging with reports not just initially glancing and then abandoning.</p>
+								<p>Embed to enlighten not overwhelm. Well-crafted designs promote engaging with reports not just initially glancing and then abandoning.</p>
+								<div id="link4"></div>
+								<h3>Step 3: Embed Reports Seamlessly into Synapse</h3>
+								<p>With properly optimized Power BI assets ready, seamlessly embed into Synapse workspaces through four milestones:</p>
+								<p><strong>Enable Embedding Capability</strong></p>
+								<p>Within the Azure portal, register the Power BI development provider for subscription embedding capacity.</p>
+								<p>Turn on the embedding switch for designated Power BI workspace holding target reports if private sharing only.</p>
+								<p><strong>Generate Embed Token</strong></p>
+								<p>Still, in the Azure portal, create a token generating a unique authentication key for the Synapse workspace to safely access designated Power BI content through API calls.</p>
+								<p><strong>Copy Embed Code</strong></p>
+								<p>Next in the Power BI workspace holding target reports, open the report canvas and click the “Embed” tab to access integration details like iframe HTML tags, unique report IDs and embedding URLs. Copy codes ready for Synapse.</p>
+								<p><strong>Paste into Synapse Workspace</strong></p>
+								<p>Finally in Synapse workspace holding data pipelines, open notebook, SQL script or web experience dashboard.</p>
+								<p>Paste the Power BI embed code saved earlier and run to render visualizations directly into the chosen canvas.</p>
+								<p>Voila - Power BI reports now immerse within Synapse views already interfaced daily driving simplified consumption, alignment and action!</p>
+								<div id="link5"></div>
+								<h3>Step 4: Manage Secure Access with Roles</h3>
+								<p>With an embedded foundation in place, shift focus to sustaining access by applying least privilege security principles ensuring visibility only for those needing insights through four pillars:</p>
+								<p><strong>Assign Granular Workspace Roles</strong></p>
+								<p>Synapse natively integrates Azure Active Directory trusted identities and applies predefined roles like Synapse Administrator, Synapse Contributor, and SQL/Spark Developer determining capabilities.</p>
+								<p><strong>Set Dataset Access Permissions</strong></p>
+								<p>In Power BI, managed groups authorized to access specific datasets, reports and dashboards surfaced through Synapse.</p>
+								<p>Prevent exposure beyond entitled viewers like publicly shared content.</p>
+								<p><strong>Restrict Underlying Tables and Views</strong></p>
+								<p>Sensitive source queries may rely on database table row-level security (RLS) or object-level permissions hiding underlying raw data from analysts.</p>
+								<p>Apply criteria filters filtering rows returned appropriately.</p>
+								<p><strong>Mask Data Dynamically</strong></p>
+								<p>Further, safeguard data embedding dynamic data masking policies obscuring actual values displayed per user context at query time.</p>
+								<p>Define precise data obfuscation rules while retaining usability.</p>
+								<p>Embedded reports balance insight needs without overexposing original data by aligning AAD identities, resource roles and query filters to the principle of least privilege. Sensitively share but securely.</p>
+								<div id="link6"></div>
+								<h3>Step 5: Support Usage with Chatbots</h3>
+								<div class="single-article-img"><picture><img data-src="images/support-usage-with-chatbots.webp" class="lazyload" width="800" height="524" alt="support usage with chatbots" /></picture></div>
+								<p>While crisply designed embedded content should feel intuitive to navigate, adoption hurdles still pop up requiring pointers to getting acquainted.</p>
+								<p>Help users help themselves through assistant chatbots:</p>
+								<p><strong>Build Q&A Helper Bots</strong></p>
+								<p>Leverage Power Virtual Agents or Azure Bot Service to construct conversational assistants answering natural language questions around capabilities, popular configurations and troubleshooting basics. Empower self-service learning.</p>
+								<p><strong>Monitor Usage Patterns</strong></p>
+								<p>Review embedded asset telemetry in Power BI capturing usage metrics - which reports get tapped? Which visuals were edited? Errors encountered? Learn what resonates and obstacles faced by groups.</p>
+								<p><strong>Target Education Efforts</strong></p>
+								<p>Address recurring questions that surfaced in bot interactions through links to focused video tutorials aligned to informational gaps.</p>
+								<p>Expand self-service through curated learning pathways unlocking more autonomous insights.</p>
+								<p><strong>Provide Feedback Channels</strong></p>
+								<p>Embed comment capabilities for passerby suggestions to further improve content relevance.</p>
+								<p>Business teams requesting new data perspectives fuel iterative enhancement priorities too with outputs benefiting all.</p>
+								<p>The combination of conversational helper bots nudging users forward through intuited roadblocks paired with captured usage patterns fueling targeted improvements provides the dual fuel accelerating adoption and impact.</p>
+								<div id="link7"></div>
+								<h3>Step 6: Enrich through Azure Machine Learning Integrations</h3>
+								<p>While <a href="https://www.aegissofttech.com/microsoft/power-bi-consulting" target="_blank">Power BI consulting</a> delivers intuitive visualization and exploration, enhancing analytics maturity requires injecting intelligent predictions and recommendations tailored to business priorities:</p>
+								<p><strong>Infuse Predictions using ML Models</strong></p>
+								<p>Leverage Azure <a href="https://www.aegissofttech.com/ai-services/machine-learning-development" target="_blank">Machine Learning services</a> to develop performant models predicting metrics of interest like product demand, customer churn risk, and inventory stockouts.</p>
+								<p>Register trained models, and publish through AML pipelines into production deployments integrated across Power BI and Synapse for direct query predictions using input conditions.</p>
+								<p><strong>Personalize Visuals with AI Insights</strong></p>
+								<p>In Power BI, enable capabilities like Personalize submitting contexts like user department, location and usage history to tailor dashboard visual prominences, color themes and default filtering aligned to individual habits and needs. Evolve interactions dynamically.</p>
+								<p><strong>Allow Natural Language Querying</strong></p>
+								<p>For more intuitive data exploration beyond clicks and dropdowns, use Azure Cognitive Search to index key metadata fields.</p>
+								<p>Then overlay Q&A natural language semantic parser understanding broader verbal questioning logic on top, translating human sentences into executable queries surfacing answers conversationally.</p>
+								<p><strong>Recommend Insights through ML</strong></p>
+								<p>Building on search queries, inject proactive recommendations suggesting additional insightful perspectives not directly asked but contextually relevant given user department and data interaction history using similarity matching algorithms. Guide users to discover gaps.</p>
+								<p>Augmenting analytics through predictive, contextual and conversational AI enriches exploration, uncovers hidden insights and prevents misses tailoring to individuals for stickier engagement.</p>
+								
+								<div id="link8"></div>
+								<h3>Step 7: Migrate to Unified Data Lakehouses</h3>
+								<p>As analytics usage matures, data gravity pulls additional upstream processing into the platform to speed time-to-insight.</p>
+								<p>New data lakehouse architectures erode barriers between transactional, analytical and AI workloads for singular insights.</p>
+								<p><strong>Modernize with Delta Lake Open Format</strong></p>
+								<p>Transition big data storage from legacy data lakes only handling batch processing to Delta Lakes continuously capturing near real-time changes from stream ingestion, pipelines, machine learning and business users.</p>
+								<p>Applies reliability and performance at scale.</p>
+								<p><strong>Query across Analytical Workloads</strong></p>
+								<p>Unify data warehousing, data science and analytics querying into a common security paradigm through a lakehouse metadata framework using Databricks.</p>
+								<p>Connect formerly disjointed analytics stacks into coherent insights through SQL, Python/R and BI tools all sharing Delta Lake's backend.</p>
+								<p><strong>Iterate Analytics Pipelines Agilely</strong></p>
+								<p>With unified data stores, improve DevOps velocity building, deploying, monitoring and modifying analytical data pipelines using CI/CD tooling, automated validation testing and observability standards at the enterprise scale. Support experimentation.</p>
+								<p><strong>Extend Pipelines to Edge Environments</strong></p>
+								<p>Lakehouses scale not only massive cloud data but also intermittent streams from IoT devices, retail stores or vehicles needing analytics combined through Apache Spark structured streaming ingesting continuous feeds.</p>
+								<p>Centralize insights from distributed edges.</p>
+								<p>Blending formerly disparate systems into common data and analytics fabrics future-proofs scaling intelligent capabilities governed, accessible and actionable collectively.</p>
+								<div id="link9"></div>
+								<h3>Step 8: Cultivate Data and Analytics Literacy</h3>
+								<p>But even the most refined insights hold latent value absent cultivating human capabilities and consummating discoveries into decisions and actions. Sponsoring widespread data literacy unlocks lasting cultural transformation:</p>
+								<p><strong>Spotlight Data Stories to Leadership</strong></p>
+								<p>Curate digestible data stories for directors conveying tangible business successes fueled through analytics adoption across functions.</p>
+								<p>Quantify outcomes across revenue, customer experiences and efficiency gains. Inspire strategy incorporation.</p>
+								<p><strong>Extend Visualization Tools to Citizens</strong></p>
+								<p>Democratize dashboarding and self-service visualization so any employee can chart their metrics speeding local optimizations.</p>
+								<p>Enable through Power BI PRO licenses, personalized workspaces and starter template building blocks.</p>
+								<p><strong>Embed Analytics Content into Apps</strong></p>
+								<p>Meet business users within familiar applications they already use daily vs. separate analytics portals.</p>
+								<p>Embed visual, contextual insights across service, CRM, email and custom productivity tools through web part plugins and SharePoint extensions.</p>
+								<p><strong>Sponsor Analyst Career Pathways</strong></p>
+								<p>Develop motivated analytics talent through rotational programs, formal training reimbursement and internal mobility enabling mgr/director upward paths.</p>
+								<p>Celebrate peer excellence through awards and conference speaking opportunities raising visibility.</p>
+								<p>The community commitment across leaders, employees and analysts spreads nourishing data culture enterprise-wide - the ultimate prerequisite for converting isolated systems into widespread impact. Lead the charge!</p>
+								<div id="link10"></div>
+								<h2>Still, Have Questions on Optimizing Analytics Embedded Experiences?</h2>
+								<p>We covered a trail from ingesting enterprise data at scale, transforming information into digestible datasets, visualizing insights within reporting experiences then ultimately embedding analytics seamlessly into workflows through Synapse reach.</p>
+								<p>What final hurdles or lessons learned might you share in helping others on their integration journey? Please comment on the wisdom gained!</p>
+								<p><strong>Read More:</strong> <a href="https://www.aegissofttech.com/insights/embed-power-bi-reports-into-web-application/" target="_blank">How to Embed Power BI Reports into Custom Web Applications?</a></p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">How insights get conveyed to those guiding strategic</a></div>
+								<div class="para2"><a href="#link2">Provision Resources and Connect Data</a></div>
+								<div class="para2"><a href="#link3">Design Power BI Reports for Consumption</a></div>
+								<div class="para2"><a href="#link4">Embed Reports Seamlessly into Synapse</a></div>
+								<div class="para2"><a href="#link5">Manage Secure Access with Roles</a></div>
+								<div class="para2"><a href="#link6">Support Usage with Chatbots</a></div>
+								<div class="para2"><a href="#link7">Enrich through Azure Machine Learning Integrations</a></div>
+								<div class="para2"><a href="#link8">Migrate to Unified Data Lakehouses</a></div>
+								<div class="para2"><a href="#link9">Cultivate Data and Analytics Literacy</a></div>
+								<div class="para1"><a href="#link10">Have Questions on Optimizing Analytics?</a></div>
+							</div> 
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="article-section spt spb">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="section-header">
+									<div class="article-head">Related article</div>
+								</div>
+							</div>
+						</div>
+						<div class="bs-row">
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs bg_img6 min-he">
+									<div class="blog-heading">
+										<div class="b-head"><a href="maximizing-business-insights-with-azure-and-power-bi.html" target="_blank">Maximizing Business Insights with Azure and Microsoft Power BI</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>Data has advanced into the crucial driving force behind all features of the business, from the formulation of game plans to the creation of decisions. The issue that faces companies as they continue to assemble an ever-increasing number of data is directing how to turn that data into insights that can be put to use. Azure and Power BI Development come into play at this point. The combination of these technologies gives organizations the capacity to gather, store, and analyze data, which in turn enables them to make more informed choices and progress toward their objectives.</p>
+									</div>							
+								</div>
+							</div>
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs bg_img5 min-he">
+									<div class="blog-heading">
+										<div class="b-head"><a href="machine-learning-with-azure-synapse-analytics.html" target="_blank">Unlocking the Power of Machine Learning with Azure Synapse Analytics</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>ML today emphasizes the expansion of algorithms that could self-sufficiently get knowledge through data and adapt their behaviour having no requirement for direct human interference.</p>
+									</div>							
+								</div>
+							</div>
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs bg_img1 min-he">
+									<div class="blog-heading">
+										<div class="b-head"><a href="implement-a-successful-power-bi-process.html" target="_blank">How do you implement a successful Power BI Process?</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>The term "business intelligence" (BI) refers to an organized strategy that encompasses a set of actions targeted at generating, implementing, and managing BI solutions.</p>
+									</div>							
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+		 {
+		   "@context": "https://schema.org",
+		   "@type": "Article",
+		   "mainEntityOfPage": {
+		     "@type": "WebPage",
+		     "@id": "https://www.aegissofttech.com/articles/embedding-power-bi-visualizations-into-azure.html"
+		   },
+		   "headline": "Transforming Azure Synapse Analytics with Power BI Visualizations",
+		   "description": "Integration of Power BI visualizations using Azure Synapse Analytics empowers organizations",
+		   "image": "https://www.aegissofttech.com/articles/images/power-bi-into-azure.webp",  
+		   "author": {
+		     "@type": "Organization",
+		     "name": "Aegis Softtech"
+		   },  
+		   "publisher": {
+		     "@type": "Organization",
+		     "name": "Aegis Softtech",
+		     "logo": {
+		       "@type": "ImageObject",
+		       "url": "https://www.aegissofttech.com/images/logo.png"
+		     }
+		   },
+		   "datePublished": "2023-12-19",
+		   "dateModified": "2023-12-19"
+		 }
+		</script>
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fembedding-power-bi-visualizations-into-azure.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Transforming Azure Synapse Analytics with Power BI Visualizations&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fembedding-power-bi-visualizations-into-azure.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fembedding-power-bi-visualizations-into-azure.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/embedding-power-bi-visualizations-into-azure.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" aria-label="facebook-social" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fembedding-power-bi-visualizations-into-azure.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter-social" target="_blank" href="https://twitter.com/intent/tweet?text=Transforming Azure Synapse Analytics with Power BI Visualizations&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fembedding-power-bi-visualizations-into-azure.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin-social" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fembedding-power-bi-visualizations-into-azure.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="gmail-social" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/embedding-power-bi-visualizations-into-azure.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

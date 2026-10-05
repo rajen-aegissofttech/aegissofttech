@@ -1,0 +1,365 @@
+# Aegis Softtech
+
+> Aegis Softtech is an ISO-certified software development company based in India with 20+ years of experience delivering AI, cloud, data, and enterprise software solutions to global enterprises and startups. The company operates as a Global Capability Center (GCC), offering deep technical expertise with a client-first, partnership-oriented approach.
+
+## Company Overview
+
+Website: [aegissofttech.com](https://www.aegissofttech.com): Main homepage of Aegis Softtech, an ISO-certified software development company.
+Founded: 20+ years ago
+Headquarters: Rajkot, Gujarat, India
+Team Size: 350+ skilled experts
+Projects Delivered: 500+ across industries
+Clients: 100+ globally (US, UK, Australia, Europe, Singapore, Middle East, Canada)
+Ratings: Google Reviews 4.6/5; listed on Clutch, GoodFirms, Crunchbase, and SuperbCompanies
+Notable Clients: Reliance, Tata Consultancy Services (TCS), Zydus, Sterling Hospitals, Nirma, Ajio, efacec
+Contact: Toll Free 1800 889 7020 | info@aegissofttech.com
+Free Trial: 10-day free trial available
+---
+
+## Services
+
+### AI & Automation
+- [AI Development](https://www.aegissofttech.com/ai-services): Overview of end-to-end AI development services including custom model building and deployment.
+- [AI Consulting](https://www.aegissofttech.com/ai-services/consulting): Strategic AI consulting to help businesses identify and implement AI opportunities.
+- [AI Integration](https://www.aegissofttech.com/ai-services/integration): Services for integrating AI capabilities into existing systems and workflows.
+- [Adaptive AI Development](https://www.aegissofttech.com/ai-services/adaptive-ai-development): Building AI systems that continuously learn and adapt to changing data and environments.
+- [Conversational AI Development](https://www.aegissofttech.com/ai-services/conversational-ai-development): Development of chatbots and virtual assistants powered by conversational AI.
+- [Voice Bot Development](https://www.aegissofttech.com/ai-services/voice-bot-development): Creating voice-enabled AI bots for customer interaction and automation.
+- [LLM Development](https://www.aegissofttech.com/ai-services/llm-development): Custom large language model development and fine-tuning services.
+- [Generative AI](https://www.aegissofttech.com/generative-ai-services): Comprehensive generative AI services for content, code, and creative automation.
+- [Generative AI Integration](https://www.aegissofttech.com/generative-ai-services/integration): Integrating generative AI models into existing enterprise applications and pipelines.
+- [Generative AI for Business](https://www.aegissofttech.com/generative-ai-services/business): Applying generative AI to streamline and transform core business operations.
+- [Generative AI for Software Development](https://www.aegissofttech.com/generative-ai-services/software-development): Using generative AI to accelerate software development lifecycles.
+- [Generative AI Ethics](https://www.aegissofttech.com/generative-ai-services/ai-ethics): Guidance on responsible and ethical use of generative AI in enterprise settings.
+- [Machine Learning](https://www.aegissofttech.com/ai-services/machine-learning-development): Custom machine learning model development for predictive analytics and automation.
+- [NLP (Natural Language Processing)](https://www.aegissofttech.com/data/nlp-development): NLP services for text understanding, sentiment analysis, and language-based automation.
+- [Text Analytics](https://www.aegissofttech.com/data/text-analytics): Extracting actionable insights and patterns from unstructured text data.
+- [Robotics Process Automation (RPA)](https://www.aegissofttech.com/software-development/robotic-process-automation): Automating repetitive business processes using RPA tools and bots.
+
+### Generative AI by Industry
+- [Healthcare](https://www.aegissofttech.com/generative-ai-services/healthcare-industry): Generative AI solutions tailored for healthcare including diagnostics and patient engagement.
+- [Education](https://www.aegissofttech.com/generative-ai-services/education-industry): Generative AI applications for personalized learning and educational content creation.
+- [E-Commerce](https://www.aegissofttech.com/generative-ai-services/e-commerce-industry): Generative AI for product recommendations, descriptions, and e-commerce automation.
+- [Insurance](https://www.aegissofttech.com/generative-ai-services/insurance-industry): AI-driven automation for claims processing, underwriting, and policy management.
+- [Legal](https://www.aegissofttech.com/generative-ai-services/legal-industry): Generative AI for legal document drafting, contract review, and research automation.
+- [Logistics](https://www.aegissofttech.com/generative-ai-services/logistics): AI solutions to optimize supply chain, routing, and logistics operations.
+- [Manufacturing](https://www.aegissofttech.com/generative-ai-services/manufacturing-industry): Generative AI for predictive maintenance, quality control, and process optimization.
+- [Pharma](https://www.aegissofttech.com/generative-ai-services/pharma-industry): AI applications for drug discovery, clinical trials, and pharmaceutical data analysis.
+- [Real Estate](https://www.aegissofttech.com/generative-ai-services/real-estate): Generative AI for property listings, market analysis, and customer engagement.
+- [Telecom](https://www.aegissofttech.com/generative-ai-services/telecom-industry): AI-powered solutions for network optimization, customer support, and telecom operations.
+
+### Data & Analytics
+- [Data Engineering](https://www.aegissofttech.com/data/data-engineering-services): Building robust data pipelines and infrastructure for reliable data flow and processing.
+- [Data Streaming](https://www.aegissofttech.com/data/data-streaming-services): Real-time data streaming solutions for continuous data ingestion and processing.
+- [Big Data Solutions](https://www.aegissofttech.com/data/big-data-consulting-services): Consulting and implementation of big data platforms for large-scale data management.
+- [Data Science](https://www.aegissofttech.com/data/data-science-consulting-services): End-to-end data science services including modeling, experimentation, and deployment.
+- [Business Intelligence](https://www.aegissofttech.com/business-intelligence): BI consulting for dashboards, reporting, and data-driven decision-making.
+- [Data Warehousing](https://www.aegissofttech.com/data-warehouse-services): Comprehensive data warehousing services for centralized enterprise data storage and analytics.
+- [Data Warehouse Consulting](https://www.aegissofttech.com/data-warehouse-services/consulting): Expert consulting for designing and optimizing data warehouse architectures.
+- [Data Warehouse Implementation](https://www.aegissofttech.com/data-warehouse-services/implementation): End-to-end implementation of data warehouse solutions for enterprises.
+- [Data Warehouse Migration](https://www.aegissofttech.com/data-warehouse-services/migration): Migrating legacy data warehouses to modern platforms with minimal disruption.
+- [Cloud Data Warehouse](https://www.aegissofttech.com/data-warehouse-services/cloud): Cloud-native data warehouse setup and management on AWS, Azure, and Snowflake.
+- [Data Warehouse Modernization](https://www.aegissofttech.com/data-warehouse-services/modernization): Upgrading outdated data warehouses to improve performance, scalability, and cost efficiency.
+- [Amazon Redshift](https://www.aegissofttech.com/data-warehouse-services/amazon-redshift): Specialized services for setting up and optimizing Amazon Redshift data warehouses.
+- [Data Warehouse Testing](https://www.aegissofttech.com/software-testing-services/data-warehouse): QA and testing services to ensure accuracy and integrity of data warehouse systems.
+
+### Software & App Development
+- [Application Development](https://www.aegissofttech.com/application): Custom application development across web, mobile, and enterprise platforms.
+- [Software Application Development](https://www.aegissofttech.com/software-development): Full-cycle software application development tailored to client business requirements.
+- [Software Integration](https://www.aegissofttech.com/software-development/integration): Connecting disparate software systems for seamless data exchange and workflow automation.
+- [Embedded Development](https://www.aegissofttech.com/software-development/embedded): Software development for embedded systems and IoT devices.
+- [Enterprise Mobility](https://www.aegissofttech.com/application/enterprise-mobility): Mobile solutions enabling enterprise workforce productivity and secure remote access.
+- [Media Streaming](https://www.aegissofttech.com/media/streaming-services): Development of scalable media streaming platforms for video and audio delivery.
+
+### Software Testing
+- [Software Testing Overview](https://www.aegissofttech.com/software-testing-services): Overview of Aegis Softtech's full suite of software testing and QA services.
+- [Automation Testing](https://www.aegissofttech.com/automation-testing-services): Automated test frameworks and scripts to accelerate software quality assurance.
+- [API & Web Testing](https://www.aegissofttech.com/software-testing-services/api-web): Testing REST and SOAP APIs alongside web applications for functionality and reliability.
+- [Big Data Testing](https://www.aegissofttech.com/software-testing-services/big-data): Validating big data pipelines and ensuring data quality at scale.
+- [Cloud Testing](https://www.aegissofttech.com/software-testing-services/cloud): Testing cloud-based applications for performance, security, and availability.
+- [Compliance Testing](https://www.aegissofttech.com/software-testing-services/compliance): Ensuring software meets industry regulatory and compliance standards.
+- [Digital Testing](https://www.aegissofttech.com/software-testing-services/digital): QA services for digital products across web, mobile, and omnichannel experiences.
+- [E-Commerce Testing](https://www.aegissofttech.com/software-testing-services/ecommerce): End-to-end testing of e-commerce platforms for functionality, performance, and payments.
+- [Enterprise Testing](https://www.aegissofttech.com/software-testing-services/enterprise): Large-scale testing for enterprise software systems and complex business workflows.
+- [ERP Testing](https://www.aegissofttech.com/software-testing-services/erp): Functional and regression testing services for ERP systems like SAP and Dynamics.
+- [Functional Testing](https://www.aegissofttech.com/software-testing-services/functional): Verifying that software features work according to defined business requirements.
+- [Insurance Testing](https://www.aegissofttech.com/software-testing-services/insurance): Specialized testing for insurance software covering policy, claims, and billing systems.
+- [Integration Testing](https://www.aegissofttech.com/software-testing-services/integration): Testing interactions between integrated modules and third-party systems.
+- [Microservices Testing](https://www.aegissofttech.com/software-testing-services/microservices): Testing individual microservices and their interactions within distributed architectures.
+- [Mobile App Testing](https://www.aegissofttech.com/software-testing-services/mobile-app): QA testing for iOS and Android mobile applications across devices and OS versions.
+- [Performance Testing](https://www.aegissofttech.com/software-testing-services/performance): Load, stress, and performance testing to ensure software scalability and reliability.
+- [QA Outsourcing](https://www.aegissofttech.com/software-testing-services/qa-outsourcing): Dedicated offshore QA teams available for ongoing software quality assurance.
+- [Retail Testing](https://www.aegissofttech.com/software-testing-services/retail): Testing retail software for POS systems, inventory management, and customer-facing apps.
+- [SAP Testing](https://www.aegissofttech.com/software-testing-services/sap): Functional, regression, and performance testing for SAP enterprise applications.
+- [Security Testing](https://www.aegissofttech.com/software-testing-services/security): Identifying vulnerabilities and security gaps through penetration and security testing.
+- [UX/Usability Testing](https://www.aegissofttech.com/software-testing-services/ux-usability): Evaluating user interfaces for usability, accessibility, and overall user experience.
+- [Web Accessibility Testing](https://www.aegissofttech.com/software-testing-services/web-accessibility): Ensuring websites meet WCAG accessibility standards for users with disabilities.
+
+### Cloud & Infrastructure
+- [Cloud Services](https://www.aegissofttech.com/cloud): Cloud strategy, migration, and managed services across AWS, Azure, and Google Cloud.
+- [DevOps](https://www.aegissofttech.com/devops-services): DevOps consulting and implementation for CI/CD, automation, and infrastructure as code.
+- [Microservices](https://www.aegissofttech.com/software-development/microservices): Designing and building scalable microservices architectures for modern applications.
+- [AWS Data & Analytics](https://www.aegissofttech.com/cloud/aws/data-analytics-services): AWS-based data and analytics solutions using services like S3, Redshift, and Glue.
+- [AWS Glue Consulting](https://www.aegissofttech.com/cloud/aws/glue-consulting-services): Consulting for building ETL pipelines and data catalogs using AWS Glue.
+- [Oracle Cloud](https://www.aegissofttech.com/cloud/oracle-solutions.html): Oracle Cloud infrastructure and application solutions for enterprise workloads.
+- [Azure Analytics](https://www.aegissofttech.com/microsoft/azure-analytics-services): Data analytics solutions built on Microsoft Azure services.
+- [Azure Synapse Analytics](https://www.aegissofttech.com/microsoft/azure-synapse-analytics-services): Implementation and consulting for Azure Synapse, Microsoft's unified analytics platform.
+- [Azure Cloud Migration](https://www.aegissofttech.com/microsoft/azure-cloud-migration-services): Migrating on-premises and legacy workloads to Microsoft Azure cloud.
+- [Azure Data Factory](https://www.aegissofttech.com/microsoft/azure-data-factory-consulting): Building and managing data integration pipelines using Azure Data Factory.
+- [Azure Data Lake](https://www.aegissofttech.com/microsoft/azure-data-lake-consulting): Consulting for designing scalable data lakes on Azure Data Lake Storage.
+- [Azure DevOps Consulting](https://www.aegissofttech.com/microsoft/azure-devops-consulting): Azure DevOps setup and consulting for CI/CD pipelines and agile project management.
+- [Azure DevOps Engineers](https://www.aegissofttech.com/hire/azure-devops-engineers): Dedicated Azure DevOps engineers available for hire to manage pipelines and infrastructure.
+
+### Enterprise & Digital Services
+- [Digital Transformation](https://www.aegissofttech.com/digital-transformation-services): End-to-end digital transformation consulting to modernize business processes and technology.
+- [Cybersecurity](https://www.aegissofttech.com/cyber-security-services): Cybersecurity services including threat assessment, compliance, and security architecture.
+- [Business Process Outsourcing (BPO)](https://www.aegissofttech.com/business-process-outsourcing.html): Outsourcing business operations such as data entry, back-office, and support functions.
+- [3D Animation Services](https://www.aegissofttech.com/media/3d-animation-services): Professional 3D animation and visualization services for media, marketing, and simulation.
+
+---
+
+## Technologies
+
+### Java
+- [Java Application Development](https://www.aegissofttech.com/software-development/java): Custom Java application development for enterprise and web-scale systems.
+- [Java Outsourcing](https://www.aegissofttech.com/software-development/java/outsourcing): Outsourced Java development teams for flexible, cost-effective software delivery.
+- [Java Consulting](https://www.aegissofttech.com/software-development/java/consulting): Java architecture and technology consulting for complex enterprise applications.
+
+
+### Python
+- [Python Development](https://www.aegissofttech.com/software-development/python): Full-stack Python development for web applications, automation, and data solutions.
+- [Django](https://www.aegissofttech.com/software-development/python/django): Web application development using the Django high-level Python framework.
+- [Flask](https://www.aegissofttech.com/software-development/python/flask): Lightweight web app and API development using the Flask Python microframework.
+
+### Frontend
+- [ReactJS](https://www.aegissofttech.com/software-development/reactjs): Modern, component-based UI development using ReactJS for web applications.
+- [AngularJS](https://www.aegissofttech.com/software-development/angularjs): Single-page application development using the AngularJS framework.
+- [Node.js](https://www.aegissofttech.com/software-development/nodejs): Server-side JavaScript development using Node.js for scalable, event-driven applications.
+
+### Big Data & Analytics
+- [Apache Spark](https://www.aegissofttech.com/data/apache-spark-consulting-services): Distributed data processing and analytics consulting using Apache Spark.
+- [Cloudera](https://www.aegissofttech.com/data/cloudera-consulting): Enterprise data platform consulting and implementation using Cloudera CDP.
+- [Cloudera ETL Services](https://www.aegissofttech.com/cloudera/etl-services.html): Extract, transform, and load (ETL) pipeline development using Cloudera tools.
+- [Databricks](https://www.aegissofttech.com/data/databricks-managed-services): Managed services for building and operating data platforms on Databricks.
+- [Databricks BI Consultants](https://www.aegissofttech.com/data/databricks-consulting-services): Business intelligence consulting leveraging Databricks for analytics and reporting.
+- [Tableau BI Development](https://www.aegissofttech.com/business-intelligence/tableau/development-services): Building interactive Tableau dashboards and BI solutions for business reporting.
+- [Tableau Consulting](https://www.aegissofttech.com/business-intelligence/tableau/consulting-services): Expert Tableau consulting for data visualization strategy and implementation.
+
+### Snowflake
+- [Snowflake Services](https://www.aegissofttech.com/snowflake-services): Full range of Snowflake cloud data platform services including setup and optimization.
+- [Snowflake Consulting](https://www.aegissofttech.com/snowflake-services/consulting): Strategic consulting for architecting and scaling Snowflake data environments.
+- [Snowflake Implementation](https://www.aegissofttech.com/snowflake-services/implementation): End-to-end Snowflake platform implementation for enterprise data workloads.
+- [Snowflake Migration](https://www.aegissofttech.com/snowflake-services/migration): Migrating data warehouses and databases to the Snowflake cloud platform.
+- [Snowflake Hire Developers](https://www.aegissofttech.com/hire/snowflake-developers): Dedicated Snowflake developers available for hire on project or long-term basis.
+- [Snowflake for Cybersecurity](https://www.aegissofttech.com/snowflake-services/cybersecurity): Using Snowflake's data platform for security analytics and threat detection.
+- [Snowflake for Financial Industry](https://www.aegissofttech.com/snowflake-services/financial-industry): Snowflake solutions for financial data management, risk analytics, and compliance.
+- [Snowflake for Healthcare](https://www.aegissofttech.com/snowflake-services/healthcare-industry): Snowflake-based data solutions for healthcare analytics and patient data management.
+- [Snowflake for Manufacturing](https://www.aegissofttech.com/snowflake-services/manufacturing-industry): Snowflake data platform solutions for manufacturing operations and supply chain analytics.
+- [Snowflake for Public Sector](https://www.aegissofttech.com/snowflake-services/public-sector): Snowflake cloud data solutions for government and public sector organizations.
+
+### ServiceNow
+- [ServiceNow Services](https://www.aegissofttech.com/servicenow-services): Comprehensive ServiceNow platform services for IT service management and automation.
+- [ServiceNow Consulting](https://www.aegissofttech.com/servicenow-services/consulting): Advisory and strategy consulting for ServiceNow platform adoption and optimization.
+- [ServiceNow Implementation](https://www.aegissofttech.com/servicenow-services/implementation): Full implementation of ServiceNow modules for ITSM, HR, and enterprise workflows.
+- [ServiceNow Migration](https://www.aegissofttech.com/servicenow-services/migration): Migrating from legacy ITSM tools to the ServiceNow platform.
+- [ServiceNow Support](https://www.aegissofttech.com/servicenow-services/support): Ongoing support and maintenance services for ServiceNow deployments.
+- [ServiceNow Managed Services](https://www.aegissofttech.com/servicenow-services/managed-services): ServiceNow Managed Services | 24/7 Support & SLAs.
+- [Hire ServiceNow Developers](https://www.aegissofttech.com/servicenow-services/hire-developers): Dedicated ServiceNow developers for custom app development and integrations.
+
+### Microsoft Technologies
+- [Microsoft Overview](https://www.aegissofttech.com/microsoft): Overview of all Microsoft technology services offered by Aegis Softtech.
+- [.NET Development](https://www.aegissofttech.com/microsoft/dotnet-development): Full-stack enterprise application development using the .NET framework.
+- [.NET Core Development](https://www.aegissofttech.com/microsoft/dotnet-core-development): Cross-platform application development using .NET Core for modern enterprise workloads.
+- [Power BI Consulting](https://www.aegissofttech.com/microsoft/power-bi-consulting): Consulting for Power BI implementation, governance, and analytics strategy.
+- [Power BI Dashboard Development](https://www.aegissofttech.com/microsoft/power-bi-consulting/dashboard-development): Designing and building interactive business dashboards using Microsoft Power BI.
+- [Power Platform Consulting](https://www.aegissofttech.com/microsoft/power-platform-consulting): Consulting for the Microsoft Power Platform including Power Apps, Power Automate, and Power BI.
+- [Power Apps Consulting](https://www.aegissofttech.com/microsoft/power-apps-consulting): Building low-code business applications using Microsoft Power Apps.
+- [Power Automate Consulting](https://www.aegissofttech.com/microsoft/power-automate-consulting): Automating business workflows and processes using Microsoft Power Automate.
+- [Power Pages Consulting](https://www.aegissofttech.com/microsoft/power-pages-consulting): Building external-facing business websites using Microsoft Power Pages.
+- [Power Virtual Agents](https://www.aegissofttech.com/microsoft/power-virtual-agents-consulting): Creating AI-powered chatbots using Microsoft Power Virtual Agents (Copilot Studio).
+- [SQL Server Consulting](https://www.aegissofttech.com/microsoft/sql-server-consulting): Database design, optimization, and migration consulting for Microsoft SQL Server.
+- [Microsoft Fabric](https://www.aegissofttech.com/microsoft/fabric-consulting): Consulting for Microsoft Fabric, the unified data analytics and governance platform.
+- [Dataverse Consulting](https://www.aegissofttech.com/microsoft/dataverse-consulting): Designing and managing data models and business logic on Microsoft Dataverse.
+
+### Dynamics 365
+- [Dynamics 365 Overview](https://www.aegissofttech.com/dynamics-365): Overview of all Microsoft Dynamics 365 services offered by Aegis Softtech.
+- [Dynamics 365 CRM](https://www.aegissofttech.com/dynamics-365/crm): CRM solutions built on Microsoft Dynamics 365 for customer relationship management.
+- [Dynamics 365 CRM Sales](https://www.aegissofttech.com/dynamics-365/crm/sales-consulting-services): Microsoft Dynamics 365 Sales Consulting Services.
+- [Dynamics 365 CRM Field Service](https://www.aegissofttech.com/dynamics-365/crm/field-service): Field service management and scheduling using Dynamics 365 Field Service.
+- [Dynamics 365 Business Central Consulting](https://www.aegissofttech.com/dynamics-365/business-central-consulting): Consulting for Dynamics 365 Business Central ERP for SMBs and mid-market companies.
+- [Dynamics 365 Business Central Implementation](https://www.aegissofttech.com/dynamics-365/business-central-implementation): Full implementation of Dynamics 365 Business Central for financial and operations management.
+- [Dynamics 365 ERP Consulting](https://www.aegissofttech.com/dynamics-365/erp-consulting): ERP consulting using Microsoft Dynamics 365 Finance and Supply Chain Management.
+- [Dynamics 365 Customization Services](https://www.aegissofttech.com/dynamics-365/customization-services): Microsoft Dynamics 365 Customization Services.
+- [Dynamics 365 Support Services](https://www.aegissofttech.com/dynamics-365/support-services): Microsoft Dynamics 365 Support Services.
+- [Dynamics 365 Migration Services](https://www.aegissofttech.com/dynamics-365/implementation-services): Microsoft Dynamics 365 Migration Services.
+- [Dynamics 365 Implementation Services](https://www.aegissofttech.com/dynamics-365/migration-services): Microsoft Dynamics 365 Implementation Services.
+- [Dynamics 365 Upgrade Services](https://www.aegissofttech.com/dynamics-365/upgrade-services): Microsoft Dynamics 365 Upgrade Services.
+- [Dynamics 365 Integration Services](https://www.aegissofttech.com/dynamics-365/integration-services): Dynamics 365 Integration Services.
+- [Dynamics 365 Training Services](https://www.aegissofttech.com/dynamics-365/training-services): Microsoft Dynamics 365 Training Services.
+- [Dynamics 365 CRM Customer Insights](https://www.aegissofttech.com/dynamics-365/crm/customer-insights): Dynamics 365 Customer Insights Consulting.
+- [Dynamics 365 Supply Chain Consulting Services](https://www.aegissofttech.com/dynamics-365/supply-chain-management): Dynamics 365 Supply Chain Consulting Services.
+- [Dynamics 365 Human Resources Consulting](https://www.aegissofttech.com/dynamics-365/human-resources): Dynamics 365 Human Resources Consulting and Implementation.
+
+---
+
+## Industries Served
+
+- [Fintech](https://www.aegissofttech.com/fintech): Software development and data solutions for fintech companies and financial services.
+- [Healthcare IT](https://www.aegissofttech.com/healthcare): IT consulting and digital solutions for healthcare providers and health systems.
+- [Digital Publishing](https://www.aegissofttech.com/digital-publishing): Technology solutions for digital content management and publishing platforms.
+- [Media & Entertainment](https://www.aegissofttech.com/media): IT and software services for media companies, streaming platforms, and entertainment brands.
+- [Aerospace & Defence](https://www.aegissofttech.com/defense): Engineering and IT consulting for aerospace and defence sector clients.
+- [Automotive](https://www.aegissofttech.com/automotive): Digital and software solutions for automotive manufacturers and supply chain partners.
+- [Industrial Manufacturing](https://www.aegissofttech.com/manufacturing): IT consulting for industrial manufacturing process optimization and digitization.
+- [Agriculture](https://www.aegissofttech.com/agriculture): Digital technology solutions for precision agriculture and agri-business operations.
+- [Logistics & Distribution](https://www.aegissofttech.com/logistics): Software and data solutions for logistics, warehousing, and distribution management.
+- [Insurance](https://www.aegissofttech.com/insurance): Insurtech solutions for policy management, claims automation, and compliance.
+- [Education](https://www.aegissofttech.com/education): EdTech software and digital platforms for schools, universities, and e-learning providers.
+- [Communication Services](https://www.aegissofttech.com/telecommunications): Technology solutions for telecom and communications service providers.
+- [Life Sciences](https://www.aegissofttech.com/life-sciences): IT and data solutions for life sciences, biotech, and clinical research organizations.
+
+---
+
+## Hire Developers
+
+### Backend & Full-Stack
+- [Hire Java Developers](https://www.aegissofttech.com/hire/java-developers): Engage experienced Java developers for backend, enterprise, or full-stack projects.
+- [Hire ASP.NET Developers](https://www.aegissofttech.com/hire/dotnet-developers): Dedicated ASP.NET developers for building enterprise web applications on the .NET stack.
+- [Hire ASP.NET Core Developers](https://www.aegissofttech.com/hire/dotnet-core-developers): Hire India-based ASP.NET Core developers for cross-platform web development.
+- [Hire Node.js Developers](https://www.aegissofttech.com/hire/nodejs-developers): Dedicated Node.js developers for scalable server-side and API development.
+- [Hire Python Developers](https://www.aegissofttech.com/hire-python-developers.html): Hire experienced Python developers for web, automation, and data engineering projects.
+- [Hire Microservices Developers](https://www.aegissofttech.com/hire/microservices-developers): Developers specializing in designing and implementing microservices-based architectures.
+- [Hire Spring Boot Developers](https://www.aegissofttech.com/hire/java-developers): Hire dedicated Spring Boot developers for Java microservices and REST API development.
+- [Hire Magento Developers](https://www.aegissofttech.com/hire): Dedicated Magento developers for e-commerce store development and customization.
+
+### Frontend
+- [Hire ReactJS Developers](https://www.aegissofttech.com/hire/reactjs-developers): Hire skilled ReactJS developers for building dynamic, component-based web UIs.
+- [Hire AngularJS Developers](https://www.aegissofttech.com/hire/angularjs-developers): Dedicated AngularJS developers for SPA and enterprise web application development.
+
+### Data & BI
+- [Hire Tableau Developers](https://www.aegissofttech.com/hire/tableau-developers): Hire Tableau developers for dashboard creation, reporting, and data visualization projects.
+- [Hire Power BI Developers](https://www.aegissofttech.com/hire/power-bi-developers): Dedicated Power BI developers for enterprise reporting and analytics solutions.
+- [Hire SQL Server Developers](https://www.aegissofttech.com/hire/microsoft-sql-server-developers): Expert SQL Server developers for database design, optimization, and administration.
+- [Hire PL/SQL Developers](https://www.aegissofttech.com/hire/oracle-plsql-developers): Hire PL/SQL developers for Oracle database stored procedures and database programming.
+- [Hire Data Warehouse Developers](https://www.aegissofttech.com/hire/data-warehouse-developers): Dedicated data warehouse developers for building and maintaining enterprise DW solutions.
+- [Hire Big Data Developers](https://www.aegissofttech.com/hire/big-data-developers): Hire big data engineers experienced with Hadoop, Spark, and large-scale data platforms.
+- [Hire Apache Spark Engineers](https://www.aegissofttech.com/hire/apache-spark-developers): Dedicated Apache Spark engineers for distributed data processing and analytics.
+- [Hire Hadoop Architects & Developers](https://www.aegissofttech.com/hire/hadoop-developers): Hadoop architects and developers for designing big data storage and processing systems.
+- [Hire Elasticsearch Developers](https://www.aegissofttech.com/hire/elasticsearch-developers): Hire Elasticsearch developers for search, log analytics, and full-text indexing solutions.
+- [Hire Pentaho Developers](https://www.aegissofttech.com/hire): Dedicated Pentaho developers for ETL, reporting, and data integration projects.
+- [Hire Scala Developers](https://www.aegissofttech.com/hire): Scala developers for functional programming, big data, and distributed system development.
+- [Hire ServiceNow Developers](https://www.aegissofttech.com/hire/servicenow-developers): Hire ServiceNow Developers | Pre-Vetted Experts
+- [Hire Snowflake Developers](https://www.aegissofttech.com/snowflake-services/hire-developers): Hire Snowflake-certified developers for cloud data platform builds and optimization.
+
+### Cloud & DevOps
+- [Hire AWS DevOps Engineers](https://www.aegissofttech.com/hire/devops-engineers): Dedicated AWS DevOps engineers for cloud infrastructure automation and CI/CD pipelines.
+- [Hire Azure DevOps Engineers](https://www.aegissofttech.com/azure/devops-engineers.html): Hire Azure DevOps engineers for pipeline management, cloud automation, and infrastructure.
+
+### Microsoft Technologies
+- [Hire Dynamics 365 Business Central Developers](https://www.aegissofttech.com/hire/dynamics-365-business-central-developers): Dedicated developers for customizing and extending Microsoft Dynamics 365 Business Central.
+- [Hire Dynamics 365 CRM Developers](https://www.aegissofttech.com/hire/dynamics-365-crm-developers): Hire Dynamics 365 CRM developers for customization, integration, and module development.
+- [Hire Dynamics 365 FO Developers](https://www.aegissofttech.com/hire/dynamics-365-finance-and-operations-developers): Specialized developers for Microsoft Dynamics 365 Finance and Operations customization.
+
+### AI & Machine Learning
+- [Hire AI Developers](https://www.aegissofttech.com/hire/ai-developers): Hire experienced AI developers for building machine learning models, LLMs, and AI systems.
+- [Hire Machine Learning Developers](https://www.aegissofttech.com/hire/machine-learning-developers): Dedicated ML developers for model development, training, and deployment projects.
+
+---
+
+## Engagement Models
+
+- **Fixed-Price Model:** Best for well-scoped projects â€” MVPs, product modernization, fixed deliverables.
+- **Time & Material Model:** Best for evolving requirements, agile projects, R&D, ongoing improvements. Pay only for actual time and effort.
+- **Dedicated Team Model:** Best for long-term enterprise partnerships. Developers, architects, QA, and PMs work exclusively on client goals.
+
+---
+
+## Careers
+
+- [Careers Overview](https://www.aegissofttech.com/careers): Main careers page listing open roles and job opportunities at Aegis Softtech.
+- [Java Jobs](https://www.aegissofttech.com/careers/java-jobs): Open positions for Java developers at Aegis Softtech.
+- [Python Jobs](https://www.aegissofttech.com/careers/python-jobs): Job listings for Python developers and engineers.
+- [Node.js Jobs](https://www.aegissofttech.com/careers/nodejs-jobs): Career opportunities for Node.js backend developers.
+- [.NET Jobs](https://www.aegissofttech.com/careers/dotnet-jobs): Open roles for .NET and ASP.NET developers.
+- [Big Data Jobs](https://www.aegissofttech.com/careers/big-data-jobs): Job listings for big data engineers and architects.
+- [Apache Spark Jobs](https://www.aegissofttech.com/careers/apache-spark-jobs): Openings for Apache Spark engineers and data processing specialists.
+- [AWS Jobs](https://www.aegissofttech.com/careers/aws-jobs): Career opportunities for AWS cloud engineers and architects.
+- [Microsoft Azure Jobs](https://www.aegissofttech.com/careers/microsoft-azure-jobs): Job listings for Microsoft Azure engineers and cloud consultants.
+- [Databricks Jobs](https://www.aegissofttech.com/careers/databricks-jobs): Open roles for Databricks platform engineers and data engineers.
+- [Snowflake Jobs](https://www.aegissofttech.com/careers/snowflake-jobs): Career opportunities for Snowflake developers and data warehouse engineers.
+- [Tableau Jobs](https://www.aegissofttech.com/careers/tableau-jobs): Job listings for Tableau developers and BI visualization specialists.
+- [Dynamics 365 Jobs](https://www.aegissofttech.com/careers/dynamics-365-jobs): Open positions for Dynamics 365 CRM and ERP consultants and developers.
+- [Dynamics 365 FO Jobs](https://www.aegissofttech.com/careers/dynamics-365-fo-jobs): Career opportunities for Dynamics 365 Finance and Operations specialists.
+- [SEO Jobs](https://www.aegissofttech.com/careers/seo-jobs): Openings for SEO specialists and digital marketing professionals.
+- [Content Writer Jobs](https://www.aegissofttech.com/careers/content-writer-jobs): Job listings for technical and marketing content writers.
+- [Field Marketing Jobs](https://www.aegissofttech.com/careers/field-marketing-jobs): Career opportunities in field marketing and client outreach.
+
+---
+
+## Key Pages
+
+- [About Us](https://www.aegissofttech.com/about-us.html): Company background, mission, values, team, and history of Aegis Softtech.
+- [Sitemap](https://www.aegissofttech.com/sitemap.html): Full site index listing all pages and sections of the Aegis Softtech website.
+- [Contact Us](https://www.aegissofttech.com/contact-us.html): Contact form, office addresses, and communication details for reaching Aegis Softtech.
+
+---
+
+## Social Media
+
+- [LinkedIn](https://www.linkedin.com/company/aegis-softtech/): Aegis Softtech's official LinkedIn company profile for updates and professional networking.
+- [Twitter / X](https://twitter.com/AegisSoftTech): Official Aegis Softtech Twitter/X account for news, insights, and tech updates.
+- [Facebook](https://www.facebook.com/AegisSoftTech/): Aegis Softtech's Facebook page for company news and community engagement.
+- [Instagram](https://www.instagram.com/aegissofttechusa/): Aegis Softtech's Instagram profile showcasing company culture and updates.
+- [YouTube](https://www.youtube.com/channel/UCsvFO9y0n1FpZY0mDrnpGkA): Aegis Softtech's YouTube channel with product demos, webinars, and tech content.
+- [Pinterest](https://in.pinterest.com/aegissofttech/): Aegis Softtech's Pinterest profile with visual content and infographics.
+
+---
+
+## Case Studies
+
+- [Case Studies Overview](https://www.aegissofttech.com/case-studies): Portfolio of client success stories and project case studies across industries.
+
+---
+
+## Insights & Blog
+
+- [Insights](https://www.aegissofttech.com/insights/): Expert articles, whitepapers, and thought leadership content from Aegis Softtech.
+- [Blog / Articles](https://www.aegissofttech.com/articles): Technical blog covering AI, cloud, data, and software development trends.
+
+---
+
+## Regional Pages
+
+### Australia (en-au)
+- [Australia Home](https://www.aegissofttech.com/en-au): Aegis Softtech's dedicated landing page for Australian clients and prospects.
+- [ASP.NET Development](https://www.aegissofttech.com/en-au/asp-dot-net-development.html): ASP.NET web development services tailored for Australian businesses.
+- [Big Data & Analytics Consulting](https://www.aegissofttech.com/en-au/big-data-analytics-consulting.html): Big data consulting services targeting the Australian market.
+- [Java Application Development](https://www.aegissofttech.com/en-au/java-application-development-services.html): Java development services for Australian enterprise and SMB clients.
+- [Microsoft CRM Development](https://www.aegissofttech.com/en-au/microsoft-crm-development-services.html): Microsoft Dynamics CRM development services for Australian businesses.
+- [Python Development](https://www.aegissofttech.com/en-au/python-development-services.html): Python development services for Australian clients across industries.
+- [Tableau Consulting](https://www.aegissofttech.com/en-au/tableau-consulting-services.html): Tableau BI consulting and visualization services for the Australian market.
+
+### Singapore (en-sg)
+- [Singapore Home](https://www.aegissofttech.com/en-sg): Aegis Softtech's dedicated landing page for Singapore-based clients.
+- [.NET Application Development](https://www.aegissofttech.com/en-sg/net-application-development-services.html): .NET application development services for businesses in Singapore.
+- [ASP.NET Core Development](https://www.aegissofttech.com/en-sg/asp-net-core-development.html): Cross-platform ASP.NET Core development services for Singapore clients.
+- [Big Data & Analytics Consulting](https://www.aegissofttech.com/en-sg/big-data-analytics-consulting.html): Big data and analytics consulting services for the Singapore market.
+- [Java Application Development](https://www.aegissofttech.com/en-sg/java-application-development-services.html): Java development services targeted at Singapore enterprises and startups.
+- [Microsoft CRM Development](https://www.aegissofttech.com/en-sg/microsoft-crm-development-services.html): Dynamics CRM development and customization for Singapore-based organizations.
+- [Python Development](https://www.aegissofttech.com/en-sg/python-development.html): Python development services for web, data, and automation projects in Singapore.
+- [Tableau BI Development](https://www.aegissofttech.com/en-sg/tableau-bi-development-services.html): Tableau dashboard and BI development for Singapore clients.
+- [AI Business Solutions](https://www.aegissofttech.com/en-sg/artificial-intelligence-business-solutions.html): AI-powered business solutions tailored for Singapore enterprises.
+- [Automated Software Testing](https://www.aegissofttech.com/en-sg/automated-software-testing.html): Automated QA and testing services for software products in the Singapore market.
+- [Cloudera Consulting](https://www.aegissofttech.com/en-sg/cloudera-consulting-services.html): Cloudera data platform consulting for Singapore-based data engineering teams.
+- [Dynamics 365 Finance & Operations](https://www.aegissofttech.com/en-sg/dynamics-365-finance-and-operations.html): D365 Finance and Operations implementation services for Singapore businesses.
+- [Hire Java Developers](https://www.aegissofttech.com/en-sg/hire-java-programmer-developers.html): Hire Java programmers and developers through Aegis Softtech for Singapore projects.
+- [Hire Magento Developers](https://www.aegissofttech.com/en-sg/hire-magento-developers.html): Hire Magento e-commerce developers for Singapore-based online retail projects.
+- [Hire Python Developers](https://www.aegissofttech.com/en-sg/hire/python-developers): Hire Python developers for data, web, and automation projects in Singapore.
+- [Hire Snowflake Developers](https://www.aegissofttech.com/en-sg/hire-expert-snowflake-developers.html): Hire expert Snowflake developers for cloud data platform projects in Singapore.
+- [Machine Learning Development](https://www.aegissofttech.com/en-sg/machine-learning-development-services.html): Machine learning model development services for Singapore clients.
+- [Magento Development](https://www.aegissofttech.com/en-sg/magento-development-services.html): Magento e-commerce platform development and customization for Singapore businesses.
+- [Microsoft Azure Development](https://www.aegissofttech.com/en-sg/microsoft-azure-development-company.html): Azure cloud development services for Singapore enterprises and startups.
+- [Microsoft Dynamics 365 Consulting](https://www.aegissofttech.com/en-sg/microsoft-dynamics-365-consulting-services.html): End-to-end Dynamics 365 consulting services for organizations in Singapore.
+- [Pentaho BI Services](https://www.aegissofttech.com/en-sg/pentaho-bi-services.html): Pentaho-based BI, ETL, and reporting services for the Singapore market.
+- [Power BI Reporting](https://www.aegissofttech.com/en-sg/power-bi-reporting-services.html): Power BI report design and deployment services for Singapore businesses.
+- [Real-Time Data Analytics](https://www.aegissofttech.com/en-sg/real-time-data-analytics.html): Real-time data streaming and analytics solutions for Singapore-based clients.

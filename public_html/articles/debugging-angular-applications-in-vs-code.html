@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>How to Debug Angular Project Application in Visual Studio (VS) Code?</title>
+	<meta name="description" content="If you don't have an extension for debugging html application in chrome, here we discuss about how to debug angular project app in Visual Studio (VS) Code." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/debugging-angular-applications-in-vs-code.html"/>
+	 
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Debugging Angular applications in VS Code using Debugger Extension</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">Debugging Angular applications in VS Code using Debugger Extension</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<p>Do you know that we can debug angular applications from Visual studio code? Now, say goodbye to manual debugger that we used to put in Typescript code wherever we wanted to break the application. Now you can easily achieve the same by just putting a breakpoint on the line which you want to hit the debugger.</p>
+								<p>Agenda: The agenda of this tutorial is to understand the <a href="https://www.aegissofttech.com/microsoft/dotnet-development">asp.net web development</a> features of Visual Studio Code that allows debugging of angular application just like C# debugging. We will achieve this by installing an extension in VS Code from Extensions library.</p>
+								<div class="singleblog-content"><img class="lazyload" src="images/debugging-angular-applications-in-vs-code-using-debugger-extension.jpg" alt="Article Image" /></div>
+								<h3>First of all, we need to install the pre-requisites.</h3>
+								<div class="singepage-content">
+									<ul class="listing">
+										<li>Install NodeJS</li>
+										<li>Install VS Code</li>
+										<li>Install VS Code Extension for debugging</li>
+									</ul>
+								</div>
+								<div id="link1"></div>
+								<h2>Downloading and installing NodeJS:</h2>
+								<p>Go to Https://nodejs.org and follow the steps shown in the screenshot below.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image1.jpg" alt="Node JS"></div>
+								<div class="single-article-img"><img class="lazyload" src="images/image2.jpg" alt="Node JS"></div>
+								<p>Go to the folder, where the above file is downloaded and install the msi.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image3.jpg" alt="Node JS"></div>
+								<div class="single-article-img"><img class="lazyload" src="images/image4.jpg" alt="Node JS"></div>
+								<div id="link2"></div>
+								<h2>Installing VS Code</h2>
+								<p>Go to <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a> and follow the instructions shown in screenshots below:</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image5.jpg" alt="Node JS"></div>
+								<div id="link3"></div>
+								<h2>Installing VS Code Extension for Debugging</h2>
+								<p>The extension is available in Extensions library in VS code and we just need to download it.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/debugging-angular-applications-6.jpg" alt="Node JS"></div>
+								<p>As you can see in the screenshot, debugger is available for almost all common browsers used by developers. Most common are Edge and Chrome. We will install Debugger for Edge extension for this example.</p>
+								<p>Now, we are ready for Angular app.</p>
+								<div class="between-box">
+									<div class="w-50">
+										<div class="head">Facing shortage of time and techies</div>
+										<p>Debugging angular applications is a tricky process. We specialize in debugging angular applications from Visual studio code by installing VS code from extensions library.</p>
+									</div>
+									<div class="contact-btn-area">
+										<a href="../contact-us.html" class="contact-btn">Contact Us</a>
+									</div>
+								</div>
+								<div id="link4"></div>
+								<h3>Let’s create an Angular Demo application using Angular CLI.</h3>
+								<p><strong>Step 1: </strong>Create a folder where you want to create the application. In my case, I have created a folder in C drive.</p>
+								<p><strong>Step 2: </strong>Follow the commands below to create an Angular application using Angular CLI. Open Terminal in VS Code.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image7.jpg" alt="Node JS"></div>
+								<p><strong>Command 1:</strong> will change the current directory to the project directory. In our case, it is C Drive and folder name.</p>
+								<p><strong>Command 2:</strong> will create a boilerplate template code using “ng” which is Angular CLI.</p>
+								<p>Some people might get an error at this point as you have to sometimes install Angular CLI. To Install Angular CLI, just type the following command.</p>
+<xmp class="codding-box">
+npm install -g @angular/cli
+</xmp>
+								<p>Once you install Angular CLI, then hit the Command 2 in screenshot and it will automatically ask you to select some configuration options for template. You can select based on your needs, I selected what you see in Command 3 and 4.</p>
+								<p><strong>Step 3: </strong>Since our angular app is created, we need to open that project folder in VS Code. Please look at the screenshot below.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image8.jpg" alt="Node JS"></div>
+								<div class="single-article-img"><img class="lazyload" src="images/image9.jpg" alt="Node JS"></div>
+								<p><strong>Step 4: </strong>Go to app.component.ts file and put a breakpoint at the line shown below.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/debugging-angular-applications-10.jpg" alt="Node JS"></div>
+								<p><strong>Step 5: </strong>Since we have put a breakpoint at the starting point of application, debugger should hit this breakpoint. For that we need to create a debug configuration in Debug window of VS Code.</p>
+								<p>So, click on little icon on left to enter VS Code Debug window.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image11.jpg" alt="Node JS"></div>
+								<p><strong>Step 6: </strong>Now, we have to create a configuration for our application to enable debugging with Microsoft Edge browser. There is a little configuration icon on top left, lets click on it.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image12.jpg" alt="Node JS"></div>
+								<p>Once you click this little icon, it will create a launch.json file in your project directory.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image13.jpg" alt="Node JS"></div>
+								<p>Now, select “Edge” from the dropdown. If you want to debug using Chrome, you have to install “Debugger for Chrome” extension and click “Chrome” option from the same dropdown.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image14.jpg" alt="Node JS"></div>
+								<p>Look at the highlighted areas. On the left side, you can see a configuration to launch application with Edge against localhost. On right side, you have to define correct URL and Webroot folder of application.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image15.jpg" alt="Node JS"></div>
+								<p>If you hover your mouse on the request variable, you will see that we have two options to select. One is “launch” and other is “attach”. Attach is used for debugging purpose and launch is used to run the application without debug.</p>
+								<p><strong>Step 7: </strong>Let’s launch the application and see if it hits the breakpoint in app.component.ts file.</p>
+								<p>You can see all the breakpoints that you have put within the whole project in Breakpoints tab.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image16.jpg" alt="Node JS"></div>
+								<p>To launch the application with debugger, you can click a little green button beside configuration name or simply press F5, just like we do in Visual Studio.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image17.jpg" alt="Node JS"></div>
+								<p>The above step will open browser with URL mentioned in launch.json configuration.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image18.jpg" alt="Node JS"></div>
+								<p>You can see that debugger didn’t hit the breakpoint. The reason behind that is, we have not build the application and start the NodeJs in the terminal.</p>
+								<div id="link5"></div>
+								<h3><strong>Hit ‘ng serve’ command.</strong></h3>
+								<div class="single-article-img"><img class="lazyload" src="images/image19.jpg" alt="Node JS"></div>
+								<p>Once the above is completed, you will see the URL set by angular template in Terminal itself. Change the URL in launch.json file and then re-run the debugger.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image20.jpg" alt="Node JS"></div>
+								<p>As you see, now debugger hits the breakpoint correctly. On the left pane, you can see the details of all the variables, constants, etc.</p>
+								<p>Once you hit continue in debug window, then the application page will load as shown below.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/image21.jpg" alt="Node JS"></div>
+								<p>This is how, we can configure debugger in VS code and this is a one-time setup, so you don’t have to repeat it again and again.</p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">Downloading and installing NodeJS</a></div>
+								<div class="para1"><a href="#link2">Installing VS Code</a></div>
+								<div class="para1"><a href="#link3">Installing VS Code Extension for Debugging</a></div>
+								<div class="para2"><a href="#link4">Creating Angular Demo application</a></div>
+								<div class="para2"><a href="#link5">Hit ‘ng serve’ command</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="article-section spt spb">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="section-header">
+								<div class="article-head">Related article</div>
+							</div>
+						</div>
+					</div>
+					<div class="bs-row">
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img1">
+								<div class="blog-heading">
+									<div class="b-head"><a href="why-to-outsource-nodejs-development.html" target="_blank">Why To Outsource NodeJS Development? Benefits, Recommendations, and Guide</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>The choice to subcontract your NodeJS technology solutions might be influenced by a variety of variables. All of these aspects are discussed in the post, as well as how to choose the best NodeJS marketing firm for your company requirements.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img2">
+								<div class="blog-heading">
+									<div class="b-head"><a href="nodejs-patch-vulnerabilities-that-may-exist.html" target="_blank">Web Vulnerability: Do NodeJS have less Security Issues?</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>Web applications are used by small companies, banks, and a wide range of other sectors. If you are developing a web application, it is critical to ensure that you have procedures in place to check for vulnerabilities as the development progresses in order to prevent security breaches, data leaks, and financial problems later on.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/debugging-angular-applications-in-vs-code.html"
+			},
+			"headline": "Debugging Angular applications in VS Code using Debugger Extension",
+			"description": "The agenda of this tutorial is to understand the Asp.net",
+			"image": "https://www.aegissofttech.com/articles/images/image21.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2019-12-15",
+			"dateModified": "2022-12-26"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdebugging-angular-applications-in-vs-code.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How to Debug Angular Project Application in Visual Studio (VS) Code?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdebugging-angular-applications-in-vs-code.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdebugging-angular-applications-in-vs-code.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/debugging-angular-applications-in-vs-code.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdebugging-angular-applications-in-vs-code.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How to Debug Angular Project Application in Visual Studio (VS) Code?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdebugging-angular-applications-in-vs-code.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fdebugging-angular-applications-in-vs-code.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/debugging-angular-applications-in-vs-code.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

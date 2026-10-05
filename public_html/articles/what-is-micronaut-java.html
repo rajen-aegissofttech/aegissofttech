@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+    <title>Introduction to the Micronaut Framework</title>
+    <meta name="description" content="Micronaut is the best construction that is fit for finishing this task. They accompany a lightweight framework that empowers you to involve every one of its advantages in speed." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/what-is-micronaut-java.html" />
+    
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Introduction to the Micronaut Framework" />
+	<meta property="og:description" content="Micronaut is the best construction that is fit for finishing this task. They accompany a lightweight framework that empowers you to involve every one of its advantages in speed." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/what-is-micronaut-java.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/articles/images/micronaut.jpg" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/articles/images/micronaut.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="Micronaut is the best construction that is fit for finishing this task. They accompany a lightweight framework that empowers you to involve every one of its advantages in speed." />
+	<meta name="twitter:title" content="Introduction to the Micronaut Framework" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/articles/images/micronaut.jpg" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+	
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>What is Micronaut Java, and Is Micronaut a good framework?</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">What is Micronaut Java, and Is Micronaut a good framework?</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<div class="single-article-img"><img data-src="images/micronaut.jpg" class="lazyload" alt="Micronaut" /></div>
+								<p>The creation of applications is now an unavoidable requirement for companies of all sizes and brands, aside from all the business models that they provide. The development of a web application may be conducted in a variety of methods, the quite common of which is referred to as "the usage of foundations." Interactive Java platforms have seen a rise in prominence over the last few years because they make the process of designing bespoke web applications much simpler.</p>
+								<p>In addition, programmers receive access to a more flexible and user-friendly coding platform which makes it easier to integrate supporting programming languages into their projects. First and foremost, frameworks offer a streamlined picture of the available languages. This makes it easier for developers to write code quickly and complete their tasks more quickly. A good Java framework differentiates from other similar frameworks because it encourages clean designs and facilitates speedy development. It is a high-performance package that provides access to a wide range of features but with certain restrictions.</p>
+								<p>The developers' attention was instantly drawn to this framework due to its exceptionally amazing performance in comparison to other PHP-based frameworks. As a result, it became popular and has expanded at a pace that is always accelerating. As opposed to the majority of other software applications, platforms offer a structure and principles that have already been determined to make web programming smoother. At a similar time, it enhances the efficiency of innovation and cuts down on time to the marketplace by reducing the amount of time required for continuous integration.</p>
+								<div id="link1"></div>
+								<h2>What is Micronaut Java?</h2>
+								<p>Micronaut is recognized to be an accessible implementation of JVM technologies. The designers of the Grails platform launched Micronaut in 2018, and the Micronaut technology is offered underneath the Apache Agreement v2. The major objective was to provide dispersed deployment, provisioning, authorization, and client-side task scheduling. This technology aids the construction of inexpensive servers and customizable apps. It enables programmers' applications and Microservice to have a quick kick-off date and little memory as both are not connected to the app's coding size. This feature strengthens test automation, and their performance develops quickly.</p>
+								<p>A developer should understand the distinction between the Micronaut architecture and the JAVA environment. Micronaut assures to inspect and evaluate the information after the construction of the program is completed. Micronut produces an extra classification indicating the state of the present applications throughout compiling. This creation aids in the effective functioning of intrinsic part development, web services, and behaviors whenever the program is eventually developed.</p>
+								
+								<div id="link2"></div>
+								<h3>Workings of the Micronaut</h3>
+								<p>The Micronaut architecture can perform the functions of both a client and a server due to the clever approach in which it was developed. An application proposed methodology is one of the characteristics. This model is similar to the one used by the Java Spring frameworks, although it won't strictly adhere to that paradigm. Annotation processing is how this platform integrates immediately with the Java code, as opposed to the Java Spring application's practice of making use of Java Reflection APIs.</p>
+								<p>Because of this connection, Micronaut is now able to compute an extra class label that may be used in conjunction with classes that have been established by the user. All of these activities, including defining reporting structure, injecting implementing dependencies, and creating intrinsic part gateways, are carried out in a way that does not involve any reflections throughout, all thanks to such methods.</p>
+								<div id="link3"></div>
+								<h2>Steps to launch the Micronaut</h2>
+								<div class="single-article-img"><img data-src="images/steps-to-launch-the-micronaut.webp" class="lazyload" alt="Key Features and Benefits of Micronaut" /></div>
+								<div id="link4"></div>
+								<h3>1. Introducing the Micronaut</h3>
+								<p>The most straightforward approach to establishing a new project using the latest release of the Micronaut framework is to use this method. Simply choose the kind of program you want to develop, as well as the language, building system, and test framework that you want to use, and what features you want to include in the application. When you click "Generate Project," you will be able to download a new project that has the configuration that has been supplied.</p>
+								<div id="link5"></div>
+								<h3>2. To download</h3>
+								<p>The download and setup of the Platform will allow you to make newer Microsoft Micronaut projects.</p>
+								<div id="link6"></div>
+								<h3>3. Instructions for Users</h3>
+								<p>It is recommended that you read the comprehensive guide on creating apps using the Framework.</p>
+								<div id="link7"></div>
+								<h3>4. Annotated records</h3>
+								<p>There is documentation available for each of the several components that comprise the Framework.</p>
+								<div id="link8"></div>
+								<h3>5. Guides</h3>
+								<p>You will be able to increase your output by following these detailed lessons that were developed by the key developers of the Framework.</p>
+								<div id="link9"></div>
+								<h3>6. On-Demand Webinar Courses</h3>
+								<p>You may develop your abilities by seeing recordings of previous technical conferences, which will help you obtain a more in-depth grasp of the Framework and provide you with live code examples.</p>
+								<div id="link10"></div>
+								<h3>7. The Microcasts</h3>
+								<p>It is recommended that you watch brief lessons that are aimed to assist you in maximizing your productivity with the Foundations and contributing to the ecosystem with confidence.</p>
+								<div id="link11"></div>
+								<h3>8. Upcoming Occasions and Events</h3>
+								<p>Learn when members of the Micronaut team will be in your region for events and conferences by checking out their schedules.</p>
+								<div id="link12"></div>
+								<h2>How to Get Started with the Micronaut Command Line Interface?</h2>
+								<p>Micronaut provides a command-line interface (CLI) program. Once the Micronaut CLI has been installed using SDKman, you will have the ability to construct project configurations directly through the terminal. Additionally, you may utilize the CLI to develop simple apps for the internet, apps for the command line, cloud hosting operations, and confederation, which are services that share a profile as well as characters. The command-line interface (CLI) allows for the application of technologies like database drivers that would mix the necessary prerequisites to the application as well as patterns for code and customization. The whole list of these characteristics is available online in its entirety.</p>
+								<p>New design trends and technological advancements are gradually displacing standard language structures. Many businesses are realizing that there are significant advantages to segmenting large, known as monolithic programs into several, lesser service-oriented apps that collaborate inside a distributed system. The unique building patterns that have emerged as a result of this transition need the engagement of a large number of microservices, which are autonomous programs with restricted scopes.</p>
+								<p>Micronaut is a platform that runs on the JVM and may be used by <a href="https://www.aegissofttech.com/software-development/java" target="_blank">Java application development company</a> to construct Java application development. It differs itself by getting limited memory requirements and a relatively brief entrepreneur time; it accomplishes such progress by ignoring executable commentary for web applications (DI) and proxy production, a widely accepted flaw in conventional structures, and rather than employing a DI/AOP carton that functions better, it JavaScript at program execution. This allows us to have a small memory portfolio and a short development company duration. Because of the factors listed below, this structure is excellent.</p>
+								<div id="link13"></div>
+								<h2>What makes Micronaut stand out?</h2>
+								<p>Micronaut offers a variety of advantages that are derived through more established platforms such as Grails and Spring. It is marketed as "native code cloud-native," which means which were designed and developed specifically for cloud-based systems from the bottom up. The characteristics of environmental monitoring, network configuration, and decentralized debugging are all included in its cloud-native offering.</p>
+								<p>Micronaut's compilation, on the other hand, makes it conceivable to bundle a basic Micronaut program in a 10 MB File extension. This program may then be launched having a heap that comes as large as 10 MB in size whilst still experiencing a loading time of around one second. The usefulness of such features is quite apparent to programmers as they are developing new features and carrying out functional testing. In addition, Micronaut has a quick start-up timeless memory percentage that comes with a big benefit when it comes to performing cloud operations. Because of this, it is especially well-suited for the building of cloud-hosting apps.</p>
+								<div id="link13-1"></div>
+								<h3>Advantages of Micronaut</h3>
+								<ul class="listing">
+									<li>The beginning time is less than one second. Because the beginning time of your program also the amount of storage it consumes aren't affected by the volume of the codebase when using Micronaut, the flex schedule may be made to be very rapid.</li>
+									<li>A lower supply is placed on the memory. Micronaut framework gives you the ability to construct responsive HTTP consumers straightforwardly. These customers are then executed at compilation time, which drastically cuts down on resource use. The micro-processes that makeup Micronaut might operate in like 8 megabytes of heap memory.</li>
+									<li>Testing what it offers is quick and convenient. The built-in testing framework that comes with Micronaut is comprised of a straightforward set of modifications for JUnit 5 and PHP. These additions make it possible for you to quickly and simply start spinning servers as well as consumers inside your unit tests and then execute them.</li>
+									<li>Transparency for the API is Effortless. Micronaut makes it easy to offer APIs that might be used by HTTP consumers thanks to its gentle growth curve and non-blocking HTTP service, which are developed in the Results section.</li>
+									<li>When it comes to developing websites, time is of the utmost importance, and nobody wants to waste any of that time waiting for tedious software installs and setups. This is a framework that is simple to set up and doesn't cause a lot of headaches or other problems.</li>
+									<li>Micronaut assists in the creation, evaluation, and implementation of Microservice procedures for a wide variety of cloud providers. These cloud providers include AWS Lambda, Oracle Functional areas, Google Drive Operations, and Azure Operations.</li>
+									<li>The Micronaut platform takes its inspiration from Spring and Grails, and although it provides a recognizable development approach, it also requires very few resources to set up and very little time. As a consequence of this, Micronaut is utilized in contexts where the employment of conventional MVC frameworks will be impractical. Some examples of these contexts include <a href="https://www.aegissofttech.com/software-development/microservices" target="_blank">Microservices development</a>, CLI apps, IoT implementations, and Mobile applications.</li>
+								</ul>
+								<div id="link14"></div>
+								<h2>Key Features and Benefits of Micronaut</h2>
+								<div class="single-article-img"><img data-src="images/key-features-and-benefits-of-micronaut.webp" class="lazyload" alt="Key Features and Benefits of Micronaut" /></div>
+								<p>Micronaut, the next-generation JVM framework, has gained significant attention and popularity among developers for its unique features and benefits. In this section, we will take a closer look at what sets Micronaut apart from other frameworks and explore its exceptional selling points.</p>
+								<div id="link15"></div>
+								<h3>Lightning-Fast Startup Time</h3>
+								<p>One of the standout features of Micronaut is its blazing-fast startup time. Unlike traditional frameworks, Micronaut achieves this by utilizing compile-time dependency injection and avoiding runtime reflection. This means that your applications can start up in milliseconds, providing an exceptional user experience and minimizing downtime.</p>
+								<div id="link16"></div>
+								<h3>Low Memory Footprint</h3>
+								<p>Memory efficiency is a critical concern for any application, especially when dealing with microservices or cloud-native deployments. Micronaut's innovative approach to dependency injection and AOT (Ahead-of-Time) compilation ensures that your applications consume minimal memory resources, allowing you to scale your services efficiently while reducing infrastructure costs.</p>
+								<div id="link17"></div>
+								<h3>Fully Reactive and Non-Blocking</h3>
+								<p>Micronaut embraces the reactive programming model, enabling developers to build highly scalable and responsive applications. With built-in support for reactive streams and non-blocking I/O, Micronaut handles concurrent requests efficiently, making it an ideal choice for applications that require high throughput and low latency.</p>
+								<div id="link18"></div>
+								<h3>Cloud-Native Support</h3>
+								<p>As organizations increasingly adopt cloud-native architectures, Micronaut provides excellent support for building cloud-native applications. With integrations for popular cloud platforms like AWS, Google Cloud, and Azure, Micronaut simplifies the deployment and management of your applications in a cloud environment.</p>
+								<div id="link19"></div>
+								<h3>Micronaut Data</h3>
+								<p>Micronaut Data, an extension of the framework, offers seamless integration with databases and simplifies data access. With its lightweight and compile-time query capabilities, developers can efficiently work with various database technologies, ensuring optimal performance and productivity.</p>
+								<div id="link20"></div>
+								<h3>Polyglot Language Support</h3>
+								<p>Micronaut supports multiple programming languages, including Java, Groovy, and Kotlin, allowing developers to choose the language that best suits their preferences and project requirements. This flexibility enables teams to leverage existing skills and maximize productivity. If you are looking for a lightweight language for your project, Micronaut is the best option. It excels in native compilation and provides the best serverless architectures to the developers. It focuses on minimal overheads, which makes it suitable for performance-based microservices.</p>
+								<div id="link21"></div>
+								<h2>Comparing Micronaut with Spring Boot and Quarkus</h2>
+								<p>It is possible to do compile-time dependence injection with Micronaut, which is the most significant benefit of using this dependency inoculation feature. In contrast to conventional structures, which are dependent on running time reflection, Micronaut does an analysis of your code during the compilation process to create the required dependency injection text. Because this technique results in speedier startup times and a decreased memory footprint, Micronaut is an excellent option for cloud-native apps and microservices. Let us check its comparison in detail.</p>
+								
+								<div id="link22"></div>
+								<h3>Micronaut with Spring-boot</h3>
+								<p>There is no question which Spring Boot, which was created by Pivotal Software, was adopted the most often within the Java ecosystem. In addition to offering a full set of abilities for the creation of enterprise-grade applications, it also offers support for dependency The building of online applications, data access, injection, and protection are all included. There is a framework known as Spring Boot that prioritizes resolutions over formations, which makes the procedure of setting up and configuring projects much simpler. This enables developers to concentrate on building business logic.</p>
+								
+								<div id="link23"></div>
+								<h3>Micronaut with Quarkus</h3>
+								<p>Quarkus, conversely, is a relatively new outline that has gathered a lot of interest because it is both lightweight and quick when it comes to bootstrapping. A "supersonic, subatomic" mentality was applied in the construction of Quarkus, which was designed to improve the development experience for cloud-native and microservices-based apps. Quarkus is an appealing alternative for developers who are looking for high-performance and efficient memory use. It does this by using technologies such as GraalVM and reactive programming.</p>
+								<div id="link24"></div>
+								<h2>How Micronaut can build command-line tools, microservices, and serverless applications?</h2>
+								
+								<div id="link25"></div>
+								<h3>1. Build command-line tools</h3>
+								<p>Before you can get started, you will first need to create a new Micronaut project and add each dependency where the project requires. Micronaut offers a specialized module that is specifically made for the expansion of command-line programs, which makes it very easy to get such apps up and running.</p>
+								<p>When you have finished setting up your project, you will be able to construct a command-line controller that will be responsible for handling the logic for creating the report. To represent the many commands or actions that your tool is capable of doing, this controller may include methods that are annotated with the `@Command` notation. Through the use of Micronaut's capabilities, you will be able to design command-line tools that are dependable and efficient, streamlining your development process and increasing your level of productivity.</p>
+								
+								<div id="link26"></div>
+								<h3>2. Build microservices</h3>
+								<p>You will need to begin by installing the Micronaut Command Line Interface (CLI) by following the steps that are provided on the Micronaut website. and this indicates that you are required to employ their customized toolchain in its entirety. Micronaut has provided me with a lot of satisfaction. With the following command, you may start a new Micronaut application after it has been installed properly:</p>
+								
+								<div id="link27"></div>
+								<h3>3. Build serverless applications</h3>
+								<p>By using Micronaut's dependency injection, you can easily handle and connect the many components of your software and build serverless applications. This capability is facilitated by the ability to design code that is flexible and disconnected from one another, hence simplifying the testing and management of your serverless applications. Micronaut's dependency injection seamlessly integrates with serverless platforms like AWS Lambda, Google Cloud Functions, and Azure Functions, ensuring a streamlined development process. This connection ensures that you will have a favorable experience while interacting with these platforms.</p>
+								<div id="link28"></div>
+								<h2>Bottom Line</h2>
+								<p>Microservices are becoming more popular, whereas monolithic architecture is becoming increasingly obsolete. This should not come as a surprise given the increasing sophistication of programs and the large number of users they attract. Micronaut is the best structure that is capable of completing this assignment. They come with a lightweight framework that enables you to use all of its benefits in pace and mechanism recollection of expanding truly excellent software systems for businesses.</p>
+								
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">What is Micronaut Java?</a></div>
+								<div class="para2"><a href="#link2">Workings of the Micronaut</a></div>
+								<div class="para1"><a href="#link3">Steps to launch the Micronaut</a></div>
+								<div class="para2"><a href="#link4">Introducing the Micronaut</a></div>
+								<div class="para2"><a href="#link5">To download</a></div>
+								<div class="para2"><a href="#link6">Instructions for Users</a></div>
+								<div class="para2"><a href="#link7">Annotated records</a></div>
+								<div class="para2"><a href="#link8">Guides</a></div>
+								<div class="para2"><a href="#link9">On-Demand Webinar Courses</a></div>
+								<div class="para2"><a href="#link10">The Microcasts</a></div>
+								<div class="para2"><a href="#link11">Upcoming Occasions and Events</a></div>
+								<div class="para1"><a href="#link12">Micronaut Command Line Interface</a></div>
+								<div class="para1"><a href="#link13">What makes Micronaut stand out?</a></div>
+								<div class="para1"><a href="#link13-1">Advantages of Micronaut</a></div>
+								<div class="para1"><a href="#link14">Key Features and Benefits of Micronaut</a></div>
+								<div class="para2"><a href="#link15">Lightning-Fast Startup Time</a></div>
+								<div class="para2"><a href="#link16">Low Memory Footprint</a></div>
+								<div class="para2"><a href="#link17">Fully Reactive and Non-Blocking</a></div>
+								<div class="para2"><a href="#link18">Cloud-Native Support</a></div>
+								<div class="para2"><a href="#link19">Micronaut Data</a></div>
+								<div class="para2"><a href="#link20">Polyglot Language Support</a></div>
+								<div class="para1"><a href="#link21">Comparing Micronaut with Spring Boot and Quarkus</a></div>
+								<div class="para2"><a href="#link22">Micronaut with Spring-boot</a></div>
+								<div class="para2"><a href="#link23">Micronaut with Quarkus</a></div>
+								<div class="para1"><a href="#link24">How Micronaut can build applications?</a></div>
+								<div class="para1"><a href="#link25">Build command-line tools</a></div>
+								<div class="para2"><a href="#link26">Build microservices</a></div>
+								<div class="para2"><a href="#link27">Build serverless applications</a></div>
+								<div class="para1"><a href="#link28">Bottom Line</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>						
+					</div>
+				</div>
+			</div>
+			<div class="article-section spt spb">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="section-header">
+								<div class="article-head">Related article</div>
+							</div>
+						</div>
+					</div>
+					<div class="bs-row">
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img4">
+								<div class="blog-heading">
+									<div class="b-head"><a href="java-web-development-frameworks-of-2022.html" target="_blank">Which Frameworks of 2025 Suits Java Web Development?</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>It is very significant for companies since it allows them to differentiate themselves from their competition and be more successful.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img3">
+								<div class="blog-heading">
+									<div class="b-head"><a href="anatomy-of-modular-programming-in-java-9.html" target="_blank">Anatomy of Modular Programming in Java 9</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>In Java 9, another module framework was introduced. Modularity makes it simpler to compose encapsulated code by separating enormous codebases into little parts.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img5">
+								<div class="blog-heading">
+									<div class="b-head"><a href="custom-service-in-hibernate-framework.html" target="_blank">How to implement Custom Service in Hibernate Framework?</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>Services are classes that provide a pluggable implementation of various functionality, in particular, they define specific functionality</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/what-is-micronaut-java.html"
+			},
+			"headline": "Introduction to the Micronaut Framework",
+			"description": "Micronaut is the best construction that is fit for finishing this task. They accompany a lightweight framework that empowers you to involve every one of its advantages in speed.",
+			"image": "https://www.aegissofttech.com/articles/images/micronaut.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2022-06-02",
+			"dateModified": "2023-12-21"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fwhat-is-micronaut-java.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Introduction to the Micronaut Framework&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fwhat-is-micronaut-java.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fwhat-is-micronaut-java.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/what-is-micronaut-java.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fwhat-is-micronaut-java.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Introduction to the Micronaut Framework&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fwhat-is-micronaut-java.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fwhat-is-micronaut-java.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/what-is-micronaut-java.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

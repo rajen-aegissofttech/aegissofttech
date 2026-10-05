@@ -1,0 +1,1473 @@
+Options All -Indexes
+Options -MultiViews
+Options +FollowSymLinks
+
+RewriteEngine On
+RewriteOptions Inherit
+
+# Secure & stable directory options
+Options -Indexes -MultiViews +FollowSymLinks
+
+# Apache 2.4+ access allow
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+
+# Apache 2.2 fallback (older servers)
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Allow from all
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+</IfModule>
+
+<IfModule mod_gzip.c>
+  mod_gzip_on Yes
+  mod_gzip_dechunk Yes
+  mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
+  mod_gzip_item_include handler ^cgi-script$
+  mod_gzip_item_include mime ^text/.*
+  mod_gzip_item_include mime ^application/x-javascript.*
+  mod_gzip_item_exclude mime ^image/.*
+  mod_gzip_item_exclude rspheader ^Content-Encoding:.gzip.
+</IfModule>
+
+<IfModule mod_expires.c>
+ExpiresActive on
+ExpiresDefault "access plus 1 year"
+ExpiresByType application/xml "access plus 0 seconds"
+ExpiresByType text/xsl "access plus 0 seconds"
+
+# Media: images, video, audio
+ExpiresByType image/gif "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/webp "access plus 1 year"
+ExpiresByType video/ogg "access plus 1 year"
+ExpiresByType audio/ogg "access plus 1 year"
+ExpiresByType video/mp4 "access plus 1 year"
+ExpiresByType video/webm "access plus 1 year"
+ExpiresByType image/x-icon "access plus 1 year"
+
+# CSS JS PDF
+ExpiresByType text/css "access plus 1 year"
+ExpiresByType application/javascript "access plus 1 year"
+ExpiresByType text/x-javascript "access 1 year"
+ExpiresByType application/pdf "access 1 year"
+
+# Webfonts
+ExpiresByType font/ttf "access plus 1 year"
+ExpiresByType font/otf "access plus 1 year"
+ExpiresByType font/woff "access plus 1 year"
+ExpiresByType font/woff2 "access plus 1 year"
+ExpiresByType image/svg+xml "access plus 1 year"
+ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+
+</IfModule>
+
+<IfModule mod_headers.c>
+  <filesmatch "\.(ico|flv|webp|jpg|jpeg|png|gif|css|ttf|woff|woff2|swf)$">
+  Header set Cache-Control "max-age=31536000, public"
+  </filesmatch>
+  <filesmatch "\.(html|htm)$">
+  Header set Cache-Control "max-age=7200, private, must-revalidate"
+  </filesmatch>
+  <filesmatch "\.(pdf)$">
+  Header set Cache-Control "max-age=86400, public"
+  </filesmatch>
+  <filesmatch "\.(js)$">
+  Header set Cache-Control "max-age=31536000, private"
+  </filesmatch>
+  
+  # Preload the Rubik font for every single page request automatically
+  Header add Link "</fonts/Rubik-VariableFont_wght.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"
+  
+  # Preconnect to Google Tag Manager across all website pages automatically
+  Header add Link "<https://www.googletagmanager.com>; rel=preconnect; crossorigin"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	# Force HTTPS + WWW in one step
+	RewriteCond %{HTTPS} off [OR]
+	RewriteCond %{HTTP_HOST} !^www\.aegissofttech\.com$ [NC]
+	RewriteRule ^(.*)$ https://www.aegissofttech.com/$1 [L,R=301]
+
+    # 3. Remove index.html from any URL
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.+/)?index\.html\ HTTP/
+    RewriteRule ^(.+/)?index\.html$ https://www.aegissofttech.com/$1 [L,R=301]
+
+    # 4. REMOVE TRAILING SLASH FROM ALL URLs (Including Folders)
+    # This turns /software-development/ into /software-development
+    RewriteCond %{REQUEST_FILENAME} -d [OR]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)/$ https://www.aegissofttech.com/$1 [L,R=301]
+
+    # 5. INTERNAL MAPPING: Load index.html for folders
+    # When user visits /software-development, load /software-development/index.html
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_URI} !(\.gif|\.jpg|\.png|\.css|\.js)$ [NC]
+    RewriteCond %{REQUEST_FILENAME}/index.html -f
+    RewriteRule ^(.*)$ $1/index.html [L]
+
+    # 6. INTERNAL MAPPING: Load .html for files
+    # When user visits /dotnet, load /dotnet.html
+    RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.+)/$ https://www.aegissofttech.com/$1 [R=301,L]
+
+	ErrorDocument 400 /404.html
+	ErrorDocument 401 /404.html
+	ErrorDocument 403 /404.html
+	ErrorDocument 404 /404.html
+	ErrorDocument 500 /404.html
+
+	RewriteRule ^ai/?$ https://www.aegissofttech.com/artificial-intelligence-business-solutions.html [R=301,L]
+	RewriteRule ^azure/?$ https://www.aegissofttech.com/microsoft/azure-analytics-services [R=301,L]
+	RewriteRule ^bigdata/?$ https://www.aegissofttech.com/data/big-data-consulting-services [R=301,L]
+	RewriteRule ^cloud/?$ https://www.aegissofttech.com/cloud [R=301,L]
+	RewriteRule ^cloudera/?$ https://www.aegissofttech.com/data/cloudera-consulting [R=301,L]
+	RewriteRule ^crm/?$ https://www.aegissofttech.com/dynamics-365/crm [R=301,L]
+	RewriteRule ^data-warehouse/?$ https://www.aegissofttech.com/data-warehouse-services.html [R=301,L]
+	RewriteRule ^java/?$ https://www.aegissofttech.com/software-development/java [R=301,L]
+	RewriteRule ^microsoft/?$ https://www.aegissofttech.com/microsoft [R=301,L]
+	RewriteRule ^python/?$ https://www.aegissofttech.com/software-development/python [R=301,L]
+	RewriteRule ^servicenow/?$ https://www.aegissofttech.com/servicenow-development-services.html [R=301,L]
+	RewriteRule ^snowflake/?$ https://www.aegissofttech.com/snowflake-services [R=301,L]
+	RewriteRule ^software/?$ https://www.aegissofttech.com/ [R=301,L]
+	RewriteRule ^testing/?$ https://www.aegissofttech.com/software-testing-services.html [R=301,L]
+	RewriteRule ^power-bi/?$ https://www.aegissofttech.com/microsoft/power-bi-consulting [R=301,L]
+	
+	RewriteRule ^cyber-security-consulting-services\.html$ https://www.aegissofttech.com/cyber-security-services [R=301,L]
+	RewriteRule ^snowflake-development-services\.html$ https://www.aegissofttech.com/snowflake-services [R=301,L]
+	RewriteRule ^snowflake-consulting-services\.html$ https://www.aegissofttech.com/snowflake-services/consulting [R=301,L]
+	RewriteRule ^snowflake-implementation-partners\.html$ https://www.aegissofttech.com/snowflake-services/implementation [R=301,L]
+	RewriteRule ^snowflake-migration-services\.html$ https://www.aegissofttech.com/snowflake-services/migration [R=301,L]
+	RewriteRule ^servicenow-development-services\.html$ https://www.aegissofttech.com/servicenow-services [R=301,L]
+	RewriteRule ^servicenow-migration-services\.html$ https://www.aegissofttech.com/servicenow-services/migration [R=301,L]
+	RewriteRule ^servicenow-support-services\.html$ https://www.aegissofttech.com/servicenow-services/support [R=301,L]
+	RewriteRule ^servicenow-managed-services\.html$ https://www.aegissofttech.com/servicenow-services/managed-services [R=301,L]
+	RewriteRule ^servicenow/hire-remote-developers\.html$ https://www.aegissofttech.com/servicenow-services/hire-developers [R=301,L]
+	RewriteRule ^servicenow-consulting\.html$ https://www.aegissofttech.com/servicenow-services/consulting [R=301,L]
+	RewriteRule ^servicenow-implementation-services\.html$ https://www.aegissofttech.com/servicenow-services/implementation [R=301,L]
+	RewriteRule ^data-warehousing-consulting\.html$ https://www.aegissofttech.com/data-warehouse-services/consulting [R=301,L]
+	RewriteRule ^data-warehouse-services/consuting$ https://www.aegissofttech.com/data-warehouse-services/consulting [R=301,L]
+	RewriteRule ^hire-data-warehouse-developers\.html$ https://www.aegissofttech.com/data-warehouse-services/hire-developers [R=301,L]
+	RewriteRule ^generative-ai-integration-services\.html$ https://www.aegissofttech.com/generative-ai-services/integration [R=301,L]
+	RewriteRule ^ethics-of-generative-ai\.html$ https://www.aegissofttech.com/generative-ai-services/ai-ethics [R=301,L]
+	RewriteRule ^snowflake/public-sector\.html$ https://www.aegissofttech.com/snowflake-services/public-sector [R=301,L]
+	RewriteRule ^snowflake/healthcare-services\.html$ https://www.aegissofttech.com/snowflake-services/healthcare-industry [R=301,L]
+	RewriteRule ^snowflake/cybersecurity-services\.html$ https://www.aegissofttech.com/snowflake-services/cybersecurity [R=301,L]
+	RewriteRule ^snowflake/manufacturing-services\.html$ https://www.aegissofttech.com/snowflake-services/manufacturing-industry [R=301,L]
+	RewriteRule ^snowflake/financial-services\.html$ https://www.aegissofttech.com/snowflake-services/financial-industry [R=301,L]
+	RewriteRule ^data-warehouse/aws-redshift-consulting\.html$ https://www.aegissofttech.com/data-warehouse-services/amazon-redshift [R=301,L]
+
+
+	RewriteRule ^software-testing-services\.html$ /software-testing-services [R=301,L]
+	RewriteRule ^software-testing-services?$ software-testing-services.html [L]
+		
+	RewriteRule ^software-testing-services/api-web\.html$ /software-testing-services/api-web [R=301,L]
+	RewriteRule ^software-testing-services/api-web?$ software-testing-services/api-web.html [L]
+	
+	RewriteRule ^software-testing-services/qa-outsourcing\.html$ /software-testing-services/qa-outsourcing [R=301,L]
+	RewriteRule ^software-testing-services/qa-outsourcing?$ software-testing-services/qa-outsourcing.html [L]
+	
+	RewriteRule ^software-testing-services/ecommerce\.html$ /software-testing-services/ecommerce [R=301,L]
+	RewriteRule ^software-testing-services/ecommerce?$ software-testing-services/ecommerce.html [L]
+	
+	RewriteRule ^software-testing-services/enterprise\.html$ /software-testing-services/enterprise [R=301,L]
+	RewriteRule ^software-testing-services/enterprise?$ software-testing-services/enterprise.html [L]
+	
+	RewriteRule ^software-testing-services/mobile-app\.html$ /software-testing-services/mobile-app [R=301,L]
+	RewriteRule ^software-testing-services/mobile-app?$ software-testing-services/mobile-app.html [L]
+	
+	RewriteRule ^software-testing-services/erp\.html$ /software-testing-services/erp [R=301,L]
+	RewriteRule ^software-testing-services/erp?$ software-testing-services/erp.html [L]
+	
+	RewriteRule ^software-testing-services/digital\.html$ /software-testing-services/digital [R=301,L]
+	RewriteRule ^software-testing-services/digital?$ software-testing-services/digital.html [L]
+	
+	RewriteRule ^software-testing-services/functional\.html$ /software-testing-services/functional [R=301,L]
+	RewriteRule ^software-testing-services/functional?$ software-testing-services/functional.html [L]
+	
+	RewriteRule ^software-testing-services/data-warehouse\.html$ /software-testing-services/data-warehouse [R=301,L]
+	RewriteRule ^software-testing-services/data-warehouse?$ software-testing-services/data-warehouse.html [L]
+	
+	RewriteRule ^software-testing-services/performance\.html$ /software-testing-services/performance [R=301,L]
+	RewriteRule ^software-testing-services/performance?$ software-testing-services/performance.html [L]
+	
+	RewriteRule ^software-testing-services/retail\.html$ /software-testing-services/retail [R=301,L]
+	RewriteRule ^software-testing-services/retail?$ software-testing-services/retail.html [L]
+	
+	RewriteRule ^software-testing-services/integration\.html$ /software-testing-services/integration [R=301,L]
+	RewriteRule ^software-testing-services/integration?$ software-testing-services/integration.html [L]
+	
+	RewriteRule ^software-testing-services/ux-usability\.html$ /software-testing-services/ux-usability [R=301,L]
+	RewriteRule ^software-testing-services/ux-usability?$ software-testing-services/ux-usability.html [L]
+	
+	RewriteRule ^software-testing-services/cloud\.html$ /software-testing-services/cloud [R=301,L]
+	RewriteRule ^software-testing-services/cloud?$ software-testing-services/cloud.html [L]
+	
+	RewriteRule ^software-testing-services/insurance\.html$ /software-testing-services/insurance [R=301,L]
+	RewriteRule ^software-testing-services/insurance?$ software-testing-services/insurance.html [L]
+	
+	RewriteRule ^software-testing-services/security\.html$ /software-testing-services/security [R=301,L]
+	RewriteRule ^software-testing-services/security?$ software-testing-services/security.html [L]
+	
+	RewriteRule ^software-testing-services/microservices\.html$ /software-testing-services/microservices [R=301,L]
+	RewriteRule ^software-testing-services/microservices?$ software-testing-services/microservices.html [L]
+	
+	RewriteRule ^software-testing-services/web-accessibility\.html$ /software-testing-services/web-accessibility [R=301,L]
+	RewriteRule ^software-testing-services/web-accessibility?$ software-testing-services/web-accessibility.html [L]
+	
+	RewriteRule ^software-testing-services/big-data\.html$ /software-testing-services/big-data [R=301,L]
+	RewriteRule ^software-testing-services/big-data?$ software-testing-services/big-data.html [L]
+	
+	RewriteRule ^software-testing-services/compliance\.html$ /software-testing-services/compliance [R=301,L]
+	RewriteRule ^software-testing-services/compliance?$ software-testing-services/compliance.html [L]
+	
+	RewriteRule ^software-testing-services/sap\.html$ /software-testing-services/sap [R=301,L]
+	RewriteRule ^software-testing-services/sap?$ software-testing-services/sap.html [L]
+	
+	RewriteRule ^generative-ai-services\.html$ https://www.aegissofttech.com/generative-ai-services [R=301,L]
+	RewriteRule ^generative-ai-services?$ generative-ai-services.html [L]
+	
+	RewriteRule ^generative-ai-services/software-development\.html$ https://www.aegissofttech.com/generative-ai-services/software-development [R=301,L]
+	RewriteRule ^generative-ai-services/software-development?$ generative-ai-services/software-development.html [L]
+	
+	RewriteRule ^generative-ai-services/manufacturing-industry\.html$ https://www.aegissofttech.com/generative-ai-services/manufacturing-industry [R=301,L]
+	RewriteRule ^generative-ai-services/manufacturing-industry?$ generative-ai-services/manufacturing-industry.html [L]
+	
+	RewriteRule ^generative-ai-services/legal-industry\.html$ https://www.aegissofttech.com/generative-ai-services/legal-industry [R=301,L]
+	RewriteRule ^generative-ai-services/legal-industry?$ generative-ai-services/legal-industry.html [L]
+	
+	RewriteRule ^generative-ai-services/e-commerce-industry\.html$ https://www.aegissofttech.com/generative-ai-services/e-commerce-industry [R=301,L]
+	RewriteRule ^generative-ai-services/e-commerce-industry?$ generative-ai-services/e-commerce-industry.html [L]
+	
+	RewriteRule ^generative-ai-services/education-industry\.html$ https://www.aegissofttech.com/generative-ai-services/education-industry [R=301,L]
+	RewriteRule ^generative-ai-services/education-industry?$ generative-ai-services/education-industry.html [L]
+	
+	RewriteRule ^generative-ai-services/business\.html$ https://www.aegissofttech.com/generative-ai-services/business [R=301,L]
+	RewriteRule ^generative-ai-services/business?$ generative-ai-services/business.html [L]
+	
+	RewriteRule ^generative-ai-services/healthcare-industry\.html$ https://www.aegissofttech.com/generative-ai-services/healthcare-industry [R=301,L]
+	RewriteRule ^generative-ai-services/healthcare-industry?$ generative-ai-services/healthcare-industry.html [L]
+	
+	RewriteRule ^generative-ai-services/pharma-industry\.html$ https://www.aegissofttech.com/generative-ai-services/pharma-industry [R=301,L]
+	RewriteRule ^generative-ai-services/pharma-industry?$ generative-ai-services/pharma-industry.html [L]
+	
+	RewriteRule ^data-warehouse-services\.html$ https://www.aegissofttech.com/data-warehouse-services [R=301,L]
+	RewriteRule ^data-warehouse-services?$ data-warehouse-services.html [L]
+	
+	RewriteRule ^automation-testing-services\.html$ https://www.aegissofttech.com/automation-testing-services [R=301,L]
+	RewriteRule ^automation-testing-services?$ automation-testing-services.html [L]
+	
+	RewriteRule ^devops-services\.html$ https://www.aegissofttech.com/devops-services [R=301,L]
+	RewriteRule ^devops-services?$ devops-services.html [L]
+	
+	RewriteRule ^digital-transformation-services\.html$ https://www.aegissofttech.com/digital-transformation-services [R=301,L]
+	RewriteRule ^digital-transformation-services?$ digital-transformation-services.html [L]
+	
+	RewriteRule ^cyber-security-services\.html$ https://www.aegissofttech.com/cyber-security-services [R=301,L]
+	RewriteRule ^cyber-security-services?$ cyber-security-services.html [L]
+	
+	RewriteRule ^snowflake-services\.html$ https://www.aegissofttech.com/snowflake-services [R=301,L]
+	RewriteRule ^snowflake-services?$ snowflake-services.html [L]
+	
+	RewriteRule ^snowflake-services/consulting\.html$ https://www.aegissofttech.com/snowflake-services/consulting [R=301,L]
+	RewriteRule ^snowflake-services/consulting?$ snowflake-services/consulting.html [L]
+	
+	RewriteRule ^snowflake-services/implementation\.html$ https://www.aegissofttech.com/snowflake-services/implementation [R=301,L]
+	RewriteRule ^snowflake-services/implementation?$ snowflake-services/implementation.html [L]
+	
+	RewriteRule ^snowflake-services/migration\.html$ https://www.aegissofttech.com/snowflake-services/migration [R=301,L]
+	RewriteRule ^snowflake-services/migration?$ snowflake-services/migration.html [L]
+	
+	RewriteRule ^data-warehouse-services/migration\.html$ https://www.aegissofttech.com/data-warehouse-services/migration [R=301,L]
+	RewriteRule ^data-warehouse-services/migration?$ data-warehouse-services/migration.html [L]
+
+	RewriteRule ^servicenow-services\.html$ https://www.aegissofttech.com/servicenow-services [R=301,L]
+	RewriteRule ^servicenow-services?$ servicenow-services.html [L]
+	
+	RewriteRule ^servicenow-services/migration\.html$ https://www.aegissofttech.com/servicenow-services/migration [R=301,L]
+	RewriteRule ^servicenow-services/migration?$ servicenow-services/migration.html [L]
+	
+	RewriteRule ^servicenow-services/support\.html$ https://www.aegissofttech.com/servicenow-services/support [R=301,L]
+	RewriteRule ^servicenow-services/support?$ servicenow-services/support.html [L]
+	
+	RewriteRule ^servicenow-services/managed-services\.html$ https://www.aegissofttech.com/servicenow-services/managed-services [R=301,L]
+	RewriteRule ^servicenow-services/managed-services?$ servicenow-services/managed-services.html [L]
+	
+	RewriteRule ^servicenow-services/hire-developers\.html$ https://www.aegissofttech.com/servicenow-services/hire-developers [R=301,L]
+	RewriteRule ^servicenow-services/hire-developers?$ servicenow-services/hire-developers.html [L]
+	
+	RewriteRule ^servicenow-services/consulting\.html$ https://www.aegissofttech.com/servicenow-services/consulting [R=301,L]
+	RewriteRule ^servicenow-services/consulting?$ servicenow-services/consulting.html [L]
+	
+	RewriteRule ^servicenow-services/implementation\.html$ https://www.aegissofttech.com/servicenow-services/implementation [R=301,L]
+	RewriteRule ^servicenow-services/implementation?$ servicenow-services/implementation.html [L]
+	
+	RewriteRule ^data-warehouse-services/consulting\.html$ https://www.aegissofttech.com/data-warehouse-services/consulting [R=301,L]
+	RewriteRule ^data-warehouse-services/consulting?$ data-warehouse-services/consulting.html [L]
+
+	RewriteRule ^data-warehouse-services/modernization\.html$ https://www.aegissofttech.com/data-warehouse-services/modernization [R=301,L]
+	RewriteRule ^data-warehouse-services/modernization?$ data-warehouse-services/modernization.html [L]
+	
+	RewriteRule ^data-warehouse-services/hire-developers\.html$ https://www.aegissofttech.com/data-warehouse-services/hire-developers [R=301,L]
+	RewriteRule ^data-warehouse-services/hire-developers?$ data-warehouse-services/hire-developers.html [L]
+	
+	RewriteRule ^generative-ai-services/integration\.html$ https://www.aegissofttech.com/generative-ai-services/integration [R=301,L]
+	RewriteRule ^generative-ai-services/integration?$ generative-ai-services/integration.html [L]
+	
+	RewriteRule ^generative-ai-services/ai-ethics\.html$ https://www.aegissofttech.com/generative-ai-services/ai-ethics [R=301,L]
+	RewriteRule ^generative-ai-services/ai-ethics?$ generative-ai-services/ai-ethics.html [L]
+	
+	RewriteRule ^snowflake-services/public-sector\.html$ https://www.aegissofttech.com/snowflake-services/public-sector [R=301,L]
+	RewriteRule ^snowflake-services/public-sector?$ snowflake-services/public-sector.html [L]
+	
+	RewriteRule ^snowflake-services/healthcare-industry\.html$ https://www.aegissofttech.com/snowflake-services/healthcare-industry [R=301,L]
+	RewriteRule ^snowflake-services/healthcare-industry?$ snowflake-services/healthcare-industry.html [L]
+	
+	RewriteRule ^snowflake-services/cybersecurity\.html$ https://www.aegissofttech.com/snowflake-services/cybersecurity [R=301,L]
+	RewriteRule ^snowflake-services/cybersecurity?$ snowflake-services/cybersecurity.html [L]
+	
+	RewriteRule ^snowflake-services/manufacturing-industry\.html$ https://www.aegissofttech.com/snowflake-services/manufacturing-industry [R=301,L]
+	RewriteRule ^snowflake-services/manufacturing-industry?$ snowflake-services/manufacturing-industry.html [L]
+	
+	RewriteRule ^snowflake-services/financial-industry\.html$ https://www.aegissofttech.com/snowflake-services/financial-industry [R=301,L]
+	RewriteRule ^snowflake-services/financial-industry?$ snowflake-services/financial-industry.html [L]
+	
+	RewriteRule ^data-warehouse-services\.html$ https://www.aegissofttech.com/data-warehouse-services [R=301,L]
+	RewriteRule ^data-warehouse-services?$ data-warehouse-services.html [L]
+	
+	RewriteRule ^data-warehouse-services/amazon-redshift\.html$ https://www.aegissofttech.com/data-warehouse-services/amazon-redshift [R=301,L]
+	RewriteRule ^data-warehouse-services/amazon-redshift?$ data-warehouse-services/amazon-redshift.html [L]
+	
+	RewriteRule ^generative-ai-services/telecom-industry\.html$ https://www.aegissofttech.com/generative-ai-services/telecom-industry [R=301,L]
+	RewriteRule ^generative-ai-services/telecom-industry?$ generative-ai-services/telecom-industry.html [L]
+	
+	RewriteRule ^generative-ai-services/real-estate\.html$ https://www.aegissofttech.com/generative-ai-services/real-estate [R=301,L]
+	RewriteRule ^generative-ai-services/real-estate?$ generative-ai-services/real-estate.html [L]
+	
+	RewriteRule ^generative-ai-services/logistics\.html$ https://www.aegissofttech.com/generative-ai-services/logistics [R=301,L]
+	RewriteRule ^generative-ai-services/logistics?$ generative-ai-services/logistics.html [L]
+	
+	RewriteRule ^generative-ai-services/insurance-industry\.html$ https://www.aegissofttech.com/generative-ai-services/insurance-industry [R=301,L]
+	RewriteRule ^generative-ai-services/insurance-industry?$ generative-ai-services/insurance-industry.html [L]
+	
+	RewriteRule ^ai-services\.html$ https://www.aegissofttech.com/ai-services [R=301,L]
+	RewriteRule ^ai-services?$ ai-services.html [L]
+	
+	RewriteRule ^ai-services/consulting\.html$ https://www.aegissofttech.com/ai-services/consulting [R=301,L]
+	RewriteRule ^ai-services/consulting?$ ai-services/consulting.html [L]
+	
+	RewriteRule ^ai-services/integration\.html$ https://www.aegissofttech.com/ai-services/integration [R=301,L]
+	RewriteRule ^ai-services/integration?$ ai-services/integration.html [L]
+	
+	RewriteRule ^ai-services/adaptive-ai-development\.html$ https://www.aegissofttech.com/ai-services/adaptive-ai-development [R=301,L]
+	RewriteRule ^ai-services/adaptive-ai-development?$ ai-services/adaptive-ai-development.html [L]
+	
+	RewriteRule ^ai-services/conversational-ai-development\.html$ https://www.aegissofttech.com/ai-services/conversational-ai-development [R=301,L]
+	RewriteRule ^ai-services/conversational-ai-development?$ ai-services/conversational-ai-development.html [L]
+	
+	RewriteRule ^ai-services/voice-bot-development\.html$ https://www.aegissofttech.com/ai-services/voice-bot-development [R=301,L]
+	RewriteRule ^ai-services/voice-bot-development?$ ai-services/voice-bot-development.html [L]
+	
+	RewriteRule ^ai-services/llm-development\.html$ https://www.aegissofttech.com/ai-services/llm-development [R=301,L]
+	RewriteRule ^ai-services/llm-development?$ ai-services/llm-development.html [L]
+
+	RewriteRule ^data-warehouse-services/cloud\.html$ https://www.aegissofttech.com/data-warehouse-services/cloud [R=301,L]
+	RewriteRule ^data-warehouse-services/cloud?$ data-warehouse-services/cloud.html [L]
+
+	RewriteRule ^data-warehouse-services/implementation\.html$ https://www.aegissofttech.com/data-warehouse-services/implementation [R=301,L]
+	RewriteRule ^data-warehouse-services/implementation?$ data-warehouse-services/implementation.html [L]
+
+	# Dynamics-365 Redirect
+	RewriteRule ^dynamics-365\.html$ https://www.aegissofttech.com/dynamics-365 [R=301,L]
+	RewriteRule ^dynamics-365?$ dynamics-365.html [L]
+	
+	RewriteRule ^dynamics-365/human-resources\.html$ https://www.aegissofttech.com/dynamics-365/human-resources [R=301,L]
+	RewriteRule ^dynamics-365/human-resources?$ dynamics-365/human-resources.html [L]
+
+	RewriteRule ^dynamics-365/supply-chain-management\.html$ https://www.aegissofttech.com/dynamics-365/supply-chain-management [R=301,L]
+	RewriteRule ^dynamics-365/supply-chain-management?$ dynamics-365/supply-chain-management.html [L]
+
+	RewriteRule ^dynamics-365/training-services\.html$ https://www.aegissofttech.com/dynamics-365/training-services [R=301,L]
+	RewriteRule ^dynamics-365/training-services?$ dynamics-365/training-services.html [L]
+
+	RewriteRule ^dynamics-365/integration-services\.html$ https://www.aegissofttech.com/dynamics-365/integration-services [R=301,L]
+	RewriteRule ^dynamics-365/integration-services?$ dynamics-365/integration-services.html [L]
+
+	RewriteRule ^dynamics-365/upgrade-services\.html$ https://www.aegissofttech.com/dynamics-365/upgrade-services [R=301,L]
+	RewriteRule ^dynamics-365/upgrade-services?$ dynamics-365/upgrade-services.html [L]
+
+	RewriteRule ^dynamics-365/implementation-services\.html$ https://www.aegissofttech.com/dynamics-365/implementation-services [R=301,L]
+	RewriteRule ^dynamics-365/implementation-services?$ dynamics-365/implementation-services.html [L]
+
+	RewriteRule ^dynamics-365/migration-services\.html$ https://www.aegissofttech.com/dynamics-365/migration-services [R=301,L]
+	RewriteRule ^dynamics-365/migration-services?$ dynamics-365/migration-services.html [L]
+
+	RewriteRule ^dynamics-365/customization-services\.html$ https://www.aegissofttech.com/dynamics-365/customization-services [R=301,L]
+	RewriteRule ^dynamics-365/customization-services?$ dynamics-365/customization-services.html [L]
+
+	RewriteRule ^dynamics-365/support-services\.html$ https://www.aegissofttech.com/dynamics-365/support-services [R=301,L]
+	RewriteRule ^dynamics-365/support-services?$ dynamics-365/support-services.html [L]
+
+	RewriteRule ^dynamics-365/business-central-consulting\.html$ https://www.aegissofttech.com/dynamics-365/business-central-consulting [R=301,L]
+	RewriteRule ^dynamics-365/business-central-consulting?$ dynamics-365/business-central-consulting.html [L]
+
+	RewriteRule ^dynamics-365/business-central-implementation\.html$ https://www.aegissofttech.com/dynamics-365/business-central-implementation [R=301,L]
+	RewriteRule ^dynamics-365/business-central-implementation?$ dynamics-365/business-central-implementation.html [L]
+
+	RewriteRule ^dynamics-365/erp-consulting\.html$ https://www.aegissofttech.com/dynamics-365/erp-consulting [R=301,L]
+	RewriteRule ^dynamics-365/erp-consulting?$ dynamics-365/erp-consulting.html [L]
+
+	RewriteRule ^dynamics-365/crm\.html$ https://www.aegissofttech.com/dynamics-365/crm [R=301,L]
+	RewriteRule ^dynamics-365/crm?$ dynamics-365/crm.html [L]
+
+	RewriteRule ^dynamics-365/crm/field-service\.html$ https://www.aegissofttech.com/dynamics-365/crm/field-service [R=301,L]
+	RewriteRule ^dynamics-365/crm/field-service?$ dynamics-365/crm/field-service.html [L]
+
+	RewriteRule ^dynamics-365/crm/sales-consulting-services\.html$ https://www.aegissofttech.com/dynamics-365/crm/sales-consulting-services [R=301,L]
+	RewriteRule ^dynamics-365/crm/sales-consulting-services?$ dynamics-365/crm/sales-consulting-services.html [L]
+
+	RewriteRule ^dynamics-365/crm/customer-insights\.html$ https://www.aegissofttech.com/dynamics-365/crm/customer-insights [R=301,L]
+	RewriteRule ^dynamics-365/crm/customer-insights?$ dynamics-365/crm/customer-insights.html [L]
+
+	# Microsoft Redirect
+	RewriteRule ^microsoft\.html$ https://www.aegissofttech.com/microsoft [R=301,L]
+	RewriteRule ^microsoft?$ microsoft.html [L]
+
+	RewriteRule ^microsoft/dotnet-development\.html$ https://www.aegissofttech.com/microsoft/dotnet-development [R=301,L]
+	RewriteRule ^microsoft/dotnet-development?$ microsoft/dotnet-development.html [L]
+
+	RewriteRule ^microsoft/dotnet-core-development\.html$ https://www.aegissofttech.com/microsoft/dotnet-core-development [R=301,L]
+	RewriteRule ^microsoft/dotnet-core-development?$ microsoft/dotnet-core-development.html [L]
+
+	RewriteRule ^microsoft/azure-data-factory-consulting\.html$ https://www.aegissofttech.com/microsoft/azure-data-factory-consulting [R=301,L]
+	RewriteRule ^microsoft/azure-data-factory-consulting?$ microsoft/azure-data-factory-consulting.html [L]
+
+	RewriteRule ^microsoft/power-bi-consulting\.html$ https://www.aegissofttech.com/microsoft/power-bi-consulting [R=301,L]
+	RewriteRule ^microsoft/power-bi-consulting?$ microsoft/power-bi-consulting.html [L]
+
+	RewriteRule ^microsoft/power-bi-consulting/dashboard-development\.html$ https://www.aegissofttech.com/microsoft/power-bi-consulting/dashboard-development [R=301,L]
+	RewriteRule ^microsoft/power-bi-consulting/dashboard-development?$ microsoft/power-bi-consulting/dashboard-development.html [L]
+
+	RewriteRule ^microsoft/power-automate-consulting\.html$ https://www.aegissofttech.com/microsoft/power-automate-consulting [R=301,L]
+	RewriteRule ^microsoft/power-automate-consulting?$ microsoft/power-automate-consulting.html [L]
+
+	RewriteRule ^microsoft/power-apps-consulting\.html$ https://www.aegissofttech.com/microsoft/power-apps-consulting [R=301,L]
+	RewriteRule ^microsoft/power-apps-consulting?$ microsoft/power-apps-consulting.html [L]
+
+	RewriteRule ^microsoft/power-platform-consulting\.html$ https://www.aegissofttech.com/microsoft/power-platform-consulting [R=301,L]
+	RewriteRule ^microsoft/power-platform-consulting?$ microsoft/power-platform-consulting.html [L]
+
+	RewriteRule ^microsoft/power-platform-consulting\.html$ https://www.aegissofttech.com/microsoft/power-platform-consulting [R=301,L]
+	RewriteRule ^microsoft/power-platform-consulting?$ microsoft/power-platform-consulting.html [L]
+
+	RewriteRule ^microsoft/power-pages-consulting\.html$ https://www.aegissofttech.com/microsoft/power-pages-consulting [R=301,L]
+	RewriteRule ^microsoft/power-pages-consulting?$ microsoft/power-pages-consulting.html [L]
+
+	RewriteRule ^microsoft/power-virtual-agents-consulting\.html$ https://www.aegissofttech.com/microsoft/power-virtual-agents-consulting [R=301,L]
+	RewriteRule ^microsoft/power-virtual-agents-consulting?$ microsoft/power-virtual-agents-consulting.html [L]
+
+	RewriteRule ^microsoft/azure-analytics-services\.html$ https://www.aegissofttech.com/microsoft/azure-analytics-services [R=301,L]
+	RewriteRule ^microsoft/azure-analytics-services?$ microsoft/azure-analytics-services.html [L]
+
+	RewriteRule ^microsoft/azure-data-lake-consulting\.html$ https://www.aegissofttech.com/microsoft/azure-data-lake-consulting [R=301,L]
+	RewriteRule ^microsoft/azure-data-lake-consulting?$ microsoft/azure-data-lake-consulting.html [L]
+
+	RewriteRule ^microsoft/azure-devops-consulting\.html$ https://www.aegissofttech.com/microsoft/azure-devops-consulting [R=301,L]
+	RewriteRule ^microsoft/azure-devops-consulting?$ microsoft/azure-devops-consulting.html [L]
+
+	RewriteRule ^microsoft/azure-synapse-analytics-services\.html$ https://www.aegissofttech.com/microsoft/azure-synapse-analytics-services [R=301,L]
+	RewriteRule ^microsoft/azure-synapse-analytics-services?$ microsoft/azure-synapse-analytics-services.html [L]
+
+	RewriteRule ^microsoft/azure-cloud-migration-services\.html$ https://www.aegissofttech.com/microsoft/azure-cloud-migration-services [R=301,L]
+	RewriteRule ^microsoft/azure-cloud-migration-services?$ microsoft/azure-cloud-migration-services.html [L]
+
+	RewriteRule ^microsoft/sql-server-consulting\.html$ https://www.aegissofttech.com/microsoft/sql-server-consulting [R=301,L]
+	RewriteRule ^microsoft/sql-server-consulting?$ microsoft/sql-server-consulting.html [L]
+
+	RewriteRule ^microsoft/fabric-consulting\.html$ https://www.aegissofttech.com/microsoft/fabric-consulting [R=301,L]
+	RewriteRule ^microsoft/fabric-consulting?$ microsoft/fabric-consulting.html [L]
+
+	RewriteRule ^microsoft/dataverse-consulting\.html$ https://www.aegissofttech.com/microsoft/dataverse-consulting [R=301,L]
+	RewriteRule ^microsoft/dataverse-consulting?$ microsoft/dataverse-consulting.html [L]
+
+	RewriteRule ^snowflake-services/migration/teradata-to-snowflake\.html$ /snowflake-services/migration/teradata-to-snowflake [R=301,L]
+	RewriteRule ^snowflake-services/migration/teradata-to-snowflake?$ snowflake-services/migration/teradata-to-snowflake.html [L]
+
+	# Careers Redirect
+	RewriteRule ^careers/dotnet-jobs\.html$ https://www.aegissofttech.com/careers/dotnet-jobs [R=301,L]
+	RewriteRule ^careers/dotnet-jobs?$ careers/dotnet-jobs.html [L]
+
+	RewriteRule ^careers/java-jobs\.html$ https://www.aegissofttech.com/careers/java-jobs [R=301,L]
+	RewriteRule ^careers/java-jobs?$ careers/java-jobs.html [L]
+
+	RewriteRule ^careers/big-data-jobs\.html$ https://www.aegissofttech.com/careers/big-data-jobs [R=301,L]
+	RewriteRule ^careers/big-data-jobs?$ careers/big-data-jobs.html [L]
+
+	RewriteRule ^careers/seo-jobs\.html$ https://www.aegissofttech.com/careers/seo-jobs [R=301,L]
+	RewriteRule ^careers/seo-jobs?$ careers/seo-jobs.html [L]
+
+	RewriteRule ^careers/dynamics-365-jobs\.html$ https://www.aegissofttech.com/careers/dynamics-365-jobs [R=301,L]
+	RewriteRule ^careers/dynamics-365-jobs?$ careers/dynamics-365-jobs.html [L]
+
+	RewriteRule ^careers/aws-jobs\.html$ https://www.aegissofttech.com/careers/aws-jobs [R=301,L]
+	RewriteRule ^careers/aws-jobs?$ careers/aws-jobs.html [L]
+
+	RewriteRule ^careers/apache-spark-jobs\.html$ https://www.aegissofttech.com/careers/apache-spark-jobs [R=301,L]
+	RewriteRule ^careers/apache-spark-jobs?$ careers/apache-spark-jobs.html [L]
+
+	RewriteRule ^careers/microsoft-azure-jobs\.html$ https://www.aegissofttech.com/careers/microsoft-azure-jobs [R=301,L]
+	RewriteRule ^careers/microsoft-azure-jobs?$ careers/microsoft-azure-jobs.html [L]
+
+	RewriteRule ^careers/dynamics-365-fo-jobs\.html$ https://www.aegissofttech.com/careers/dynamics-365-fo-jobs [R=301,L]
+	RewriteRule ^careers/dynamics-365-fo-jobs?$ careers/dynamics-365-fo-jobs.html [L]
+
+	RewriteRule ^careers/databricks-jobs\.html$ https://www.aegissofttech.com/careers/databricks-jobs [R=301,L]
+	RewriteRule ^careers/databricks-jobs?$ careers/databricks-jobs.html [L]
+
+	RewriteRule ^careers/snowflake-jobs\.html$ https://www.aegissofttech.com/careers/snowflake-jobs [R=301,L]
+	RewriteRule ^careers/snowflake-jobs?$ careers/snowflake-jobs.html [L]
+
+	RewriteRule ^careers/tableau-jobs\.html$ https://www.aegissofttech.com/careers/tableau-jobs [R=301,L]
+	RewriteRule ^careers/tableau-jobs?$ careers/tableau-jobs.html [L]
+
+	RewriteRule ^careers/python-jobs\.html$ https://www.aegissofttech.com/careers/python-jobs [R=301,L]
+	RewriteRule ^careers/python-jobs?$ careers/python-jobs.html [L]
+
+	RewriteRule ^careers/nodejs-jobs\.html$ https://www.aegissofttech.com/careers/nodejs-jobs [R=301,L]
+	RewriteRule ^careers/nodejs-jobs?$ careers/nodejs-jobs.html [L]
+
+	RewriteRule ^careers/content-writer-jobs\.html$ https://www.aegissofttech.com/careers/content-writer-jobs [R=301,L]
+	RewriteRule ^careers/content-writer-jobs?$ careers/content-writer-jobs.html [L]
+
+	RewriteRule ^careers/field-marketing-jobs\.html$ https://www.aegissofttech.com/careers/field-marketing-jobs [R=301,L]
+	RewriteRule ^careers/field-marketing-jobs?$ careers/field-marketing-jobs.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-healthcare-crm\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-healthcare-crm [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-healthcare-crm?$ case-studies/dynamics-365-healthcare-crm.html [L]
+
+	RewriteRule ^case-studies/psn-custom-dashboard\.html$ https://www.aegissofttech.com/case-studies/psn-custom-dashboard [R=301,L]
+	RewriteRule ^case-studies/psn-custom-dashboard?$ case-studies/psn-custom-dashboard.html [L]
+
+	RewriteRule ^case-studies/vijay-electronics\.html$ https://www.aegissofttech.com/case-studies/vijay-electronics [R=301,L]
+	RewriteRule ^case-studies/vijay-electronics?$ case-studies/vijay-electronics.html [L]
+
+	RewriteRule ^case-studies/world-vision-new-zealand-customizations\.html$ https://www.aegissofttech.com/case-studies/world-vision-new-zealand-customizations [R=301,L]
+	RewriteRule ^case-studies/world-vision-new-zealand-customizations?$ case-studies/world-vision-new-zealand-customizations.html [L]
+
+	RewriteRule ^case-studies/crm-based-web-application-development\.html$ https://www.aegissofttech.com/case-studies/crm-based-web-application-development [R=301,L]
+	RewriteRule ^case-studies/crm-based-web-application-development?$ case-studies/crm-based-web-application-development.html [L]
+
+	RewriteRule ^case-studies/payment-processing-in-crm\.html$ https://www.aegissofttech.com/case-studies/payment-processing-in-crm [R=301,L]
+	RewriteRule ^case-studies/payment-processing-in-crm?$ case-studies/payment-processing-in-crm.html [L]
+
+	RewriteRule ^case-studies/seminar-work-process-management\.html$ https://www.aegissofttech.com/case-studies/seminar-work-process-management [R=301,L]
+	RewriteRule ^case-studies/seminar-work-process-management?$ case-studies/seminar-work-process-management.html [L]
+
+	RewriteRule ^case-studies/manufacturing-analytics-microsoft-fabric-power-bi\.html$ https://www.aegissofttech.com/case-studies/manufacturing-analytics-microsoft-fabric-power-bi [R=301,L]
+	RewriteRule ^case-studies/manufacturing-analytics-microsoft-fabric-power-bi?$ case-studies/manufacturing-analytics-microsoft-fabric-power-bi.html [L]
+
+	RewriteRule ^case-studies/power-bi-healthcare-reporting-governance\.html$ https://www.aegissofttech.com/case-studies/power-bi-healthcare-reporting-governance [R=301,L]
+	RewriteRule ^case-studies/power-bi-healthcare-reporting-governance?$ case-studies/power-bi-healthcare-reporting-governance.html [L]
+
+	RewriteRule ^case-studies/power-bi-capacity-optimization-financial-services\.html$ https://www.aegissofttech.com/case-studies/power-bi-capacity-optimization-financial-services [R=301,L]
+	RewriteRule ^case-studies/power-bi-capacity-optimization-financial-services?$ case-studies/power-bi-capacity-optimization-financial-services.html [L]
+
+	RewriteRule ^case-studies/enterprise-power-bi-governance-reporting\.html$ https://www.aegissofttech.com/case-studies/enterprise-power-bi-governance-reporting [R=301,L]
+	RewriteRule ^case-studies/enterprise-power-bi-governance-reporting?$ case-studies/enterprise-power-bi-governance-reporting.html [L]
+
+	RewriteRule ^case-studies/power-bi-performance-optimization\.html$ https://www.aegissofttech.com/case-studies/power-bi-performance-optimization [R=301,L]
+	RewriteRule ^case-studies/power-bi-performance-optimization?$ case-studies/power-bi-performance-optimization.html [L]
+
+	RewriteRule ^case-studies/tableau-governance-reporting-time\.html$ https://www.aegissofttech.com/case-studies/tableau-governance-reporting-time [R=301,L]
+	RewriteRule ^case-studies/tableau-governance-reporting-time?$ case-studies/tableau-governance-reporting-time.html [L]
+
+	RewriteRule ^case-studies/enterprise-tableau-analytics-platform\.html$ https://www.aegissofttech.com/case-studies/enterprise-tableau-analytics-platform [R=301,L]
+	RewriteRule ^case-studies/enterprise-tableau-analytics-platform?$ case-studies/enterprise-tableau-analytics-platform.html [L]
+
+	RewriteRule ^case-studies/tableau-customer-analytics-dashboard\.html$ https://www.aegissofttech.com/case-studies/tableau-customer-analytics-dashboard [R=301,L]
+	RewriteRule ^case-studies/tableau-customer-analytics-dashboard?$ case-studies/tableau-customer-analytics-dashboard.html [L]
+
+	RewriteRule ^case-studies/tableau-inventory-management-dashboard\.html$ https://www.aegissofttech.com/case-studies/tableau-inventory-management-dashboard [R=301,L]
+	RewriteRule ^case-studies/tableau-inventory-management-dashboard?$ case-studies/tableau-inventory-management-dashboard.html [L]
+
+	RewriteRule ^case-studies/tableau-predictive-maintenance-platform\.html$ https://www.aegissofttech.com/case-studies/tableau-predictive-maintenance-platform [R=301,L]
+	RewriteRule ^case-studies/tableau-predictive-maintenance-platform?$ case-studies/tableau-predictive-maintenance-platform.html [L]
+
+	RewriteRule ^case-studies/tableau-workforce-analytics\.html$ https://www.aegissofttech.com/case-studies/tableau-workforce-analytics [R=301,L]
+	RewriteRule ^case-studies/tableau-workforce-analytics?$ case-studies/tableau-workforce-analytics.html [L]
+
+	RewriteRule ^case-studies/python-ml-pipeline-automation\.html$ https://www.aegissofttech.com/case-studies/python-ml-pipeline-automation [R=301,L]
+	RewriteRule ^case-studies/python-ml-pipeline-automation?$ case-studies/python-ml-pipeline-automation.html [L]
+
+	RewriteRule ^case-studies/python-api-optimization-fintech\.html$ https://www.aegissofttech.com/case-studies/python-api-optimization-fintech [R=301,L]
+	RewriteRule ^case-studies/python-api-optimization-fintech?$ case-studies/python-api-optimization-fintech.html [L]
+
+	RewriteRule ^case-studies/python-microservices-migration\.html$ https://www.aegissofttech.com/case-studies/python-microservices-migration [R=301,L]
+	RewriteRule ^case-studies/python-microservices-migration?$ case-studies/python-microservices-migration.html [L]
+
+	RewriteRule ^case-studies/business-central-warehouse-automation\.html$ https://www.aegissofttech.com/case-studies/business-central-warehouse-automation [R=301,L]
+	RewriteRule ^case-studies/business-central-warehouse-automation?$ case-studies/business-central-warehouse-automation.html [L]
+
+	RewriteRule ^case-studies/business-central-api-integration-credit-management\.html$ https://www.aegissofttech.com/case-studies/business-central-api-integration-credit-management [R=301,L]
+	RewriteRule ^case-studies/business-central-api-integration-credit-management?$ case-studies/business-central-api-integration-credit-management.html [L]
+
+	RewriteRule ^case-studies/business-central-financial-automation\.html$ https://www.aegissofttech.com/case-studies/business-central-financial-automation [R=301,L]
+	RewriteRule ^case-studies/business-central-financial-automation?$ case-studies/business-central-financial-automation.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-business-central-mrp\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-business-central-mrp [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-business-central-mrp?$ case-studies/dynamics-365-business-central-mrp.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-business-central-crm-integration\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-business-central-crm-integration [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-business-central-crm-integration?$ case-studies/dynamics-365-business-central-crm-integration.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-support-40-percent-faster-resolution\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-support-40-percent-faster-resolution [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-support-40-percent-faster-resolution?$ case-studies/dynamics-365-support-40-percent-faster-resolution.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-reporting-optimization\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-reporting-optimization [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-reporting-optimization?$ case-studies/dynamics-365-reporting-optimization.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-user-adoption\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-user-adoption [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-user-adoption?$ case-studies/dynamics-365-user-adoption.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-customization-manufacturing\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-customization-manufacturing [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-customization-manufacturing?$ case-studies/dynamics-365-customization-manufacturing.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-customer-service-automation\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-customer-service-automation [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-customer-service-automation?$ case-studies/dynamics-365-customer-service-automation.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-sales-customization-productivity\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-sales-customization-productivity [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-sales-customization-productivity?$ case-studies/dynamics-365-sales-customization-productivity.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-sales-cloud-migration\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-sales-cloud-migration [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-sales-cloud-migration?$ case-studies/dynamics-365-sales-cloud-migration.html [L]
+
+	RewriteRule ^case-studies/healthcare-dynamics-365-migration\.html$ https://www.aegissofttech.com/case-studies/healthcare-dynamics-365-migration [R=301,L]
+	RewriteRule ^case-studies/healthcare-dynamics-365-migration?$ case-studies/healthcare-dynamics-365-migration.html [L]
+
+	RewriteRule ^case-studies/enterprise-salesforce-to-dynamics-365-migration\.html$ https://www.aegissofttech.com/case-studies/enterprise-salesforce-to-dynamics-365-migration [R=301,L]
+	RewriteRule ^case-studies/enterprise-salesforce-to-dynamics-365-migration?$ case-studies/enterprise-salesforce-to-dynamics-365-migration.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-crm-implementation-customer-response-time\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-crm-implementation-customer-response-time [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-crm-implementation-customer-response-time?$ case-studies/dynamics-365-crm-implementation-customer-response-time.html [L]
+
+	RewriteRule ^case-studies/business-central-multi-entity-implementation\.html$ https://www.aegissofttech.com/case-studies/business-central-multi-entity-implementation [R=301,L]
+	RewriteRule ^case-studies/business-central-multi-entity-implementation?$ case-studies/business-central-multi-entity-implementation.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-finance-reporting-automation\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-finance-reporting-automation [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-finance-reporting-automation?$ case-studies/dynamics-365-finance-reporting-automation.html [L]
+
+	RewriteRule ^case-studies/enterprise-reporting-snowflake-dynamics-365\.html$ https://www.aegissofttech.com/case-studies/enterprise-reporting-snowflake-dynamics-365 [R=301,L]
+	RewriteRule ^case-studies/enterprise-reporting-snowflake-dynamics-365?$ case-studies/enterprise-reporting-snowflake-dynamics-365.html [L]
+
+	RewriteRule ^case-studies/legacy-crm-to-dynamics-365-migration\.html$ https://www.aegissofttech.com/case-studies/legacy-crm-to-dynamics-365-migration [R=301,L]
+	RewriteRule ^case-studies/legacy-crm-to-dynamics-365-migration?$ case-studies/legacy-crm-to-dynamics-365-migration.html [L]
+
+	RewriteRule ^case-studies/ai-workflow-automation-dynamics-365\.html$ https://www.aegissofttech.com/case-studies/ai-workflow-automation-dynamics-365 [R=301,L]
+	RewriteRule ^case-studies/ai-workflow-automation-dynamics-365?$ case-studies/ai-workflow-automation-dynamics-365.html [L]
+	
+	RewriteRule ^case-studies/dynamics-nav-to-business-central-upgrade\.html$ https://www.aegissofttech.com/case-studies/dynamics-nav-to-business-central-upgrade [R=301,L]
+	RewriteRule ^case-studies/dynamics-nav-to-business-central-upgrade?$ case-studies/dynamics-nav-to-business-central-upgrade.html [L]
+
+	RewriteRule ^case-studies/legacy-nav-to-business-central-upgrade\.html$ https://www.aegissofttech.com/case-studies/legacy-nav-to-business-central-upgrade [R=301,L]
+	RewriteRule ^case-studies/legacy-nav-to-business-central-upgrade?$ case-studies/legacy-nav-to-business-central-upgrade.html [L]
+
+	RewriteRule ^case-studies/legacy-crm-to-dynamics-365-sales-upgrade\.html$ https://www.aegissofttech.com/case-studies/legacy-crm-to-dynamics-365-sales-upgrade [R=301,L]
+	RewriteRule ^case-studies/legacy-crm-to-dynamics-365-sales-upgrade?$ case-studies/legacy-crm-to-dynamics-365-sales-upgrade.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-customer-engagement-upgrade\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-customer-engagement-upgrade [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-customer-engagement-upgrade?$ case-studies/dynamics-365-customer-engagement-upgrade.html [L]
+
+	RewriteRule ^case-studies/dynamics-v9-to-dynamics-365-customer-service-upgrade\.html$ https://www.aegissofttech.com/case-studies/dynamics-v9-to-dynamics-365-customer-service-upgrade [R=301,L]
+	RewriteRule ^case-studies/dynamics-v9-to-dynamics-365-customer-service-upgrade?$ case-studies/dynamics-v9-to-dynamics-365-customer-service-upgrade.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-ecommerce-integration\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-ecommerce-integration [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-ecommerce-integration?$ case-studies/dynamics-365-ecommerce-integration.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-finance-api-integration\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-finance-api-integration [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-finance-api-integration?$ case-studies/dynamics-365-finance-api-integration.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-field-service-iot-integration\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-field-service-iot-integration [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-field-service-iot-integration?$ case-studies/dynamics-365-field-service-iot-integration.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-training-healthcare-logistics\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-training-healthcare-logistics [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-training-healthcare-logistics?$ case-studies/dynamics-365-training-healthcare-logistics.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-training-user-adoption\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-training-user-adoption [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-training-user-adoption?$ case-studies/dynamics-365-training-user-adoption.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-sales-lead-conversion\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-sales-lead-conversion [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-sales-lead-conversion?$ case-studies/dynamics-365-sales-lead-conversion.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-sales-forecasting\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-sales-forecasting [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-sales-forecasting?$ case-studies/dynamics-365-sales-forecasting.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-sales-workflow-automation\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-sales-workflow-automation [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-sales-workflow-automation?$ case-studies/dynamics-365-sales-workflow-automation.html [L]
+
+	RewriteRule ^case-studies/playwright-test-automation-workforce-saas\.html$ https://www.aegissofttech.com/case-studies/playwright-test-automation-workforce-saas [R=301,L]
+	RewriteRule ^case-studies/playwright-test-automation-workforce-saas?$ case-studies/playwright-test-automation-workforce-saas.html [L]
+
+	RewriteRule ^case-studies/fintech-digital-lending-software-testing\.html$ https://www.aegissofttech.com/case-studies/fintech-digital-lending-software-testing [R=301,L]
+	RewriteRule ^case-studies/fintech-digital-lending-software-testing?$ case-studies/fintech-digital-lending-software-testing.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-customer-insights-customer-segmentation\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-customer-insights-customer-segmentation [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-customer-insights-customer-segmentation?$ case-studies/dynamics-365-customer-insights-customer-segmentation.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-customer-insights-campaign-automation\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-customer-insights-campaign-automation [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-customer-insights-campaign-automation?$ case-studies/dynamics-365-customer-insights-campaign-automation.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-customer-insights-customer-engagement\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-customer-insights-customer-engagement [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-customer-insights-customer-engagement?$ case-studies/dynamics-365-customer-insights-customer-engagement.html [L]
+
+	RewriteRule ^case-studies/generative-ai-drug-discovery\.html$ https://www.aegissofttech.com/case-studies/generative-ai-drug-discovery [R=301,L]
+	RewriteRule ^case-studies/generative-ai-drug-discovery?$ case-studies/generative-ai-drug-discovery.html [L]
+
+	RewriteRule ^case-studies/gen-ai-telecom-support-copilots\.html$ https://www.aegissofttech.com/case-studies/gen-ai-telecom-support-copilots [R=301,L]
+	RewriteRule ^case-studies/gen-ai-telecom-support-copilots?$ case-studies/gen-ai-telecom-support-copilots.html [L]
+
+	RewriteRule ^case-studies/real-time-ai-fraud-detection\.html$ https://www.aegissofttech.com/case-studies/real-time-ai-fraud-detection [R=301,L]
+	RewriteRule ^case-studies/real-time-ai-fraud-detection?$ case-studies/real-time-ai-fraud-detection.html [L]
+
+	RewriteRule ^case-studies/snowflake-data-warehouse-91-percent-faster\.html$ https://www.aegissofttech.com/case-studies/snowflake-data-warehouse-91-percent-faster [R=301,L]
+	RewriteRule ^case-studies/snowflake-data-warehouse-91-percent-faster?$ case-studies/snowflake-data-warehouse-91-percent-faster.html [L]
+
+	RewriteRule ^case-studies/snowflake-streaming-implementation\.html$ https://www.aegissofttech.com/case-studies/snowflake-streaming-implementation [R=301,L]
+	RewriteRule ^case-studies/snowflake-streaming-implementation?$ case-studies/snowflake-streaming-implementation.html [L]
+
+	RewriteRule ^case-studies/snowflake-healthcare-data-platform\.html$ https://www.aegissofttech.com/case-studies/snowflake-healthcare-data-platform [R=301,L]
+	RewriteRule ^case-studies/snowflake-healthcare-data-platform?$ case-studies/snowflake-healthcare-data-platform.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-supply-chain-inventory-optimization\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-supply-chain-inventory-optimization [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-supply-chain-inventory-optimization?$ case-studies/dynamics-365-supply-chain-inventory-optimization.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-supply-chain-order-fulfilment\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-supply-chain-order-fulfilment [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-supply-chain-order-fulfilment?$ case-studies/dynamics-365-supply-chain-order-fulfilment.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-supply-chain-forecasting\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-supply-chain-forecasting [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-supply-chain-forecasting?$ case-studies/dynamics-365-supply-chain-forecasting.html [L]
+
+	RewriteRule ^case-studies/87-percent-reduction-manual-hr-dynamics-365\.html$ https://www.aegissofttech.com/case-studies/87-percent-reduction-manual-hr-dynamics-365 [R=301,L]
+	RewriteRule ^case-studies/87-percent-reduction-manual-hr-dynamics-365?$ case-studies/87-percent-reduction-manual-hr-dynamics-365.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-hr-data-migration\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-hr-data-migration [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-hr-data-migration?$ case-studies/dynamics-365-hr-data-migration.html [L]
+
+	RewriteRule ^case-studies/dynamics-365-hr-automation\.html$ https://www.aegissofttech.com/case-studies/dynamics-365-hr-automation [R=301,L]
+	RewriteRule ^case-studies/dynamics-365-hr-automation?$ case-studies/dynamics-365-hr-automation.html [L]
+
+	RewriteRule ^case-studies/servicenow-cmdb-accuracy\.html$ https://www.aegissofttech.com/case-studies/servicenow-cmdb-accuracy [R=301,L]
+	RewriteRule ^case-studies/servicenow-cmdb-accuracy?$ case-studies/servicenow-cmdb-accuracy.html [L]
+
+	RewriteRule ^case-studies/servicenow-incident-reduction\.html$ https://www.aegissofttech.com/case-studies/servicenow-incident-reduction [R=301,L]
+	RewriteRule ^case-studies/servicenow-incident-reduction?$ case-studies/servicenow-incident-reduction.html [L]
+
+	RewriteRule ^case-studies/servicenow-grc-secops-automation\.html$ https://www.aegissofttech.com/case-studies/servicenow-grc-secops-automation [R=301,L]
+	RewriteRule ^case-studies/servicenow-grc-secops-automation?$ case-studies/servicenow-grc-secops-automation.html [L]
+
+	RewriteRule ^case-studies/servicenow-itsm-hrsd-modernization\.html$ https://www.aegissofttech.com/case-studies/servicenow-itsm-hrsd-modernization [R=301,L]
+	RewriteRule ^case-studies/servicenow-itsm-hrsd-modernization?$ case-studies/servicenow-itsm-hrsd-modernization.html [L]
+
+	RewriteRule ^case-studies/servicenow-patient-screening-app\.html$ https://www.aegissofttech.com/case-studies/servicenow-patient-screening-app [R=301,L]
+	RewriteRule ^case-studies/servicenow-patient-screening-app?$ case-studies/servicenow-patient-screening-app.html [L]
+
+	RewriteRule ^case-studies/servicenow-retail-itam-csm\.html$ https://www.aegissofttech.com/case-studies/servicenow-retail-itam-csm [R=301,L]
+	RewriteRule ^case-studies/servicenow-retail-itam-csm?$ case-studies/servicenow-retail-itam-csm.html [L]
+
+	RewriteRule ^case-studies/financial-services-snowflake-power-bi-reporting\.html$ https://www.aegissofttech.com/case-studies/financial-services-snowflake-power-bi-reporting [R=301,L]
+	RewriteRule ^case-studies/financial-services-snowflake-power-bi-reporting?$ case-studies/financial-services-snowflake-power-bi-reporting.html [L]
+
+	RewriteRule ^case-studies/retail-ecommerce-azure-migration\.html$ https://www.aegissofttech.com/case-studies/retail-ecommerce-azure-migration [R=301,L]
+	RewriteRule ^case-studies/retail-ecommerce-azure-migration?$ case-studies/retail-ecommerce-azure-migration.html [L]
+
+	RewriteRule ^case-studies/healthcare-conversational-ai-ticket-resolution\.html$ https://www.aegissofttech.com/case-studies/healthcare-conversational-ai-ticket-resolution [R=301,L]
+	RewriteRule ^case-studies/healthcare-conversational-ai-ticket-resolution?$ case-studies/healthcare-conversational-ai-ticket-resolution.html [L]	
+
+	RewriteRule ^case-studies/servicenow-incident-resolution-manufacturing\.html$ https://www.aegissofttech.com/case-studies/servicenow-incident-resolution-manufacturing [R=301,L]
+	RewriteRule ^case-studies/servicenow-incident-resolution-manufacturing?$ case-studies/servicenow-incident-resolution-manufacturing.html [L]	
+
+	RewriteRule ^case-studies/government-servicenow-itsm-service-resolution\.html$ https://www.aegissofttech.com/case-studies/government-servicenow-itsm-service-resolution [R=301,L]
+	RewriteRule ^case-studies/government-servicenow-itsm-service-resolution?$ case-studies/government-servicenow-itsm-service-resolution.html [L]	
+
+	RewriteRule ^case-studies/servicenow-migration-insurance\.html$ https://www.aegissofttech.com/case-studies/servicenow-migration-insurance [R=301,L]
+	RewriteRule ^case-studies/servicenow-migration-insurance?$ case-studies/servicenow-migration-insurance.html [L]	
+
+	RewriteRule ^case-studies/servicenow-itsm-consolidation-telecom\.html$ https://www.aegissofttech.com/case-studies/servicenow-itsm-consolidation-telecom [R=301,L]
+	RewriteRule ^case-studies/servicenow-itsm-consolidation-telecom?$ case-studies/servicenow-itsm-consolidation-telecom.html [L]	
+
+	RewriteRule ^case-studies/servicenow-release-upgrade-banking\.html$ https://www.aegissofttech.com/case-studies/servicenow-release-upgrade-banking [R=301,L]
+	RewriteRule ^case-studies/servicenow-release-upgrade-banking?$ case-studies/servicenow-release-upgrade-banking.html [L]	
+
+	RewriteRule ^case-studies/ecommerce-api-regression-testing\.html$ https://www.aegissofttech.com/case-studies/ecommerce-api-regression-testing [R=301,L]
+	RewriteRule ^case-studies/ecommerce-api-regression-testing?$ case-studies/ecommerce-api-regression-testing.html [L]		
+
+	RewriteRule ^case-studies/dynamics-nav-business-central-saas-migration\.html$ https://www.aegissofttech.com/case-studies/dynamics-nav-business-central-saas-migration [R=301,L]
+	RewriteRule ^case-studies/dynamics-nav-business-central-saas-migration?$ case-studies/dynamics-nav-business-central-saas-migration.html [L]		
+
+	RewriteRule ^case-studies/business-central-sand-casting-manufacturer\.html$ https://www.aegissofttech.com/case-studies/business-central-sand-casting-manufacturer [R=301,L]
+	RewriteRule ^case-studies/business-central-sand-casting-manufacturer?$ case-studies/business-central-sand-casting-manufacturer.html [L]		
+
+	RewriteRule ^case-studies/business-central-pharma-manufacturing-erp\.html$ https://www.aegissofttech.com/case-studies/business-central-pharma-manufacturing-erp [R=301,L]
+	RewriteRule ^case-studies/business-central-pharma-manufacturing-erp?$ case-studies/business-central-pharma-manufacturing-erp.html [L]			
+
+	RewriteRule ^profile/devanshu-t\.html$ https://www.aegissofttech.com/profile/devanshu-t [R=301,L]
+	RewriteRule ^profile/devanshu-t?$ profile/devanshu-t.html [L]
+
+	RewriteRule ^profile/yogendrasinh-j\.html$ https://www.aegissofttech.com/profile/yogendrasinh-j [R=301,L]
+	RewriteRule ^profile/yogendrasinh-j?$ profile/yogendrasinh-j.html [L]
+
+	RewriteRule ^profile/mahesh-t\.html$ https://www.aegissofttech.com/profile/mahesh-t [R=301,L]
+	RewriteRule ^profile/mahesh-t?$ profile/mahesh-t.html [L]
+
+	RewriteRule ^profile/nikul-p\.html$ https://www.aegissofttech.com/profile/nikul-p [R=301,L]
+	RewriteRule ^profile/nikul-p?$ profile/nikul-p.html [L]
+
+	RewriteRule ^profile/sandip-s\.html$ https://www.aegissofttech.com/profile/sandip-s [R=301,L]
+	RewriteRule ^profile/sandip-s?$ profile/sandip-s.html [L]
+
+	RewriteRule ^profile/mihir-p\.html$ https://www.aegissofttech.com/profile/mihir-p [R=301,L]
+	RewriteRule ^profile/mihir-p?$ profile/mihir-p.html [L]
+
+	RewriteRule ^profile/aman-s\.html$ https://www.aegissofttech.com/profile/aman-s [R=301,L]
+	RewriteRule ^profile/aman-s?$ profile/aman-s.html [L]
+
+	RewriteRule ^profile/yash-s\.html$ https://www.aegissofttech.com/profile/yash-s [R=301,L]
+	RewriteRule ^profile/yash-s?$ profile/yash-s.html [L]
+
+	RewriteRule ^profile/vivek-l\.html$ https://www.aegissofttech.com/profile/vivek-l [R=301,L]
+	RewriteRule ^profile/vivek-l?$ profile/vivek-l.html [L]
+
+	RewriteRule ^profile/anil-k\.html$ https://www.aegissofttech.com/profile/anil-k [R=301,L]
+	RewriteRule ^profile/anil-k?$ profile/anil-k.html [L]
+
+	RewriteRule ^profile/aditya-g\.html$ https://www.aegissofttech.com/profile/aditya-g [R=301,L]
+	RewriteRule ^profile/aditya-g?$ profile/aditya-g.html [L]
+		
+	# Hire Redirect
+	RewriteRule ^hire\.html$ https://www.aegissofttech.com/hire [R=301,L]
+	RewriteRule ^hire?$ hire.html [L]
+
+	RewriteRule ^hire/java-developers\.html$ /hire/java-developers [R=301,L]
+	RewriteRule ^hire/java-developers?$ hire/java-developers.html [L]
+
+	RewriteRule ^hire/dotnet-developers\.html$ /hire/dotnet-developers [R=301,L]
+	RewriteRule ^hire/dotnet-developers?$ hire/dotnet-developers.html [L]
+
+	RewriteRule ^hire/dotnet-core-developers\.html$ /hire/dotnet-core-developers [R=301,L]
+	RewriteRule ^hire/dotnet-core-developers?$ hire/dotnet-core-developers.html [L]
+
+	RewriteRule ^hire/nodejs-developers\.html$ /hire/nodejs-developers [R=301,L]
+	RewriteRule ^hire/nodejs-developers?$ hire/nodejs-developers.html [L]
+
+	RewriteRule ^hire/reactjs-developers\.html$ /hire/reactjs-developers [R=301,L]
+	RewriteRule ^hire/reactjs-developers?$ hire/reactjs-developers.html [L]
+
+	RewriteRule ^hire/tableau-developers\.html$ /hire/tableau-developers [R=301,L]
+	RewriteRule ^hire/tableau-developers?$ hire/tableau-developers.html [L]
+
+	RewriteRule ^hire/power-bi-developers\.html$ /hire/power-bi-developers [R=301,L]
+	RewriteRule ^hire/power-bi-developers?$ hire/power-bi-developers.html [L]
+
+	RewriteRule ^hire/dynamics-365-crm-developers\.html$ /hire/dynamics-365-crm-developers [R=301,L]
+	RewriteRule ^hire/dynamics-365-crm-developers?$ hire/dynamics-365-crm-developers.html [L]
+
+	RewriteRule ^hire/dynamics-365-finance-and-operations-developers\.html$ /hire/dynamics-365-finance-and-operations-developers [R=301,L]
+	RewriteRule ^hire/dynamics-365-finance-and-operations-developers?$ hire/dynamics-365-finance-and-operations-developers.html [L]
+
+	RewriteRule ^hire/microsoft-sql-server-developers\.html$ /hire/microsoft-sql-server-developers [R=301,L]
+	RewriteRule ^hire/microsoft-sql-server-developers?$ hire/microsoft-sql-server-developers.html [L]
+
+	RewriteRule ^hire/python-developers\.html$ /hire/python-developers [R=301,L]
+	RewriteRule ^hire/python-developers?$ hire/python-developers.html [L]
+
+	RewriteRule ^hire/apache-spark-developers\.html$ /hire/apache-spark-developers [R=301,L]
+	RewriteRule ^hire/apache-spark-developers?$ hire/apache-spark-developers.html [L]
+
+	RewriteRule ^hire/angularjs-developers\.html$ /hire/angularjs-developers [R=301,L]
+	RewriteRule ^hire/angularjs-developers?$ hire/angularjs-developers.html [L]
+
+	RewriteRule ^hire/elasticsearch-developers\.html$ /hire/elasticsearch-developers [R=301,L]
+	RewriteRule ^hire/elasticsearch-developers?$ hire/elasticsearch-developers.html [L]
+
+	RewriteRule ^hire/oracle-plsql-developers\.html$ /hire/oracle-plsql-developers [R=301,L]
+	RewriteRule ^hire/oracle-plsql-developers?$ hire/oracle-plsql-developers.html [L]
+
+	RewriteRule ^hire/machine-learning-developers\.html$ /hire/machine-learning-developers [R=301,L]
+	RewriteRule ^hire/machine-learning-developers?$ hire/machine-learning-developers.html [L]
+
+	RewriteRule ^hire/big-data-developers\.html$ /hire/big-data-developers [R=301,L]
+	RewriteRule ^hire/big-data-developers?$ hire/big-data-developers.html [L]
+
+	RewriteRule ^hire/microservices-developers\.html$ /hire/microservices-developers [R=301,L]
+	RewriteRule ^hire/microservices-developers?$ hire/microservices-developers.html [L]
+
+	RewriteRule ^hire/hadoop-developers\.html$ /hire/hadoop-developers [R=301,L]
+	RewriteRule ^hire/hadoop-developers?$ hire/hadoop-developers.html [L]
+
+	RewriteRule ^hire/dynamics-365-business-central-developers\.html$ /hire/dynamics-365-business-central-developers [R=301,L]
+	RewriteRule ^hire/dynamics-365-business-central-developers?$ hire/dynamics-365-business-central-developers.html [L]
+
+	RewriteRule ^hire/azure-devops-engineers\.html$ /hire/azure-devops-engineers [R=301,L]
+	RewriteRule ^hire/azure-devops-engineers?$ hire/azure-devops-engineers.html [L]
+
+	RewriteRule ^hire/ai-developers\.html$ /hire/ai-developers [R=301,L]
+	RewriteRule ^hire/ai-developers?$ hire/ai-developers.html [L]
+
+	RewriteRule ^hire/snowflake-developers\.html$ /hire/snowflake-developers [R=301,L]
+	RewriteRule ^hire/snowflake-developers?$ hire/snowflake-developers.html [L]
+
+	RewriteRule ^hire/data-warehouse-developers\.html$ /hire/data-warehouse-developers [R=301,L]
+	RewriteRule ^hire/data-warehouse-developers?$ hire/data-warehouse-developers.html [L]
+
+	RewriteRule ^hire/servicenow-developers\.html$ /hire/servicenow-developers [R=301,L]
+	RewriteRule ^hire/servicenow-developers?$ hire/servicenow-developers.html [L]
+
+	RewriteRule ^hire/pl-sql-developers\.html$ /hire/pl-sql-developers [R=301,L]
+	RewriteRule ^hire/pl-sql-developers?$ hire/pl-sql-developers.html [L]
+
+	RewriteRule ^hire/aws-devops-engineers\.html$ /hire/aws-devops-engineers [R=301,L]
+	RewriteRule ^hire/aws-devops-engineers?$ hire/aws-devops-engineers.html [L]
+
+
+	# Industries Redirect
+	RewriteRule ^agriculture\.html$ /agriculture [R=301,L]
+	RewriteRule ^agriculture?$ agriculture.html [L]
+
+	RewriteRule ^automotive\.html$ /automotive [R=301,L]
+	RewriteRule ^automotive?$ automotive.html [L]
+
+	RewriteRule ^telecommunications\.html$ /telecommunications [R=301,L]
+	RewriteRule ^telecommunications?$ telecommunications.html [L]
+
+	RewriteRule ^education\.html$ /education [R=301,L]
+	RewriteRule ^education?$ education.html [L]
+
+	RewriteRule ^fintech\.html$ /fintech [R=301,L]
+	RewriteRule ^fintech?$ fintech.html [L]
+
+	RewriteRule ^healthcare\.html$ /healthcare [R=301,L]
+	RewriteRule ^healthcare?$ healthcare.html [L]
+
+	RewriteRule ^manufacturing\.html$ /manufacturing [R=301,L]
+	RewriteRule ^manufacturing?$ manufacturing.html [L]
+
+	RewriteRule ^digital-publishing\.html$ /digital-publishing [R=301,L]
+	RewriteRule ^digital-publishing?$ digital-publishing.html [L]
+
+	RewriteRule ^insurance\.html$ /insurance [R=301,L]
+	RewriteRule ^insurance?$ insurance.html [L]
+
+	RewriteRule ^life-sciences\.html$ /life-sciences [R=301,L]
+	RewriteRule ^life-sciences?$ life-sciences.html [L]
+
+	RewriteRule ^logistics\.html$ /logistics [R=301,L]
+	RewriteRule ^logistics?$ logistics.html [L]
+
+	RewriteRule ^media\.html$ /media [R=301,L]
+	RewriteRule ^media?$ media.html [L]
+
+	RewriteRule ^defense\.html$ /defense [R=301,L]
+	RewriteRule ^defense?$ defense.html [L]
+
+	RewriteRule ^testimonials\.html$ /testimonials [R=301,L]
+	RewriteRule ^testimonials?$ testimonials.html [L]
+
+
+	# Data Redirect
+	# Redirect only /data or /data/
+	RewriteRule ^data/?$ https://www.aegissofttech.com/data/big-data-consulting-services [R=301,L]
+
+	# Old HTML URL
+	RewriteRule ^big-data-consulting\.html$ https://www.aegissofttech.com/data/big-data-consulting-services [R=301,L]
+
+	RewriteRule ^data/big-data-consulting-services\.html$ /data/big-data-consulting-services [R=301,L]
+	RewriteRule ^data/big-data-consulting-services?$ data/big-data-consulting-services.html [L]
+
+	RewriteRule ^data/apache-spark-consulting-services\.html$ /data/apache-spark-consulting-services [R=301,L]
+	RewriteRule ^data/apache-spark-consulting-services?$ data/apache-spark-consulting-services.html [L]
+
+	RewriteRule ^data/data-science-consulting-services\.html$ /data/data-science-consulting-services [R=301,L]
+	RewriteRule ^data/data-science-consulting-services?$ data/data-science-consulting-services.html [L]
+
+	RewriteRule ^data/data-streaming-services\.html$ /data/data-streaming-services [R=301,L]
+	RewriteRule ^data/data-streaming-services?$ data/data-streaming-services.html [L]
+
+	RewriteRule ^data/data-engineering-services\.html$ /data/data-engineering-services [R=301,L]
+	RewriteRule ^data/data-engineering-services?$ data/data-engineering-services.html [L]
+
+	RewriteRule ^data/nlp-development\.html$ /data/nlp-development [R=301,L]
+	RewriteRule ^data/nlp-development?$ data/nlp-development.html [L]
+
+	RewriteRule ^data/text-analytics\.html$ /data/text-analytics [R=301,L]
+	RewriteRule ^data/text-analytics?$ data/text-analytics.html [L]
+
+	# Business Intelligence Redirect
+	RewriteRule ^business-intelligence\.html$ https://www.aegissofttech.com/business-intelligence [R=301,L]
+	RewriteRule ^business-intelligence?$ business-intelligence.html [L]
+
+	RewriteRule ^business-intelligence/tableau/consulting-services\.html$ /business-intelligence/tableau/consulting-services [R=301,L]
+	RewriteRule ^business-intelligence/tableau/consulting-services?$ business-intelligence/tableau/consulting-services.html [L]
+
+	RewriteRule ^business-intelligence/tableau/development-services\.html$ /business-intelligence/tableau/development-services [R=301,L]
+	RewriteRule ^business-intelligence/tableau/development-services?$ business-intelligence/tableau/development-services.html [L]
+	
+	# Software Development Redirect
+	RewriteRule ^software-development\.html$ https://www.aegissofttech.com/software-development [R=301,L]
+	RewriteRule ^software-development?$ software-development.html [L]
+
+	RewriteRule ^software-development/embedded\.html$ https://www.aegissofttech.com/software-development/embedded [R=301,L]
+	RewriteRule ^software-development/embedded?$ software-development/embedded.html [L]
+
+	RewriteRule ^software-development/integration\.html$ https://www.aegissofttech.com/software-development/integration [R=301,L]
+	RewriteRule ^software-development/integration?$ software-development/integration.html [L]
+
+	RewriteRule ^software-development/microservices\.html$ https://www.aegissofttech.com/software-development/microservices [R=301,L]
+	RewriteRule ^software-development/microservices?$ software-development/microservices.html [L]
+
+	RewriteRule ^software-development/robotic-process-automation\.html$ https://www.aegissofttech.com/software-development/robotic-process-automation [R=301,L]
+	RewriteRule ^software-development/robotic-process-automation?$ software-development/robotic-process-automation.html [L]
+
+	RewriteRule ^software-development/angularjs\.html$ https://www.aegissofttech.com/software-development/angularjs [R=301,L]
+	RewriteRule ^software-development/angularjs?$ software-development/angularjs.html [L]
+
+	RewriteRule ^software-development/nodejs\.html$ https://www.aegissofttech.com/software-development/nodejs [R=301,L]
+	RewriteRule ^software-development/nodejs?$ software-development/nodejs.html [L]
+
+	RewriteRule ^software-development/reactjs\.html$ https://www.aegissofttech.com/software-development/reactjs [R=301,L]
+	RewriteRule ^software-development/reactjs?$ software-development/reactjs.html [L]
+
+	# Java
+	RewriteRule ^software-development/java\.html$ https://www.aegissofttech.com/software-development/java [R=301,L]
+	RewriteRule ^software-development/java?$ software-development/java.html [L]
+
+	RewriteRule ^software-development/java/consulting\.html$ https://www.aegissofttech.com/software-development/java/consulting [R=301,L]
+	RewriteRule ^software-development/java/consulting?$ software-development/java/consulting.html [L]
+
+	RewriteRule ^software-development/java/outsourcing\.html$ https://www.aegissofttech.com/software-development/java/outsourcing [R=301,L]
+	RewriteRule ^software-development/java/outsourcing?$ software-development/java/outsourcing.html [L]
+
+	# Python
+	RewriteRule ^software-development/python\.html$ https://www.aegissofttech.com/software-development/python [R=301,L]
+	RewriteRule ^software-development/python?$ software-development/python.html [L]
+
+	RewriteRule ^software-development/python/django\.html$ https://www.aegissofttech.com/software-development/python/django [R=301,L]
+	RewriteRule ^software-development/python/django?$ software-development/python/django.html [L]
+
+	RewriteRule ^software-development/python/flask\.html$ https://www.aegissofttech.com/software-development/python/flask [R=301,L]
+	RewriteRule ^software-development/python/flask?$ software-development/python/flask.html [L]
+
+	# Data
+	RewriteRule ^data/databricks-managed-services\.html$ https://www.aegissofttech.com/data/databricks-managed-services [R=301,L]
+	RewriteRule ^data/databricks-managed-services?$ data/databricks-managed-services.html [L]
+
+	RewriteRule ^data/databricks-consulting-services\.html$ https://www.aegissofttech.com/data/databricks-consulting-services [R=301,L]
+	RewriteRule ^data/databricks-consulting-services?$ data/databricks-consulting-services.html [L]
+	
+	RewriteRule ^data/cloudera-consulting\.html$ https://www.aegissofttech.com/data/cloudera-consulting [R=301,L]
+	RewriteRule ^data/cloudera-consulting?$ data/cloudera-consulting.html [L]
+	
+	# Cloud
+	RewriteRule ^cloud\.html$ https://www.aegissofttech.com/cloud [R=301,L]
+	RewriteRule ^cloud?$ cloud.html [L]
+
+	RewriteRule ^cloud/aws/data-analytics-services\.html$ https://www.aegissofttech.com/cloud/aws/data-analytics-services [R=301,L]
+	RewriteRule ^cloud/aws/data-analytics-services?$ cloud/aws/data-analytics-services.html [L]
+
+	RewriteRule ^cloud/aws/devops-services\.html$ https://www.aegissofttech.com/cloud/aws/devops-services [R=301,L]
+	RewriteRule ^cloud/aws/devops-services?$ cloud/aws/devops-services.html [L]
+
+	RewriteRule ^cloud/aws/glue-consulting-services\.html$ https://www.aegissofttech.com/cloud/aws/glue-consulting-services [R=301,L]
+	RewriteRule ^cloud/aws/glue-consulting-services?$ cloud/aws/glue-consulting-services.html [L]
+
+	# Media
+	RewriteRule ^media/3d-animation-services\.html$ https://www.aegissofttech.com/media/3d-animation-services [R=301,L]
+	RewriteRule ^media/3d-animation-services?$ media/3d-animation-services.html [L]
+
+	RewriteRule ^media/streaming-services\.html$ https://www.aegissofttech.com/media/streaming-services [R=301,L]
+	RewriteRule ^media/streaming-services?$ media/streaming-services.html [L]
+
+	# Application
+	RewriteRule ^application\.html$ https://www.aegissofttech.com/application [R=301,L]
+	RewriteRule ^application?$ application.html [L]
+
+	RewriteRule ^application/enterprise-mobility\.html$ https://www.aegissofttech.com/application/enterprise-mobility [R=301,L]
+	RewriteRule ^application/enterprise-mobility?$ application/enterprise-mobility.html [L]
+
+	# Ai Services
+ 	RewriteRule ^ai-services/machine-learning-development\.html$ https://www.aegissofttech.com/ai-services/machine-learning-development [R=301,L]
+	RewriteRule ^ai-services/machine-learning-development?$ ai-services/machine-learning-development.html [L]
+	
+
+	
+	Redirect 301 /qa-testing.html https://www.aegissofttech.com/software-testing-services
+	Redirect 301 /magento-application-development.html https://www.aegissofttech.com/software-development
+	Redirect 301 /automated-software-testing.html https://www.aegissofttech.com/software-testing-services
+	Redirect 301 /ai/generative-services.html https://www.aegissofttech.com/generative-ai-development-services.html
+	Redirect 301 /ai/generative-development-services.html https://www.aegissofttech.com/generative-ai-development-services.html
+	Redirect 301 /microsoft-crm-development-services.html https://www.aegissofttech.com/dynamics-365/crm
+	Redirect 301 /power-bi-services.html https://www.aegissofttech.com/microsoft/power-bi-consulting
+	Redirect 301 /azure/data-lake.html https://www.aegissofttech.com/microsoft/azure-data-lake-consulting
+	Redirect 301 /python-development.html https://www.aegissofttech.com/software-development/python
+	Redirect 301 /servicenow/hire-consultants.html https://www.aegissofttech.com/servicenow-consulting.html
+	Redirect 301 /microsoft/business-central-services.html https://www.aegissofttech.com/dynamics-365/business-central-consulting.html
+	Redirect 301 /testing/test-automation-services.html https://www.aegissofttech.com/automation-testing-services
+	Redirect 301 /bi-analytics-development.html https://www.aegissofttech.com/business-intelligence
+	Redirect 301 /microsoft/business-central-consulting.html https://www.aegissofttech.com/dynamics-365/business-central-consulting.html
+	Redirect 301 /nodejs-development-services-company.html https://www.aegissofttech.com/software-development/nodejs
+	Redirect 301 /hire-java-programmer-developers.html https://www.aegissofttech.com/hire/java-developers
+	Redirect 301 /en-sg/python-development-services.html https://www.aegissofttech.com/en-sg/python-development.html
+	Redirect 301 /net-application-development-services.html https://www.aegissofttech.com/microsoft/dotnet-development
+	Redirect 301 /web-stories/ https://www.aegissofttech.com/
+	Redirect 301 /microsoft/power-apps-development-services.html https://www.aegissofttech.com/microsoft/power-apps-consulting
+	Redirect 301 /ai/consulting-services.html https://www.aegissofttech.com/ai-consulting-services.html
+	Redirect 301 /ai/generative-integration.html https://www.aegissofttech.com/generative-ai-integration-services.html
+	Redirect 301 /servicenow/migration-services.html https://www.aegissofttech.com/servicenow-migration-services.html
+	Redirect 301 /servicenow/support-services.html https://www.aegissofttech.com/servicenow-support-services.html
+	Redirect 301 /servicenow/managed-services.html https://www.aegissofttech.com/servicenow-managed-services.html
+	Redirect 301 /servicenow/implementation-services.html https://www.aegissofttech.com/servicenow-implementation-services.html
+	Redirect 301 /bigdata-analytics-consulting.html https://www.aegissofttech.com/data/big-data-consulting-services
+	Redirect 301 /big-data-developers.html https://www.aegissofttech.com/hire/big-data-developers
+	Redirect 301 /databricks-bi-managed-services.html https://www.aegissofttech.com/data/databricks-managed-services
+	Redirect 301 /data-warehousing-services.html https://www.aegissofttech.com/data-warehouse-services.html
+	Redirect 301 /dynamics-365-business-central-Implementation.html https://www.aegissofttech.com/dynamics-365/business-central-implementation
+	Redirect 301 /testing/consumer-product.html https://www.aegissofttech.com/testing/retail-testing-services.html
+	Redirect 301 /case-studies/dynamics-365-sand-casting-company.html https://www.aegissofttech.com/case-studies/dynamics-365-bc-for-casting-company.html
+	Redirect 301 /web-stories/opportunity-to-join-aegis-softtech/ https://www.aegissofttech.com/careers/index.html
+	Redirect 301 /articles/watershed-algorithm-andlimitations.html https://www.aegissofttech.com/articles/watershed-algorithm-and-limitations.html
+	Redirect 301 /articles/python-time-saving-tips-and-tricks.html https://www.aegissofttech.com/insights/python/
+	Redirect 301 /articles/reasons-behind-python-programmers-demand.html https://www.aegissofttech.com/articles/python-developers-for-your-startup.html
+	Redirect 301 /articles/images/6-Lucid-Reality-Lab.webp https://www.aegissofttech.com
+	Redirect 301 /articles/marketing-success-with-data-warehousing.html https://www.aegissofttech.com/articles/steps-for-successful-data-warehouse-implementation.html
+	Redirect 301 /articles/nudge-theory-in-marketing-process.html https://www.aegissofttech.com/insights/complete-guide-to-brand-marketing/
+	Redirect 301 /articles/revolutionizing-firm-digital-culture-with-snowflake.html https://www.aegissofttech.com/insights/snowflake/
+	Redirect 301 /articles/significant-reasons-to-choose-magento-2.html https://www.aegissofttech.com/articles/magento-ecommerces-eyes-reflecting-a-perfect-mirror-image-of-brightness.html
+	Redirect 301 /articles/best-agile-testing-team-for-app-development.html https://www.aegissofttech.com/insights/test-automation-in-agile-and-devops/
+	Redirect 301 /articles/bi-analytics-for-the-business-improvisation.html https://www.aegissofttech.com/business-intelligence
+	Redirect 301 /articles/guide-to-learn-python-from-beginning.html https://www.aegissofttech.com/insights/python/
+	Redirect 301 /articles/centralized-microservices-configuration-using-spring-cloud-config.html https://www.aegissofttech.com/articles/centralized-microservices-configuration-using-spring-cloud.html
+	Redirect 301 /articles/most-reliable-data-maintenance-tools.html https://www.aegissofttech.com/insights/
+	Redirect 301 /technology-migration.html https://www.aegissofttech.com/insights/microsoft-azure-cloud-migration/
+	Redirect 301 /articles/adoption-of-hadoop.html https://www.aegissofttech.com/articles/01082014-hadoop-as-a-service-in-cloud-introduction.html
+	Redirect 301 /articles/tutorial-for-stream-API-in-java-8.html https://www.aegissofttech.com/articles/tutorial-for-stream-api-in-java-8.html
+	Redirect 301 /articles/scaling-it-security-with-it-infrastructure.html https://www.aegissofttech.com/insights/
+	Redirect 301 /microsoft/microsoft/business-central-developers.html https://www.aegissofttech.com/hire/dynamics-365-business-central-developers
+	Redirect 301 /industries/financial-technology-services.html https://www.aegissofttech.com/fintech
+	Redirect 301 /en-sg/hire-java-developers.html https://www.aegissofttech.com/en-sg/hire-java-programmer-developers.html
+	Redirect 301 /articles/NodeJS-patch-vulnerabilities-that-may-exist.html https://www.aegissofttech.com/articles/nodejs-patch-vulnerabilities-that-may-exist.html
+	Redirect 301 /articles/big-data-tracking-us-in-covid-19.html https://www.aegissofttech.com/insights/big-data/
+	Redirect 301 /hire-remote-developers.html https://www.aegissofttech.com/servicenow/hire-remote-developers.html
+	Redirect 301 /articles/images/5-VR-Vision.webp https://www.aegissofttech.com/
+	Redirect 301 /articles/essential-security-measures-for-java.html https://www.aegissofttech.com/articles/does-java-application-more-secure.html
+	Redirect 301 /articles/what-businesses-truly-get-from-etl-solutions.html https://www.aegissofttech.com/articles/index.html
+	Redirect 301 /oracle-development-consulting.html https://www.aegissofttech.com/cloud/oracle-solutions.html
+	Redirect 301 /articles/need-for-small-company-to-have-crm.html https://www.aegissofttech.com/articles/which-crm-suits-your-business.html
+	Redirect 301 /articles/guide-to-integrate-generative-ai.html https://www.aegissofttech.com/generative-ai-integration-services.html
+	Redirect 301 /articles/31072014-qualified.net-application-development-provider.html https://www.aegissofttech.com/articles/31072014-net-developer-for-attractive-website-development.html
+	Redirect 301 /articles/14112014-latest-net-capabilities-released-by-microsoft-for-global-developers.html https://www.aegissofttech.com/hire/dotnet-developers
+	Redirect 301 /.net/openings.html https://www.aegissofttech.com/dotnet/openings.html
+	Redirect 301 /ios-application-development.html https://www.aegissofttech.com/application-development-services.html
+	Redirect 301 /articles/images/aegis-softtech.webp https://www.aegissofttech.com/
+	Redirect 301 /articles/productive.io/blog/erp-for-professional-services/ https://www.aegissofttech.com/dynamics-365/erp-consulting
+	Redirect 301 /articles/how-to-get-top-n-words-count-using-big-data- https://www.aegissofttech.com/articles/how-to-get-top-n-words-count-using-big-data-hadoop-mapreduce-paradigm-with-developers-assistance.html
+	Redirect 301 /articles/crm-2011-2013-2015-customization-services.html https://www.aegissofttech.com/insights/automation-tools-for-crm-developers/
+	Redirect 301 /articles/workaround-to-resolve-case-using-microsoft-flow https://www.aegissofttech.com/articles/index.html
+	Redirect 301 /articles/benefits https://www.aegissofttech.com/articles/index.html
+	Redirect 301 /articles/smart-ways-to-enhance-your-invoice-processing-system.html https://www.aegissofttech.com/articles/index.html
+	Redirect 301 /articles/quick-introduction-to-power-pages.html https://www.aegissofttech.com/articles/index.html
+	Redirect 301 /articles/building-serverless-nodejs-app-on-azure.html https://www.aegissofttech.com/insights/serverless-nodejs/
+	Redirect 301 /articles/automate-your-campaigns-with-dynamics-crm.html https://www.aegissofttech.com/insights/dynamics-365-crm-using-ai/
+	Redirect 301 /articles/11112014-microsoft-announce-dotnet-update.html https://www.aegissofttech.com/insights/asp-net/
+	Redirect 301 /testing/financial-testing-services.html https://www.aegissofttech.com/fintech
+	Redirect 301 /articles/ai-and-ml-libraries-in-java https://www.aegissofttech.com/articles/ai-and-ml-libraries-in-java.html
+	Redirect 301 /articles/making-best-practices-for-enterprise-portals-using-asp.net-development-framework.html https://www.aegissofttech.com/articles/making-best-practices-for-enterprise-portals-using-asp.net-development-framework.html
+	Redirect 301 /articles/asp-net-mvc-web-development-update-telerik-ui.html https://www.aegissofttech.com/microsoft/dotnet-development
+	Redirect 301 /articles/spark-versions-for-application-compatibility.html https://www.aegissofttech.com/articles/spark-versions-for-application-compatibility.html
+	Redirect 301 /articles/smart-ways-to-enhance-your-invoice-processing-system.html https://www.aegissofttech.com/articles/index.html
+	Redirect 301 /pdf/6.pdf https://www.aegissofttech.com/
+	Redirect 301 /en-sg/python-development-services.html https://www.aegissofttech.com/en-sg/python-development.html
+	Redirect 301 /articles/what-will-the-latest-version-of-java-bring.html https://www.aegissofttech.com/articles/java-8-9-10-11-new-key-features-and-enhancements.html
+	Redirect 301 /articles/ml-development-company-for-futuristic-business-apps.html https://www.aegissofttech.com/ai-services/machine-learning-development
+	Redirect 301 /articles/data-warehouse-over-cloud-for-businesses.html https://www.aegissofttech.com/insights/data-warehousing-in-cloud/
+	Redirect 301 /articles/crm-can-increase-customer-retention.html https://www.aegissofttech.com/articles/crm-has-applications-beyond-sales.html
+	Redirect 301 /articles/cloud-culture-migration-insight.html https://www.aegissofttech.com/insights/
+	Redirect 301 /articles/automl-emergence.html https://www.aegissofttech.com/insights/
+	Redirect 301 /articles/optimization-tips-for-nodejs-developers.html https://www.aegissofttech.com/insights/ai-tools-for-nodejs-developers/
+	Redirect 301 /articles/nodejs-coding-skills-with-openai-hack.html https://www.aegissofttech.com/insights/node-js/
+	Redirect 301 /business-central-services.html https://www.aegissofttech.com/dynamics-365/business-central-consulting.html
+	Redirect 301 /business-central-developers.html https://www.aegissofttech.com/hire/dynamics-365-business-central-developers
+	Redirect 301 /articles/11112014-microsoft-announce-dotnet-update.html https://www.aegissofttech.com/articles/index.html
+	Redirect 301 /articles/images/9-Quytech.webp https://www.aegissofttech.com/
+	Redirect 301 /portals-content-management.html https://www.aegissofttech.com/
+	Redirect 301 /articles/what-will-the-latest-version-of-java-bring.html https://www.aegissofttech.com/articles/java-8-9-10-11-new-key-features-and-enhancements.html
+	Redirect 301 /microsoft/contact-us.html https://www.aegissofttech.com/contact-us.html
+	Redirect 301 /articles/cloud-culture-migration-insight.html https://www.aegissofttech.com/microsoft/azure-cloud-migration-services
+	Redirect 301 /articles/essential-tools-for-asp.net-apps-and-software-development.html https://www.aegissofttech.com/articles/essential-tools-for-asp.net-apps-and-software-development.html
+	Redirect 301 /articles/latest-challenges-tools-for-IoT.html https://www.aegissofttech.com/articles/latest-challenges-tools-for-iot.html
+	Redirect 301 /articles/latest-challenges-tools-for-IoT.html https://www.aegissofttech.com/articles/latest-challenges-tools-for-iot.html
+	Redirect 301 /articles/images/Peerbits.webp https://www.aegissofttech.com/articles/images/peerbits.webp
+	Redirect 301 /articles/smart-data-collection-and-cloud-trend-in-2021.html https://www.aegissofttech.com/insights/
+	Redirect 301 /articles/hibernate-SQL-query-result-set-mapping-in-java.html https://www.aegissofttech.com/articles/hibernate-sql-query-result-set-mapping-in-java.html
+	Redirect 301 /articles/consulting-stories-for-data-analytics.html https://www.aegissofttech.com/insights/big-data/
+	Redirect 301 /articles/spring-security-oauth2-in-Java.html https://www.aegissofttech.com/articles/spring-security-oauth2-in-java.html
+	Redirect 301 /articles/json-serializtion-deserializaion-asp.net-MVC-development.html https://www.aegissofttech.com/articles/json-serializtion-deserializaion-asp.net-mvc-development.html
+	Redirect 301 /articles/031014-.net-developers-love-plug-ins-scripting-languages.html https://www.aegissofttech.com/articles/031014-dotnet-developers-love-plug-ins-scripting-languages.html
+	Redirect 301 /articles/data-scientists-and-career.html https://www.aegissofttech.com/careers/
+	Redirect 301 /articles/how-can-improve-microsoft-dynamics-crm-strategy.html https://www.aegissofttech.com/insights/what-is-microsoft-dynamics-crm/
+	Redirect 301 /articles/top-10-software-testing-companies.html https://www.aegissofttech.com/software-testing-services
+	Redirect 301 /articles/best-practices-for-snowflake-implementation.html https://www.aegissofttech.com/snowflake-services/implementation
+	Redirect 301 /articles/snowflake-modern-data-warehouse.html https://www.aegissofttech.com/insights/snowflake-database/
+	Redirect 301 /articles/overcoming-data-warehousing-challenges.html https://www.aegissofttech.com/insights/what-is-data-warehousing/
+	Redirect 301 /generative-ai-development-services.html https://www.aegissofttech.com/generative-ai-services
+	Redirect 301 /power-bi/dashboard-services.html https://www.aegissofttech.com/microsoft/power-bi-consulting/dashboard-development
+	Redirect 301 /digital-transformation.html https://www.aegissofttech.com/digital-transformation-services
+	Redirect 301 /data-warehouse/insights.html https://www.aegissofttech.com/insights/what-is-data-warehousing/
+	Redirect 301 /java/insights.html https://www.aegissofttech.com/insights/what-is-java-technology/
+	Redirect 301 /articles/steps-for-successful-data-warehouse-implementation.html https://www.aegissofttech.com/data-warehouse/implementation
+	Redirect 301 /articles/10-of-the-top-power-bi-consulting.html https://www.aegissofttech.com/microsoft/power-bi-consulting
+	Redirect 301 /articles/snowflake-consulting-for-safe-data-sharing.html https://www.aegissofttech.com/snowflake-services/consulting
+	Redirect 301 /microsoft/aws-data-analytics-services https://www.aegissofttech.com/cloud/aws/data-analytics-services
+	Redirect 301 /microsoft/power-bi-dashboard-development https://www.aegissofttech.com/microsoft/power-bi-consulting/dashboard-development
+
+	# Software Testing Services 301
+	Redirect 301 /testing/qa-outsourcing.html https://www.aegissofttech.com/software-testing-services/qa-outsourcing/
+	Redirect 301 /testing/ecommerce-qa-services.html https://www.aegissofttech.com/software-testing-services/ecommerce/
+	Redirect 301 /testing/enterprise-qa-services.html https://www.aegissofttech.com/software-testing-services/enterprise/
+	Redirect 301 /testing/mobile-app-qa-services.html https://www.aegissofttech.com/software-testing-services/mobile-app/
+	Redirect 301 /testing/erp-qa-services.html https://www.aegissofttech.com/software-testing-services/erp/
+	Redirect 301 /testing/digital-qa-services.html https://www.aegissofttech.com/software-testing-services/digital/
+	Redirect 301 /testing/functional-qa-services.html https://www.aegissofttech.com/software-testing-services/functional/
+	Redirect 301 /testing/data-warehouse-testing-services.html https://www.aegissofttech.com/software-testing-services/data-warehouse/
+	Redirect 301 /testing/performance-testing-services.html https://www.aegissofttech.com/software-testing-services/performance/
+	Redirect 301 /testing/retail-testing-services.html https://www.aegissofttech.com/software-testing-services/retail/
+	Redirect 301 /testing/integration-testing-services.html https://www.aegissofttech.com/software-testing-services/integration/
+	Redirect 301 /testing/ux-usability.html https://www.aegissofttech.com/software-testing-services/ux-usability/
+	Redirect 301 /testing/cloud.html https://www.aegissofttech.com/software-testing-services/cloud/
+	Redirect 301 /testing/insurance-software.html https://www.aegissofttech.com/software-testing-services/insurance/
+	Redirect 301 /testing/security-qa-services.html https://www.aegissofttech.com/software-testing-services/security/
+	Redirect 301 /testing/microservices-qa.html https://www.aegissofttech.com/software-testing-services/microservices/
+	Redirect 301 /testing/web-accessibility.html https://www.aegissofttech.com/software-testing-services/web-accessibility/
+	Redirect 301 /testing/big-data-testing.html https://www.aegissofttech.com/software-testing-services/big-data/
+	Redirect 301 /testing/api-web-testing.html https://www.aegissofttech.com/software-testing-services/api-web/
+	Redirect 301 /testing/compliance.html https://www.aegissofttech.com/software-testing-services/compliance/
+	Redirect 301 /testing/sap.html https://www.aegissofttech.com/software-testing-services/sap/
+	Redirect 301 /generative-ai-services/education https://www.aegissofttech.com/generative-ai-services/education-industry
+	Redirect 301 /generative-ai-services/e-commerce https://www.aegissofttech.com/generative-ai-services/e-commerce-industry
+	Redirect 301 /data-warehouse/implementation https://www.aegissofttech.com/data-warehouse-services/implementation
+
+	# Ai-Services 301
+	Redirect 301 /artificial-intelligence-business-solutions.html https://www.aegissofttech.com/ai-services
+	Redirect 301 /ai/healthcare-industry.html https://www.aegissofttech.com/generative-ai-services/healthcare-industry
+	Redirect 301 /ai/large-language-model-development.html https://www.aegissofttech.com/ai-services/llm-development
+	Redirect 301 /ai/voice-bot-development.html https://www.aegissofttech.com/ai-services/voice-bot-development
+	Redirect 301 /ai/conversational-development.html https://www.aegissofttech.com/ai-services/conversational-ai-development
+	Redirect 301 /ai/adaptive-development.html https://www.aegissofttech.com/ai-services/adaptive-ai-development
+	Redirect 301 /ai-consulting-services.html https://www.aegissofttech.com/ai-services/consulting
+	Redirect 301 /hire-ai-developers.html https://www.aegissofttech.com/hire/ai-developers
+	Redirect 301 /ai-integration-services.html https://www.aegissofttech.com/ai-services/integration	
+
+	# Dynamics-365 301
+	Redirect 301 /dynamics-365-services https://www.aegissofttech.com/dynamics-365
+	Redirect 301 /microsoft-dynamics-365-business-central.html https://www.aegissofttech.com/dynamics-365/business-central-consulting
+	Redirect 301 /microsoft-dynamics-365-business-central-consultant.html https://www.aegissofttech.com/dynamics-365/business-central-consulting
+	Redirect 301 /dynamics-365-business-central-implementation.html https://www.aegissofttech.com/dynamics-365/business-central-implementation
+	Redirect 301 /microsoft-dynamics-365-crm-services.html https://www.aegissofttech.com/dynamics-365/crm
+	Redirect 301 /microsoft-dynamics-365-crm-consulting.html https://www.aegissofttech.com/dynamics-365/crm
+	Redirect 301 /crm/dynamics-365-sales-consulting.html https://www.aegissofttech.com/dynamics-365/crm/sales-consulting-services
+	Redirect 301 /crm/microsoft-dynamics-365-ce-consultant.html https://www.aegissofttech.com/dynamics-365/crm
+	Redirect 301 /crm/dynamics-365-marketing-service.html https://www.aegissofttech.com/dynamics-365/crm/customer-insights
+	Redirect 301 /crm/dynamics-365-field-service.html https://www.aegissofttech.com/dynamics-365/crm/field-service
+	Redirect 301 /crm/dynamics-365-customer-insights.html https://www.aegissofttech.com/dynamics-365/crm
+	Redirect 301 /microsoft-erp-services.html https://www.aegissofttech.com/dynamics-365/erp-consulting
+	Redirect 301 /microsoft-dynamics-ax.html https://www.aegissofttech.com/dynamics-365/crm/sales-consulting-services
+	Redirect 301 /dynamics-365/crm/consulting https://www.aegissofttech.com/dynamics-365/crm/
+	Redirect 301 /dynamics-365/crm/sales https://www.aegissofttech.com/dynamics-365/crm/sales-consulting-services
+	Redirect 301 /dynamics-365/crm/marketing https://www.aegissofttech.com/dynamics-365/crm/customer-insights
+
+	# Microsoft 301
+	Redirect 301 /asp-dot-net-development-company.html https://www.aegissofttech.com/microsoft/dotnet-development
+	Redirect 301 /microsoft-consulting-services.html https://www.aegissofttech.com/microsoft
+	Redirect 301 /asp-net-core-development.html https://www.aegissofttech.com/microsoft/dotnet-core-development
+	Redirect 301 /azure/data-factory-consulting.html https://www.aegissofttech.com/microsoft/azure-data-factory-consulting
+	Redirect 301 /power-bi-development-services.html https://www.aegissofttech.com/microsoft/power-bi-consulting
+	Redirect 301 /power-bi-consulting.html https://www.aegissofttech.com/microsoft/power-bi-consulting
+	Redirect 301 /power-bi-dashboard-development-services.html https://www.aegissofttech.com/microsoft/power-bi-consulting/dashboard-development
+	Redirect 301 /microsoft/power-automate-services.html https://www.aegissofttech.com/microsoft/power-automate-consulting
+	Redirect 301 /power-apps-development-services.html https://www.aegissofttech.com/microsoft/power-apps-consulting
+	Redirect 301 /power-platform-consulting.html https://www.aegissofttech.com/microsoft/power-platform-consulting
+	Redirect 301 /microsoft/power-platform-development-services.html https://www.aegissofttech.com/microsoft/power-platform-consulting
+	Redirect 301 /microsoft-azure-analytics-services.html https://www.aegissofttech.com/microsoft/azure-analytics-services
+	Redirect 301 /azure-data-lake-analytics.html https://www.aegissofttech.com/microsoft/azure-data-lake-consulting
+	Redirect 301 /azure/devops-implementation.html https://www.aegissofttech.com/microsoft/azure-devops-consulting
+	Redirect 301 /azure/synapse-analytics.html https://www.aegissofttech.com/microsoft/azure-synapse-analytics-services
+	Redirect 301 /azure/cloud-migration-services.html https://www.aegissofttech.com/microsoft/azure-cloud-migration-services
+	Redirect 301 /sql-server-consulting.html https://www.aegissofttech.com/microsoft/sql-server-consulting
+	Redirect 301 /microsoft-fabric-consulting-services.html https://www.aegissofttech.com/microsoft/fabric-consulting
+	Redirect 301 /microsoft/dataverse-consulting-services.html https://www.aegissofttech.com/microsoft/dataverse-consulting
+	
+
+	# Careers 301
+	Redirect 301 /dotnet/openings.html https://www.aegissofttech.com/careers/dotnet-jobs
+	Redirect 301 /java/openings.html https://www.aegissofttech.com/careers/java-jobs
+	Redirect 301 /bigdata/openings.html https://www.aegissofttech.com/careers/big-data-jobs
+	Redirect 301 /seo/openings.html https://www.aegissofttech.com/careers/seo-jobs
+	Redirect 301 /dynamics365/openings.html https://www.aegissofttech.com/careers/dynamics-365-jobs
+	Redirect 301 /careers/aws-certified-developers-jobs.html https://www.aegissofttech.com/careers/aws-jobs
+	Redirect 301 /careers/apache-spark-jobs-openings.html https://www.aegissofttech.com/careers/apache-spark-jobs
+	Redirect 301 /careers/microsoft-azure-developers-jobs.html https://www.aegissofttech.com/careers/microsoft-azure-jobs
+	Redirect 301 /careers/dynamics-finance-and-operations-jobs.html https://www.aegissofttech.com/careers/dynamics-365-fo-jobs
+	Redirect 301 /careers/databricks-developers-jobs-openings.html https://www.aegissofttech.com/careers/databricks-jobs
+	Redirect 301 /careers/informatica-developers-jobs.html https://www.aegissofttech.com/careers
+	Redirect 301 /careers/snowflake-developers-jobs.html https://www.aegissofttech.com/careers/snowflake-jobs
+	Redirect 301 /careers/tableau-bi-developers-jobs.html https://www.aegissofttech.com/careers/tableau-jobs
+	Redirect 301 /careers/python-developers-jobs.html https://www.aegissofttech.com/careers/python-jobs
+	Redirect 301 /careers/nodejs-jobs-openings.html https://www.aegissofttech.com/careers/nodejs-jobs
+	Redirect 301 /careers/content-writer-jobs-openings.html https://www.aegissofttech.com/careers/content-writer-jobs
+	Redirect 301 /careers/field-marketing-executives-jobs-openings.html https://www.aegissofttech.com/careers/field-marketing-jobs	
+
+	# Hire 301
+	Redirect 301  /hire-java-developers.html https://www.aegissofttech.com/hire/java-developers
+	Redirect 301  /hire-asp.net-developers.html https://www.aegissofttech.com/hire/dotnet-developers
+	Redirect 301  /hire-asp-net-core-developers-india.html https://www.aegissofttech.com/hire/dotnet-core-developers
+	Redirect 301  /hire-nodejs-developers.html https://www.aegissofttech.com/hire/nodejs-developers
+	Redirect 301  /hire-reactjs-developers.html https://www.aegissofttech.com/hire/reactjs-developers
+	Redirect 301  /hire-tableau-developers.html https://www.aegissofttech.com/hire/tableau-developers
+	Redirect 301  /hire-power-bi-developers.html https://www.aegissofttech.com/hire/power-bi-developers
+	Redirect 301  /hire-ms-crm-developers.html https://www.aegissofttech.com/hire/dynamics-365-crm-developers
+	Redirect 301  /hire-dynamics-365-fo-developers.html https://www.aegissofttech.com/hire/dynamics-365-finance-and-operations-developers
+	Redirect 301  /hire-sql-server-developers.html https://www.aegissofttech.com/hire/microsoft-sql-server-developers
+	Redirect 301  /hire-python-developers.html https://www.aegissofttech.com/hire/python-developers
+	Redirect 301  /hire-apache-spark-engineers.html https://www.aegissofttech.com/hire/apache-spark-developers
+	Redirect 301  /hire-angularjs-developers.html https://www.aegissofttech.com/hire/angularjs-developers
+	Redirect 301  /hire-aws-devops-engineer.html https://www.aegissofttech.com/hire/aws-devops-engineers
+	Redirect 301  /hire-elasticsearch-developers.html https://www.aegissofttech.com/hire/elasticsearch-developers
+	Redirect 301  /hire-pl-sql-developers.html https://www.aegissofttech.com/hire/pl-sql-developers
+	Redirect 301  /hire-machine-learning-developers.html https://www.aegissofttech.com/hire/machine-learning-developers
+	Redirect 301  /hire-big-data-developers.html https://www.aegissofttech.com/hire/big-data-developers
+	Redirect 301  /hire-microservices-developers.html https://www.aegissofttech.com/hire/microservices-developers
+	Redirect 301  /hire-hadoop-architects-developers.html https://www.aegissofttech.com/hire/hadoop-developers
+	Redirect 301  /microsoft/business-central-developers.html https://www.aegissofttech.com/hire/dynamics-365-business-central-developers
+	Redirect 301  /azure/devops-engineers.html https://www.aegissofttech.com/hire/azure-devops-engineers
+	Redirect 301  /ai-services/hire-developers https://www.aegissofttech.com/hire/ai-developers
+	Redirect 301  /snowflake-services/hire-developers https://www.aegissofttech.com/hire/snowflake-developers
+	Redirect 301  /data-warehouse-services/hire-developers https://www.aegissofttech.com/hire/data-warehouse-developers
+	Redirect 301  /servicenow-services/hire-developers https://www.aegissofttech.com/hire/servicenow-developers
+	Redirect 301  /hire-magento-developers.html https://www.aegissofttech.com/hire
+	Redirect 301  /hire-pentaho-developers.html https://www.aegissofttech.com/hire
+	Redirect 301  /hire-spring-boot-developers.html https://www.aegissofttech.com/hire/java-developers
+	Redirect 301  /java/hire-scala-developers.html https://www.aegissofttech.com/hire/java-developers
+	Redirect 301  /en-sg/hire-expert-snowflake-developers.html https://www.aegissofttech.com/hire/snowflake-developers
+
+	# Industries 301
+	Redirect 301  /industries/digital-agriculture-services.html https://www.aegissofttech.com/agriculture
+	Redirect 301  /industries/automotive-consulting-services.html https://www.aegissofttech.com/automotive
+	Redirect 301  /industries/communication-technology-services.html https://www.aegissofttech.com/telecommunications
+	Redirect 301  /industries/education-technology-solutions.html https://www.aegissofttech.com/education
+	Redirect 301  /industries/fintech-software-development-company.html https://www.aegissofttech.com/fintech
+	Redirect 301  /industries/healthcare-it-consulting.html https://www.aegissofttech.com/healthcare
+	Redirect 301  /industries/manufacturing-consulting-services.html https://www.aegissofttech.com/manufacturing
+	Redirect 301  /industries/digital-publishing-solutions.html https://www.aegissofttech.com/digital-publishing
+	Redirect 301  /industries/insurance-technology-solutions.html https://www.aegissofttech.com/insurance
+	Redirect 301  /industries/life-sciences-it-solutions.html https://www.aegissofttech.com/life-sciences
+	Redirect 301  /industries/logistics-consulting-services.html https://www.aegissofttech.com/logistics
+	Redirect 301  /industries/media-consulting-services.html https://www.aegissofttech.com/media
+	Redirect 301  /industries/aerospace-defense-consulting-services.html https://www.aegissofttech.com/defense
+
+	#Data 301	
+	Redirect 301  /big-data-consulting.html https://www.aegissofttech.com/data/big-data-consulting-services
+	Redirect 301  /apache-spark-consulting-services.html https://www.aegissofttech.com/data/apache-spark-consulting-services
+	Redirect 301  /data-science-services.html https://www.aegissofttech.com/data/data-science-consulting-services
+	Redirect 301  /data-streaming-services.html https://www.aegissofttech.com/data/data-streaming-services
+	Redirect 301  /data-engineering-services.html https://www.aegissofttech.com/data/data-engineering-services
+	Redirect 301  /servicenow-services/support https://www.aegissofttech.com/servicenow-services/managed-services
+
+	#Business Intelligence 301
+	Redirect 301  /tableau-consulting-services.html https://www.aegissofttech.com/business-intelligence/tableau/consulting-services
+	Redirect 301  /tableau-bi-development-services.html https://www.aegissofttech.com/business-intelligence/tableau/development-services
+	Redirect 301  /business-intelligence-consulting-services.html https://www.aegissofttech.com/business-intelligence
+
+	#Python 301
+	Redirect 301  /python-development-services.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/web2py-development-services.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/turbogear-development-services.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/cubicweb-development-services.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/cherrypy-development-services.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/zope-development-services.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/pyramid-development-services.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/pylons-development-services.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/tornado-framework-development.html https://www.aegissofttech.com/software-development/python
+	Redirect 301  /python/django-development-services.html https://www.aegissofttech.com/software-development/python/django
+	Redirect 301  /python/flask-development-services.html https://www.aegissofttech.com/software-development/python/flask
+
+	#Java 301
+	Redirect 301  /java-application-development-services.html https://www.aegissofttech.com/software-development/java
+	Redirect 301  /java/spring-development-services.html https://www.aegissofttech.com/software-development/java
+	Redirect 301  /java/apache-jena-consulting.html https://www.aegissofttech.com/software-development/java
+	Redirect 301  /java/scala-development-services.html https://www.aegissofttech.com/software-development/java
+	Redirect 301  /java/play-framework-web-development.html https://www.aegissofttech.com/software-development/java
+	Redirect 301  /java/jsf-development-services.html https://www.aegissofttech.com/software-development/java
+	Redirect 301  /java/gwt-application-development.html https://www.aegissofttech.com/software-development/java
+	Redirect 301  /java/hibernate-development-services.html https://www.aegissofttech.com/software-development/java
+	Redirect 301  /java/consulting-services.html https://www.aegissofttech.com/software-development/java/consulting
+	Redirect 301  /java-outsourcing.html https://www.aegissofttech.com/software-development/java/outsourcing
+
+	Redirect 301  /application-development-services.html https://www.aegissofttech.com/application
+	Redirect 301  /software-application-development-company.html https://www.aegissofttech.com/software-development
+	Redirect 301  /nodejs-development-services.html https://www.aegissofttech.com/software-development/nodejs
+	Redirect 301  /reactjs-development-services.html https://www.aegissofttech.com/software-development/reactjs
+	Redirect 301  /angularjs-development-services.html https://www.aegissofttech.com/software-development/angularjs
+	Redirect 301  /hadoop-development-consulting-services.html https://www.aegissofttech.com/software-development	
+	Redirect 301  /magento-development-services.html https://www.aegissofttech.com/software-development
+	Redirect 301  /tibco-development-services.html https://www.aegissofttech.com/software-development
+	Redirect 301  /software-integration-services.html https://www.aegissofttech.com/software-development/integration
+	Redirect 301  /microservices-consulting-services.html https://www.aegissofttech.com/software-development/microservices
+	Redirect 301  /media-streaming-services.html https://www.aegissofttech.com/media/streaming-services
+	Redirect 301  /software/embedded-development.html https://www.aegissofttech.com/software-development/embedded
+	Redirect 301  /enterprise-mobility-services.html https://www.aegissofttech.com/application/enterprise-mobility
+	Redirect 301  /text-analytics-services.html https://www.aegissofttech.com/data/text-analytics	
+	Redirect 301  /robotics-automation-software-solutions.html https://www.aegissofttech.com/software-development/robotic-process-automation
+	Redirect 301  /natural-language-processing-services.html https://www.aegissofttech.com/data/nlp-development
+	Redirect 301  /machine-learning-development-services.html https://www.aegissofttech.com/ai-services/machine-learning-development
+	Redirect 301  /databricks-managed-services.html	https://www.aegissofttech.com/data/databricks-managed-services
+	Redirect 301  /databricks-bi-consultants.html	https://www.aegissofttech.com/data/databricks-consulting-services
+	Redirect 301  /cloudera-consulting-services.html https://www.aegissofttech.com/data/cloudera-consulting
+	Redirect 301  /cloud-consulting-services.html https://www.aegissofttech.com/cloud
+	Redirect 301  /aws-glue-consulting-services.html	https://www.aegissofttech.com/cloud/aws/glue-consulting-services
+	Redirect 301  /aws-data-analytics-services.html	https://www.aegissofttech.com/cloud/aws/data-analytics-services
+	Redirect 301  /aws-devops-services.html	https://www.aegissofttech.com/cloud/aws/devops-services 
+	Redirect 301  /3d-animation-studio.html	https://www.aegissofttech.com/media/3d-animation-services
+
+
+
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php84” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php84 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

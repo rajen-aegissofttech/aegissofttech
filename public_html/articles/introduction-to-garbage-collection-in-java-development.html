@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>Java Garbage Collection – Step by Step Process</title>
+	<meta name="description" content="We hope this article assists you aware the understood the topic of garbage collection in Java. The GC fetches unutilized memory and the object deleted them to free up memory." />	
+    <link rel="canonical" href="https://www.aegissofttech.com/articles/introduction-to-garbage-collection-in-java-development.html"/>
+	
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:title" content="Java Garbage Collection – Step by Step Process" />
+	<meta property="og:description" content="We hope this article assists you aware the understood the topic of garbage collection in Java. The GC fetches unutilized memory and the object deleted them to free up memory." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/introduction-to-garbage-collection-in-java-development.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/articles/images/java-garbage-collection.webp" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/articles/images/java-garbage-collection.webp" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="We hope this article assists you aware the understood the topic of garbage collection in Java. The GC fetches unutilized memory and the object deleted them to free up memory." />
+	<meta name="twitter:title" content="Java Garbage Collection – Step by Step Process" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/articles/images/java-garbage-collection.webp" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Introduction to Garbage Collection in Java Development</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">Introduction to Garbage Collection in Java Development</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<div class="single-article-img"><img data-src="images/java-garbage-collection.webp" class="lazyload" alt="Java Garbage Collection" /></div>
+								<p>Experts working at <a href="https://www.aegissofttech.com" target="_blank">Aegis Softtech</a> would like to share their knowledge about Garbage Collection (GC) with Java Developers and communities across the world. The article focuses on the basics of GC in Java. Garbage Collection (GC) is one of the most talked-about features of Java, in this article, we will explore the features and usage in detail.</p>
+								<div id="link1"></div>
+								<h2>Tuning the Collector with Garbage Collection (GC)</h2>
+								<p>Your JVM (Java Virtual Machine) handles memory for your projects, and it seems highly achievable with convenience, but this is not tuned by default. You need to understand some basic theory parts of the Garbage Collection to tune the collector more easily. The main concern is the efficiency of collectors, i.e., how much time the program will take for program code execution instead of collecting garbage. Another point to note is how long the application will remain on pause mode.</p>
+								<p>You may find many opinions about garbage collection, and you need to understand the algorithms in-depth to escape from any trapping situation.</p>
+								<div id="link2"></div>
+								<h2>Getting to know Automatic Garbage Collection</h2>
+								<p>Garbage Collection (GC) is a process of looking at a high volume of memory, recognizing the in-use, and eliminating the unused objects. Here, an in-use object refers to some part of your program that still maintains a pointer to that object. Hence, the memory space of unused objects can be reclaimed.</p>
+								<p>The programming language like C, uses a manual process to allocate or de-allocate the memory, whereas, in Java, Garbage Collector automatically handles the de-allocating memory process.</p>
+								<div id="link3"></div>
+								<h3>Steps involved in the process</h3>
+								<ul class="listing">
+									<li>Marking</li>
+									<li>Usual deletion</li>
+									<li>Deletion with compacting</li>
+								</ul>
+								<div id="link4"></div>
+								<h3>Getting the term – Stop the world</h3>
+								<p>Here, this term is used to indicate that every thread of your program (or mutator in GC speak) is paused or stopped until the operation gets completed. Garbage Collection is used to ‘Stop the World’ events.</p>
+								<div id="link5"></div>
+								<h2>Different Kinds of Garbage Collectors</h2>
+								<div class="single-article-img"><img data-src="images/kinds-of-garbage-collectors.webp" class="lazyload" alt="Kinds of Garbage Collectors" /></div>
+								<p>Java virtual machine has sorts of garbage collectors and each collector has its features and characteristics to perform different operations. Some key collectors are:</p>
+								<div id="link6"></div>
+								<h3>1. The Parallel GC</h3>
+								<p>Submissions having data settings vary from medium to larger in shape as well as functioning towards the hardware which helps numerous processes and many threads mark audience for the parallel collector implementation. The default application of the GC in the JVM is mentioned as Amount Collector. It is even the implementation. The key observation is that, by having this distinction, there are additional advantages to exact execution beyond the well-recognized outcome of facilitating the use of effective tactics.</p>
+								<p>It facilitates the identification of superior strategies by enabling more efficient assimilation of input on the efficacy of existing methods. Here one can instruct the team to send an email notice to all team members after each submission. After selecting this option, input the email address of your team member in the designated field. To include several emails, just press the tab key after entering each email that can able to tolerate brief interruptions.</p>
+								<div id="link7"></div>
+								<h3>2. Serial Garbage Collector</h3>
+								<p>The Serial Garbage Collector is a very simple as well as lengthy garbage collection database in Java. The garbage collection procedure over here structure is implemented with the help of the simple strand, which creates it as simple organized for single-threaded agendas or smaller phases apps with controlled memory possessions. The trash collection procedure uses a "stop-the-world" method, here the function of the program is stopped provisionally. Which might offer a substantial intermission in larger apps.</p>
+								<p>The JVM disagreement making usage of Serial Garbage Collector is -XX:+UseSerialGC. : This collector is best high-quality while less stop time needs are not a worry and garbage collection is completed on processers having the client-style characteristics. By recognizing and adjusting to these specific customer attributes, you may establish more robust relationships, promote enhanced communication, and ultimately provide a more gratifying environment for both yourself and those who hire you.</p>
+								<div id="link8"></div>
+								<h3>3. Concurrent Mark Sweep (CMS) Garbage Collector</h3>
+								<p>The Concurrent Mark Sweep (CMS) collector is exactly intended to get lessened dormancy likened to the equivalent characters. The vital feature of such a project is endeavoring to make a helping of garbage collection concomitantly along with the implementation of a package. Therefore, when the accumulator needs a halt in the implementation of an app, the period of the interruption is meaningfully lessened.</p>
+								<p>Though mentioned as a concurrent mark and curve gatherer, not every phase of the function takes place concurrently having an implementation of its program. Two of the stages take place when the app stops, although the additional next steps happen unceasingly. The apps animatedly assign and deallocate reminiscence as they build and make use of variables. Inside the Java programming language, the Java Virtual Machine (JVM) is accountable for obtaining reminiscence via the functioning method and allocating it to an app as required for the makings of newer variables.</p>
+								<p>The garbage collection procedure, performed with a single of several background filaments, recognizes the parts of memory which is at present being applied via its package and convalesces memory these items are no longer being referred to, therefore becoming accessible for usage by the application.</p>
+								<div id="link9"></div>
+								<h2>How Does Java Garbage Collection Work?</h2>
+								<p>When we are discussing the workings of Garbage collection it is the way of maintenance procedures that are employed mechanically. They are always best to free the memory, it searches as well as then deletes or removes any unneeded objects (i.e., mechanisms that are not actively utilized through the app). This GC technique makes use of various dissimilar garbage-gathering techniques.</p>
+								<p>Scarce of the major instances of this classification are Sweep or Mark which are utilized regularly and widely adopted techniques. The GC while the garbage collection is doing its job, searches an inaccessible things at the Heap recollection and "tags" them as inaccessible. Then it completely ruins it.</p>
+								<p> Java supports indicators, and it comes with the competency of managing pick-up automatically. If as an <a href="https://www.aegissofttech.com/hire/java-developers" target="_blank">expert Java developer</a>, one is incompetent to run power to the GC here; it would only occur if, on the other hand, the (JVM) would check if it is essential depending on the possibility of Java trash.</p>
+								<div id="link10"></div>
+								<h3>Java Garbage Collection Procedure</h3>
+								<p>Objects that qualified for GC are detached through the piles space with the assistance of the JVM. Garbage collection aids in freeing programmers after the weight of memory managing, which are necessary part of <a href="https://www.aegissofttech.com/software-development/java" target="_blank">Java web development services</a>. It allow them to devote a larger period to core functionality as well as other important responsibilities. While deleting an item through the collection the thread calls of garbage collection finalize () function of the object, providing the owner of the object the chance to function on all kinds of necessary cleaning.</p>
+								<p>Although approaches like the Runtime.gc() as well as System.gc might be realistic to submit needs for GC towards Java it is definite that GC will again start functioning. As per the scientific evidence, the GC operates with the vast majority of unchanged C programs although also deleting free calls. Exclusions are covered in detail in hitches.html. Consequently, the memory that was consumed by any object might be bounded and it’s unimportant for the developer to openly designate items that aren’t used.</p>								
+								<div id="link12"></div>
+								<h3>Simple Example of Garbage Collection in Java</h3>
+<xmp>
+Char [] sayhello = ( 'h', 'e', 'l', 'l', 'o');
+String str = new String (sayhello);
+str = null;
+</xmp>
+								<div id="link13"></div>
+								<h2>Guidance on How to Use Runtime.gc() and System.gc() Effectively</h2>
+								<p>Different heuristics give indications on the performance of GC implementation with System.gc (). Understanding the method is best done by focusing on efforts to recycle unused objects. It creates memories for reuse quickly but GC may or may not be triggered.</p>
+								<p>System.gc() exists in popular languages like Android, Java, and C#. When it is invoked it can trigger the garbage collection. It can be done via any servers, application stack, or 3rd party libraries. The use of VisualVM (through JMX) and periodic RMI are useful.</p>
+								<p>Can Runtime.gc() better or is there is a drawback to it? Is it safe for garbage collection? If it is run in another goroutine it may block the current goroutine. Different performances can be expected while testing runtime.GC() and runtime.GC(). There are variables like debugging which are controlled within the runtime.</p>
+								<div id="link14"></div>
+								<h2>Real-world Examples of Garbage Collectors being implemented in Programming Languages</h2>
+								<div class="single-article-img"><img data-src="images/examples-of-garbage-collectors.webp" class="lazyload" alt="Examples of Garbage Collectors" /></div>
+								<p>Memory management and the enhancement of competence in programming languages are the 2 areas in which garbage collector play an essential role. The appropriate supervision of memory distribution and DE allocation is accomplished by a wide variety of programming languages via the use of garbage collection algorithms. Having said that, let's have a check at some real- instances from across the globe of trash collectors being used in different computer languages that are well known.</p>
+								<div id="link15"></div>
+								<h3>1. Java</h3>
+								<p>Java is a programming semantic that uses a garbage collector called and understood as the Java Virtual Machine (JVM) garbage collector. A variety of garbage group policies, including the mark-and-sweep method, the copying algorithm, also the generational algorithm, are applied to the system in a combinational fashion. The Java Virtual Machine (JVM) is capable of handling memory allocation and the reclamation of objects that are not required, providing developers with a garbage collection mechanism that is both simple and effective.</p>
+								<div id="link16"></div>
+								<h3>2. C#</h3>
+								<p>Same as Java, C# is dependent on the garbage collector that is provided by the Common Language Runtime (CLR). A mark-with-sweep structure is applied by the Common Language Runtime (CLR) for garbage collection. This tool is accountable for classifying objects into separate generations based on their generational age. Using this strategy results in a reduction in the number of instances of garbage collectors, which in turn leads to an improvement in overall performance.</p>
+								<div id="link17"></div>
+								<h3>3. Python</h3>
+								<p>It uses garbage collectors which are referred to as the position including garbage collector. It comes with the responsibility of the system to keep track of the number of times every item is mentioned, and it will free memory when the total number of mentions reaches zero. Moreover, Python is equipped with a cycle detection approach that allows for the management of circular references and the prevention of memory leaks.</p>
+								<div id="link18"></div>
+								<h3>4. Go</h3>
+								<p>Go does use a unique garbage collector that is referred to as the Go garbage collector. A simultaneous, tri-color mark-and-sweep mechanism is used by the trash collector. This method enables the garbage collector to run concurrently with the application without generating significant pauses. The garbage collector in Go has been meticulously developed to provide low latency and high throughput performance in a variety of settings across the programming language.</p>
+								<div id="link19"></div>
+								<h3>5. JavaScript</h3>
+								<p>JavaScript makes use of a garbage collector that is known as the JavaScript Engine garbage collector by its developers. Several modern JavaScript engines, such as V8 (which is utilized in Chrome and Node.js), make use of a generational garbage collector that mixes sequential marking and continual sweeping. This method makes JavaScript suitable for dynamic web pages since it reduces the number of pauses that are required.</p>
+								<div id="link20"></div>
+								<h2>Recognize the Rudimentary Garbage Collection</h2>
+								<p>The garbage collection procedure has many phases. First, the garbage collector classifies substances that are not accessible or referred through the program. Such objects are measured as garbage or qualified for gathering. In the process of garbage collecting, there are three fundamental steps:</p>
+								<div id="link21"></div>
+								<h3><i class="fa fa-arrow-circle-right pr-1" aria-hidden="true"></i> Mark</h3>
+								<p>Objects are measured to be live if they can be accessed via threads, native handles, and any other GC root sources. Additionally, there are several rooting objects in each object tree. The root of the GC is always accessible. To put it another way, any object that has a garbage collection bottom at its base. Engineers can devote their attention to <a href="https://www.aegissofttech.com/software-development" target="_blank">software application development</a> when autonomous memory management is implemented, which results in speedier development cycles.</p>
+								<p>Each of the things that is now being used is identified and referred to as noticeable by it, while the other objects are regarded as waste. You can reuse the code without having to repeatedly write both functions if you create and transfer space appropriately.</p>
+								
+								<div id="link22"></div>
+								<h3><i class="fa fa-arrow-circle-right pr-1" aria-hidden="true"></i> Sweep</h3>
+								<p>While analyzing the garbage collection policies used through different programming languages, it is of the utmost importance to take into consideration factors such as speed, memory productivity, and capacity to scale. The mark-and-sweep method is used by Java to offer dependable memory management; nevertheless, C# provides additional control capabilities alternatively.</p>
+								<p>While the automatic position counting that JavaScript provides makes memory management more efficient, it also has the potential to result in performances that are compromised. The GC is intended to be fully separate from the state of the primary program, which is the fundamental notion that underlies this duplicate.</p>
+								<div id="link23"></div>
+								<h3><i class="fa fa-arrow-circle-right pr-1" aria-hidden="true"></i> Compact</h3>
+								<p>This compact algorithm remains comprised of two phases, which encompass the following: The first step in the procedure involves locating and identifying all of the live entities that are there. The first phase is known as the mark phase. These are the first stages. During the second stage of the garbage collection process, the heap is compressed by moving all of the live things into memory areas that are sequentially next to one another. This is done to make the heap more compact.</p>
+								<p>When a procedure is carried out, the second stage that it goes through is the compaction phase. Throughout this process, data pieces are reorganized and grouped, resulting in the formation of contiguous blocks that are capable of being encoded more effectively.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">Garbage Collection (GC)</a></div>
+								<div class="para1"><a href="#link2">Automatic Garbage Collection</a></div>
+								<div class="para2"><a href="#link3">Steps involved in the process</a></div>
+								<div class="para2"><a href="#link4">Getting the term – Stop the world</a></div>
+								<div class="para1"><a href="#link5">Different Kinds of Garbage Collectors</a></div>
+								<div class="para2"><a href="#link6">The Parallel GC</a></div>
+								<div class="para2"><a href="#link7">Serial Garbage Collector</a></div>
+								<div class="para2"><a href="#link8">Concurrent Mark Sweep (CMS)</a></div>
+								<div class="para1"><a href="#link9">How Does Java Garbage Collection Work?</a></div>
+								<div class="para2"><a href="#link10">Procedure</a></div>
+								<div class="para2"><a href="#link12">Simple Example of Garbage Collection</a></div>
+								<div class="para1"><a href="#link13">Use Runtime.gc() and System.gc()</a></div>
+								<div class="para1"><a href="#link14">Real-world Examples of Garbage Collectors</a></div>
+								<div class="para2"><a href="#link15">Java</a></div>
+								<div class="para2"><a href="#link16">C#</a></div>
+								<div class="para2"><a href="#link17">Python</a></div>
+								<div class="para2"><a href="#link18">Go</a></div>
+								<div class="para2"><a href="#link19">JavaScript</a></div>
+								<div class="para1"><a href="#link20">Rudimentary Garbage Collection</a></div>
+								<div class="para2"><a href="#link21">Mark</a></div>
+								<div class="para2"><a href="#link22">Sweep</a></div>
+								<div class="para2"><a href="#link23">Compact</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="article-section spt spb">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="section-header">
+									<div class="article-head">Related article</div>
+								</div>
+							</div>
+						</div>
+						<div class="bs-row">
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img1">
+									<div class="blog-heading">
+										<div class="b-head"><a href="how-to-implement-kinesis-and-cloud-in-java-development-for-modern-data-streaming.html" target="_blank">How To Implement Kinesis And Cloud In Java Development For Modern Data Streaming</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>AegisSoftTech Java development team is sharing this post with global developers who want to learn how to implement Kinesis technology and cloud computing to achieve modern streaming of data.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img9">
+									<div class="blog-heading">
+										<div class="b-head"><a href="hibernate-sql-query-result-set-mapping-in-java.html" target="_blank">Hibernate SQL query result set mapping in Java development</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>JPQL is one of the most powerful languages for SQL to write the queries which will execute on all databases. In most complex cases, JPQL is not powerful enough</p>
+									</div>
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/introduction-to-garbage-collection-in-java-development.html"
+			},
+			"headline": "Java Garbage Collection – Step by Step Process",
+			"description": "Learn more about garbage collection in Java development",
+			"image": "https://www.aegissofttech.com/articles/images/java-garbage-collection.webp",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2014-07-15",
+			"dateModified": "2023-12-20"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fintroduction-to-garbage-collection-in-java-development.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Java Garbage Collection – Step by Step Process&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fintroduction-to-garbage-collection-in-java-development.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fintroduction-to-garbage-collection-in-java-development.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/introduction-to-garbage-collection-in-java-development.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fintroduction-to-garbage-collection-in-java-development.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Java Garbage Collection – Step by Step Process&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fintroduction-to-garbage-collection-in-java-development.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fintroduction-to-garbage-collection-in-java-development.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/introduction-to-garbage-collection-in-java-development.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

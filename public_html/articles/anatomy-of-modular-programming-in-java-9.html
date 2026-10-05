@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>An Basic Overview of JAVA Modular Programming JDK 9</title>
+	<meta name="description" content="Here is an overview of Java Base Module JDK9 so that the user can build and update huge web application sample with the power of modular programming." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/anatomy-of-modular-programming-in-java-9.html"/>
+	 
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Anatomy of Modular Programming in Java 9</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.jpg" class="img-fluid" loading="lazy" width="1920" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">Anatomy of Modular Programming in Java 9</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<h2>Introduction</h2>
+								<p>In Java 9, another module framework was introduced. Modularity makes it simpler to compose encapsulated code by separating enormous codebases into little parts. So, for what reason was a module framework introduced? This can be explained by examine visually at the JDK itself.</p>
+								<div class="single-article-img"><img data-src="images/anatomy-of-modular-programming-in-java-9.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+								<p>Prior to Java 9, the JDK was one extensive solid structure. Regardless of whether you just needed to compose a small application, you still had to have the entire immense JDK on your machine, even if you weren't utilizing a lot of it. This made it challenging for developers and organizations looking for <a href="https://www.aegissofttech.com/software-development/java/outsourcing" target="_blank">Java Outsourcing Company</a> for more lightweight and efficient solutions. Another issue was that the old pristine code or code with security vulnerabilities was complex to eliminate. Removing it would lead to backward compatibility issues, further complicating the development process.</p>
+								<h2>Overview of Module JDK 9</h2>
+								<p>The answer for this complication was to present modules. This implied the JDK could be broken into little sections. Old inheritance code could be taken out and so could codes that are not utilized frequently. Anything extra can be included if necessary. On the off chance that there is a need to utilize lots of the accessible modules, these can without much of a stretch be brought into the application.</p>
+								<p>Along these lines, the module framework has been utilized to separate the JDK itself. But it can likewise be utilized for <a href="https://www.aegissofttech.com/software-development/java" target="_blank">Java application development</a>. Existing Java apps can be made modular as well. Java is regularly utilized for building huge apps, and generous code bases are not exceptional. Organizing large apps can be troublesome. But Modularity is a valuable tool for lessening their complication.</p>
+								<h2>Why Module?</h2>
+								<p>So, later you can notice how modules improve the developer experience.</p>
+								<ul class="listing">
+									<li>One of the core features of any programming language is the ability to reuse the code, and the extensive program can be built from small programs. In Java, the basic unit of reuse is traditionally the &ldquo;class&rdquo;. In java, for reusing class, we have inheritance mechanism and interfaces for reusing the abstraction.</li>
+									<li>However, when your java program gets to be 5, 10, 20 or 30 packages in 2, 4, 8, 16 java files then it becomes difficult to visualize how all those classes and interfaces will interact which means it&rsquo;s hard to control who is reusing what.</li>
+									<li>The only way to share code between the packages is with the public modifier, but then the code is shared with everyone. A package is a great way to organize the classes. So, here &ldquo;Module&rdquo; would let us organize the packages. The module is nothing but the set of packages which can be reused.</li>
+									<li>Module is a long-overdue building block in java language. In effect, modules recalled to the structure of your program so that the parts you want to be reused can be reused while the parts you don&rsquo;t want to be reused cannot be reused.</li>
+									<li>A program built of modules will be more reliable than a program built from a loose set of packages in jar files that can access each other freely and that exposure to many APIs&rsquo; to the outside world.</li>
+									<li>Java base module is the foundation of every java program like lang object is the root of every class. The packages of &ldquo;java.base&rdquo; module intended for use by code outside the module. These are its exported packages. The packages that are internal to the java.base module can be used by code inside the module but not by code outside the module. These are its concealed packages.</li>
+									<li>A module is declared in a new kind of file called module-info.java. It gives the names of the modules and its exported packages by exporting the java.lang package it means the public classes of java.lang are accessible from outside java base.&nbsp; A package that is not explicitly exported is concealed. Its public classes are not accessible outside java.base. Ex:</li>
+								</ul>
+<xmp>
+module java.base{
+exports java.lang;
+exports java.io;
+exports java.net;
+exports java.util;
+}
+Not Explicitly exported packages are:
+com.sun.crypto.provider
+sun.nio.ch
+sun.reflect.annotation
+sun.security.provider
+</xmp>
+								<h2>Anatomy of Module</h2>
+								<ul class="listing">
+									<li>A module is a troop of related code. In this way, it contains some code, and it may contain some different assets as well. It likewise must have a name like bundles in Java. Module names live in the Global namespace, and they should be one of a kind.</li>
+									<li>That implies which each single java module in presence ought to have an alternate name. With packages, this is regularly accomplished by utilizing an organization domain name, for instance: "<strong>mycompany.mypackage</strong>". A comparative thing should be possible with Modules. For instance, you can call it "<strong>com.mycompany.mymodule</strong>".</li>
+									<li>A module likewise contains some data about the module itself. Of course, everything in a module is covered up to the rest of the world. Regardless of whether a class is open, it is really not available outside of the module.</li>
+									<li>In any case, module has a module descriptor. This can be utilized to indicate if the code in the module ought to be available to different modules. The descriptor can likewise be utilized to state if code from different modules will be utilized. This is a convenient method to ensure the code is exemplified. Just the code that is required can be made noticeable to the rest of the world, and it makes organizing huge code bases significantly more convenient.</li>
+								</ul>
+								<h3>Creating a Module in Java:</h3>
+								<ul class="listing">
+									<li>
+										<p>In this example, I have created a very simple Hello World Application I want to make it modular. My program has one package called hello world and one class called Greeting, and this class has a main method that prints the Hello World.</p>
+<xmp>
+public class Greeting {
+public static void main (String[] args){
+System.out.println(“Hello World “);
+}
+}
+</xmp>
+									</li>
+									<li>All I need to do is to make it modular is to add something called a Module info file. This is the file that describes my module, and it relates to other modules. To do this in any IDE, you can right-click on your projects in the Project window on the left and then select “New” and then Java Module Info.</li>
+									<li>
+										Then a pop window will appear, and which will tell us that the name of the file will be the module-info. This name cannot be changed, and this type of file will always have to be called module-info.java. And then click on “Finish”. Please find the screenshot below:
+										<div class="single-article-img"><img data-src="images/modular-programming-java_1.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+									</li>
+									<li>
+										Now, I have created a simple modular application with the module-info file. Just having this fie in existence makes it a modular application. All it contains is the word module followed by the name of my module for Ex: HelloWorld.
+<xmp>
+module HelloWorld{
+}
+</xmp>
+									</li>
+								</ul>
+								<p><strong>Note:</strong> The name has to be the same as the name of the directory it is in. In my case, the directory is called “HelloWorld”. So, my module must be called “HelloWorld”.</p>
+								<ul class="listing">
+									<li>
+										There are two things I can do in this file. One of these is to specify if I want to use any other modules. To do this, I type “requires” between the curly braces and the name of the module. For example, I might want to use a module n the JDK that is not included by default. If I start using Java, then you can get many options like below so that we can add the module from the JDK:
+										<div class="single-article-img"><img data-src="images/modular-programming-java_2.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+									</li>
+									<li>
+										Suppose, if I want to use a buffered image in my application, then we can use “BufferedImage image”. But this won’t work. For this to work, we have to use this module. So, in our module-info file, we have to use “requires java.desktop”. Then only we can able to import the BufferedImage class without any issue.
+									</li>
+									<li>
+										The second thing I can do with the module-info file is export packages from my module. At the moment, nobody else can use my HelloWorld class.  Suppose, if I write “exports helloworld” in my HelloWorld module, this will make the helloworld package available to the whole world. This is real modularization, choosing what can and cannot be seen by the outside world.
+									</li>
+								</ul>
+								<h3>Understanding Modular Structures</h3>
+								<ul class="listing">
+									<li>More often than not, when working with Modular apps, there will be many modules. In Eclipse/STS/IntelliJ, it is easy to make a multi-module venture. Go to file, create a new task and afterward select "Java Modular Project". And afterward click next and give project name and lastly click Finish. Afterwards, you can begin adding modules to your task.</li>
+									<li>Once you create the project, then right-click on your project and then go to New -> Module and then the module will be created for you. Give your Module name and click finish. Similarly, create your second module. The IDE will create module-info files for you.</li>
+									<li>
+										In the project window, if you expand moduleA, and then look inside the classes and then default package. If you expand, you can see the module-info.java file.
+										<div class="single-article-img"><img data-src="images/modular-programming-java_3.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+									</li>
+									<li>
+										Another module what you created to have the same structure. The next step is to create some packages inside my modules. Like an ordinary way, you can create the packages inside your two modules. Next, you create a java class to put in it. You can click on the package and create a class under that.
+										<div class="single-article-img"><img data-src="images/modular-programming-java_4.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+									</li>
+									<li>So, in the above image you can see how a simple modular application will look like. So, in your src directory, two modules are created moduleA and moduleB. Inside moduleA, we have package1 and package2 and then the module-info file. Module-info file is at the same level as the packages.</li>
+								</ul>
+								<h3>Working with Multiple Modules</h3>
+								<ul class="listing">
+									<li>I am going to explain with an example where I have a simple application for booking appointments with Designer. This project is inside the exercise folder directory. If you are using the project, you need to make sure that the exercise folder begins with small ‘e’ and not capital ‘E’ as this can cause a pattern intact exception to be thrown. I want to use modularization to make sure that I have an excellent encapsulation in my program.</li>
+									<li>I have created two modules one is called “customer”, and the other one is called “bookingsystem”. Inside the booking system module, I have two packages. One is called employees, and other is called “scheduling”.</li>
+									<li>With the more extensive application, it becomes very easy for building applications that are flexible and maintainable using the module.</li>
+								</ul>
+								<p>I am not going to explain here programmatically as you can refer your advance blogs for more details regarding <a href="https://en.wikipedia.org/wiki/Modular_programming" target="_blank">modular programming</a>.</p>
+								<h3>Running Modules from Command Line</h3>
+								<ul class="listing">
+									<li>
+										Compiling and running a modular application from the command line is slightly different from compiling and running typical java applications. This is all done when using an IDE, so this time, I will be using a project that I made in a simple notepad application. I am currently in the bein directory as you can see below:
+										<div class="single-article-img"><img data-src="images/modular-programming-java_5.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+									</li>
+									<li>
+										And here you can see, I have an application called “ModularExample”. Inside that, I have a directory called “src”. And inside that “HelloWorld”. This is the root directory of my module.
+										<div class="single-article-img"><img data-src="images/modular-programming-java_6.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+									</li>
+									<li>
+										Note here that it’s the root directory because in here I have the module-info.java file.
+										<div class="single-article-img"><img data-src="images/modular-programming-java_7.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+									</li>
+									<li>
+										If I open this file, this is an elementary file with module helloworld{} written in this file. It does not require or export anything. At the same level in my directory structure, I have a folder called “com”. And in that folder, I have another folder called “greeting”, and then inside that folder, I have a java file named as “HelloWorld”. In this file, I have a simple main() method as below:
+<xmp>
+public class HelloWorld {
+public static void main (String[] args){
+System.out.println(“Hello World “);
+}
+}
+</xmp>
+									</li>
+									<li>So, you can see in the above example that this is a very simple class with a main method that prints out “Hello World”.</li>
+								</ul>
+								<h3>How to run from the Command Line?</h3>
+								<ul class="listing">
+									<li>
+										Now, I will go to my command prompt, and now I am inside my “ModularExample” directory. I will compile my application similarly to when I’m compiling a normal java application. For compiling the application, I have to execute the below command:
+<xmp>
+javac -d output/helloworldsrc/helloworld/com/
+greetings/HelloWorld.javasrc/helloworld/module-info.java
+</xmp>
+									</li>
+									<li>“-d” flag is used to specify the output directory. In our case, it is output.</li>
+									<li>Unlike a normal java program, I have to output the compiled files to a directory with the same name as a module. Here my module is called “HelloWorld”. The slash I have used is a forward slash.</li>
+									<li>
+										Next, just like normal java program, I put the name if the java class I want to compile. In our case, it is “src/helloworld/com/ greetings/HelloWorld.java”.
+									</li>
+									<li>As it is a modular application, I also need to add my “module-info.java” file. So, I have put in the command “src/helloworld/module-info.java”.</li>
+									<li>
+										Now, you can press enter, and the above command will execute, and it’ll compile our code, and now you can see that the “output” directory will get created as per below screenshot:
+										<div class="single-article-img"><img data-src="images/modular-programming-java_8.jpg" class="lazyload" alt="Modular Programming in Java" /></div>
+									</li>
+									<li>And inside this HelloWorld folder, we will find our compiled classes. Now, I can run the module from the command line. I will use the “java” command to do this. In java 9, some new flags were added to the java command for dealing with modules, and these are very special flags, and you will find it interesting.</li>
+									<li>One of the flags is the “module-path” flag. With the modular application, modules are not resolved from the normal class path but the module-path. The class path is well known for creating problems for developers. For example, If classes cannot be found or duplicated, this is known as class path hell as you may end up with class not found an exception.</li>
+									<li>
+										The module-path however, only has modules on it because modules have the module-info file. They are relatively easy to index because the java runtime and compiler knows straight away what dependencies are needed. So, I need to use --module-path and the argument I should pass to this is the directory containing my compiled module which is output. Then I’ll use the “--module” flag and should put the name of the module “HelloWorld” followed by the slash and the class name which I want to run. I separate the directories with a dot. So now the final command would look like as below:
+<xmp>
+java --module-path  output  --module  helloworld com.helloworld.HelloWorld
+</xmp>
+									</li>
+									<li>Now, if you run the above command, we will get the output as “Hello World” as per our code that we print inside the main () method.</li>
+									<li>
+										I can also shorten this by putting “-p” instead of “--module-path” flag. And then I can use the “-m” flag instead of using the “--module” flag.  So, the shorten command would look like as below:
+<xmp>
+java -p output -m --module  helloworld com.helloworld.HelloWorld
+</xmp>
+									</li>
+								</ul>
+								<p><strong>NOTE</strong>: So, if I run this command, I will get the same output.</p>
+								<h2>Conclusion</h2>
+								<p>Here I have explained the basic modular programming and essentials of using modules introduced in Java 9. Also, elaborated the advantage of modules, mainly in the aspect of building large <a href="https://www.aegissofttech.com/software-development" target="_blank">software development</a>. I believe this blog would be helpful for you to be more familiar with the <strong>modularity</strong> concepts.</p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+                        <div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+                    </div>
+					<div class="article-section spt spb">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<div class="section-header">
+										<div class="article-head">Related article</div>
+									</div>
+								</div>
+							</div>
+							<div class="bs-row">
+								<div class="col-4 col-sm-12 col-md-6">
+									<div class="inner-new-blogs min-he bg_img1">
+										<div class="blog-heading">
+											<div class="b-head"><a href="ai-and-ml-libraries-in-java.html" target="_blank">Introduction AI & ML Libraries in java With How to implement it?</a></div>
+										</div>
+										<div class="blog-short-desc">
+											<p>As you all know ML and AI is all about data means it's basically taking does in a  massive amount of data and starting to  make sense and extracting you know  useful information to make all kind of decisions but at the end</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-4 col-sm-12 col-md-6">
+									<div class="inner-new-blogs min-he bg_img4">
+										<div class="blog-heading">
+											<div class="b-head"><a href="java-8-9-10-11-new-key-features-and-enhancements.html" target="_blank">Java 8, 9, 10 and 11 new key features and enhancements</a></div>
+										</div>
+										<div class="blog-short-desc">
+											<p>Java 8, 9, 10, 11 and beyond delivering new features to the JDK. JDK 8 had come up with so many new features like lambda expression, functional interface and so on.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/anatomy-of-modular-programming-in-java-9.html"
+			},
+			"headline": "Anatomy of Modular Programming in Java 9",
+			"description": "Why Module system is introduced in Java?",
+			"image": "https://www.aegissofttech.com/articles/images/anatomy-of-modular-programming-in-java-9.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2020-09-14",
+			"dateModified": "2020-09-14"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img data-src="../images/ast.jpg" class="lazyload" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fanatomy-of-modular-programming-in-java-9.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=An Basic Overview of JAVA Modular Programming JDK 9&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fanatomy-of-modular-programming-in-java-9.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fanatomy-of-modular-programming-in-java-9.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/anatomy-of-modular-programming-in-java-9.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fanatomy-of-modular-programming-in-java-9.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=An Basic Overview of JAVA Modular Programming JDK 9&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fanatomy-of-modular-programming-in-java-9.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fanatomy-of-modular-programming-in-java-9.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/anatomy-of-modular-programming-in-java-9.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

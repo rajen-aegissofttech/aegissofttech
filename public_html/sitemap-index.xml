@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <sitemap>
+    <loc>https://www.aegissofttech.com/main-sitemap.xml</loc>
+    <lastmod>2026-03-25T10:30:00+00:00</lastmod>
+  </sitemap>
+
+  <sitemap>
+    <loc>https://www.aegissofttech.com/case-studies/sitemap.xml</loc>
+    <lastmod>2026-03-18T10:30:00+00:00</lastmod>
+  </sitemap>
+
+  <sitemap>
+    <loc>https://www.aegissofttech.com/insights/sitemap_index.xml</loc>
+    <lastmod>2026-03-18T10:30:00+00:00</lastmod>
+  </sitemap>
+</sitemapindex>

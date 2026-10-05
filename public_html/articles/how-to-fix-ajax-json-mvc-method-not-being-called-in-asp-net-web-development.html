@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>Ajax Call Controller Method from JavaScript in Asp.Net Core MVC</title>
+	<meta name="description" content="Are you facing any problem in respect to controller method and AJAX call type? The key lies in consulting with the experts who know how to initialize the button type and not submit type. Let us know which type of problem you are facing. We offer the best solutions to crack the issues." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/how-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html" />
+    
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Fixing AJAX JSON MVC Method not being called in ASP.NET</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">Fixing AJAX JSON MVC Method not being called in ASP.NET</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<p>Developers work on major issues and get them resolve for availing proper functioning application. In this post, asp.net web development team will explain the way to resolve issue related to not calling controller method. The experts will use AJAX JSON call from view page.</p>
+									
+								<p>To make an AJAX call to a controller asp.net core mvc Ajax call controller, first, we need to set up the necessary route and action methods in the controller.
+								<div id="link1"></div>
+								<h2>What is ajax call controller method?</h2>
+								<p>The AJAX call to controller process could be applied for numerous determinations, which of them are recovering data through the folder, modernising the base of data, or executing additional server-side functions. It allows programmers to make all-in-one UX by looking out for as well as showing data in actual time with no unsettling the user&#39;s communication within the website app. Furthermore, AJAX calls are asynchronous, which means they would be created in the contextual having no blocks of other processes at the website pages, ensuing in quicker and quite well-organized applications overall it can even function in the important logics and querying.</p>
+								<p>Today, I will explain how to resolve problem related to not calling controller method using AJAX JSON call from view page.</p>
+								<p>I see that many of users facing the issue that he or she cannot get client call of controller method when using AJAX in view page.</p>
+								<p>Two most common issues as below.</p>
+								<ul class="listing">
+									<li>Controller method not being called by AJAX call.</li>
+									<li>Getting null parameter values on controller method.</li>
+								</ul>
+								<p>So, now we will get detail information about these problems and then I will give the solutions to resolve issues.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/fixing-ajax-json-mvc-method.jpg" alt="Ajax" /></div>
+								<div class="between-box bg-green">
+                                    <div class="w-50">
+                                        <div class="head mb-1">Our team of expert developers can help you fix your AJAX JSON and get your MVC method up and running smoothly.</div>
+                                    </div>
+                                    <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                                </div>
+                                <div id="link2"></div>
+								<h3>Controller method not being called by AJAX call.</h3>
+								<p>This issue will rise when you want to pass model call values to controller method, or there is a difference between AJAX call type and controller method type that is PSOT and GET.So, for that you have to be sure that the type of AJAX call and Controller method are same. Ajax not calling controller method also ensures they align with the controller techniques expectations and that can be done with the routing configuration.</p>
+								<p>Utilizing an Asynchronous JavaScript and XML (AJAX) request to invoke a controller method with a Ajax call controller method with parameters is a robust and effective approach for gathering or sending data inside applications. It is crucial to possess an in-depth understanding of the method in question and the specific parameters it necessitates.</p>
+								<p>Some times it will not work when you initialize a button with “button” type and not with “submit” type. When you set type of button to “Submit” on page, then you have to set calling method on “using” statement with HttpMethod type as below.</p>
+								<p>This is one type of AJAX call.</p>
+<xmp>
+&lt;script type="text/javascript"&gt;
+using (Ajax.BeginForm("RegisterCustomer", controllerName, newAjaxOptions { HttpMethod = "GET", UpdateTargetId = "divBody", InsertionMode = InsertionMode.Replace }))
+{
+//your other html controls are here.
+&lt;inputtype="submit" id="btnRegister" name=" btnRegister" value="btnRegister"&gt;
+}
+&lt;script&gt;
+</xmp>
+								<p>You can see that I am calling RegisterCustomer method with GET type of HttpMethod and my button type is “submit”. It will surely call a call mvc controller from javascript method and you will get all html control values in parameters and also you will get model class values to class parameter of method.</p>
+								<p>Second type of AJAX call is java-script call.</p>
+<xmp>
+$.ajax({
+url: "@Url.Action("
+RegisterCustomer ", "
+Customer ")",
+type: "GET",
+data: dataToSend,
+success: function(data) {
+$(".content_int").html(data);
+returnfalse;
+},
+complete: function() {
+$("#ajax-loader").hide();
+}
+});
+</xmp>
+								<p>Here is the model class</p>
+<xmp>
+&lt;script type="text/javascript"&gt;
+publicclassCustomer {
+publicstringcustomerName { get; set; }
+publicstringcustomerAddress { get; set; }
+publicstringcontactNo { get; set; }
+}
+&lt;script&gt;
+</xmp>
+								<p>In the context of MVC (Model-View-Controller) architecture, with the use of AJAX calls it provides amazing flexibility and competence. A net core Ajax call to controller in MVC includes creating requests to the server asynchronously, without the requirement for a page refresh. Keep reading to understand better.</p>
+								<p>Here you can see that I passed “dataToSend” is object type data that is define as below. Properties for these object are same as model class.</p>
+<xmp>
+&lt;script type="text/javascript"&gt;
+vardataToSend = {
+customerName: $(‘#txtName’).val(),
+customerAddress: $(‘#txtAddress’).val(),
+contactNo: $(‘#txtMobileNumber’).val()
+};
+&lt;script&gt;
+</xmp>
+								<p>These both methods will work and call controller method.</p>
+								<div id="link3"></div>
+								<h3>Getting null parameter values on controller method.</h3>
+								<p>This issue will occurs when you are trying to call HTTPGET type of control method using button type of input html control. You have to be sure when you are calling HTTPGET controller method, you have input type button control with type=submit.</p>
+<xmp>
+&lt;script type="text/javascript"&gt;
+&lt;inputtype="button" id="btnRegister" name="btnRegister" value="btnRegister"&gt;
+&lt;script&gt;
+</xmp>
+								<p>Replace above line with this.</p>
+<xmp>
+&lt;script type="text/javascript"&gt;
+&lt;inputtype="submit" id="btnRegister" name="btnRegister" value="btnRegister"&gt;
+&lt;script&gt;
+</xmp>
+								<div class="between-box">
+									<div class="w-50">
+										<div class="head">Are you facing any problem in respect to controller method and AJAX call type?</div>
+										<p>The key lies in consulting with the experts who know how to initialize the button type and not submit type. Let us know which type of problem you are facing. We offer the best solutions to crack the issues.</p>
+									</div>
+									<div class="contact-btn-area">
+										<a href="../contact-us.html" class="contact-btn">Contact Us</a>
+									</div>
+								</div>
+								<p>The above example is same for this issue also.</p>
+								<p>Some times when you don’t define contentType to $.ajax call, it will not call any type of controller method, so you have to be sure when you are passing JSON type object data to controller you have to define contentType as below.</p>
+<xmp>
+&lt;script type="text/javascript"&gt;
+contentType: 'application/json; charset=utf-8',
+&lt;script&gt;
+</xmp>
+								<p>Now finally, following is the order of properties for AJAX call in view or any java-script call with example.</p>
+<xmp>
+	vardataToSend = {
+	customerName: $(‘#txtName’).val(),
+	customerAddress: $(‘#txtAddress’).val(),
+	contactNo: $(‘#txtMobileNumber’).val()
+	};
+	$.ajax({
+	url: "@Url.Action("
+	RegisterCustomer ", "
+	Customer ")",
+	type: "GET",
+	dataType: "string",
+	async: true, //asynchronous call type true or false, default is true,
+	data: dataToSend,
+	contentType: 'application/json; charset=utf-8',
+	success: function(data)
+	$('#lblMsg').val(data); //display success message in label.
+	},
+	complete: function() {
+	//Here you can execute any action that you want after completion of ajax call.
+	},
+	error: function(xmlHttxmpquest, errorText, thrownError) {
+	//Here you can execute any action if controller method throw any error.
+	}
+	});
+</xmp>
+									<p>And controller method is like this.</p>
+<xmp>
+[HttpGet]
+publicActionResultRegisterCustomer(Customer model) {
+try {………
+Your logic here.
+} catch (Exception ex) {
+if (log.IsErrorEnabled)
+log.Error(ex.Message, ex);
+}
+returnJson(r, JsonRequestBehavior.AllowGet);
+}
+</xmp>
+										
+                                <div class="between-box bg-green">
+                                    <div class="w-50">
+                                        <div class="head mb-1">Reach out to <a href="https://www.aegissofttech.com" target="_blank">Aegis Softtech</a> today and let's get your app running at its best!</div>
+                                    </div>
+                                    <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                                </div>
+                                <div id="link4"></div>
+								<h2>Javascript and jQuery Code</h2>
+								<p>Making use of JavaScript libraries and structures could easily increase your effectiveness and output if you are a programmer. While Ajax not calling the controller method then the Libraries such as jQuery code can give many pre-written functions and approaches that ease multifaceted responsibilities, letting you work on lesser coding and get larger in a small number of time.</p>
+<xmp>
+Procedure Show(appId, appStatus)
+{ $.fn.gotof(appId, appStatus); }
+</xmp>
+								<div id="link5"></div>
+                                <h3>jQuery Function</h3>
+								<p>jQuery purposes are influential tool that could improve the functions and interactions of any given website. Such functions let designers operate fundamentals on a page of the website, like fluctuating their content, elegance, or situation, in reply to activities taken by users or determined actions. A contention is obtained from the view and then transferred to the jQuery method.</p>
+<xmp>
+$(document).ready(function () {
+$.fn.gotof = meaning (appId, appStatus) {
+    var choose Entry = $("input[name='" + appStatus + "']:checked").val();  
+    $.ajax({
+        url: '/App/InformUsercondition,
+        data: { id: appId , status: selectedItem},
+        Out-dated: factual,
+        datakind: "json",
+        functionkind: "application/json",
+        achievemnet: purpose (data) {
+            alert(data);
+        }
+    });
+});
+</xmp> 
+                                <div id="link6"></div>
+								<h3>Controller Method</h3>
+								<p>In the area of Java, the controller method plays a vital part in the Model-View-Controller (MVC) structure for design. This method acts as the intermediary between the operator's contribution and the app's reply. It gets requests via the user edge, procedures the contribution statistics interrelates via the use of a simulation to obtain or enhance data and later controls the suitable interpretation to reduce as a reply. It even aids in preserving the parting of worries by keeping the business judgment distinct via the user appearance and the logic behind accessing information.</p>
+<xmp>
+public JsonResult Upgrade the status of the applicant. (int id, string status){
+    return Json("Precise", JsonRequestBehavior.AllowGet);
+}
+</xmp>
+								<p>You may set a breakpoint on a controller method, however it won’t get triggered at the specified location.</p>
+                                <div id="link7"></div>
+								<h2>Benefits of Ajax</h2>
+								<p>There are a few advantages of using Ajax. Some of them are mentioned below.</p>
+								<ol class="listing">
+								    <li>You can make calls in return.</li>
+								    <li>You can make use of an application or a website.</li>
+								    <li>It can be used by every person.</li>
+								    <li>Users can make calls related to Asynchronous.</li>
+								    <li>You can enhance the performance level and the rate of speed of an application on a website.</li>
+								</ol>
+                                <div id="link8"></div>
+								<h2>What advances have been made to Ajax?</h2>
+								<p>Javascript is the side of a client which is in the form of a language of script. Whereas, XML is another language that helps to know data. There is another JSON which is another language and it also states data. It is quite convenient to use JSON along with Javascript as compared to XML. It is important to know XML is substituted for JSON.</p>
+								<p>There is a huge advancement for asp.net mvc ajax call to controller with the use of Ajax and Javascript and that is jQuery which is a type of javascript library. Users should know it can be used free of cost. The use of JavaScript is to navigate a page for making callbacks of asynchronous Ajax. Thus, callbacks of Ajax are imperative in the practices of normal programming by making use of JSON and jQuery. These can be used for making applications for websites.</p>
+                                <div id="link8-1"></div>
+								<h2>Demonstration: Implementation of Ajax using jQuery</h2>
+								<p><strong><i class="fa fa-chevron-circle-right tom-color" aria-hidden="true"></i> Step 1</strong></p>
+								<p>You must make a newer Project and select the ASP.NET MVC website app.</p>
+								<p><strong><i class="fa fa-chevron-circle-right tom-color" aria-hidden="true"></i> Step 2</strong></p>
+								<p>You can turn off the pre-installed Classes and Controls and create an individual model.</p>
+								<p><strong><i class="fa fa-chevron-circle-right tom-color" aria-hidden="true"></i> Step 3</strong></p>
+								<p>Now making a different DbContext. It is a way that handles every database function, such as database linking, and handling many objects of the Entity Prototypical.</p>
+								<p>DbContext may be described as a wrapper for ObjectContext. DbContext is a streamlined variant of ObjectContext that just provides the essential capabilities necessary for development.</p>
+								<p><strong><i class="fa fa-chevron-circle-right tom-color" aria-hidden="true"></i> Step 4</strong></p>
+								<p>Then you should make a controller to write a code for injecting data into the database, exhibiting data in the interpretation.</p>
+								<p><strong><i class="fa fa-chevron-circle-right tom-color" aria-hidden="true"></i> Step 5</strong></p>
+								<p>Then make the action approaches for Introducing and recovering the data inside the data from the database.</p>
+								<p><strong><i class="fa fa-chevron-circle-right tom-color" aria-hidden="true"></i> Step 6</strong></p>
+								<p>Here you can make an addition of view to the presentation of the numbers and statistics implanting an area. You can later succumb button and even show the data on similar pages.</p>
+								<p><strong><i class="fa fa-chevron-circle-right tom-color" aria-hidden="true"></i> Step 7</strong></p>
+								<p>At this point, we can compose the script that's going to handle the insertion of the data, and the retrieval and presentation to the view. We can make use of Ajax to revive "tblStudent" so it restores just the singular table, instead of renewing the complete pages.</p>
+								<p><strong><i class="fa fa-chevron-circle-right tom-color" aria-hidden="true"></i> Step 8</strong></p>
+								<p>The program should be executed, and then you should browse to the Student controller. Additionally, you can customize "RouteConfig.cs" and ensure that the controller name has the name "Student" to facilitate straight routing to the Student controllers when the program is loaded.</p>
+                                <div id="link9"></div>
+								<h2>GET</h2>
+								<p>When accessing data from a particular site, the GET method is used. The URL is required to be sent along with every GET response that we make. It is a simple but effective HTTP technique that includes data to the URL as arguments. This enables the server to go through the inquiry and reply with the information that was required.</p>
+								
+                                <div id="link10"></div>
+                                <h3>A GET REQUEST POST</h3>
+								<p>A GET request that includes a parameter to the Controller's Method and delivers data in JSON format. While we make use of this technique, it will receive an argument and provide data in strings (also known as a message of wanted or a directive response).</p>
+								<p><strong>POST call to Controller's Method to save TextBox Data (not form)</strong></p>
+								<p>You will come across several approaches to POST via data as a technique nonetheless as a sample of textboxes you could go ahead and do a submit, while the operator clicks the switch you can save data with the aid of jQuery Ajax POST call.</p>
+								<p><strong>POST call to Controller's Method to save form Data</strong></p>
+								<p>When we want to keep the data by making a POST appeal to a control system, it is crucial to guarantee that the data is being sent safely and effectively. The POST technique is often applied to transmit data to the server here the purpose of making or updating a resource. In such a scenario, the controller's handling purpose would usually manage the inbound POST demand, retrieve the input data, verify its validity, and then store it in a database or carry out other essential tasks. Implementing robust validation processes is essential to guarantee the accuracy and security of the stored data.</p>
+                                <div class="between-box bg-green">
+                                    <div class="w-50">
+                                        <div class="head mb-1">Dont struggle with JSON serialization and AJAX callback errors, our experts can guide you through the solution.</div>
+                                    </div>
+                                    <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                                </div>
+                                <div id="link11"></div>
+								<h2>How to use Ajax?</h2>
+								<p>As it is known to all, AJAX which is also known as Asynchronous. There are others such as JavaScript and XML. It is a type of script in which the side of a client makes communication with the help of a database or server. You are not required to refresh a page or a postback. Ajax increases the time to respond. In short, Ajax is the process of interchanging data against the server. It can bring up to date a few parts of a page of a website. You do not have to load the whole page all over again.</p>
+								<p><strong>1.</strong> Begin by making an XMLHttpRequest inside JavaScript to interconnect with the execution of web server tasks concurrently.</p>
+								<p><strong>2.</strong> Later, describe a purpose for managing the server answer. One can create it on a server with the assistance of GET or POST to recover or transfer data.</p>
+								<p><strong>3.</strong> Make use of callback purposes to manage the reply data and inform the DOM rudiments with the website pages animatedly. Recall to manage mistakes and offer response providing the user with a smooth and uninterrupted environment.</p>
+								<p><strong>4.</strong> Having good preparation and research, you could take the complete possibility of Ajax to create the best and most approachable website and mobile apps.</p>
+                                <div id="link12"></div>
+								<h2>Basic Properties of Ajax</h2>
+								<p><strong>1. Endpoint URL:</strong></p>
+								<p>Here, you must provide the URL of the ending point where you wish to send the data for posting.</p>
+								<p><strong>2. Kind:</strong></p>
+								<p>Indicate a specific appeal method, such as POST, GET, delete, and so on</p>
+								<p><strong>3. Data:</strong></p>
+								<p>This refers to where it can be transmitted to a certain destination.</p>
+								<p><strong>4. Achievement:</strong></p>
+								<p>This attribute refers to a procedure that is called back and is triggered after a demand comes back with the OK, indicating where the completion has taken place. This callback technique even returns reply statistics that are sent from the controller side.</p>
+								<p><strong>5. Error:</strong></p>
+								<p>This error is triggered when an error happens while contacting an endpoint, such as when the endpoint is non-existent or when an inadequate request is made. This callback also includes the following parameters: demand, circumstance, and exception.</p>
+								<p><strong>6. Async:</strong></p>
+								<p>This attribute is a Boolean which is set to false by default. Setting this option to true will enable asynchronous calling of the submission, allowing additional requests to be made simultaneously. If this statement is untrue, further requests will only be made after the application has been successfully executed.</p>
+                                <div id="link13"></div>
+								<h2>Conclusion</h2>
+								<p>Please note that the coding shared by <a href="../microsoft/dotnet-development" target="_blank">asp.net web development</a> team is for reference purpose only. If you have any doubt or want to ask anything related to the issue, make comments below.</p>
+								<p>Reach out to Aegis Softtech today and let's get your app running at its best! Our team of expert developers can help you fix your AJAX JSON and get your MVC method up and running smoothly.</p>
+                                <p>For further information, mail us at <a rel="nofollow" href="mailto:info@aegissofttech.com"> info@aegissofttech.com</a></p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">What is ajax call controller method?</a></div>
+								<div class="para2"><a href="#link2">Controller method not being called by AJAX call</a></div>
+								<div class="para2"><a href="#link3">Getting null parameter values on controller method</a></div>
+                                <div class="para1"><a href="#link4">Javascript and jQuery Code</a></div>
+                                <div class="para2"><a href="#link5">jQuery Function</a></div>
+                                <div class="para2"><a href="#link6">Controller Method</a></div>
+                                <div class="para1"><a href="#link7">Benefits of Ajax</a></div>
+                                <div class="para1"><a href="#link8">What advances have been made to Ajax?</a></div>
+                                <div class="para1"><a href="#link8-1">Demonstration: Implementation of Ajax using jQuery</a></div>
+                                <div class="para1"><a href="#link9">GET</a></div>
+                                <div class="para2"><a href="#link10">A GET REQUEST POST</a></div>
+                                <div class="para1"><a href="#link11">How to use Ajax?</a></div>
+                                <div class="para1"><a href="#link12">Basic Properties of Ajax</a></div>
+                                <div class="para1"><a href="#link13">Conclusion</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="article-section spt spb">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="section-header">
+								<div class="article-head">Related article</div>
+							</div>
+						</div>
+					</div>
+					<div class="bs-row">
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img3">
+								<div class="blog-heading">
+									<div class="b-head"><a href="boost-website-performance-with-asp-net-mvc-development.html" target="_blank">ASP.NET MVC: Boosting Your Website with a Responsive Framework</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>Designing website applications which meet the MVC (Model-View-Controller) project design was tough to be executed along the ASP.NET.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img2">
+								<div class="blog-heading">
+									<div class="b-head"><a href="custom-model-binding-in-asp-net-core-mvc-pattern.html" target="_blank">Custom Model Binding In ASP.NET Core MVC Pattern</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>In the MVC pattern, Model binding maps the HTTP request data to the parameters of a Controllers action method.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/how-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html"
+			},
+			"headline": "Fixing AJAX JSON MVC Method not being called in ASP.NET",
+			"description": "how Ajax not calling controller method with variables",
+			"image": "https://www.aegissofttech.com/articles/images/fixing-ajax-json-mvc-method.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2016-07-08",
+			"dateModified": "2023-08-10"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Ajax Call Controller Method from JavaScript in Asp(dot)Net Core MVC&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/how-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Ajax Call Controller Method from JavaScript in Asp(dot)Net Core MVC&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/how-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

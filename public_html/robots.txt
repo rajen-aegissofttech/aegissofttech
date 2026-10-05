@@ -1,0 +1,16 @@
+User-agent: *
+
+Sitemap: https://www.aegissofttech.com/sitemap-index.xml
+Sitemap: https://www.aegissofttech.com/main-sitemap.xml
+Sitemap: https://www.aegissofttech.com/insights/sitemap_index.xml
+Sitemap: https://www.aegissofttech.com/case-studies/sitemap.xml
+
+Disallow: /tag
+Disallow: /*/feed/
+Disallow: /*?source=
+Disallow: /*&utm_
+Disallow: /*?utm_
+Disallow: /*&seq_no=
+Disallow: /*?amp=1
+Disallow: /*?page=
+Disallow: /*?

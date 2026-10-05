@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>Developers Guide: Learn Kafka Streams With Core Concept</title>
+	<meta name="description" content="Kafka Streams has a leading-edge application over others due to transformation of input Kafka topics to output topics. Here is the developers guide to know more." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/kafka-streams-developers-guide.html"/>
+	 
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Developers Guide: Learn Kafka Streams With Core Concept" />
+	<meta property="og:description" content="Kafka Streams has a leading-edge application over others due to transformation of input Kafka topics to output topics. Here is the developers guide to know more." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/kafka-streams-developers-guide.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/articles/images/kafka-streams-concept.jpg" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/articles/images/kafka-streams-concept.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="Kafka Streams has a leading-edge application over others due to transformation of input Kafka topics to output topics. Here is the developers guide to know more." />
+	<meta name="twitter:title" content="Developers Guide: Learn Kafka Streams With Core Concept" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/articles/images/kafka-streams-concept.jpg" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Kafka Streams: An Introduction and Developer’s Guide for Core Concept</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">Kafka Streams: An Introduction and Developers Guide</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<p>Kafka Stream is a transformation library that comes with Kafka binary for <a href="https://www.aegissofttech.com/data/big-data-consulting-services" target="_blank">analyzing and processing data</a> stored in Kafka topics. It is used for data transformation, enrichment, fraud detection, monitoring and alerts.</p>
+								<p>Kafka streams are standard Java applications that take data from Kafka topics to process and analyze and then store results back to Kafka topics. It is highly scalable, fault-tolerant, requires no separate cluster, and leverages the full capabilities of Kafka. For those looking to implement or optimize Kafka streams in their projects, our <a href="https://www.aegissofttech.com/software-development/java" target="_blank">Java development company</a> can provide the necessary expertise to ensure seamless integration and performance.</p>
+								<p>Moreover, it is the only streaming library semantics in the streaming world that has exactly once and is a true streaming framework because it processes one record at a time rather than micro batches. It works for applications of any size either small or big.</p>
+								<div id="link1"></div>
+								<h2>Kafka Stream Vs other Streaming Libraries</h2>
+								<p>There are many streaming libraries in the market today such as Spark Streaming, Nifi, and Flink etc. All these libraries are constantly evolving and it entirely depends on your use case to decide which one to select.</p>
+								<div class="table-data">
+									<table border="1" cellspacing="0" cellpadding="0">
+										<tr>
+											<th><strong>&nbsp;</strong></th>
+											<th><strong>Kafka Streams</strong></th>
+											<th><strong>Spark Streaming</strong></th>
+											<th><strong>Flink</strong></th>
+											<th><strong>Nifi</strong></th>
+										</tr>
+										<tr>
+											<td><strong>Cluster Required</strong></td>
+											<td>No</td>
+											<td>Yes</td>
+											<td>Yes</td>
+											<td>Yes</td>
+										</tr>
+										<tr>
+											<td><strong>Real time Streaming</strong></td>
+											<td>Yes</td>
+											<td>No</td>
+											<td>Yes</td>
+											<td>Yes</td>
+										</tr>
+										<tr>
+											<td><strong>Micro Batches</strong></td>
+											<td>No</td>
+											<td>Yes</td>
+											<td>No</td>
+											<td>No</td>
+										</tr>
+										<tr>
+											<td><strong>Semantics</strong></td>
+											<td>Exactly Once</td>
+											<td>At least Once</td>
+											<td>At least Once</td>
+											<td>At least Once</td>
+										</tr>
+										<tr>
+											<td><strong>Implementation</strong></td>
+											<td>Code based</td>
+											<td>Code based</td>
+											<td>Code based</td>
+											<td>Drag &amp; drop</td>
+										</tr>
+									</table>
+								</div>
+								<div id="link2"></div>
+								<h2>Who Uses Kafka Streams For Real-Time Streaming?</h2>
+								<div class="single-article-img"><img class="lazyload" src="images/kafka-streams.jpg" alt="Kafka streams" /></div>
+								<p>Many companies are using Kafka streams to build their real time streaming pipeline.</p>
+								<div class="between-box">
+									<div class="w-50">
+										<div class="head">Kafka streams proves efficient in data enrichment, transformation, monitoring, transformation etc.</div>
+										<p>We support you by providing a thorough knowledge about utilization of kafka streams.</p>
+									</div>
+									<div class="contact-btn-area">
+										<a href="../contact-us.html" class="contact-btn">Contact Us</a>
+									</div>
+								</div>
+								<p><strong>Newyork Times</strong>  is using Kafka Stream to store & distribute their content in real-time to their readers.</p>
+								<p><strong>Pinrest</strong> is using Kafka Streams to predict the budget of their advertising infrastructure.</p>
+								<p><strong>Rabobank</strong> is one of the top banks in the Netherlands, and is using Kafka streams to alert customers in real-time for financial events.</p>
+								<div id="link3"></div>
+								<h2>Kafka Stream Core Concepts</h2>
+								<div class="single-article-img"><img class="lazyload" src="images/kafka-streams-concept.jpg" alt="Kafka Stream Core Concepts" /></div>
+								<ul class="listing">
+									<li>
+										<strong>Processor Topology</strong>
+										<p>Kafka streams application is represented in the form of processor topology that is simply a graph of stream processors connected with streams. It defines the computation logic of your application and how your input data is transformed to output data.</p>
+									</li>
+									<li>
+										<strong>Source Processors</strong>
+										<p>This is a special processor that takes data directly from kafka topics and then forward that data into downstream processors. It does not do any transformations, it just reads data from the kafka topic and creates a stream out of it to send it to further processors in the topology for transformation.</p>
+									</li>
+									<li>
+										<strong>Sink Processors</strong>
+										<p>This processor takes transformed or enriched data from upstream processor and send it to Kafka topics</p>
+									</li>
+									<li>
+										<strong>Stream</strong>
+										<p>Sequence of fully ordered immutable data records that can be replayed in case of failures. These data records correspond to records in Kafka topic.</p>
+									</li>
+									<li>
+										<strong>Stream Processor</strong>
+										<p>It is a node in processor topology that transforms incoming streams record by record and then creates a new stream from it.</p>
+									</li>
+								</ul>
+								<div id="link4"></div>
+								<h3>How to Write Topologies?</h3>
+								<p>We can write topologies in two ways:</p>
+								<ul class="listing">
+									<li>
+										<strong>High level DSL:</strong>
+										<p>It is high-level API, simple, most common transformation operations such as filter, map, join etc</p>
+									</li>
+									<li>
+										<strong>Low Level Processor API:</strong>
+										<p>Low-level API used to implement complex logic but rarely needed.</p>
+									</li>
+								</ul>
+								<div id="link5"></div>
+								<h3>Mandatory Configurations for Kafka Streams</h3>
+								<div class="table-data">
+									<table border="1" cellspacing="0" cellpadding="0">
+										<tr>
+											<td><strong>bootstrap.servers</strong></td>
+											<td>Needed to connect to kafka at port 9092</td>
+										</tr>
+										<tr>
+											<td><strong>Auto.offset.reset.config</strong></td>
+											<td>Earliest- to consume topic from start Latest – to consume topic from latest offset</td>
+										</tr>
+										<tr>
+											<td><strong>Application.id</strong></td>
+											<td>Id given to kafka stream application</td>
+										</tr>
+										<tr>
+											<td><strong>Default Key Serde [Key/Value]</strong></td>
+											<td>Serialization & deserialization for keys</td>
+										</tr>
+										<tr>
+											<td><strong>Default Value Serde [Key/Value]</strong></td>
+											<td>Serialization & deserialization for values</td>
+										</tr>
+									</table>
+								</div>
+								<div id="link6"></div>
+								<h3>Kafka Stream Maven Dependencies</h3>
+<xmp class="codding-box">
+<dependency>
+	<groupId>org.apache.kafka</groupId>
+	<artifactId>kafka-streams</artifactId>
+	<version>2.0.0</version>
+</dependency>
+</xmp>
+								<div id="link7"></div>
+								<h3>Setting up the Properties</h3>
+<xmp class="codding-box">
+import org.apache.kafka.streams.StreamConfig;
+import org.apache.kakfka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.Serdes;
+import java.util.Properties;
+public class sampleStreamApp {
+public static void main(String[] args) {
+Properties config = new Properties();
+config.put(StreamConfig.APPLICATION_ID_CONFIG, ”SampleStreamAPP”);
+config.put(StreamConfig.BOOTSTRAP_SERVER_CONFIG, localhost: 9092);
+config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, ”earliest”);
+config.put(StreamConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serde.String().getClass());
+config.put(StreamConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serde.String().getClass());
+}
+}
+</xmp>
+								<div id="link8"></div>
+								<h3>Build KStream from Kafka Topic</h3>
+<xmp class="codding-box">
+KstreamBuilder builder = new KstreamBuilder();
+Kstream<String,String> input = builder.stream(topic,”sample-input”);
+</xmp>
+								<div id="link9"></div>
+								<h3>Ktables/Kstreams</h3>
+								<p>Kstream is an infinite, unbounded stream of immutable data streams. Whenever a new record is added to Kafka topic, that record is appended to Kstream.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/kstreams.jpg" alt="Kstreams" /></div>
+								<p>Ktables are similar to database tables. It deletes the records on null value, it updates the records if the same key appears again. It is used if you want to apply unique constraints on the data like the <a href="https://en.wikipedia.org/wiki/Primary_key" target="_blank">primary key in the database table</a>. In the below example, Ktables updated the “Mary” record from value 23 to 27 and deleted the record with key as “john” since it came with null value.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/kafka-topic-records.jpg" alt="Kafka Topic Records" /></div>
+								<div id="link10"></div>
+								<h3>MapValues</h3>
+								<p>It applies the operation on the values of the records. For example, I want to change the stream data into uppercase. This function is supported in both Kstream and Ktables.</p>
+<xmp class="codding-box">
+stream.mapValues(value -> value.toUpperCase());
+</xmp>
+								<div class="single-article-img"><img class="lazyload" src="images/mapvalues.jpg" alt="MapValues" /></div>
+								<div id="link11"></div>
+								<h3>Filter/FilterNot</h3>
+								<p>Filter applies some condition on Kstreams/Ktables to get the filtered stream whereas FilterNot is completely opposite of Filter. Each record produces zero or one record depending upon whether it satisfies the condition. Below statement filters out all values that are less than or equal to zero and gives back a new Kstream with values greater than zero.</p>
+<xmp class="codding-box">
+Stream.filter((key,value) -> value > 0);
+</xmp>
+								<div class="single-article-img"><img class="lazyload" src="images/filter.jpg" alt="Filter" /></div>
+								<div id="link12"></div>
+								<h3>FlatMapValues / FlatMap</h3>
+								<p>Flatmap takes one record and produces zero,one or more records. FlatMapValues does not change the keys, does not trigger any repartition whereas FlatMap changes the keys and triggers the repartition. Both the operations are for Kstream only.</p>
+<xmp class="codding-box">
+Stream.flatMapValues(value -> Arrays.asList(value.split(“\\s+”)));
+</xmp>
+								<div class="single-article-img"><img class="lazyload" src="images/flatmapvalues.jpg" alt="FlatMapValues" /></div>
+								<div id="link13"></div>
+								<h3>Branch</h3>
+								<p>Branch splits a Kstream into multiple Kstream based on one or more predicates.</p>
+<xmp class="codding-box">
+Stream.branch(
+(key, value) - > value > 100, (key, value) - > value > 10, (key, value) - > value > 0
+)
+</xmp>
+								<p>In the above example, predicates are evaluated in order. If a record comes whose value is greater than 100, it will become part of the first Kstream else it will be evaluated for next predicates. If the record does not match any predicate then that particular record will get dropped.</p>
+								<p>Above operation will create 3 Kstreams with the first one carrying all data greater than 100, second with data between 10 & 100 and third Kstream with data between 0 & 10. All records with negative values will be dropped.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/branch.jpg" alt="Branch" /></div>
+								<div id="link14"></div>
+								<h3>SelectKey</h3>
+								<p>SelectKey assigns a new key to the record. Below operation will assign the first letter of the old key as the new key.</p>
+<xmp class="codding-box">
+stream.selectKey((key,value) -> key.subString(0,1));
+</xmp>
+								<div class="single-article-img"><img class="lazyload" src="images/selectkey.jpg" alt="SelectKey" /></div>
+								<div id="link15"></div>
+								<h3>Reading from kafka</h3>
+								<p>We can read data from Kafka as a Kstream or as a Ktable. As discussed earlier, Ktables and Kstreams have differences in terms of how it deals with null values or how it deals with values with the same key.</p>
+<xmp class="codding-box">
+//Reading as Kstream
+Kstream < String, Long > wordcounts = builder.stream(Serdes.String(), //Key Serde
+Serdes.Long(), //Value Serde
+“topic - name” //input topic
+)
+//Reading as Ktable
+KTable < String, Long > wordcounts = builder.table(Serdes.String(), //Key Serde
+Serdes.Long(), //Value Serde
+“topic - name” //input topic
+)
+</xmp>
+								<div id="link16"></div>
+								<h3>Writing to Kafka</h3>
+								<p>There are two API’s for Writing to a topic. ”To” method simply writes to a topic and returns nothing whereas the “through” method writes to a Kafka topic and also returns the stream with updated data.</p>
+<xmp class="codding-box">
+//writing to topic stream.to(“topic-name”); table.to(“topic-name”);
+//writing & reading newly written data
+Kstream < String, Long > newStream = stream.through(“topic - name”);
+Ktable < String, Long > newStream = table.through(“topic - name”);
+</xmp>
+								<div class="single-article-img"><img class="lazyload" src="images/streaming-protocol.webp" alt="Streaming Protocol" /></div>	
+								<p>Image source: https://www.dacast.com/blog/video-streaming-protocol/</p>
+								
+								<div id="link4"></div>
+								<h2>Interactive Examples and Tutorials</h2>
+								<p>With Kafka Streams, industries can develop and examine data they reach, allowing them to make timely choices and take instant activities. It is predominantly valuable in places like finance, retail, and communications, here the actual data meting out can lead to important modest benefits.</p>
+								<div id="link18"></div>
+								<h3>Setting up Kafka Streams</h3>
+								<ul class="listing">
+									<li>Setting up Kafka Streams may seem an unnerving job, nonetheless with the correct direction, it could be a simple procedure. We will lead you through the procedure of setting up and setup up Kafka and Zookeeper, the core components that power Kafka Streams, in this step-by-step tutorial that we have prepared for you.</li>
+									<li>You will have to start by downloading the newest version of Apache Kafka via the official Apache Kafka website. When it is dl, trail the connection guidelines exactly to the functioning methods. This characteristically includes removing the copied files to an anticipated handbook. Create a stream processing architecture by using the Apache Kafka Streams Domain-Specific Language (DSL) to specify your business logic.</li>
+									<li>After some time has passed, you will be required to configure ZooKeeper, which is a centralized service that is deployed over Kafka to maintain configuration data and provide distributed administration. Please ensure that you transfer the most recent stable version of Apache ZooKeeper via the official website and carefully go through the instructions that are provided.</li>
+									<li>Immediately after the ZooKeeper has been installed, you will need to make arrangements for a Kafka to work properly. To do this, the ZooKeeper formation file will need to be modified to agree on the linking particulars and ports. When it comes to safeguarding a smooth integration, it is essential to make sure that the ZooKeeper configuration is aligned with the Kafka configuration.</li>
+									<li>After the Kafka and ZooKeeper services have been successfully installed and configured, you will be able to begin using them. After executing the required command, begin the procedure of starting ZooKeeper. Next, begin the step of starting Kafka by executing the Kafka server script. During the progression of computer setup, it is of the utmost importance to keep a close eye on the console output for any possible mistakes.</li>
+								</ul>
+								<p>Get in touch with us so that we can make your streaming data valuable for commercial purposes and create revenue.</p>
+								<div id="link19"></div>
+								<h3>Error Handling and Fault Tolerance</h3>
+								<div class="single-article-img"><img class="lazyload" src="images/kafka-exception-handling.webp" alt="Kafka Exception Handling" /></div>
+								<p>Image source: https://www.bmc.com/blogs/apache-kafka-exception-handling-best-practices/</p>
+								<p>In the area of Kafka Streams taking acre of mistakes mentions the ability of the application to manage many kinds of mistakes which could happen during data processing. Such mistakes could vary from easy data format problems to larger compound situations such as network disappointments or inaccessibility of possessions.</p>
+								<p>Kafka Streams improves the development of the app with the help of Kafka creator and customer frameworks and harnesses the inherent characteristics of Kafka to offer data analogy, decentralized collaboration, tolerance for disappointments, and working flexibility. This section explains the underlying devices of Kafka Streams.</p>
+								<ul class="listing">
+									<li>Kafka Streams also just the kafta are closely interconnected when it comes to concurrency.</li>
+									<li>A stream divider is a completely well-ordered series of data records that corresponds to a Kafka topic partition.</li>
+									<li>All of the data records in the data stream agree to a Kafka dealing via a similar topic.</li>
+									<li>The arrangement of data in both Kafka and Kafka Streaming is dictated by the keys of data records. This implies that the data is transmitted to specific segments within subjects according to the keys.</li>
+								</ul>
+								<p>The main reason that error handling is important in stream processing is to preserve data integrity. In a Kafka Streaming app, data is treated incessantly and correspondingly, with numerous instances of the app running continuously in case a mistake happens at the time of handling, it is vital to manage it with care to stop data inconsistencies or repetitions.</p>
+								<div id="link20"></div>
+								<h3>Possible error possibilities in Kafka</h3>
+								<p>In general, we encounter two types of problems while handling data streams: passing mistakes and non-transient faults.</p>
+								<p><strong>1.</strong> A transitory error is a mistake that happens sporadically or unpredictably. Instances of such problems include a transient system disruption or briefly inaccessible endpoints. A clear and straightforward approach in this situation is to attempt the processing again.</p>
+								<p><strong>2.</strong> Non-transient failures have a higher level of persistence, as seen by the repeated occurrence of similar faults in Kafka messages, regardless of the number of retry attempts. Instances of such problems include flaws in app processing reasoning and analyzing faults. It is necessary to provide a mechanism that can effectively manage these mistakes when they arise, allowing for automated recovery when feasible or system shutdown when recovery is not possible.</p>
+								<p>Failure managing, attempting, and restoring are critical in ensuring the resilience of real-time systems that rely on essential data events and won’t tolerate all of the data loss.</p>
+								<div id="link21"></div>
+								<h3>Concept of State Stores in Kafka Streams</h3>
+								<p>Kafka Streams is a library offered by Apache Kafka that <a href="https://www.aegissofttech.com/hire/pl-sql-developers" target="_blank">empowers PL SQL developers</a> to handle and examine data streams in real time. Kafka Streams excel in effectively handling and controlling stateful data by leveraging state storage. Kafka Streams state stores offer a robust framework for maintaining and using stateful info throughout stream processing. They facilitate the storage and retrieval of interim findings, execution of intricate calculations, and preservation of context throughout the analysis of actual data streams.</p>
+								<p>State stores allow Kafka streams apps to be ahead in event dispensation and hold crateful processes. With the capability to stow and make use of data, designers could use functions like real-time combinations, meeting windows, and connexions which is the holding of state.</p>
+								<p>Kafka Streams apps benefit from fault tolerance and flexibility via the usage of state storage. State storing offers uninterrupted operation by saving an app state to permanent storage, like Kafka topic or a RocksDB database, in the event of errors or restarting. This guarantees the dependability and robustness of your stream processing processes.</p>
+								<p>Aegis Softtech data platform is the only one of its kind that gives businesses the ability to profit on real-time data at scale without compromising operational performance.</p>
+								
+								<div id="link5"></div>
+								<h2>Ways to inquire about the current condition of the application?</h2>
+								<p>Interactive inquiries pertain to an app's capacity to actively obtain and change data in response to user inputs or specified situations. This feature enables developers to design communicating and tailored experiences that effectively captivate and fulfill consumers. The era of static, uniform apps is now a thing of the past. Modern users have a growing expectation for programs to dynamically adjust to their requirements and preferences without any delay.</p>
+								<p>Interactive Queries lets an individual power the state of the This results in enhanced functionality and engagement for companies, as well as the possibility of entering new markets and capitalizing on the user bases of other popular programs that are already in existence.. The Kafka Streams API allows the application could be queryable.</p>
+								<div id="link23"></div>
+								<h3>1. State of the area</h3>
+								<p>An application, for example, might query the nearby handles section of the state and straight query its specific local state laws. The way it does not involve accessing the Kafka Streams API, it is possible to take advantage of the consistent local data in extra locations inside the app's code. To ensure that the underlying state stores will never be modified out-of-band, querying state stores is continuously treated as read-only. This means that you are unable to add new items to the state stores. The matching processor architecture also the contribution data that it acts on should be the only things that may cause state stores to change.</p>
+								<p><strong>The remote state</strong></p>
+								<p>Therefore, to query the whole state of your application, you will need to link the different pieces of the state, which include the following:</p>
+								<ul class="listing">
+									<li>Local state retailers must be questioned.</li>
+									<li>Identify every instance of your program that is now executing on the internet, as well as their respective state stores.</li>
+									<li>Through the use of the internet (for instance, an RPC layer), connect with the examples.</li>
+								</ul>
+								<div id="link24"></div>
+								<h3>2. Real-Time Analytics and Monitoring</h3>
+								<p>The intake, management, and examination of data flowing as it is being generated are all included in real-time stream processing. This allows businesses to react to measurements and make choices in real-time. The pub-sub architecture and greater number of Kafka have the potential to create the greatest quality for real-time stream processing. After some time, the applications might get an advantage via Kafka by seamlessly combining the real data streams with their replicas. This would provide continuous knowledge and the ability to make adaptable decisions.</p>
+								<p>Organizations can perform a wide range of real-time analytics operations with the help of Kafka Streams. These operations include filtering, aggregating, transforming, and combining streams of data. The firms themselves can carry out these duties. Through the execution of a wide range of operations on the data streams, it is possible to get substantial insights from them. The capacity to spot trends, identify irregularities, and develop pertinent conclusions is provided to businesses as a result of this.</p>
+								<p>An overview of the most common Kafka monitoring solutions, including a comparison of their features</p>
+								<p>When it comes to monitoring Kafka streams, having the appropriate tools in place is very necessary to guarantee the efficient functioning and performance of your data pipelines. In the following part, we will discuss and evaluate a selection of the most widely used Kafka monitoring technologies that are currently available.</p>
+								<p><strong>1. Confluent Control Center:</strong> Confluent Control Center is a service that includes full monitoring solutions for Kafka clusters. It was developed by the same people that were responsible for the creation of Kafka. Own forum email list where we respond to issues about the Confluent Platform as well as inquiries that are broader about Kafka.</p>
+								<p><strong>2. Graphite is a more straightforward</strong> "data logging and plotting tool for continuous data," but Prometheus is an "online time series database management system and monitoring platform." Prometheus is part of a free-to-use alarming and monitoring toolkit that has gained widespread use.</p>
+								<p><strong>3. Grafana:</strong> Grafana is a well-known data presentation tool that may make your Kafka tracking attempts more effective. It is often used in combination with Prometheus.</p>
+								<p><strong>4. Burrow:</strong> Burrow was developed with the express purpose of monitoring Kafka customers, and its primary emphasis is on monitoring the latency that exists between vendors and customers. It helps you detect and manage any bottlenecks or difficulties with performance in your consumer apps by providing insights on customer grouping offsets, lag patterns, and the health of consumers. With these insights, you can better serve those who use your products.</p>
+								<p><strong>5. LinkedIn Kafka Monitor:</strong> The aforementioned monitoring tool, which is owned by LinkedIn, provides extensive metrics and diagnostic functions for Kafka systems via its many functionalities.</p>
+								<p>We are the backbone for creating architectures and revolutionizing your data handling with streaming capabilities. Embark on your journey with Apache Kafka today!</p>
+								
+								<div id="link6"></div>
+								<h2>Best practices for securing Kafka Streams applications</h2>
+								<div id="link26"></div>
+								<h3>1. Implement comprehensive encryption for all data</h3>
+								<p>Cryptography, which is both free and simple to deploy, is widely available in today's business environment. Given the widespread availability of Public Key Infrastructure (PKI) solutions that are either self-signed or leverage-free services such as LetsEncrypt, there is less justification for allowing unencrypted data to pass through our network infrastructure. Although encryption of communications on your Kafka Cluster is not enabled by default, it may be easily implemented and significantly enhances the security and reliability of your cluster.</p>
+								<div id="link27"></div>
+								<h3>2. Verification of identity</h3>
+								<p>It is advisable to often change and control access credentials, such as passwords and keys, to reduce the possibility of unwanted entry. Utilizing safe configuration options, disabling unneeded functionality, and keeping software up to date is crucial to avoid possible risks.</p>
+								<div id="link28"></div>
+								<h3>3. Authorization</h3>
+								<p>Authorization is of utmost importance in a Kafka Streams context since it is essential for ensuring the security and integrity of data. Given the growing popularity of event-driven architectures, it is crucial to provide strong authorization systems. An essential component of permission is to guarantee that only authorized persons or systems are granted access to the data being sent over the Kafka Streams.</p>
+								
+								<div id="link7"></div>
+								<h2>Strategies for scaling Kafka Streams applications</h2>
+								<p>Software deployment means different things in various organizations. It involves teams and the usage of diverse applications. Overall, scaling is an important aspect of production deployment with practices that change the system to upgrade or keep it running smoothly. There is a need for basic to multi-service deployment which matters within the boundaries of a production environment. Most applications run on version dependencies to avoid risks.</p>
+								<p>Kafka Streams is an agile streaming library with multiple resources. Its ground architecture impacts the applications. It begins with a basic unit of parallelism, a stream task. Developers can optimize the app logic with the latest processor topology. As a technique, this framework focuses on the existing optimization of data from the Data Stream Management System and the data stream processing files.</p>
+								<p><strong>Key strategies required for processes include:</strong></p>
+								<ul class="listing">
+									<li>Consistency to sustain data loss.</li>
+									<li>Availability of objective for service.</li>
+									<li>Performance during high latencies.</li>
+								</ul>
+								<div id="link8"></div>
+								<h2>Deployment options and considerations for running Kafka Streams</h2>
+								<p>A well-trained model of Apache Kafka enhances the scalability in a production environment. If the apps offer real-world knowledge, they can be a game changer in the production environment. With the capability of <a href="https://www.aegissofttech.com/ai-services/machine-learning-development" target="_blank">machine learning development solutions</a> it is easier to evaluate unorganized data sets. Now it also includes recognition of images and speech which are valued in the production environment. It is a step above the traditional Python Java or Net programming systems.</p>
+								<p>Kafka Streams can detect fraud, and cross-selling and also offer predictive maintenance. All analytical models are trained to offer build-up algorithms, and options to validate, operate and monitor. Improvements are done in a continuous loop or as the updates are required for streaming.</p>
+								<p>Understanding the backward and forward compatibility of Kafka Streams applications Backward Compatibility.</p>
+								<p>Comprehending backward compatibility is straightforward. Challenging to sustain. The concept is that your program is compatible with the preceding version, hence the query pertains to the precise definition of "works". Work refers to the physical or mental effort exerted to achieve a certain task or goal. The software is fully operational without any errors or issues. However, it is important to differentiate between breaking changes, which might cause disruptions, and non-breaking changes, which do not impact functionality.</p>
+								<div id="link31"></div>
+								<h3>Forward Compatibility</h3>
+								<p>Forward compatibility is the ability of a system or technology to be compatible with future versions or updates without requiring significant modifications or adaptations. Consequently, this implies that we will be able to adapt to forthcoming alterations. This task seems to be challenging and so it is. Nevertheless, there are measures we may take to enhance the feasibility of forward compatibility.</p>
+								<div id="link32"></div>
+								<h3>Performance Tuning and Optimization</h3>
+								<p><strong>1. Ensuring an optimal number of divisions, neither excessive nor insufficient.</strong></p>
+								<p>Excessive partitioning may lead to increased overhead and resource use. Every partition necessitates memory and processing capacity to manage messages, and an excessive quantity of partitions might burden the cluster and result in heightened delay.</p>
+								<p><strong>2. The enigma around the data format</strong></p>
+								<p>Kafka perceives the messages generated as a series of bytes without any further information.</p>
+								<p><strong>3. Prevent the occurrence of the dual-write issue when writing data to downstream systems</strong></p>
+								<p>To address this obstacle, it is essential to execute a resilient and meticulously planned data integration strategy.</p>
+								<p><strong>4. Removing data entries in Kafka with tombstones</strong></p>
+								<p>Tombstones serve as distinct notifications that designate a record as removed, without actually eradicating it from the Kafka log.</p>
+								<p><strong>5. Optimize Kafka producers to enhance performance and ensure dependability</strong></p>
+								<p>Enlarging the batch size may enhance throughput since it requires fewer requests to deliver an equivalent quantity of data.</p>
+								<p>Create connections between data sources and sinks by using Aegis Softtech Apache Kafka</p>
+								<p>Connect service, which is a fully managed solution.</p>
+								<div id="link33"></div>
+								<h3>Industry-specific use cases of Kafka</h3>
+								<p>The success of Kafka is mostly attributed to its influential capabilities and adaptable nature. This technology has been empirically shown to be both scalable and fault-tolerant. Kafka is very advantageous in situations that need instantaneous data processing and tracking of application activities, as well as for monitoring.</p>
+								<p>It is not suitable for doing real-time data processing, data storage, or for basic task queuing purposes.</p>
+								<p><strong>1. Netflix</strong></p>
+								<p>Netflix adopts Apache Kafka as the established and widely accepted solution for its eventing, communication, and processing of stream requirements. Kafka serves as a conduit for all point-to-multi and Netflix Studio-wide communication. Netflix relies on its outstanding reliability and continuously scalable, multiple-tenant design to operate its operating systems effectively.</p>
+								<p><strong>2. Amazon</strong></p>
+								<p>By using Kafka, Amazon successfully revolutionized its data processing infrastructure. They created a resilient and adaptable event streaming framework that enabled them to efficiently handle, manipulate, and examine extensive amounts of data instantaneously. The distributed nature of Kafka guaranteed the reliable delivery of data to the appropriate systems and applications, hence removing any potential points of failure.</p>
+								<p><strong>3. Instagram</strong></p>
+								<p>Kafka has consistently achieved effective Apache Kafka installations, ensuring 100% customer satisfaction for Instagram. Consequently, they obtained a competitive edge by promptly recognizing patterns, trends, and so on.</p>
+								<p><strong>4. Adidas</strong></p>
+								<p>To integrate source systems and provide teams with the ability to develop immediate time event processing for monitoring, analytics, and analytical solutions, Adidas leverages Kafka as the basis of its Fast Data Broadcasting Platform.</p>
+								<div id="link9"></div>
+								<h2>Conclusion</h2>
+								<p>All real-time machine learning processing frameworks are still evolving at a constant pace with new API’s everyday but Kafka streams undoubtedly have an edge over others because of its integration with Kafka, exactly one semantics and its real-time processing power.</p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">Kafka Stream Vs other Streaming Libraries</a></div>
+								<div class="para1"><a href="#link2">Who Uses Kafka Streams For Real-Time Streaming</a></div>
+								<div class="para1"><a href="#link3">Kafka Stream Core Concepts</a></div>
+								<div class="para1"><a href="#link4">Interactive Examples and Tutorials</a></div>
+								<div class="para1"><a href="#link5">Ways to inquire about the current condition of the application?</a></div>
+								<div class="para1"><a href="#link6">Best practices for securing Kafka Streams applications</a></div>
+								<div class="para1"><a href="#link7">Strategies for scaling Kafka Streams applications</a></div>
+								<div class="para1"><a href="#link8">Deployment options and considerations for running Kafka Streams</a></div>
+								<div class="para1"><a href="#link9">Conclusion</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>						
+					</div>
+				</div>
+			</div>
+			<div class="article-section spt spb">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="section-header">
+								<div class="article-head">Related article</div>
+							</div>
+						</div>
+					</div>
+					<div class="bs-row">
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img7">
+								<div class="blog-heading">
+									<div class="b-head"><a href="difference-between-amqp-concepts-and-jms-api-rabbitmq-installation-guide.html" target="_blank">Difference between AMQP Concepts and JMS API, RabbitMQ Installation guide</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>Hello friends, today we will learn about AMQP concept, will understand the differences between AMQP and traditional JMS API and see how to install RabbitMQ</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img8">
+								<div class="blog-heading">
+									<div class="b-head"><a href="how-to-call-webapi-from-microsoft-dynamics-crm-custom-activity.html" target="_blank">How to call WebAPI from Microsoft dynamics CRM custom activity</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>It was yesterday when I and one of my colleague was working on Microsoft dynamics CRM and we stuck into a situation where we did not know how to call WebAPI method from CRM custom activity.</p>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/kafka-streams-developers-guide.html"
+			},
+			"headline": "Kafka Streams: An Introduction and Developer’s Guide for Core Concept",
+			"description": "Kafka Streams has a leading edge application",
+			"image": "https://www.aegissofttech.com/articles/images/kafka-streams.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2019-12-15",
+			"dateModified": "2019-12-15"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fkafka-streams-developers-guide.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Developers Guide: Learn Kafka Streams With Core Concept&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fkafka-streams-developers-guide.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fkafka-streams-developers-guide.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/kafka-streams-developers-guide.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fkafka-streams-developers-guide.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Developers Guide: Learn Kafka Streams With Core Concept&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fkafka-streams-developers-guide.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fkafka-streams-developers-guide.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/kafka-streams-developers-guide.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

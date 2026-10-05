@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>Tutorial: Build Fat Jar with Maven Plugin & Include all Dependencies</title>
+	<meta name="description" content="Learn how to include and build Fat Jar main class with Maven plugin in Java Project. Maven package will create and generate Fat Jar file without dependencies." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/how-to-build-a-fatjar-using-maven-in-java.html"/>
+	
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:title" content="Tutorial: Build Fat Jar with Maven Plugin & Include all Dependencies" />
+	<meta property="og:description" content="Learn how to create a fat jar file with Maven in Java Project, in different ways. Maven packaging will create a Jar file without dependencies in Java." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/how-to-build-a-fatjar-using-maven-in-java.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/images/java-application-development/j1.jpg" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/images/java-application-development/j1.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="Learn how to create a fat jar file with Maven in Java Project, in different ways. Maven packaging will create a Jar file without dependencies in Java." />
+	<meta name="twitter:title" content="Tutorial: Build Fat Jar with Maven Plugin & Include all Dependencies" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/images/java-application-development/j1.jpg" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+            <div class="hire-popup fix-top">
+            <i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+                <a href="../careers">
+                    <div class="hire-flexy">
+                        <div class="hiring-box">
+                            <div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+                            <div class="hiring-head">We are hiring!</div>
+                            <p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>How to build a FatJar using Maven?</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">How to Build a FatJar using Maven?</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<p>Maven is one of the most used tools for <a href="https://www.aegissofttech.com/software-development/java" target="_blank">Java application development services</a>.</p>
+								<p>Maven packaging will create a Jar file without dependencies.</p>
+								<p>Maven provides other plugins using which we can generate the jar with all its dependencies which is usually called FatJar, which is used as an executable Jar file.</p>
+								<p>These Fat Jars are particularly useful when building executable jar files. For instance, if we are developing a microservice, and we don't create a fat jar file, we would need to gather all its dependencies in one folder, add this folder to the classpath, and manually start the microservice each time. However, by generating a fat jar that includes all its dependencies, there's no need to add anything to the classpath. We can simply run a command to start the microservice directly. The same principle applies when working with Docker images, as we can pass a single command to start the Docker container. This streamlined process is one of the many advantages when you <a href="https://www.aegissofttech.com/software-development/java/outsourcing" target="_blank">Outsource Java development</a> to experts who can efficiently manage these tasks.</p>
+							</div>
+							<div id="link1"></div>
+							<h2>Maven provides different ways to generate the Fat jar:</h2>
+							<div id="link2"></div>
+							<h3>Apache Maven Assembly Plugin:</h3>
+							<p>Add the below Maven plugin in pom.xml file:</p>
+<xmp>
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-assembly-plugin</artifactId>
+	<version>2.4.1</version>
+	<configuration>
+		<descriptorRefs>
+			<descriptorRef>jar-with-dependencies</descriptorRef>
+		</descriptorRefs>
+		<archive>
+			<manifest>
+				<mainClass>org.sample.Application</mainClass>
+			</manifest>
+		</archive>
+	</configuration>
+	<executions>
+		<execution>
+			<id>make-assembly</id>
+			<phase>package</phase>
+			<goals>
+				<goal>single</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin>
+</xmp>
+							<p>Note: if the project has no main class then we can omit the archive section.</p>
+							<p>descriptorRef is the name that will be appended the package name.</p>
+							<p>The phase is used to specify when this maven goal should execute, suggest to specify the package because when we invoke mvn package, these jar with all dependencies will also be generated.</p>
+							<div class="between-box">
+								<div class="w-50">
+									<div class="head">Maven has proved to be a useful tool required for development of a JAVA application.</div>
+									<p>Visit us and acquire the extensive knowledge of developing executable Jar files.</p>
+								</div>
+								<div class="contact-btn-area">
+									<a href="../contact-us.html" class="contact-btn">Contact Us</a>
+								</div>
+							</div>
+							<p>The drawback of this plugin is some class with the same package is added to the classpath, this assembly plugin will have only class.</p>
+							<p>Relocating classes feature is not supporting in the above plugin.</p>
+							<p>Maven provides another plugin shade-plugin will have this feature if the duplicate package names are present we configure with alternate package names.</p>
+							<div id="link3"></div>
+							<h3>Apache Maven-Shade-plugin:</h3>
+<xmp>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-shade-plugin</artifactId>
+<version>3.2.2</version>
+<executions>
+	<execution>
+		<phase>package</phase>
+		<goals>
+			<goal>shade</goal>
+		</goals>
+		<configuration>
+			<relocations>
+				<relocation>
+					<pattern>org.sample.plexus.util</pattern>
+					<shadedPattern>org.shaded.sample.plexus.util</shadedPattern>
+					<excludes>
+						<exclude>org.sample.plexus.util.xml.pull.*</exclude>
+					</excludes>
+				</relocation>
+			</relocations>
+		</configuration>
+	</execution>
+</executions>
+</plugin>
+</xmp>
+							<p>In the relocation configuration, we can move the package to another package, by providing the shadedPattern.</p>
+							<p>This plugin also supports, if some of the packages are not <a href="https://www.aegissofttech.com/cyber-security-services" target="_blank">using in the Application security solutions</a>, we don’t need in the final fat jar, we can exclude those package in the exclude section, which will improve the class loading performance.</p>
+							<p>For suppose, if a jar file contains 10 packages, but we are using only one package, then instead of excluding 9 packages, include 1 package.</p>
+							<p>We can use includes tag similar excludes.</p>
+							<div id="link4"></div>
+							<h2>Review fat jar:</h2>
+							<p>Execute the below command to observe the fat jar folder structure:</p>
+<xmp>
+jar tf target\magellan-connector-msexchange-online-graph-cmis-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+</xmp>
+							<p>Third-party libraries are also available to prepare fat jar like one-jar maven plugin etc.</p>
+<xmp>
+META-INF/
+META-INF/MANIFEST.MF
+org/
+org/apache/
+org/apache/chemistry/
+org/apache/chemistry/opencmis/
+org/apache/chemistry/opencmis/server/
+org/apache/chemistry/opencmis/server/support/
+org/apache/chemistry/opencmis/server/support/filter/
+org/apache/chemistry/opencmis/server/support/query/
+META-INF/DEPENDENCIES
+META-INF/LICENSE
+META-INF/NOTICE
+org/apache/chemistry/opencmis/server/support/CmisServiceWrapper.class
+org/apache/chemistry/opencmis/server/support/filter/JsonPrettyPrinter.class
+org/apache/chemistry/opencmis/server/support/filter/LoggingFilter$LoggingInputStream.class
+org/apache/chemistry/opencmis/server/support/filter/LoggingFilter$LoggingOutputStream.class
+org/apache/chemistry/opencmis/server/support/filter/LoggingFilter$LoggingRequestWrapper.class
+org/apache/chemistry/opencmis/server/support/filter/LoggingFilter$LoggingResponseWrapper.class
+org/apache/chemistry/opencmis/server/support/filter/LoggingFilter.class
+org/apache/chemistry/opencmis/server/support/query/AbstractPredicateWalker.class
+org/apache/chemistry/opencmis/server/support/query/CalendarHelper.class
+.....
+com/opentext/
+com/opentext/connectors/
+com/opentext/connectors/msexchangeonlinegraph/
+com/opentext/connectors/msexchangeonlinegraph/annotations/
+com/opentext/connectors/msexchangeonlinegraph/cmis/
+com/opentext/connectors/msexchangeonlinegraph/cmis/apiutils/
+com/opentext/connectors/msexchangeonlinegraph/cmis/domain/
+com/opentext/connectors/msexchangeonlinegraph/cmis/impl/
+com/opentext/connectors/msexchangeonlinegraph/cmis/objects/
+com/opentext/connectors/msexchangeonlinegraph/cmis/typedef/
+com/opentext/connectors/msexchangeonlinegraph/cmis/utils/
+com/opentext/connectors/msexchangeonlinegraph/annotations/ConnectorCmisService.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/apiutils/CommonApi.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/apiutils/ConversationContainer.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/apiutils/FolderContainer.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/apiutils/ICmisChildContainer.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/apiutils/MessageContainer.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/apiutils/RootContainer.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/apiutils/UserContainer.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/domain/Bearer.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/domain/Body.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/domain/DirectoryRole.class
+com/opentext/connectors/msexchangeonlinegraph/cmis/domain/DirectoryRoles.class
+...
+</xmp>
+						<div id="link4-1"></div>
+						<h2>One Jar Maven Plugin</h2>
+						<p>An alternative method for generating an executable jar is the One Jar project.</p>
+						<p>This offers a specialized class loader that is capable of loading resources such as classes from the containers inside a ZIP file, rather than using jars located in the directory.</p>
+						<ul class="listing">
+						    <li>Advantages of the One Jar include a well-organized delegation architecture, the ability to have subclasses at the highest level, support for outside jars, and the capability of supporting Native libraries.</li>
+						    <li>The disadvantage is that it is no longer receiving continuous assistance until 2012</li>
+						</ul>
+						<div id="link5"></div>
+						<h3>Spring Boot Maven Plugin</h3>
+						<p>To repackage your application, all you need to do is include a reference to the plugin in your pom.xml file. This Maven build jar without dependencies plugin offers a unified way to create, package, and organize Spring Boot apps straightaway via your Maven project.</p>
+						<div class="between-box bg-green">
+                            <div class="w-50">
+                                <div class="head mb-1">Do you still have any doubts about using Maven Fat Jar’s benefits? Let us assist you in the latest project. </div>
+                            </div>
+                            <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                        </div>
+						<div id="link6"></div>
+						<h2>A Simple Application</h2>
+						<p>Begin by clearly articulating the intended objective and operational capabilities of the application. It might potentially function as a task manager, a weather application, or a budget tracker. Subsequently, choose the suitable programming language and tools for your project. Depending on your objectives and proficiency, you have the option to use programming languages such as Python, JavaScript, or Swift. Create a user-centric interface that is easy to use and aesthetically pleasing. Develop the essential features and functions, including data input, storage, and retrieval.</p>
+						<div id="link7"></div>
+						<h3>Including Maven Assembly Plugin</h3>
+						<p>The Maven Assembly Plugin is a powerful tool that enables you to generate personalized distribution packages from your Maven project. With the utilization of this plugin, you can effortlessly bundle together the dependencies, resources, and configuration files of your project into a solitary archive that can be disseminated and executed autonomously.</p>
+						<div id="link8"></div>
+						<h3>Pre-defined Goals and Descriptors</h3>
+						<p>The assembly plugin has two objectives:</p>
+						<ul class="listing">
+						    <li>Help: presents help documentation for the maven-assembly-plugin.</li>
+						    <li>A single package refers to the process of bundling a software bundle or distribution using assembly descriptors.</li>
+						</ul>
+						<p>The plugin depends on the specified descriptors to govern the execution and packaging of the project. While it is possible to generate our descriptions for customized packaging, the system offers the following pre-set descriptors as defaults:</p>
+						<p>1. The "bin" command generates a binary JAR file by executing the "mvn package" command and includes any README, LICENSE, and NOTICE files found in the project's root directory.</p>
+						<p>2. The "jar-with-dependencies" option generates a JAR file that includes the compiled output of your project, as well as its unpacked dependencies.</p>
+						<p>3. The "src" command packages the contents of the project's "/src" directory structure.</p>
+						<p>4. The project generates an assembly that includes all components of the project, except any build product located in the /target directory.</p>
+						<div id="link9"></div>
+						<h3>POM Changes</h3>
+						<p>We use the descriptor jar-with-dependencies to generate a unified package including all built resources. Furthermore, we have included the MainClass classpath as a Manifest item. The primary () function of this jar file will be run when it is executed from the command line.</p>
+						<div id="link10"></div>
+						<h3>Default Packaging</h3>
+						<p>To build and package the project as a fat jar, use the Maven package command in the root folder of the project.</p>
+						<p>The command "mvn clean package" is used to clean and package a Maven project.</p>
+						<p>The command will generate two jar files in the /target directory:</p>
+						<p>The file is named executable-jar-demo-1.0-SNAPSHOT.jar. This is a lightweight container that does not include its required dependencies. By using this jar, it will automatically scan the classpath for any required dependencies.</p>
+						<p>The name of the executable jar file is “executable-jar-demo-1.0-SNAPSHOT-jar-with-dependencies” This is a comprehensive jar file that contains all the necessary classes and dependencies. The execution of this jar file is possible on any machine that has Java installed.</p>
+						<div class="single-article-img"><img data-src="images/executable-jar-demo.webp" class="lazyload" alt="Executable JAR Demo" /></div>
+						<div id="link11"></div>
+						<h3>Custom Packaging</h3>
+						<p>The resulting file name includes the assembly ID, which might be preferred in some situations. We have the option to change it to an incorrect value.</p>
+<xmp>
+<configuration>
+  <appendAssemblyId>false</appendAssemblyId>
+  ...
+  ...
+</configuration>
+</xmp>
+						<div id="link12"></div>
+						<h3>Fat JAR POM Configuration</h3>
+						<p>In order to generate a Fat JAR from your project using the maven build fat jar, you need to add a Fat JAR build setting to your project's POM file. To enable the creation of a Fat JAR from your project, you need to include the maven-assembly-plugin in the plugin section of your POM file in the Maven configuration. Maven uses the term "assembly" to refer to the output product that it creates. Therefore, the plugin is named maven-assembly-plugin. Below is an extract from a POM file that demonstrates the setup of the maven-assembly-plugin:</p>
+<xmp>
+<build>
+    <finalName>my-project-name</finalName>
+    <plugins>
+        <!-- other Maven plugins ... -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.1.1</version>
+            <configuration>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>make-assembly</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+</xmp>
+						<p>The configuration XML element inside the maven-assembly-plugin configuration includes the descriptorRef, which specifies the kind of assembly that this configuration should create. The Maven parameter "jar-with-dependencies" instructs Maven to create a JAR file that includes all its dependencies, often known as a Fat JAR.</p>
+						<p>The act of carrying out capital punishment The XML element specifies the Maven build phase and objective at which this Maven plugin should be performed. The maven-assembly-plugin must be invoked only during the package phase.</p>
+						<div id="link13"></div>
+						<h3>Maven Command to Build Fat JAR</h3>
+						<p>The Maven command to generate a Fat JAR for your project is:</p>
+						<p>Execute the command "mvn clean package".</p>
+						<p>While the Maven package stage is executed with the maven-assembly-plugin configuration provided previously, Maven will construct a Fat JAR in the target directory. This Fat JAR will include each of Maven's other building merchandise, such as implemented classes and generated JavaDocs. The Fat JAR will be named in the following manner:</p>
+						<p>The name of my project's executable JAR file, including all its dependencies, is "my-project-name-jar-with-dependencies.jar".</p>
+						<div id="link14"></div>
+						<h2>Full POM File With Fat JAR Configuration</h2>
+						<p>Below is a complete Maven POM file that includes a configuration for a Fat JAR. This example is provided to demonstrate the structure and content of such a POM file:</p>
+<xmp>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jenkov.myprojectname</groupId>
+    <artifactId>my-project-name</artifactId>
+    <version>1.1.0</version>
+    <packaging>jar</packaging>
+    <name>My Project Name</name>
+    <dependencies>
+    
+        <!-- Dependencies used by project -->
+    </dependencies>
+    <build>
+        <finalName>my-project-name</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>    
+</xmp>
+						<div class="between-box bg-green">
+                            <div class="w-50">
+                                <div class="head mb-1">Leverage the latest advancements in the powerful tool with Maven Fat Jar. Know us more.</div>
+                            </div>
+                            <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                        </div>
+						<div id="link15"></div>
+						<h2>Configure the Assembly plugin</h2>
+						<p>Before constructing an assembly, it is necessary to first setup the Assembly plugin.</p>
+						<p>Locate the pom.xml file and verify that the main app class is stated:</p>
+<xmp>
+<properties>
+    <main.class>com.example.ApplicationKt</main.class>
+</properties>
+</xmp>
+						<p>If you use EngineMain without the explicit main() function, the application's main class depends on the used engine and might look as follows: io.ktor.server.netty.EngineMain.</p>
+						<p>Add the maven-assembly-plugin to the plugins block as follows:</p>
+<xmp>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <version>2.6</version>
+    <configuration>
+        <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+        <archive>
+            <manifest>
+                <addClasspath>true</addClasspath>
+                <mainClass>${main.class}</mainClass>
+            </manifest>
+        </archive>
+    </configuration>
+    <executions>
+        <execution>
+            <id>assemble-all</id>
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+</xmp>
+						<div id="link16"></div>
+						<h3>Build an assembly</h3>
+						<p>To construct an assembly for the program, use the interface and perform the following command:</p>
+						<p>Execute the command "mvn package".</p>
+						<p>This action will generate a fresh destination directory for the assembly, which will encompass the .jar files.</p>
+						<div id="link17"></div>
+						<h3>Run the application</h3>
+						<p>To execute the constructed program, according to the instructions provided:</p>
+						<p>To execute the program, open a new terminal window and use the java -jar command.</p>
+						<p>The example project appears as follows:</p>
+						<p>Execute the Java program by using the command "java -jar target/tutorial-server-get-started-maven-0.0.1-jar-with-dependencies.jar".</p>
+						<p>Upon successful execution of your application, a confirmation message will be shown.</p>
+						<p>[main] INFO Application - The application is responding at the following address: http://0.0.0.0:8080</p>
+						<div id="link18"></div>
+						<h3>How does a Fat JAR work?</h3>
+						<ul class="listing">
+						    <li>A Fat JAR is a consolidated JAR file that contains all the necessary dependencies for a Java program to execute.</li>
+						    <li>When a Java program launches, the runtime system retrieves the class files and files via the Fat JAR and any associated package.</li>
+						    <li>The construction of a Fat JAR entails the help of a creation tool to gather all the dependencies and consolidate them into a solitary JAR file.</li>
+						</ul>
+						<div id="link19"></div>
+						<h2>Benefits of using Maven Build Fat JAR</h2>
+						<div id="link20"></div>
+						<h3>1. Portability</h3>
+						<p>With the help of the installation of Java, a FAT JAR can operate with ease. You are not required to incorporate any extra reliance. As a result, it makes it convenient to make use of applications of Java in various environments and mediums.</p>
+						<div id="link21"></div>
+						<h3>2. Improved Performance</h3>
+						<p>Loading several jar files can be at a rapid speed as compared to loading files from a FAT JAR. As the reliances are situated in one file, loading will be easy. This will improve the performance of a Java application. Applications that have reliances in large numbers can have enhanced applications.</p>
+						<div id="link22"></div>
+						<h3>3. Simplified management of dependencies</h3>
+						<p>It is essential to know that a FAT JAR has the requisite reliance to keep reliances separately. Users need not be concerned about the trifles in regards to the version. By doing so, you can minimize the errors that are caused due to discrepancies in reliances.</p>
+						<div class="between-box bg-green">
+                            <div class="w-50">
+                                <div class="head mb-1">Explore our developers who solve interoperability issues and explain with the right steps.</div>
+                            </div>
+                            <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                        </div>
+						<div id="link23"></div>
+						<h2>Comparison table for Maven plugins</h2>
+						<table>
+							<tr><th>Plugin</th><th>Flexibility</th><th>Package relocation</th><th>Custom classloader</th></tr>
+							<tr><td>Assembly</td><td>High</td><td>No</td><td>No</td></tr>
+							<tr><td>Shade</td><td>High</td><td>Yes</td><td>No</td></tr>
+							<tr><td>Onejar</td><td>Low</td><td>No</td><td>Yes</td></tr>
+						</table>
+						<div id="link24"></div>
+						<h3>Non-maven jars in your project</h3>
+						<p>To do this, you need to establish a directory within your Java module that functions as a maven repository, which you may reference using the project's ${basedir} property. When integrating non-Maven JARs into the project, it is crucial to verify interoperability and address any potential version issues.</p>
+						<div id="link25"></div>
+						<h3>Building a fat jar & making it executable</h3>
+						<p>The document that may be used to determine this combination wherein:</p>
+						<p>To create a fat jar, use the Maven Assembly Plugin.</p>
+						<p>To execute the program, use the Maven Archiver.</p>
+						<p>It seems that the arrangement of elements in the Maven configuration file may need to be adjusted based on the versions of the archiver and Assembly plugin being used. If you are using JDK 1.6, further parameters are required. I achieved success by taking the next steps:</p>
+<xmp>
+<build>
+ <plugins>
+	<plugin>
+	<!-- NOTE: We don't need a groupId specification because the group is
+	     org.apache.maven.plugins ...which is assumed by default.
+	 -->
+	<artifactId>maven-assembly-plugin</artifactId>
+	<version>2.2-beta-4</version>
+	<configuration>
+	  <descriptorRefs>
+	    <descriptorRef>jar-with-dependencies</descriptorRef>
+	  </descriptorRefs>
+	  <archive>
+		<manifest>
+		    <addClasspath>true</addClasspath>
+		    <mainClass>be.jedi.jvncsender.VncSenderMain</mainClass>
+		</manifest>
+	  </archive>
+	</configuration>
+	<executions>
+	  <execution>
+	    <id>make-assembly</id> <!-- this is used for inheritance merges -->
+	    <phase>package</phase> <!-- append to the packaging phase. -->
+	    <goals>
+	      <goal>single</goal> <!-- goals == mojos -->
+	    </goals>
+	  </execution>
+	</executions>
+	</plugin>
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<version>2.2</version>
+	</plugin>
+    <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-compiler-plugin</artifactId>
+	    <configuration>
+	      <source>1.6</source>
+	      <target>1.6</target>
+	    </configuration>
+  	</plugin>
+  </plugins>
+</build>
+</xmp>
+							<div id="link26"></div>
+							<h3>Conclusion:</h3>
+							<p>In the current content we learned what is the fat jar, its uses, how to create fat jar file in different ways.</p>
+							<!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex"> 
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">Different ways to generate the Fat jar</a></div>
+								<div class="para2"><a href="#link2">Apache Maven Assembly Plugin</a></div>
+								<div class="para2"><a href="#link3">Apache Maven-Shade-plugin</a></div>
+								<div class="para1"><a href="#link4">Review fat jar</a></div>
+								<div class="para1"><a href="#link4-1">One Jar Maven Plugin</a></div>
+								<div class="para2"><a href="#link5">Spring Boot Maven Plugin</a></div>
+								<div class="para1"><a href="#link6">A Simple Application</a></div>
+								<div class="para2"><a href="#link7">Including Maven Assembly Plugin</a></div>
+								<div class="para2"><a href="#link8">Pre-defined Goals and Descriptors</a></div>
+								<div class="para2"><a href="#link9">POM Changes</a></div>
+								<div class="para2"><a href="#link10">Default Packaging</a></div>
+								<div class="para2"><a href="#link11">Custom Packaging</a></div>
+								<div class="para2"><a href="#link12">Fat JAR POM Configuration</a></div>
+								<div class="para2"><a href="#link13">Maven Command to Build Fat JAR</a></div>
+								<div class="para1"><a href="#link14">Full POM File With Fat JAR Configuration</a></div>
+								<div class="para1"><a href="#link15">Configure the Assembly plugin</a></div>
+								<div class="para2"><a href="#link16">Build an assembly</a></div>
+								<div class="para2"><a href="#link17">Run the application</a></div>
+								<div class="para2"><a href="#link18">How does a Fat JAR work?</a></div>
+								<div class="para1"><a href="#link19">Benefits of using Maven Build Fat JAR</a></div>
+								<div class="para2"><a href="#link20">1. Portability</a></div>
+								<div class="para2"><a href="#link21">2. Improved Performance</a></div>
+								<div class="para2"><a href="#link22">3. Simplified management of dependencies</a></div>
+								<div class="para1"><a href="#link23">Comparison table for Maven plugins</a></div>
+								<div class="para2"><a href="#link24">Non-maven jars in your project</a></div>
+								<div class="para2"><a href="#link25">Building a fat jar & making it executable</a></div>
+								<div class="para1"><a href="#link26">Conclusion</a></div>
+							</div>
+						</div>
+                        <div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>				
+			</div>
+			<!-- # Blogs contain -->
+			<script type="application/ld+json">
+				{
+				"@context": "https://schema.org",
+				"@type": "Article",
+				"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": "https://www.aegissofttech.com/articles/how-to-build-a-fatjar-using-maven-in-java.html"
+				},
+				"headline": "How to build a FatJar using Maven?",
+				"description": "how to create a fat jar file with Maven in Java Project",
+				"image": "https://www.aegissofttech.com/articles/images/index-banner.jpg",
+				"author": {
+				"@type": "Organization",
+				"name": "Aegis Softtech"
+				},
+				"publisher": {
+				"@type": "Organization",
+				"name": "Aegis Softtech",
+				"logo": {
+				"@type": "ImageObject",
+				"url": "https://www.aegissofttech.com/images/logo.webp"
+				}
+				},
+				"datePublished": "2020-03-12",
+				"dateModified": "2023-08-10"
+				}
+			</script>
+			
+</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-build-a-fatjar-using-maven-in-java.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Tutorial: Build Fat Jar with Maven Plugin amp; Include all Dependencies&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-build-a-fatjar-using-maven-in-java.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-build-a-fatjar-using-maven-in-java.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/how-to-build-a-fatjar-using-maven-in-java.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-build-a-fatjar-using-maven-in-java.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Tutorial: Build Fat Jar with Maven Plugin amp; Include all Dependencies&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-build-a-fatjar-using-maven-in-java.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-build-a-fatjar-using-maven-in-java.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/how-to-build-a-fatjar-using-maven-in-java.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

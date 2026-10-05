@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>How to Setup Authentication Auth0 Service in Java?</title>
+	<meta name="description" content="The Auth0 java example by Autu0 displays how to authenticate a developer on the web. It helps quick access, project extensive security, set up cloud based app and manage your detail." />	
+    <link rel="canonical" href="https://www.aegissofttech.com/articles/how-to-define-modern-means-of-authentication-auth0-in-java-application-development.html"/>
+    
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:title" content="How to Setup Authentication Auth0 Service in Java?" />
+	<meta property="og:description" content="The Auth0 java example by Autu0 displays how to authenticate a developer on the web. It helps quick access, project extensive security, set up cloud based app and manage your detail." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/how-to-define-modern-means-of-authentication-auth0-in-java-application-development.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/articles/images/java18.jpg" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/articles/images/java18.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="The Auth0 java example by Autu0 displays how to authenticate a developer on the web. It helps quick access, project extensive security, set up cloud based app and manage your detail." />
+	<meta name="twitter:title" content="How to Setup Authentication Auth0 Service in Java?" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/articles/images/java18.jpg" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>How To Define Modern Means Of Authentication Auth0 In Java?</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">How To Define Modern Means Of Authentication Auth0 In Java?</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<p>After getting tremendous response from the readers, Aegis Softtech’s expert Java developers team once again brings new post in which experts are going to explain the concept of Auth0 and its uses. The java application development team once questioned about how to add Auth0 as an identity provider in AWS and to answer it, developers have worked with efficiency on related project that is also instanced in this post. Keep reading further to know more.</p>
+								<div id="link1"></div>
+								<h2>What is Auth0?</h2>
+								<p>We all are aware of how authentication takes place by the traditional ways. Enter the login and password into the respective text boxes and zoom, you are good to go. The website, server gives you full access to the resources you have logged in to, and he/she can do anything and everything they want to do. Several examples of such login modules include, facebook.com, yahoo.com, gmail.com and many many others. Such authentication is very easy to implement. A certain amount of security is added to such modules which encrypt the credentials so that it is not easily hacked into by anyone. Java also offers a variety of security mechanisms that offer to protect the credentials and in all protect the Login module. But this is still the traditional approach. A more modern approach is provide roles to every user so that when he/she logs in, they are granted only certain access of the entire application. What if, I want to implement a scenario, wherein the credentials itself will be temporary. i.e., the credentials that I receive live only for a certain period of time after which I have to again request for the new credentials to continue the operations.</p>
+								<div id="link2"></div>
+								<h3>Why Auth0?</h3>
+								<p>Many people have heard of OAuth. OAuth is a framework offered by Google to enhance the security that is being used to implement sensitive transactions or to access sensitive information. The basics of OAuth lies in providing a so called Bearer Token that can be used to access the resources in place of the user name and the password. There is yet another framework for security, Auth0. There is quite a difference in both technologies. While OAuth is used to provide a token for transactions, Auth0 is used to provide temporary credentials to a user enabling him to perform transaction for a certain period of time. Once the credentials expire, the user has to again request Auth0 to provide a new set of credentials to continue processing.</p>
+								<div id="link3"></div>
+								<h2>AWS and Auth0</h2>
+								<p>Amazon Web Services (AWS) is a Cloud Service and it is one of the largest Cloud providers amongst all those who are available. AWS comes with a bunch of services, all of them catering to the cloud model, that allows any application to use the powerful advantages that the Cloud model suggests. Starting from sharing of the processing power, to the database, to the security system, to the sharing of computer hardware, it is one-stop-shop for any cloud requiring application.</p>
+								<p>Consider a use case wherein I would want to restrict the user from unlimited access to Amazon Web Services by simply providing him with the secret_key and access_key (they keys to access AWS). I would want to restrict the user to perform only some functions on AWS and also restrict him from indefinite access to those AWS resources by providing him with the temporary credentials. In order to achieve the functionality of temporary credentials for temporary access to AWS Services, a user has to request for the temporary credentials via Auth0. The logical flow to retrieve the credentials is as follows:</p>
+								<ul class="listing">
+									<li>1. User requests for temporary credentials to Auth0</li>
+									<li>2. Auth0 delegates the request for the same to AWS</li>
+									<li>3. AWS returns to Auth0 with a set of temporary credentials if the delegated request happens to be an authentic one.</li>
+									<li>4. Auth0 then delegated those requested credentials to the user requesting them.</li>
+								</ul>
+								<div class="single-article-img"><img class="lazyload" src="images/modern-means-authentication-18.jpg" alt="java18" /></div>
+								<p>One might arise the question immediately as to why would AWS trust someone like Auth0 in the first place to give away its credentials. AWS doesn't recognize Auth0 and vice-versa. To achieve this trust relationship, one has to configure AWS to trust any request that comes via Auth0. Auth0 has to be added as an Identity Provider in AWS IAM (Identity and Access Management) in order to establish the trust relationship. Thereafter any request that will be delegated from Auth0 to AWS for temporary credentials will be considered as authentic one and therefore granted.</p>
+								<div id="link4"></div>
+								<h2>Add Auth0 as an Identity Provider in AWS</h2>
+								<p>The following screen shots show how to add Auth0 as an Identity Provider in AWS.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/java19.jpg" alt="java19" /></div>
+								<div class="single-article-img"><img class="lazyload" src="images/java20.jpg" alt="java20" /></div>
+								<p>In the metadocument field, one has to upload a file that is generated by Auth0 account that serves as the actual trust relationship between the two parties.</p>
+								<p>Once the trust relationship has been established, one has to configure IAM policies so that every request from Auth0 is not given complete access to all AWS resources. We need to limit down the permissions that is given to the user when he is given with the temporary credentials. Let us see how AWS restricts the usage of AWS Kinesis resources when any request comes from Auth0. To create this, we have to create <a href="https://www.aegissofttech.com/cloud/aws/data-analytics-services" target="_blank">a Role in AWS Analytics Solutions</a> that defines the permissions that have to be granted.</p>
+								<div id="link5"></div>
+								<h3>Create a New Role in AWS IAM.</h3>
+								<div class="single-article-img"><img class="lazyload" src="images/java21.jpg" alt="img" /></div>
+								<div id="link6"></div>
+								<h3>Mention any name to the Role</h3>
+								<div class="single-article-img"><img class="lazyload" src="images/java22.jpg" alt="java" /></div>
+								<div id="link7"></div>
+								<h3>Select the option of Grant API access to SAML providers</h3>
+								<div class="single-article-img"><img class="lazyload" src="images/java23.jpg" alt="java" /></div>
+								<p><strong>In the value section, one has to mention the name of Auth0 organization which is meant for AWS to determine that only requests from the particular Auth0 org shall be granted.</strong></p>
+								<div class="single-article-img"><img class="lazyload" src="images/modern-means-authentication-24.jpg" alt="java" /></div>
+								<div id="link8"></div>
+								<h3>This is the visual presentation of the mutual trust between the two.</h3>
+								<div class="single-article-img"><img class="lazyload" src="images/java25.jpg" alt="java" /></div>
+								<p><strong>Here we have to select a policy which defines the permissions that has to be granted. Here we are selecting the policy to be Read only access to Kinesis.</strong></p>
+								<div class="single-article-img"><img class="lazyload" src="images/java26.jpg" alt="java" /></div>
+								<p>Review the policy and we are good to go.</p>
+								<p>Henceforth, any request from Auth0 to AWS with the role name as mentioned, will only be given the permissions of Kinesis read only part.</p>
+								<div id="link9"></div>
+								<h2>Auth0 Rules</h2>
+<xmp>
+function(user, context, callback)
+{
+varstreamToGrant = context.request.body.streamToGrant;
+var prod = user.Seller;
+if(prod!=null && prod != "" && prod != undefined)
+{
+var producers = prod.split(",");
+if (context.protocol === 'delegation')
+{
+for (vari = 0; i&lt;producers.length; i++)
+{
+if (producers[i] === streamToGrant)
+{
+user.sub = streamToGrant; break;}
+}
+}
+}
+callback(null, user, context);
+}
+</xmp>
+								<p>In the above example, Auth0 expects a variable called producerStreamToGrant. It checks for its existence, and if it is found in the request, Auth0 will delegate the call to Auth0 along with the variable, and AWS in return will give back the credentials that has read only access in Kinesis only for that stream.</p>
+								<div class="between-box">
+									<div class="w-50">
+										<div class="head">A developer faces a lot of problems while allotting authentication to access the data.</div>
+										<p>Visit us to gain knowledge of several modern techniques of defining authentication in JAVA.</p>
+									</div>
+									<div class="contact-btn-area">
+										<a href="../contact-us.html" class="contact-btn">Contact Us</a>
+									</div>
+								</div>
+								<div id="link10"></div>
+								<h3>How to use Auth0?</h3>
+								<p>Auth0 is basically a service that can be accessed from a variety of programming languages via the REST service interface. We shall be discussing the Java approach to the system, because the Java team in the company has had a long experience developing the applications using Auth0 to connect with AWS. The pre-requisites for operating in Java would be a JAVA SDK installed on the machine. Java development being the strong part, the article will mainly focus on accessing Auth0 using Java.</p>
+								<div id="link11"></div>
+								<h3>Auth0 API?</h3>
+								<p>Following are the most important Auth0 API calls that are used very frequently and are the ones that we have been using in our projects.</p>
+								<p><strong>1. RegisterUser:</strong> This is the API call that is used to create an a new user in Auth0.</p>
+<xmp>
+JSONObject json = new JSONObject();
+json .put(''email'', username);
+json .put("password", password);
+json .put("connection", "Username-Password -Authentication");
+json .put("email_verified", true);
+DefaultHttpClient httpClient = new DefaultHttpClient();
+HttpPost postRequest = new HttpPost("Registration URL");
+StringEntity entity = new StringEntity (json.toString());
+postRequest.setEntity (entity );
+postRequest.setHeader ("Authorization","bearer " + authenticationToken);
+postRequest.setHeader("Content-Type", "application/json"J ;
+HttpResponse response = httpClient.execute(postRequest);
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java27.jpg" alt="java" /></div> -->
+								<p>One has to always fetch an authentication token while calling any API service call to Auth0. The code to fetch an authentication token is as follows:</p>
+<xmp>
+JSONObject json = new JSONObject();
+json.put("client_id" .Auth0Constant.AUTH8_ CLIENTID) ;
+json.put("client_secret", Auth0Constant .AUTH8_CLIENTSECRET);
+json.put("grant_type", "client_credentials");
+DefaultHttpClient httpClient = new DefaultHttpClient();
+HttpPost postRequest = new HttpPost("Authentica tion URL");
+StringEntity entity = new StringEntity(json.toString());
+postRequest.setEntity (entity);
+postRequest.setHeader("Content-Type", "application/json");
+HttpResponse response = httpClient .execute(postRequest);
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java28.jpg" alt="java" /></div> -->
+								<p>One has to pass the CLIENT_ID and CLIENT_SECRET provided by Auth0 while fetching the authentication token from Auth0.</p>
+								<p><strong>2. Auth0Login: </strong>This API is used to login into Auth0 using a username and a password</p>
+<xmp>
+JSONObject json = new JSONObject();
+json .put("client_id" , "Auth0ClientID"ll;
+json .put("username", username);
+json .put("password" , password);
+json .put("connection" , "Username-Password-Authentication");
+json .put("grant_type", "password");
+json .put(''scope'', ''openid'');
+DefaultHttpClient httpClient = new DefaultHttpClient();
+HttpPost postRequest = new HttpPost(authUrl);
+StringEntity entity = new StringEntity(json .toString());
+postRequest.setEntity(entity);
+postRequest.setHeader("Content-Type", "application/json");
+HttpResponse response = httpClient.execute(postRequest);
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java29.jpg" alt="java" /></div> -->
+								<p><strong>3. DeleteUserFromAuth0: </strong>This API call is used to remove a user from an Auth0 account.</p>
+<xmp>
+DefaultHttpClient httpClient = new DefaultHttpClient();
+HttpDelete getRequest = new HttpDelete(url);
+getRequest.setHeader("Authorization","bearer  "+authenticationToken);
+getRequest.setHeader("Content -Type",  "application/json");
+HttpResponse response = httpClient .execute(getRequest);
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java30.jpg" alt="java" /></div> -->
+								<p><strong>4. ChangePasswordURL:</strong> This API is used to change the password of an Auth0 account.</p>
+<xmp>
+JSONObject	json = new JSONObject();
+json.put ("email", username);
+json.put ("password ", newPassword) ;
+json.put ("connection", "Username -Password -Authent icat ion");
+json.put ("verify", true);
+Def aultHttpClient httpClient =  new DefaultHt tpClient();
+HttpPut put Request = new HttpPut("Change Password URL");
+StringEntity entity = new StringEntity(json.toString());
+putRequest .setEntity (entity);
+putRequest .setHeader ("Aut horization ","bearer" + authenticat ionToken);
+put Request .setHeader ("Content -Type", "application/ json");
+HttpResponse response   =  httpClient .execute(put Request);
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java31.jpg" alt="java" /></div> -->
+								<p><strong>5. LogoutAuth0: </strong>This API call is used to logout from Auth0</p>
+<xmp>
+DefaultHttpClient httpClient = new DefaultHttpClient();
+HttpGet getRequest = new HttpGet(logoutUrl);
+HttpResponse response = httpClient.execute(getRequest);
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java32.jpg" alt="java" /></div> -->
+								<p><strong>6. FetchMetadata: </strong>This API is used to fetch the metadata of an account in Auth0</p>
+<xmp>
+DefaultHttpClient httpClient = new DefaultHttpClient();
+HttpGet getRequest = new HttpGet(url);
+getRequest.setHeader (•Authorization","bearer "+ authenticationToken);
+getRequest.setHeader ("Content-Type",  •application/json");
+HttpResponse response = httpClient .execute(getRequest);
+HttpEntity hentity = response.getEntity();
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java33.jpg" alt="java" /></div> -->
+								<p><strong>7. UpdateMetadata: </strong> This API call is used to update the metadata of an account in Auth0</p>
+<xmp>
+DefaultHttpClient httpClient = new DefaultHttpClient();
+HttpPut postRequest = new HttpPut(url);
+StringEntity entity = new StringEntity (json.toString());
+postRequest.setEntity (entity);
+postRequest.setHeader("Authorization","bearer  "+authenticationToken);
+postRequest.setHeader("Content-Type", "application/json");
+HttpResponse response = httpClient .execute(postRequest);
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java34.jpg" alt="java" /></div> -->
+								<p><strong>8. CheckUserExistence: </strong> This API call is used to check whether a user already exists in Auth0 or not.</p>
+<xmp>
+DefaultHttpClient httpClient = new DefaultHttpClient();
+HttpGet getRequest = new HttpGet("Check Existence URL");
+getRequest.setHeader ("Authorization","bearer" + authenticationToken);
+getRequest.setHeader ("Content -Type", "application/json");
+HttpResponse response = httpClient.execute(getRequest);
+</xmp>
+								<!-- <div class="single-article-img"><img class="lazyload" src="images/java35.jpg" alt="java" /></div> -->
+								<p>Hope you have grasp the concept of Auth0 and the trick to add it as an identity provider in AWS. This post is shared by Aegis Softtech <a href="../software-development/java">Java application development team</a> to enhance the skills of java developers. For java development related queries, kindly contact Aegis Softtech professionals.</p>
+								<div id="link12"></div>
+								<p>For further information, mail us at <a rel="nofollow" href="mailto:info@aegissofttech.com"> info@aegissofttech.com</a></p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">What is Auth0</a></div>
+								<div class="para2"><a href="#link2">Why Auth0</a></div>
+								<div class="para1"><a href="#link3">AWS and Auth0</a></div>
+								<div class="para1"><a href="#link4">Add Auth0 as an Identity Provider in AWS</a></div>
+								<div class="para2"><a href="#link5">Creating New Role in AWS IAM</a></div>
+								<div class="para2"><a href="#link6">Mention any name to the Role</a></div>
+								<div class="para2"><a href="#link7">Option of Grant API access to SAML providers</a></div>
+								<div class="para2"><a href="#link8">Visual presentation of the mutual trust</a></div>
+								<div class="para1"><a href="#link9">Auth0 Rules</a></div>
+								<div class="para2"><a href="#link10">How to use Auth0</a></div>
+								<div class="para2"><a href="#link11">Auth0 API</a></div>
+								<div class="para1"><a href="#link12">Reference Link</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="article-section spt spb">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="section-header">
+								<div class="article-head">Related article</div>
+							</div>
+						</div>
+					</div>
+					<div class="bs-row">
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img1">
+								<div class="blog-heading">
+									<div class="b-head"><a href="bcrypt-password-encoding-spring-security.html" target="_blank">How to Set BCrypt Password Encoding in Spring Boot Security?</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>In this blog I will help you understand the Bcrypt cryptography algorithm and how to use the decrypt password encoder in a spring boot project with spring security.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img7">
+								<div class="blog-heading">
+									<div class="b-head"><a href="spring-security-oauth2-in-java.html" target="_blank">How to Set up and use Spring Security OAuth2 in a Java Microservice App?</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>In real-time applications, we usually build a cloud-native system and also build a system that is easy to scale, it's agile, it is a, it takes advantage of the elasticity of a cloud environment and it can scale-out. It is robust in the face of errors or service outages or topology changes, and its observable, both at the service level and the system level. Now, in this blog, I have explained how to secure that edge service. So, I have created an available edge service, and it's exposed to the outside world. You may not need it authenticated. You may not need it protected, but it is always a good idea to protect it if you do need it.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img5">
+								<div class="blog-heading">
+									<div class="b-head"><a href="java-vs-javascript-vs-node-js.html" target="_blank">Java vs. JavaScript vs. Node.js</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>Two creative approaches bring together the many aspects of conventional website development. First, by creating an ecosystem that blends front and backbone functionality, and secondly, by presenting programming capable of functioning effectively in any context.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/how-to-define-modern-means-of-authentication-auth0-in-java-application-development.html"
+			},
+			"headline": "How To Define Modern Means of Authentication Auth0 In Java?",
+			"description": "Aegis Softtech expert Java developers team explains the concept of Auth0",
+			"image": "https://www.aegissofttech.com/articles/images/java18.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2015-05-25",
+			"dateModified": "2015-05-25"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-define-modern-means-of-authentication-auth0-in-java-application-development.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How to Setup Authentication Auth0 Service in Java?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-define-modern-means-of-authentication-auth0-in-java-application-development.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-define-modern-means-of-authentication-auth0-in-java-application-development.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/how-to-define-modern-means-of-authentication-auth0-in-java-application-development.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-define-modern-means-of-authentication-auth0-in-java-application-development.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How to Setup Authentication Auth0 Service in Java?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-define-modern-means-of-authentication-auth0-in-java-application-development.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fhow-to-define-modern-means-of-authentication-auth0-in-java-application-development.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/how-to-define-modern-means-of-authentication-auth0-in-java-application-development.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

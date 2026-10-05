@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>Tutorial: Implementation of OAuth2 with Spring Security</title>
+	<meta name="description" content="What is OAuth2? Learn how to implement authorization server processing (OAuth2) and access token spring boot security with an client credentials example." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/spring-security-using-oauth2.html"/>
+	
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:title" content="Tutorial: Implementation of OAuth2 with Spring Security" />
+	<meta property="og:description" content="In this tutorial, we describe of OAuth2 tokens, roles, grant, and Spring Security OAuth2 Implementation with applied authorization to resource server endpoints." />
+	<meta property="og:url" content="https://www.aegissofttech.com/articles/spring-security-using-oauth2.html" />
+	<meta property="og:site_name" content="Aegis Softtech" />
+	<meta property="article:publisher" content="https://www.facebook.com/AegisSoftTech" />
+	<meta property="article:section" content="Trending" />
+	<meta property="og:image" content="https://www.aegissofttech.com/articles/images/oauth2-1.jpg" />
+	<meta property="og:image:secure_url" content="https://www.aegissofttech.com/articles/images/oauth2-1.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="In this tutorial, we describe of OAuth2 tokens, roles, grant, and Spring Security OAuth2 Implementation with applied authorization to resource server endpoints." />
+	<meta name="twitter:title" content="Tutorial: Implementation of OAuth2 with Spring Security" />
+	<meta name="twitter:site" content="@AegisSoftTech" />
+	<meta name="twitter:image" content="https://www.aegissofttech.com/articles/images/oauth2-1.jpg" />
+	<meta name="twitter:creator" content="@AegisSoftTech" />
+	<meta name="revised" content="2025-01-01" />
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>How to implement OAuth2 with Spring Security?</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">How to implement OAuth2 with Spring Security?</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<div id="link1"></div>
+								<h2>1. WHAT IS OAUTH2?</h2>
+								<p>OAuth2 is version 2 of Oauth protocol which was created in 2006. It allows the 3rd party applications to obtain limited access to User accounts hosted on applications like Google, Facebook, and Twitter etc.</p>
+								<p>A practical example is</p>
+								<ul class="listing">
+									<li>You go to Dropbox. It provides you an option to signup/signIn via Google account.</li>
+									<li>You click on it and popup appears asking for your Google credentials.</li>
+									<li>You provide the credentials to google and it authenticates them and on success, asks you to provide permissions to Dropbox.</li>
+									<li>Upon allowing the permissions, we are logged into Dropbox using Google’s credentials.</li>
+								</ul>
+								<p>Some of the major points of the flow being</p>
+								<ul class="listing">
+									<li>We never shared our credentials with Dropbox.</li>
+									<li>We could access Dropbox using Google’s credentials. Also based on the access provided, we can also see the options to share a file with our google contacts (provided we granted permission to Dropbox to access our contacts).</li>
+								</ul>
+								<div class="single-article-img"><img class="lazyload" src="images/oauth2-1.jpg" alt="oauth2" /></div>
+								
+								<div id="link2"></div>
+								<h3>1.1 Roles in OAuth2:</h3>
+								<p>There are 4 roles in Oauth2:</p>
+								<ul class="listing">
+									<li><strong>Resource Owner</strong> - Generally is User</li>
+									<li><strong>Client Application</strong> - In above example it was Dropbox (Or 3rd party app)</li>
+									<li><strong>Resource Server</strong> - In above example it was Google server where our account/contacts are hosted. Third Party Apps accesses the resource server using temporary access tokens</li>
+									<li><strong>Authorization Server</strong> - The server which issues access tokens. In above example it was &ldquo;accounts.google.com&rdquo;, which authorizes the google account.</li>
+								</ul>
+								<div id="link3"></div>
+								<h3>1.2 Tokens in OAuth2:</h3>
+								<p>There are 2 types of tokens issued by Authorization Server</p>
+								<ul class="listing">
+									<li><strong>Access Token</strong> - Third party apps use this token to access information from the resource server. It has a limited lifetime and must be sent with each request.</li>
+									<li><strong>Refresh Token</strong> - This is similar to REMEMBER ME option. This token has a longer lifetime and is used to re-generate the access token.</li>
+								</ul>
+								<div id="link4"></div>
+								<h3>1.3 Access Token vs Refresh Token:</h3>
+								<p>An access token is a character sequence that represents an authority granted to the client. Tokens symbolize distinct scopes and durations of permission, bestowed by the resource owner, and maintained by the resource service and authorisation server.
+								<p>The authorization server issues the refresh token to the client, along with the access token. The renewal token is used to acquire an additional access token in the event that the current access token proves incorrect or lapses. The refresh token is used to get more access tokens that have the same or more restricted scope. These access tokens might have small lifespans and fewer rights compared to what the resource owner has permitted. The decision to provide a refresh token is discretionary and not mandatory for the authorization server.
+								<p>The primary function of an access token is to retrieve data before it becomes invalid.
+								<p>The refresh token is responsible for initiating a request for a new access token after the current access token has expired.
+								
+								<div id="link5"></div>
+								<h3>1.4 Grant Types:</h3>
+								<p>Based on the nature of 3rd party applications, Authorization server defines <strong>Grant Types</strong> for obtaining the access token. More information <a href="https://bshaffer.github.io/oauth2-server-php-docs/overview/grant-types/" target="_blank">here</a>.</p>
+								<ul class="listing">
+									<li><strong>Authorization Code Grant - </strong> Authorization server first issues <em>Authorization code</em> to Client. It then uses this code to get the <em>Access token</em>.</li>
+									<li><strong>Implicit Grant - </strong> Similar to the Authorization Code Grant, but Authentication server directly returns the token.</li>
+									<li><strong>Resource Owner Password Credentials OR password Grant - </strong >Here the user submits his credentials and then only access token is issues.</li>
+									<li><strong>Client Credentials Grant - </strong>Client uses client_id and client_secret to get access token.</li>
+									<li><strong>Refresh Token- </strong> Client uses this token to regenerate access token.</li>
+								</ul>
+								<div id="link6"></div>
+								<h2>2. What are JWT Tokens?</h2>
+								<p>JWT stands for JSON Web Tokens is a popular format for representing tokens. More info at <a href="https://jwt.io/" target="_blank">here</a>.</p>
+								<div class="between-box">
+									<div class="w-50">
+										<div class="head">Are you facing problems in obtaining access to user accounts?</div>
+										<p>Visit us to avail the solution for your problem. We specialise in implementing Oauth protocol.</p>
+									</div>
+									<div class="contact-btn-area">
+										<a href="../contact-us.html" class="contact-btn">Contact Us</a>
+									</div>
+								</div>
+								<p>JWT Tokens are JSON encoded and it contains information about the issuer, claims, an algorithm used. These tokens are digitally signed and thus its integrity can be ensured.</p>
+								<p>A typical JWT Token is a string divided into 3 periods. (Periods are.)</p>
+<xmp class="codding-box">
+XXXX.YYYYYY.ZZZZZ
+</xmp>
+								<p>The different parts are:</p>
+								<ul class="listing">
+									<li><strong>Header</strong>: It consists of the type and the algorithm used. This info is Base64Url encoded to form the header.</li>
+									<li><strong>Payload</strong>: It consists of claims encoded in Base64Url.</li>
+									<li><strong>Signature</strong>: The last part is constructed using encoded header, encoded payload, a secret key and the algorithm specified in the header. Since the secret key is only known to issuer, the token cannot be decoded and thus its integrity is ensured.</li>
+								</ul>
+								<p>Example: Consider following JWT Token:</p>
+<xmp class="codding-box">
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI3Nzc1MTEsInVzZXJfbmF tZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianR pIjoiZmZjYWY1YTUtNjFiYy00ZDc4LThlYzMtNTdjZTIwNWUwZDY2IiwiY2xpZW50X2lkIjo iaGVtYW50Iiwic2NvcGUiOlsibWF0Y2hkIl19.fJHjdPsGjzYiGs5cvR-1oZ6Sqqb5_BYid3Xl2ZyzkwI
+</xmp>
+								<div class="table-wrapper">
+									<table class="articles_table">
+										<tr>
+											<td>
+												<p>Header (Part 1)</p>
+											</td>
+											<td>
+												<p class="wb">
+													<span class="wb">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span>
+													<br />
+													<br />Based64 decoded String is
+													<br />
+													<br /><span class="wb">&quot;{&quot;alg&quot;:&quot;HS256&quot;,&quot;typ&quot;:&quot;JWT&quot;}&quot;</span>
+												</p>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>Payload (Part2)</p>
+											</td>
+											<td>
+												<p class="wb">
+													eyJleHAiOjE1MzI3Nzc1MTEsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmN
+													<br /><span class="wb">vbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiZmZjYW</span>
+													<br /><span class="wb">Y1YTUtNjFiYy00ZDc4LThlYzMtNTdjZTIwNWUwZDY2IiwiY2xpZW50X2lkI</span>
+													<br /><span class="wb">joiaGVtYW50Iiwic2NvcGUiOlsibWF0Y2hkIl19</span>
+													<br />
+													<br />Base64 decoded String is
+													<br />
+													<br /><span class="wb">&quot;{&quot;exp&quot;:1532777511,&quot;user_name&quot;:&quot;admin@gmail.com&quot;,&quot;authorities&quot;:[&quot;ROLE_ADMIN&quot;],&quot;jti&quot;:&quot;ffcaf5a5-61bc-4d78-8ec3-57ce205e0d66&quot;,&quot;client_id&quot;:&quot;hemant&quot;,&quot;scope&quot;:[&quot;matchd&quot;]}&quot;</span>
+												</p>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>
+													Signarture
+													<br />(Part 3)
+												</p>
+											</td>
+											<td>
+												<p class="wb">
+													fJHjdPsGjzYiGs5cvR-1oZ6Sqqb5_BYid3Xl2ZyzkwI
+													<br />
+													<br />Since its encoded by issuer using secret key, we cannot decode it.
+												</p>
+											</td>
+										</tr>
+									</table>
+								</div>
+								<p>In our project, the tokens will be encoded in JWT.</p>
+								<div id="link7"></div>
+								<h2>3. Spring OAuth2 Implementation:</h2>
+								<p>In Spring implementation of OAuth2 is divided between Authorization-Server and Resource-Server.</p>
+								<p>They can reside in the same application or be 2 distinct applications.</p>
+								
+								<div id="link8"></div>
+								<h3>3.1 OAuth2 – Authorization Server:</h3>
+								<p>To make the approval server with the help of the spring security oauth2 module, we were required to make use of footnote @EnableAuthorizationServer as well as spread the class AuthorizationServerConfigurerAdapter.</p>
+								<ul class="listing">
+									<li>This issues access tokens to the clients (3rd party apps) and verifies them.</li>
+									<li>For issuing tokens, token endpoints are provided (/oauth/token)</li>
+									<li>For authorizing the tokens, authorize endpoints are provided (/oauth/authorize).</li>
+								</ul>
+								<div id="link9"></div>
+								<h3>3.2 OAuth2 Client:</h3>
+								<p>OAuth2 is a well-known authorization structure that lets 3rd apps get incomplete entry to the HTTP service, moreover either on behalf of the asset holder or by granting the third-party program the ability to get entry on its initiative. Your project has to have the spring-security-oauth2-client dependent added to it before you can begin. After that, users can provide permission for the program to access their data if identification is completed successfully.</p>
+								<div id="link10"></div>
+								<h3>3.3 Getting Access Token from Authorization Server:</h3>
+								<p>Now, the application will use an authorization grant to get the access token. We must now submit the following request. Apply the code acquired in the first step at this point.</p>
+								<p>The application will prompt for the credentials of the client app in a separate window.</p>
+								<p>Alternatively, you may issue a comparable request using cURL.</p>
+								<p>Access token request from cURL</p>
+<xmp>
+curl -X POST --user clientapp:123456 http://localhost:8081/oauth/token
+		-H "content-type: application/x-www-form-urlencoded"
+		-d "code=FfrzTj&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A8082%2Flogin&scop
+</xmp>
+								<div id="link11"></div>
+								<h3>3.4 Resource Server:</h3>
+								<p>Resource server holds the resources/endpoints which can be accessed by the client(3rd party apps), only when granted by Authorization Server.</p>
+								<p>For protecting the resource server’s APIs, Spring security adds OAuth2AuthenticationProcessingFilter in the spring security filter chain.</p>
+								<p>This filter checks the access token in the request, validates and authorizes it and then only request reaches Resource Server endpoints.</p>
+								
+								<div id="link12"></div>
+								<h3>3.5 Accessing User Data from Resource Server:</h3>
+								<p>After obtaining the access token, we may go to the resource server to get confidential user data.</p>
+								<p>Execute the following request:</p>
+								<p>Send a GET request to get a resource by using the following cURL command: curl -X GET http://localhost:8080/api/users/me -H "authorization: Bearer 59ddb16b-6943-42f5-8e2f-3acb23f8e3c1"</p>
+								<p>The answer will be returned.</p>
+								<p>Retrieve the answer from the resource, which includes the following information: name as "Humpty Dumpty" and email as "humptydumpty@howtodoinjava.com".</p>
+								
+								<div id="link13"></div>
+								<h3>3.6 OAuth2 Protected REST Resources:</h3>
+								<p>To develop a resource server element, use the @EnableResourceServer annotation and extend the ResourceServerConfigurerAdapter class.</p>
+								<p>Getting Authorization Grant Code from User</p>
+								<p>The initial phase is obtaining an authorization permit from the resource owner using the following URL:</p>
+								<p>http://localhost:8080/oauth/authorize?client_id=clientapp&response_type=code&scope=read_profile_info.</p>
+								
+								<div id="link14"></div>
+								<h3>3.7 Test the Resource Server:</h3>
+								<p>Open your preferred web browser and enter the following URL: http://localhost:8082/ to access your client application.</p>
+								<p>You can choose the Login link.</p>
+								<p>You will be redirected to the login page:</p>
+								<ul class="listing">
+									<li>Provide the username "Andrew" and the password "abcd" as specified in the application.properties file from the authentication server.</li>
+									<li>By clicking on the "Sign In" button, you will be sent to the very sophisticated securedPage.html template, which will display the titles "Secured Page" and "Andrew".</li>
+									<li>Here, the functionality is operational. Now, you will simplify it more.</li>
+									<li>You can terminate both the server and client Spring Boot applications.</li>
+								</ul>
+								<div id="link15"></div>
+								<h2>4. Project</h2>
+								<p>In our project, we’ll:</p>
+								<ul class="listing">
+									<li>Implement <a href="https://www.aegissofttech.com/hire/java-developers" target="_blank">OAuth2 using Spring Boot developers</a> and Spring Security.</li>
+									<li>The access and refresh tokens will be JWT encoded.</li>
+									<li>Authentication will be done using OAuth2</li>
+									<li>Further, we will be implementing authorization too.</li>
+									<li>Resource server and Authorization server will run in a single instance.</li>
+								</ul>
+								<p>The project Structure is as follows:</p>
+								<div class="single-article-img"><img class="lazyload" src="images/oauth2-3.jpg" alt="oauth2" /></div>
+								<div id="link16"></div>
+								<h3>4.1 Maven Dependencies</h3>
+<xmp class="codding-box">
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.hemant</groupId>
+	<artifactId>spring-oauth2-jwt</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>spring-oauth2-jwt</name>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.1.RELEASE</version>
+		<relativePath />
+		<!-- lookup parent from repository -->
+	</parent>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+</xmp>
+								<div id="link17"></div>
+								<h3>4.2 Application properties</h3>
+								<p>The application.properties file is as follows:</p>
+<xmp class="codding-box">
+#Application properties server.port=8080 spring.application.name=spring-oauth2-jwt #logging pattern logging.pattern.console=%d{HH:mm:ss} %-5level %logger{10} - %msg%n #signing key for JWT Tokens signing.key=alteredcarbons1e7
+</xmp>
+								<div id="link18"></div>
+								<h3>4.3 Spring Boot Main Application class</h3>
+<xmp class="codding-box">
+package com.hemant.oauth2; importorg.springframework.boot.SpringApplication; importorg.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication publicclassSpringOauth2JWTApp { publicstaticvoidmain(String[] args) { SpringApplication.run(SpringOauth2JWTApp.class, args); } }
+</xmp>
+								<div id="link19"></div>
+								<h3>4.4 Authorization Server Configuration</h3>
+<xmp class="codding-box">
+package com.hemant.oauth2.config; importorg.springframework.beans.factory.annotation.Autowired; importorg.springframework.beans.factory.annotation.Value; importorg.springframework.context.annotation.Bean; importorg.springframework.context.annotation.Configuration; import org.springframework.security.authentication.AuthenticationManager; import org.springframework.security.core.userdetails.UserDetailsService; import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer; import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter; import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer; import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer; import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter; /** * Configuration for Authorization Server * @author hemant * */ @Configuration @EnableAuthorizationServer publicclassAuthorizationServerConfigextendsAuthorizationServerConfigurerAdapter { @Autowired privateAuthenticationManagerauthenticationManager; @Autowired privateUserDetailsServiceuserDetailsService; // For signing JWT Token @Value("${signing.key}") private String signingKey; @Bean publicJwtAccessTokenConverteraccessTokenConverter() { finalJwtAccessTokenConverteraccessTokenConverter = newJwtAccessTokenConverter(); accessTokenConverter.setSigningKey(signingKey); returnaccessTokenConverter; } /** * a configurer that defines the client details service * Currently we are storing clients in-memory */ @Override publicvoidconfigure(finalClientDetailsServiceConfigurer clients) throws Exception { clients.inMemory() .withClient("client1") .secret("secret") .authorizedGrantTypes("password", "refresh_token") .scopes("read", "write") .accessTokenValiditySeconds(100); } /** * defines the security constraints on the token endpoints. */ @Override publicvoidconfigure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception { endpoints.authenticationManager(authenticationManager).userDetailsService(userDetailsService).accessTokenConverter(accessTokenConverter()); } }
+</xmp>
+								<p>Explanation:</p>
+								<ul class="listing">
+									<li><strong>@EnableAuthorizationServer</strong> : is a convenience annotation which enables the Authorization server in the application and sets up authorization endpoints (/oauth/authorize) and token endpoints (/oauth/token).</li>
+									<li><strong>JwtAccessTokenConverter</strong> - For encoding tokens using JWT. Also for signing JWT tokens, Authorization server will use the value in ${signing.key}. Since this signing key is only known to Authorization server, only he can sign it and verify its integrity.</li>
+									<li><strong>ClientDetailsServiceConfigurer</strong> - Configures how clients (or 3rd party apps) are configured and stored. Currently, they are stored in memory. We have configured only 1 client, which will provide access tokens for grant-types (password - where a user provides his credentials and refresh_token - where a user provides refresh token value to regenerate access token). The access token issued will expire in 100 sec.</li>
+									<li><strong>AuthorizationServerEndpointsConfigurer</strong> - It defines the security for the Authorization server endpoints.</li>
+									<li><strong>For storing tokens</strong> org.springframework.security.oauth2.provider.token.store.JwtTokenStore is used, which doesn’t really stores the tokens.</li>
+								</ul>
+								<div id="link20"></div>
+								<h3>4.5 Resource Server Configuration:</h3>
+<xmp class="codding-box">
+package com.hemant.oauth2.config; importorg.springframework.context.annotation.Configuration; import org.springframework.security.config.annotation.web.builders.HttpSecurity; importorg.springframework.security.config.http.SessionCreationPolicy; import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer; import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter; /** * All the resources which are not explicitly ignored * or not part of Authorization server are protected by Resource server * @author hemant * */ @Configuration @EnableResourceServer publicclassResourceServerConfigextendsResourceServerConfigurerAdapter { /** * 1. public/** APIs can be accessed by any user, authenticated or not * 2. admin/** APIs can be accessed by authenticated users who possess the role ADMIN * 3. Remaining all APIs can only be accessed by authenticated users, irrespective of their roles */ @Override publicvoidconfigure(finalHttpSecurity http) throws Exception { http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); http.authorizeRequests().antMatchers("/public/**").anonymous(); http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN"); http.authorizeRequests().anyRequest().authenticated(); http.csrf().disable(); http.logout().disable(); } }
+</xmp>
+								<p>Explanation:</p>
+								<ul class="listing">
+									<li><strong>EnableResourceServer </strong> - This enables the resource server which encompasses all the URLs which are not part of Authorization server. This sets up OAuth2AuthenticationProcessingFilter - A pre-authentication filter for OAuth2 protected resources</li>
+								</ul>
+								<div id="link21"></div>
+								<h3>4.6 Authentication Provider and User Services:</h3>
+								<p>In this project, for the sake of simplicity, the users are stored in-memory and authentication is provided against them only.</p>
+<xmp class="codding-box">
+package com.hemant.oauth2.config.security; importjava.util.Arrays; importjava.util.HashMap; importjava.util.Map; importjavax.annotation.PostConstruct; import org.springframework.security.core.authority.SimpleGrantedAuthority; importorg.springframework.security.core.userdetails.User; importorg.springframework.security.core.userdetails.UserDetails; import org.springframework.security.core.userdetails.UserDetailsService; import org.springframework.security.core.userdetails.UsernameNotFoundException; importorg.springframework.stereotype.Component; @Component publicclassUserDetailsServiceImplimplementsUserDetailsService { Map
+<String, User=User>
+	userMap; @PostConstruct publicvoidinitUsers() { // admin@gmail.com -- admin -- role=ADMIN, so he is admin user UseradminUser = new User("admin@gmail.com", "admin", Arrays.asList(newSimpleGrantedAuthority("ROLE_ADMIN"))); // normal@gmail.com -- normal -- role=NORMAL, so he is normal user UsernormalUser = new User("normal@gmail.com", "normal", Arrays.asList(newSimpleGrantedAuthority("ROLE_NORMAL"))); userMap = newHashMap
+	&#60;&#62;(); userMap.put(adminUser.getUsername(), adminUser); userMap.put(normalUser.getUsername(), normalUser); } @Override publicUserDetailsloadUserByUsername(String username) throwsUsernameNotFoundException { User user = userMap.get(username); if(null == user) { returnnull; } returnnew User(username, user.getPassword(),user.getAuthorities()); } } _________________________________________________________________________________________________________ package com.hemant.oauth2.config.security; importorg.springframework.beans.factory.annotation.Autowired; import org.springframework.security.authentication.AuthenticationProvider; import org.springframework.security.authentication.BadCredentialsException; import org.springframework.security.authentication.UsernamePasswordAuthenticationToken; importorg.springframework.security.core.Authentication; importorg.springframework.security.core.AuthenticationException; importorg.springframework.security.core.userdetails.User; import org.springframework.security.core.userdetails.UserDetailsService; import org.springframework.security.core.userdetails.UsernameNotFoundException; importorg.springframework.stereotype.Component; @Component publicclassCustomAuthenticationProviderimplementsAuthenticationProvider { @Autowired privateUserDetailsServiceuserDetailsService; @Override public Authentication authenticate(Authentication authentication) throwsAuthenticationException { String username = authentication.getPrincipal().toString(); String password = authentication.getCredentials().toString(); User user = (User) userDetailsService.loadUserByUsername(username); if (user == null) { thrownewUsernameNotFoundException("User not found :=" +username); } if(!user.getPassword().equals(password)) { thrownewBadCredentialsException("Invalid password"); } returnnewUsernamePasswordAuthenticationToken(username, password, user.getAuthorities()); } @Override publicbooleansupports(Class
+	<?> authentication) { returntrue; } }
+</String,>
+</xmp>
+								<div id="link22"></div>
+								<h3>4.7 Controllers:</h3>
+								<p>For covering cases related to Authorization, we have defined 3 controllers providing APIs for resource server.</p>
+								<table class="articles_table">
+									<tr>
+										<td>
+											<p>No</p>
+										</td>
+										<td>
+											<p>Name</p>
+										</td>
+										<td>
+											<p>Config</p>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>1</p>
+										</td>
+										<td>
+											<p>AdminController</p>
+										</td>
+										<td>
+											<p>Its APIs can only accessed by authenticated users with role - ADMIN</p>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>2</p>
+										</td>
+										<td>
+											<p>CommonController</p>
+										</td>
+										<td>
+											<p>Its APIs can only accessed by authenticated users with ANY role</p>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>3</p>
+										</td>
+										<td>
+											<p>PublicController</p>
+										</td>
+										<td>
+											<p>Its APIs can be accessed by any user - authenticated and non-authenticated</p>
+										</td>
+									</tr>
+								</table>
+								<p>This security configuration is provided in ResourceServer Configuration.</p>
+<xmp class="codding-box">
+package com.hemant.oauth2.controller; importjava.util.HashMap; importjava.util.Map; importorg.springframework.web.bind.annotation.RequestMapping; importorg.springframework.web.bind.annotation.RequestMethod; importorg.springframework.web.bind.annotation.RestController; /** * Referring to the HTTP Security logic in * #{com.hemant.oauth2.config.ResourceServerConfig} , the endpoints in this * * controller can only accessed by authenticated users with role - ADMIN * * @author hemant * */ @RestController @RequestMapping("admin") publicclassAdminController { @RequestMapping(value = "", method = RequestMethod.GET) public Map
+<String, String=String>
+	getAdminData() { Map
+	<String, String=String>
+		map = newHashMap
+		&#60;&#62;(); map.put("1", "admin-value1"); map.put("2", "admin-value2"); return map; } } package com.hemant.oauth2.controller; importjava.util.HashMap; importjava.util.Map; importorg.springframework.web.bind.annotation.RequestMapping; importorg.springframework.web.bind.annotation.RequestMethod; importorg.springframework.web.bind.annotation.RestController; /** * * Referring to the HTTP Security logic in * #{com.hemant.oauth2.config.ResourceServerConfig} , the endpoints in this * * controller can only accessed by authenticated users with ANY role * * @author hemant */ @RestController @RequestMapping("commons") publicclassCommonController { @RequestMapping(value = "", method = RequestMethod.GET) public Map
+		<String, String=String>
+			getUserData() { Map
+			<String, String=String>
+				map = newHashMap
+				&#60;&#62;(); map.put("1", "common-value-1"); map.put("2", "common-value-2"); return map; } } package com.hemant.oauth2.controller; importjava.util.HashMap; importjava.util.Map; importorg.springframework.web.bind.annotation.RequestMapping; importorg.springframework.web.bind.annotation.RequestMethod; importorg.springframework.web.bind.annotation.RestController; /** * Referring to the HTTP Security logic in * #{com.hemant.oauth2.config.ResourceServerConfig} , the endpoints in this * * controller can be accessed by any user - authenticated and non authenticated * * @author hemant * */ @RestController @RequestMapping("public") publicclassPublicController { @RequestMapping(value = "", method = RequestMethod.GET) public Map
+				<String, String=String>
+					getPublicData() { Map
+					<String, String=String>
+						map = newHashMap
+						&#60;&#62;(); map.put("1", "pub-value-1"); map.put("2", "pub-value-2"); return map; } }
+					</String,>
+				</String,>
+			</String,>
+		</String,>
+	</String,>
+</String,>
+</xmp>
+								<div id="link23"></div>
+								<h2>5. Running the Application</h2>
+								<p>1. Go to the application ROOT directory and execute</p>
+<xmp class="codding-box">
+>>> mvn clean install
+</xmp>
+								<p>2. If the build is success, the JAR can be executed by</p>
+<xmp class="codding-box">
+>>> java -jar target/spring-oauth2-jwt-0.0.1-SNAPSHOT.jar
+</xmp>
+								<p>3. The following logs indicate that application is up and running</p>
+<xmp class="codding-box">
+01:34:42 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http) 01:34:42 INFO c.h.o.SpringOauth2JWTApp - Started SpringOauth2JWTApp in 6.066 seconds (JVM running for 6.805)
+</xmp>
+								<div id="link24"></div>
+								<h2>6. Demonstration</h2>
+								<p>1. Try accessing /public/ API. It should be accessible without any restrictions.</p>
+<xmp class="codding-box">
+GET http://localhost:8080/public { "1": "pub-value-1", "2": "pub-value-2" }
+</xmp>
+								<p>2. Similarly try accessing any other URL (/commons or /admin). You should get access denied error.</p>
+<xmp class="codding-box">
+GET http://localhost:8080/commons 401 { "error": "unauthorized", "error_description": "Full authentication is required to access this resource" }
+</xmp>
+								<p>This is because, we cannot access these without access token.</p>
+								<p>3. Get access token</p>
+								<p>We have to pass, clientId and client secret in Authorization header, set grant_type=password and also send the user credentials.</p>
+								<p>3.1 Sending improper credentials</p>
+<xmp class="codding-box">
+curl -X POST -u client1:secret -i"http://localhost:8080/oauth/token?grant_type=password&username=admin&password=xyz" HTTP/1.1401 { "error": "unauthorized", "error_description": "User not found :=admin" }
+</xmp>
+								<p>3.2 Sending proper credentials</p>
+<xmp class="codding-box">
+curl -X POST -u client1:secret -i"http://localhost:8080/oauth/token?grant_type=password&username=admin@gmail.com&password=admin" { "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI4MTAwNDQsInVzZXJfbm FtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwian RpIjoiMmRiMmUwM2YtMjFkYi00ZWQwLWEyZmMtZTExOWRkNjQ1OGNmIiwiY2xpZW50X2lkIj oiY2xpZW50MSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.-qFr_BMDuvt6UtQ68GZHGqnDjCHB6cf1FfSfpjjTvc8", "token_type": "bearer", "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiMmRiMmUwM2YtMjFkYi00ZWQwLWEyZmMtZTExOWRkNjQ1OGNmIiwiZXhwIjoxNTM1NDAxOTQ0LCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sImp0aSI6IjVkOGU5OWY4LTM0OGUtNDMxZC1iODk2LTcyYzVhMGNkYmM3NiIsImNsaWVudF9pZCI6ImNsaWVudDEifQ.Xpygqx0heunlTJqWRUKA2TcoRDbpeDIkVQ3bykcDXr8", "expires_in": 99, "scope": "read write", "jti": "2db2e03f-21db-4ed0-a2fc-e119dd6458cf" }
+</xmp>
+								<p>4. Once access token is obtained, we can access the protected resources.</p>
+<xmp class="codding-box">
+curl -X GET --header "Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI4MTAwNDQsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiMmRiMmUwM2YtMjFkYi00ZWQwLWEyZmMtZTExOWRkNjQ1OGNmIiwiY2xpZW50X2lkIjoiY2xpZW50MSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.-qFr_BMDuvt6UtQ68GZHGqnDjCHB6cf1FfSfpjjTvc8" -i"http://localhost:8080/admin" 200 OK { "1": "admin-value1", "2": "admin-value2" }
+</xmp>
+								<p>5. Once access token has expired (100 sec), trying to use to accessing the same resource shouldn’t work. It should give token expired error.</p>
+<xmp class="codding-box">
+curl -X GET --header "Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI4MTAwNDQsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiMmRiMmUwM2YtMjFkYi00ZWQwLWEyZmMtZTExOWRkNjQ1OGNmIiwiY2xpZW50X2lkIjoiY2xpZW50MSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.-qFr_BMDuvt6UtQ68GZHGqnDjCHB6cf1FfSfpjjTvc8" -i"http://localhost:8080/admin" HTTP/1.1401 { "error": "invalid_token", "error_description": "Access token expired: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI4MTAwNDQsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiMmRiMmUwM2YtMjFkYi00ZWQwLWEyZmMtZTExOWRkNjQ1OGNmIiwiY2xpZW50X2lkIjoiY2xpZW50MSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.-qFr_BMDuvt6UtQ68GZHGqnDjCHB6cf1FfSfpjjTvc8" }
+</xmp>
+								<p>6. We can use the refresh token we got earlier to regenerate the access token.</p>
+<xmp class="codding-box">
+curl -X POST -u client1:secret -i"http://localhost:8080/oauth/token?grant_type=refresh_token&refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiMmRiMmUwM2YtMjFkYi00ZWQwLWEyZmMtZTExOWRkNjQ1OGNmIiwiZXhwIjoxNTM1NDAxOTQ0LCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sImp0aSI6IjVkOGU5OWY4LTM0OGUtNDMxZC1iODk2LTcyYzVhMGNkYmM3NiIsImNsaWVudF9pZCI6ImNsaWVudDEifQ.Xpygqx0heunlTJqWRUKA2TcoRDbpeDIkVQ3bykcDXr8" HTTP/1.1200 { "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI4MTEyNTgsInVzZXJfbmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiZmNhNjRjYjYtZWVkOC00YmY2LTliZDktYzQzMmJmYWE4OTA5IiwiY2xpZW50X2lkIjoiY2xpZW50MSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.k3J0mVDyebLOKUiZvCXGkwlJaUHSfp4UGuNB99IuDJU", "token_type": "bearer", "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbkBnbWFpbC5jb20iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiZmNhNjRjYjYtZWVkOC00YmY2LTliZDktYzQzMmJmYWE4OTA5IiwiZXhwIjoxNTM1NDAxOTQ0LCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sImp0aSI6IjVkOGU5OWY4LTM0OGUtNDMxZC1iODk2LTcyYzVhMGNkYmM3NiIsImNsaWVudF9pZCI6ImNsaWVudDEifQ.VwRILrmjExP-I7cKS9SfvSX21j3mN_sNpUqBYGTozO4", "expires_in": 99, "scope": "read write", "jti": "fca64cb6-eed8-4bf6-9bd9-c432bfaa8909" }
+</xmp>
+								<p>7. Let’s check Authorization part (for normal User). Get access token for normal User</p>
+<xmp class="codding-box">
+curl -X POST -u client1:secret -i"http://localhost:8080/oauth/token?grant_type=password&username=normal@gmail.com&password=normal" { "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI4MTIyNzksInVzZXJfbmFtZSI6Im5vcm1hbEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX05PUk1BTCJdLCJqdGkiOiJlZGEwMGQwNS1hYTQ1LTQ1N2YtOTFlNC0wODdkNGE3ZTM5ZWMiLCJjbGllbnRfaWQiOiJjbGllbnQxIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.1YTL0ZWC0O9VfszVhgpomFXcTrldl3xqp8dn9BWU8qU", "token_type": "bearer", "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJub3JtYWxAZ21haWwuY29tIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImF0aSI6ImVkYTAwZDA1LWFhNDUtNDU3Zi05MWU0LTA4N2Q0YTdlMzllYyIsImV4cCI6MTUzNTQwNDE3OSwiYXV0aG9yaXRpZXMiOlsiUk9MRV9OT1JNQUwiXSwianRpIjoiNTg4NWY0Y2EtNTczZC00ZmUxLWJmNjItMTY3ZDVlNDY0NDliIiwiY2xpZW50X2lkIjoiY2xpZW50MSJ9.UipHQRf3IURJY2sZhch8QwKcZXM0y_s80az6vSXsX0Y", "expires_in": 99, "scope": "read write", "jti": "eda00d05-aa45-457f-91e4-087d4a7e39ec" }
+</xmp>
+								<p>8. Use the access token to access commons API</p>
+<xmp class="codding-box">
+curl -X GET --header "Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI4MTIyNzksInVzZXJfbmFtZSI6Im5vcm1hbEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX05PUk1BTCJdLCJqdGkiOiJlZGEwMGQwNS1hYTQ1LTQ1N2YtOTFlNC0wODdkNGE3ZTM5ZWMiLCJjbGllbnRfaWQiOiJjbGllbnQxIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.1YTL0ZWC0O9VfszVhgpomFXcTrldl3xqp8dn9BWU8qU" -i"http://localhost:8080/commons" 200 OK {"1":"common-value-1","2":"common-value-2"}
+</xmp>
+								<p>He should be able to access it, since it’s meant for all authenticated users irrespective of role.</p>
+								<p>9. Use the access token to access Admin API</p>
+<xmp class="codding-box">
+curl -X GET --header "Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzI4MTIyNzksInVzZXJfbmFtZSI6Im5vcm1hbEBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX05PUk1BTCJdLCJqdGkiOiJlZGEwMGQwNS1hYTQ1LTQ1N2YtOTFlNC0wODdkNGE3ZTM5ZWMiLCJjbGllbnRfaWQiOiJjbGllbnQxIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.1YTL0ZWC0O9VfszVhgpomFXcTrldl3xqp8dn9BWU8qU" -i"http://localhost:8080/admin" HTTP/1.1403 {"error":"access_denied","error_description":"Access is denied"}
+</xmp>
+								<p>This is because the user only has ROLE_NORMAL, but ROLE_ADMIN is needed to access the admin APIs. Thus authorization config is working fine</p>
+								
+								<div id="link25"></div>
+								<h2>7. Securing the Application with GitHub and Spring Security</h2>
+								<p>Safeguarding an app with GitHub and Spring Security is a vital phase in knowing the guarding of complex statistics and statistics.</p>
+								<p>Adding Spring Security as a dependence is all that is needed to offer security measures for the application. Seeing that you wish to perform a "social" login (representative to GitHub), you have to include the Spring Security OAuth 2.0 Client beginning inside your application:</p>
+								<p>The pom.xml file <dependency> <groupId>dependencies include the following: org.spring framework.boot <groupId> spring-boot-starter-oauth2-client <artifactId> ></p>
+								<p>Additionally, including that will automatically protect your application using OAuth 2.0.</p>
+								<p>Following that, you will need to set up your application so that it uses GitHub as the authentication tool. This may be accomplished by doing the following:</p>
+								<div id="link26"></div>
+								<h3>7.1 Create a new application on GitHub</h3>
+								<p>Setting up the application.yml file</p>
+								<p>To begin, start the application.</p>
+								<div id="link27"></div>
+								<h3>7.2 The Significance of Securing REST APIs</h3>
+								<p>REST APIs function as the fundamental structure of contemporary apps, allowing the interchange and transfer of data across different components. The need to safeguard API endpoints is particularly significant in several domains, such as banking applications that conduct monetary interactions, health platforms for managing important medical records, and online storefronts for processing customer information. Illegal intrusion, breaches of data, and additional safety vulnerabilities not only endanger user confidentiality but even provide substantial legal and monetary hazards to enterprises.</p>
+								<p>Ensuring the safety of REST APIs is not a recommended approach but an essential need at a time when cyber threats are always becoming more advanced. Unprotected APIs may be violated to be illegal entry, modify data, or interrupt services, resulting in significant repercussions for both organizations and consumers.</p>
+								<div id="link28"></div>
+								<h3>7.3 Why Spring Security and OAuth2?</h3>
+								<p>Spring Security has become the preferred outline for handling verification and approval in Java applications inside the intricate realm of online safety. The modular and flexible design of this system makes it extremely appropriate for safeguarding REST APIs. It offers designers with a robust set of tools to impose entry rules and safeguard resources.</p>
+								<p>OAuth2, however, tackles the particular obstacles of permission by offering a consistent framework for vicarious entry. This procedure enables programs to get restricted access to a user's services by not revealing sensitive identifications. OAuth2 is well-suited for situations where third-party apps or services need regulated access to secure resources due to its adaptable nature.</p>
+								<p>Developers may create strong protection against various security risks by integrating Spring Security and OAuth2. Spring Security offers a wide range of features, including user authentication and complex authorization situations. On the other hand, OAuth2 streamlines the management of access tokens and permissions, ensuring a safe and user-friendly experience.</p>
+								<div id="link29"></div>
+								<h3>7.4 Using Spring Boot for OAuth2 and JWT REST Protection</h3>
+								<p>REST APIs are used across all programming languages and platforms. Constructing a safe REST API is an essential resource that every programmer should include in the toolkit.</p>
+								<p>Setup for Resource Owner and Authorization Server</p>
+								<p>JWT is a suitable choice for the format of access and refresh tokens used inside the OAuth2 protocol.</p>
+								<p>OAuth2 with JWT may not be the optimal solution for a project if the following factors are deemed significant:</p>
+								<ol class="listing">
+									<li>A stateless protocol lacks the capability to revoke access on the server side.</p>
+									<li>Implementing a fixed lifespan for tokens introduces more difficulty in handling sessions that last a long period while maintaining security, such as with refresh tokens.</p>
+									<li>An essential condition for ensuring the security of a token stored on the client side</p>
+								</ol>
+								<p>Security mainly revolves around verification, which involves verifying an individual's identification, and permission, which entails granting permission for access to services.</p>
+								<div id="link30"></div>
+								<h3>7.5 Build Your Client App</h3>
+								<p>Return to Spring Initializr. By the spring security oauth2 example & oauth2 spring security example, you can Initiate a new undertaking using the following configuration:</p>
+								<ol class="listing">
+									<li>The project should be configured as a Gradle project instead of a Maven project.</p>
+									<li><strong>Group:</strong> com.okta.spring.</p>
+									<li><strong>Artifact:</strong> SpringBootOAuthClient.</p>
+									<li><strong>Include three dependencies:</strong> Web, Thymeleaf, and OAuth2 Client.</p>
+								</ol>
+								<p>Transfer the project; you can then copy it to the ultimate resting place and unload it.</p>
+								<p>This time, you need to add the following dependency to your build. gradle file:</p>
+								<p>Later, you can rename it with the new Java class WebController</p>
+								<div id="link31"></div>
+								<h2>8. Create an OpenID Connect Application</h2>
+								<p>Okta is a supplier of authentication and authorization services delivered via the software-as-a-service (SaaS) model. We provide free accounts to developers to facilitate the development of OIDC applications without any hassle.</p>
+								<p>Before starting, you must have a complimentary Okta developer account. Download and install the Okta Command Line Interface (CLI), then execute the command "okta register" to create a new account. If you already own an account, use the command "okta login". Next, execute the command "okta apps create". Choose the app name that is set as the default, or modify it according to your preference. Select the option "Web" and then hit the Enter key.</p>
+								<p>Choose the option labeled "Other". Next, modify the Redirect URI to http://localhost:8080/login/oauth2/code/okta and set http://localhost:8080 as the Logout Redirect URI.</p>
+								<div id="link32"></div>
+								<h3>8.1 Create a New Spring Boot App</h3>
+								<ol class="listing">
+									<li>Returning to the Spring Initializr once more. Initiate a new undertaking using the following configurations:</p>
+									<li>Convert the project from using Maven as the build system to using Gradle instead.</p>
+									<li>Modify the Group to com.okta.sp</p>
+									<li>ring.</p>
+									<li>Replace the Artifact with OktaOAuthClient.</p>
+									<li>Include three dependencies: Web, Thymeleaf, and Okta.</p>
+									<li>Click the "Generate Project" button.</p>
+								</ol>
+								<div id="link33"></div>
+								<h2>9. Single Sign On With GitHub</h2>
+								<p>Looking to enhance your app's security with OAuth2? Check out the step-by-step Spring Security OAuth2 tutorial! In this part, you will develop a basic application that utilizes GitHub for authentication. Utilizing the autoconfiguration capabilities in Spring Boot will make this task relatively simple.</p>
+								<div id="link34"></div>
+								<h3>9.1 Initiating a Fresh Project</h3>
+								<p>To begin, it is necessary to generate a Spring Boot application, which may be accomplished via many methods. To simplify the process, visit the website https://start.spring.io and create a blank project by selecting the "Web" dependency as the initial framework. Alternatively, do this action using the command line interface:</p>
+								<p>$ mkdir ui && cd ui</p>
+								<p>$ curl https://start.spring.io/starter.tgz -d style=web -d name=simple | tar -xzvf –</p>
+								<p>You can add a new home page.</p>
+								<p>The last need is the webjars "locator" that is available as a library from the webjars site. Spring may use the location parameter to precisely find the static files in webjars without requiring knowledge of the specific versions.</p>
+								<div id="link35"></div>
+								<h3>9.2 Securing the Application with GitHub and Spring Security</h3>
+								<p>To enhance the security of the application, you can easily include Spring Security as a dependency. If you want to implement a "social" login feature by delegating the authentication process to GitHub, it is recommended to include the Spring Security OAuth 2.0 Client starting.</p>
+								<p>pom.xml <dependency> <groupId>The groupId is "org. spring framework.boot", and the artifactId is "spring-boot-starter-oauth2-client".</p>
+								<p>By using that feature, your app will be automatically protected with OAuth 2.0.</p>
+								<p>Subsequently, it is necessary to set up your application to use GitHub as the authentication provider. To do this, follow these steps:</p>
+								<ol class="listing">
+									<li>Create a new GitHub application</p>
+									<li>Modify the settings in the application.yml file.</p>
+									<li>Initiate the application</p>
+								</ol>
+								<div id="link36"></div>
+								<h3>9.3 The Significance of Securing REST APIs</h3>
+								<p>RESTful web services are online resources that provide specialized information. These services essentially illustrate the functionality of the REST API.</p>
+								<p>Ensuring the security of REST APIs is of utmost importance in the linked digital landscape. APIs, or Application Programming Interfaces, operate as the fundamental framework for facilitating communication between different software programs, enabling them to interact and exchange data smoothly. Nevertheless, in the nonappearance of acceptable safety protocols, REST APIs are vulnerable to many cyber risks, such as unauthorized entry, data breaches, and API misuse. Arranging security protocols such as authentication, authorization, encryption, and rate limitation may effectively safeguard sensitive data and thwart unwanted threats.</p>
+								<div id="link37"></div>
+								<h2>10. Conclusion</h2>
+								<p>Thus we implemented the OAuth2 with Spring Security.</p>
+								<p>We used grant_type=password (where user needs to provide access token to receive access token) and grant_type=refresh_token (where user provides refresh token to generate the access token value). In addition to OAuth2 implementation, we also applied authorization to our resource server endpoints.</p>
+								<p>Note that the code shared by <a href="https://www.aegissofttech.com/software-development/java" target="_blank">Java Development Company</a> for reference purpose only. If you have any doubt or want to ask anything related to the issue, you can contact us now.</p>
+								<p>For further information, mail us at <a href="mailto:info@aegissofttech.com">info@aegissofttech.com</a></p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">WHAT IS OAUTH2?</a></div>
+								<div class="para2"><a href="#link2">Roles in OAuth2</a></div>
+								<div class="para2"><a href="#link3">Tokens in OAuth2</a></div>
+								<div class="para2"><a href="#link4">Access Token vs Refresh Token</a></div>
+								<div class="para2"><a href="#link5">Grant Types</a></div>
+								<div class="para1"><a href="#link6">What are JWT Tokens?</a></div>
+								<div class="para1"><a href="#link7">Spring OAuth2 Implementation</a></div>
+								<div class="para2"><a href="#link8">OAuth2 – Authorization Server</a></div>
+								<div class="para2"><a href="#link9">OAuth2 Client</a></div>
+								<div class="para2"><a href="#link10">Getting Access Token from Authorization Server</a></div>
+								<div class="para2"><a href="#link11">Resource Server</a></div>
+								<div class="para2"><a href="#link12">Accessing User Data from Resource Server</a></div>
+								<div class="para2"><a href="#link13">OAuth2 Protected REST Resources</a></div>
+								<div class="para2"><a href="#link14">Test the Resource Server</a></div>
+								<div class="para1"><a href="#link15">Project</a></div>
+								<div class="para2"><a href="#link16">Maven Dependencies</a></div>
+								<div class="para2"><a href="#link17">Application properties</a></div>
+								<div class="para2"><a href="#link18">Spring Boot Main Application class</a></div>
+								<div class="para2"><a href="#link19">Authorization Server Configuration</a></div>
+								<div class="para2"><a href="#link20">Resource Server Configuration</a></div>
+								<div class="para2"><a href="#link21">Authentication Provider and User Services</a></div>
+								<div class="para2"><a href="#link22">Controllers</a></div>
+								<div class="para1"><a href="#link23">Running the Application</a></div>
+								<div class="para1"><a href="#link24">Demonstration</a></div>
+								<div class="para1"><a href="#link25">Securing the Application with GitHub and Spring Security</a></div>
+								<div class="para2"><a href="#link26">Create a new application on GitHub</a></div>
+								<div class="para2"><a href="#link27">The Significance of Securing REST APIs</a></div>
+								<div class="para2"><a href="#link28">Why Spring Security and OAuth2?</a></div>
+								<div class="para2"><a href="#link29">Using Spring Boot for OAuth2 and JWT REST Protection</a></div>
+								<div class="para2"><a href="#link30">Build Your Client App</a></div>
+								<div class="para1"><a href="#link31">Create an OpenID Connect Application</a></div>
+								<div class="para2"><a href="#link32">Create a New Spring Boot App</a></div>
+								<div class="para1"><a href="#link33">Single Sign On With GitHub</a></div>
+								<div class="para2"><a href="#link34">Initiating a Fresh Project</a></div>
+								<div class="para2"><a href="#link35">Securing the Application with GitHub and Spring Security</a></div>
+								<div class="para2"><a href="#link36">The Significance of Securing REST APIs</a></div>
+								<div class="para1"><a href="#link37">Conclusion</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="article-section spt spb">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="section-header">
+								<div class="article-head">Related article</div>
+							</div>
+						</div>
+					</div>
+					<div class="bs-row">
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img7">
+								<div class="blog-heading">
+									<div class="b-head"><a href="spring-security-oauth2-in-java.html" target="_blank">How to Set up and use Spring Security OAuth2 in a Java Microservice App?</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>In real-time applications, we usually build a cloud-native system and also build a system that is easy to scale, it's agile, it is a, it takes advantage of the elasticity of a cloud environment and it can scale-out. It is robust in the face of errors or service outages or topology changes, and its observable, both at the service level and the system level. Now, in this blog, I have explained how to secure that edge service. So, I have created an available edge service, and it's exposed to the outside world. You may not need it authenticated. You may not need it protected, but it is always a good idea to protect it if you do need it.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img5">
+								<div class="blog-heading">
+									<div class="b-head"><a href="get-started-with-jerseys-and-spring-boots.html" target="_blank">Getting started with Jersey and Spring Boot</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>On account of being at the cusp of API economy, Spring Boot and Jersey have been a boon to all developers.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/spring-security-using-oauth2.html"
+			},
+			"headline": "How to implement OAuth2 with Spring Security?",
+			"description": "how to implement security such as authentication processing filter",
+			"image": "https://www.aegissofttech.com/articles/images/oauth2-1.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2018-08-06",
+			"dateModified": "2018-08-06"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fspring-security-using-oauth2.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Tutorial: Implementation of OAuth2 with Spring Security&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fspring-security-using-oauth2.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fspring-security-using-oauth2.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/spring-security-using-oauth2.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fspring-security-using-oauth2.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Tutorial: Implementation of OAuth2 with Spring Security&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fspring-security-using-oauth2.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fspring-security-using-oauth2.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/spring-security-using-oauth2.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+ 		
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+ 
+</body>
+</html>

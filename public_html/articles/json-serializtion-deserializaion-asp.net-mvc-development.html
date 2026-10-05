@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>How to serialize and deserialize JSON object in C# and ASP.NET MVC?</title>
+	<meta name="description" content="It is very important to understand the data exchange format in ASP.NET. With the assistance of Aegis Softtech, professionals learn the tricks of JSON structure and apps." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/json-serializtion-deserializaion-asp.net-mvc-development.html" />
+    
+	<meta property="og:url" content="How developers use JSON serialization and deserialization in asp.net mvc development">
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="prerender manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager --> 
+    
+	<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=60be22561b25c900110067bc&product=sticky-share-buttons" async="async"></script>
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+			<div class="hire-popup fix-top">
+				<i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+				<a href="../careers">
+					<div class="hire-flexy">
+						<div class="hiring-box">
+							<div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+							<div class="hiring-head">We are hiring!</div>
+							<p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>How developers use JSON serialization and deserialization in asp.net MVC development</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">How developers use JSON serialization and deserialization in asp.net MVC development</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<p>JSON is a lightweight format that is used in asp.net development for data exchange. In this post, Aegis professionals will make you learn how to use JSON serialization and deserialization in <a href="https://www.aegissofttech.com/microsoft/dotnet-development" target="_blank">asp.net MVC app development services</a>. In this post, experts are sharing steps to use NewtonsoftJSON in MVC app. You can learn these simple steps and use the features accordingly.</p>
+								<p>We are introducing JSON serialization and Deserialization using Newtonsoft.JSON.dll in MVC based application.JSON (JavaScript Object Notation) is one lightweight data exchange format. JSON is "name/value" assembly. JSON structure is made up with {}, [], comma, colon and double quotation marks and it includes the following data types: Object, Number, Boolean, String and Array. Serialize means convert an object instance to an XML document. Deserialize means to convert an XML document into an object instance.</p>
+								<p>Below are the steps to use Newtonsoft JSONin MVC based application.</p>
+								<div id="link1"></div>
+								<h2>Steps to use Newtonsoft JSON in MVC based application</h2>
+								<p>1. Download the Latest release Newtonsoft JSON dll, for download <a href="https://www.nuget.org/packages/newtonsoft.json/" target="_blank">click here</a>.</p>
+								<p>2. For give the reference ofNewtonsoft JSON dll we need to add Reference form NuGet gallery as per below Screenshot.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/net-img25.jpg" alt="net-img25" /></div>
+								<p>3. We can also add the reference form Package manager console as per below screenshot.</p>
+								<div class="single-article-img"><img class="lazyload" src="images/net-img26.jpg" alt="net" /></div>
+								<p>Now here JSON Serialization is the process of converting the state of an object into a form that can be persisted in a storage medium or transported across the processes or machines. Same way deserialization which is a process that converts the outcome of serialization into the original object. After completing the package installation for Newtonsoft JSON we can Serialize and deserialize data as per below code. Give the reference to the code by using Newtonsoft.JSON namespace in code.</p>
+								<p>For Serialize the JSON object we have to write the below code,</p>
+<xmp>
+String __sJsonOut = String.Empty;
+stringmailaccount = EmailAccount;
+RootObject __oServerSettingParameter = newRootObject();
+__oServerSettingParameter.id = mailaccount;
+Configuration _oServerSettingConfig = newConfiguration();
+_oServerSettingConfig.password = Password;
+_oServerSettingConfig.type = Type;
+_oServerSettingConfig.port = int.Parse(Port);
+_oServerSettingConfig.mailserver = MailServer;
+_oServerSettingConfig.ssl = SSL;
+_oServerSettingConfig.username = Uname;
+__oServerSettingParameter.configuration = _oServerSettingConfig;
+__sJsonOut = JsonConvert.SerializeObject(__oServerSettingParameter);
+</xmp>
+								<p>Here, we have two Object class RootObject and configuration class In which we have to Serialize the JSON string.</p>
+								<div class="between-box">
+									<div class="w-50">
+										<div class="head">It is very important to understand the data exchange format in asp.net.</div>
+										<p>There are some crucial steps to follow. With the assistance of Aegis Softtech, engineers learn the tricks of JSon structure and applications.</p>
+									</div>
+									<div class="contact-btn-area">
+										<a href="../contact-us.html" class="contact-btn">Contact Us</a>
+									</div>
+								</div>
+								<div id="link2"></div>
+								<h3>Result of the Serialize Object:</h3>
+								<p>1. Serialization:-</p>
+								<div class="single-article-img"><img class="lazyload" src="images/net-img27.jpg" alt="net" /></div>
+								<p>Above Screenshot is for Result of the Serialize the object in String. Using JsonConvert.SerializeObject we have converted an object into a String. Now same way we can deserialize the JSON string into the object as per below code.</p>
+<xmp>
+List&lt;RootObject&gt;lstRootObject = newList&lt;RootObject&gt;();
+foreach (AutoEventActionitemserverSettinginlstServersettings) {
+stringsTemplate = itemserverSetting.Parameters;
+RootObjectConfigmodel = JsonConvert.DeserializeObject&lt;RootObject&gt;(sTemplate);
+lstRootObject.Add(Configmodel);
+}
+</xmp>
+								<p>Here, in above code we can deserialize the JSON string onto Object. For that we have required the object class for Deserialize, In our case we have to create RootObject class for Dserialize the JSON string as per below.</p>
+<xmp>
+publicclassConfiguration{
+publicstring type { get; set; }
+publicstringmailserver { get; set; }
+publicstring username { get; set; }
+publicstring password { get; set; }
+publicint port { get; set; }
+publicboolssl { get; set; }
+}
+publicclassRootObject {
+publicstring id { get; set; }
+publicConfigurationconfiguration { get; set; }
+}
+</xmp>
+								<p>So, as per above code we get the Deserialize Result in above Object class. Also we can give settings in JsonCovert Serialize and deserialize methods like below.</p>
+<xmp>
+serverSettings = JsonConvert.DeserializeObject&lt;RootObject>(Jsonstring,
+newJsonSerializerSettings() { Error = (sender, args) =&gt;args.ErrorContext.Handled = true });
+</xmp>
+							<div class="between-box bg-green">
+                                <div class="w-50">
+                                    <div class="head mb-1">Take your ASP.NET MVC development to the next level with Aegis Softtech! Get in touch.</div>
+                                </div>
+                                <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                            </div>
+                            <div id="link3"></div>
+							<h2>Serialization Behavior</h2>
+							<p>All public properties are serialized by default whenever they are used. You can set characteristics that will be ignored. You are also able to add closed-door members. Characters that are not ASCII, HTML-sensitive characters that fall inside the ASCII range, and characters that must be escaped following the RFC 8259 JSON specification are all escaped by the default encoder.</p>
+							<p>JSON is automatically minified by default. The JSON may be printed in a nice format. It is the default setting for JSON names to use the same case as .NET names. It is possible to modify the case of JSON names. The detection of circular references and the throwing of exceptions are both done by default. You can manage circular references and references that are preserved. The default behavior is to disregard the fields. It is possible to include fields.</p>
+							<p>Several default behaviors are different when you utilize System.Text.Json in an ASP.NET Core application from an indirect perspective. For further details, please refer to the defaults for JsonSerializerOptions on the web. Presented below is an example of how to serialize a JSON object in c# that illustrates the process of serializing a class that has collection properties and a user-defined type:</p>
+<xmp>
+C#
+Copy
+using System.Text.Json;
+namespace SerializeExtra
+{
+    public class WeatherForecast
+    {
+        public DateTimeOffset Date { get; set; }
+        public int TemperatureCelsius { get; set; }
+        public string? Summary { get; set; }
+        public string? SummaryField;
+        public IList<DateTimeOffset>? DatesAvailable { get; set; }
+        public Dictionary<string, HighLowTemps>? TemperatureRanges { get; set; }
+        public string[]? SummaryWords { get; set; }
+    }
+    public class HighLowTemps
+    {
+        public int High { get; set; }
+        public int Low { get; set; }
+    }
+    public class Program
+    {
+        public static void Main()
+        {
+            var weatherForecast = new WeatherForecast
+            {
+                Date = DateTime.Parse("2019-08-01"),
+                TemperatureCelsius = 25,
+                Summary = "Hot",
+                SummaryField = "Hot",
+                DatesAvailable = new List<DateTimeOffset>()
+                    { DateTime.Parse("2019-08-01"), DateTime.Parse("2019-08-02") },
+                TemperatureRanges = new Dictionary<string, HighLowTemps>
+                    {
+                        ["Cold"] = new HighLowTemps { High = 20, Low = -10 },
+                        ["Hot"] = new HighLowTemps { High = 60 , Low = 20 }
+                    },
+                SummaryWords = new[] { "Cool", "Windy", "Humid" }
+            };
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(weatherForecast, options);
+            Console.WriteLine(jsonString);
+        }
+    }
+}
+// output:
+//{
+//  "Date": "2019-08-01T00:00:00-07:00",
+//  "TemperatureCelsius": 25,
+//  "Summary": "Hot",
+//  "DatesAvailable": [
+//    "2019-08-01T00:00:00-07:00",
+//    "2019-08-02T00:00:00-07:00"
+//  ],
+//  "TemperatureRanges": {
+//    "Cold": {
+//      "High": 20,
+//      "Low": -10
+//    },
+//    "Hot": {
+//    "High": 60,
+//      "Low": 20
+//    }
+//  },
+//  "SummaryWords": [
+//    "Cool",
+//    "Windy",
+//    "Humid"
+//  ]
+//}
+</xmp>
+							<div id="link4"></div>
+							<h2>Serialize to UTF-8</h2>
+							<p>Compared to other ways, serializing to a UTF-8 byte array is five to ten percent quicker than string-based approaches. This is because the bytes—in their UTF-8 form—do not need conversion to strings—in their UTF-16 form. The JsonSerializer must be used to serialize data to a UTF-8 byte array. Method of Serialization to UTF8 Bytes:</p>
+<xmp>
+byte[] jsonUtf8Bytes =JsonSerializer.SerializeToUtf8Bytes(weatherForecast);
+</xmp>
+							<div id="link5"></div>
+							<h2>Serialize to Formatted JSON</h2>
+							<p>Setting the JsonSerializerOptions will allow you to pretty-print the JSON output. Set the value of WriteIndented to true:</p>
+<xmp>
+using System.Text.Json;
+namespace SerializeWriteIndented
+{
+    public class WeatherForecast
+    {
+        public DateTimeOffset Date { get; set; }
+        public int TemperatureCelsius { get; set; }
+        public string? Summary { get; set; }
+    }
+    public class Program
+    {
+        public static void Main()
+        {
+            var weatherForecast = new WeatherForecast
+            {
+                Date = DateTime.Parse("2019-08-01"),
+                TemperatureCelsius = 25,
+                Summary = "Hot"
+            };
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(weatherForecast, options);
+            Console.WriteLine(jsonString);
+        }
+    }
+}
+// output:
+//{
+//  "Date": "2019-08-01T00:00:00-07:00",
+//  "TemperatureCelsius": 25,
+//  "Summary": "Hot"
+//}
+</xmp>
+							<div id="link6"></div>
+							<h2>Serialize C# Object Into JSON Strings Using System.Text.Json</h2>
+							<p>The system has been in use since .NET Core 3.0. By default, the framework incorporates Json into its components. The following is the official solution for serializing and deserializing JSON files developed by Microsoft:</p>
+<xmp>
+var obj = new Product
+{
+    Name = "Red Apples",
+    Stock = 100,
+    DateAcquired = DateTime.Parse("2017-08-24")
+};
+var jsonString = JsonSerializer.Serialize(obj);
+</xmp>
+							<div id="link7"></div>
+							<h3>Using Newtonsoft JSON.NET to Serialize C# Objects</h3>
+<xmp>
+var jsonString = JsonConvert.SerializeObject(obj);
+</xmp>
+							<p>Through the use of the JsonConvert object's static function known as SerializeObject(), we can convert an object into a JSON string.</p>
+							<div class="between-box bg-green">
+                                <div class="w-50">
+                                    <div class="head mb-1">Send us a message for a more efficient and scalable ASP.NET MVC development!</div>
+                                </div>
+                                <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                            </div>
+                            <div id="link8"></div>
+							<h2>How to Generate Pretty JSON Strings</h2>
+							<p>Most of the time, we would want to have JSON strings that are indented or "pretty." With the help of the System, we can simply do it. Through the use of the WriteIntended attribute of the JsonSerializerOptions object, Text.Json is constructed:</p>
+<xmp>
+var options = new JsonSerializerOptions
+{
+    WriteIndented = true
+};
+var jsonString = JsonSerializer.Serialize(obj, options);
+</xmp>
+							<div id="link9"></div>
+							<h3>Camel Case Property Names</h3>
+							<p>Even though camel case is a format option that is often used, none of these libraries will format property names using camel case by default. We make sure that the PropertyNamingPolicy option in our JsonSerializerOptions object is set explicitly when we are using System.Text.Json:</p>
+							<div id="link10"></div>
+							<h2>How to Ignore Certain Properties When Serializing Objects</h2>
+							<p>Not Taking into Account NULL Values When Serializing. On the other hand, there is a certain circumstance in which we do not want to include the attributes that have null values. In the System, we can make use of the JsonSerializerOptions object. The DefaultIgnoreCondition flag may be set using Text.Json as follows:</p>
+							<p>If Newtonsoft is being used, we will make use of the NullValueHandling property that is included under the JsonSerializerSettings.</p>
+							<p>The JSON string that is produced will not include any of the null properties, which are as follows:</p>
+							<div id="link11"></div>
+							<h2>How to Serialize Anonymous and Dynamic Objects</h2>
+							<p>From the beginning, both libraries can appropriately handle anonymous objects.</p>
+<xmp>
+var obj = new
+{
+    FirstName = "John",
+    LastName = "Smith"
+};
+// System.Text.Json
+var jsonStringSystem = JsonSerializer.Serialize(obj, optionsSystem);
+// Newtonsoft
+var jsonStringNewtonsoft = JsonConvert.SerializeObject(obj, optionsNewtonsoft);
+{
+  "FirstName": "John",
+  "LastName": "Smith"
+}
+</xmp>
+							<p>Similarly, dynamic objects work fine as well with both System.Text.Json and Newtonsoft:</p>
+<xmp>
+dynamic dynObj = new ExpandoObject();
+dynObj.Name = "Corey Richards";
+dynObj.Address = "3519 Woodburn Rd";
+// System.Text.Json
+var jsonStringSystem = JsonSerializer.Serialize(dynObj, optionsSystem);
+// Newtonsoft
+var jsonStringNewtonsoft = JsonConvert.SerializeObject(dynObj, optionsNewtonsoft);
+{
+  "Name": "Corey Richards",
+  "Address": "3519 Woodburn Rd"
+</xmp>
+							<div id="link12"></div>
+							<h2>How to Control Date and Time Format</h2>
+							<p>To serialize DateTime or DateTimeOffset attributes in our objects, Json will utilize the ISO-8601-1:2019 format, as shown in the following example: The date is 2017-08-24T16:59:57-02:00. However, we can personalize it by developing a converter that is unique to us:</p>
+							<div id="link13"></div>
+							<h3>Reference Loops</h3>
+							<p>Taking into consideration the following C# models will help you comprehend what a reference loop is:</p>
+<xmp>
+public class Employee
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public Department Department { get; set; }
+}
+public class Department
+{
+    public string? Name { get; set; }
+    public IList<Employee> Staff { get; set; } = new List<Employee>();
+}
+</xmp>
+							<p>In this instance, we can see how the Employee class refers to the Department class, which in turn makes reference to the Employee class by way of its Staff property.</p>
+							<div id="link14"></div>
+							<h3>Options for Handling Reference Loops</h3>
+							<p>The most effective method for avoiding this circumstance is to construct our models in such a manner that they do not have reference loops. JSON libraries, on the other hand, include choices that may assist us in dealing with circular references if this is not feasible. We can configure the JsonSerializerOptions for the System.Text.Json class. Refer to one of the ReferenceHandler listed values to access the ReferenceHandler property:</p>
+<xmp>
+var employee = new Employee { FirstName = "John", LastName = "Smith" };
+var department = new Department { Name = "Human Resources" };
+employee.Department = department;
+department.Staff.Add(employee);
+var options = new JsonSerializerOptions
+{
+    ReferenceHandler = ReferenceHandler.Preserve
+};
+var jsonString = JsonSerializer.Serialize(department, options);
+</xmp>
+							<div id="link15"></div>
+							<h2>Convert an Object to a Minified JSON String</h2>
+							<p>Through the use of Serialization, you will acquire the knowledge necessary to transform C# objects to JSON. JavaScript Object Notation, or JSON, is a format that is used for the storage and transport of data. In addition, it is used in API requests to exchange data by moving it from the API to other web apps or from the browser to the server and vice versa.</p>
+							<p>A technique known as serialization involves saving the state of an item and having the ability to reconstruct it whenever it is necessary to do so. The opposite of serialization is referred to as deserialization. Within the System, the JsonSerializer class is a built-in component that is provided by the .NET 5 framework. To convert C# objects to JSON and vice versa, the JSON namespace is used.</p>
+							<p>The JsonSerializer class that is built into the .NET 4 framework does not include any built-in functionality for converting objects to JSON. The Microsoft.Extensions package from NuGet has to be installed on your computer. Your project should contain Configuration.Json to include the System.Incorporate Text.Json. JsonSerializer into your project so that it can be used to convert objects to JSON and vice versa.</p>
+							<div id="link16"></div>
+							<h2>Convert an Object to a Formatted JSON String</h2>
+							<p>Within the context of the JsonSerializer class, the following example illustrates the process of converting an object into a JSON string that has been minified. Method of serialization:</p>
+<xmp>
+Example: Convert Object to JSON String Copy
+using System;
+using System.Text.Json;
+namespace ObjectToJSONConversion
+{
+    public class Department
+    {
+        public int DeptId { get; set; }
+        public string DepartmentName { get; set; }
+    }
+    class Program
+    {
+        public static void Main()
+        {
+            Department dept= new Department() { DeptId = 101, DepartmentName= "IT" };
+            string strJson = JsonSerializer.Serialize<Department>(dept);
+            Console.WriteLine(strJson);
+</xmp>
+							<div class="between-box bg-green">
+                                <div class="w-50">
+                                    <div class="head mb-1">Let us know your ASP.NET development-related queries, and we'll respond with helpful insights and solutions.</div>
+                                </div>
+                                <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                            </div>
+                            <div id="link17"></div>
+							<h2>Convert a List to a JSON String</h2>
+							<p>The following converts a list collection of objects to a JSON array.</p>
+<xmp>
+Example: Convert List to JSON String Copy
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+namespace ObjectToJSONConversion
+{
+    public class Department
+    {
+        public int DeptId { get; set; }
+        public string DepartmentName { get; set; }
+    }
+    class Program
+    {
+        public static void Main()
+        {
+            var deptList = new List<Department>(){
+			new Department() { DeptId = 101, DepartmentName= "IT" },
+			new Department() { DeptId = 102, DepartmentName= "Accounts" }
+		};
+		var opt = new JsonSerializerOptions(){ WriteIndented=true };
+		string strJson = JsonSerializer.Serialize<IList<Department>>(deptList, opt);
+        Console.WriteLine(strJson);
+</xmp>
+							<div id="link18"></div>
+							<h2>Convert an Object to a UTF-8 String</h2>
+							<p>When compared to the string technique, serialization to a byte array that accepts UTF-8 is a little bit quicker. Since the bytes of utf-8 are not necessary for the conversion to strings of utf-16, this is the case. The following example demonstrates how to use JsonSerializer to convert an object into a JSON string that has been converted to a smaller size procedure known as SerializeToUtf8Bytes</p>
+<xmp>
+Example: Convert Object to Utf-8 String Copy
+using System;
+using System.Text.Json;
+namespace ObjectToJSONConversion
+{
+    public class Department
+    {
+        public int DeptId { get; set; }
+        public string DepartmentName { get; set; }
+    }
+    class Program
+    {
+        public static void Main()
+        {
+            Department dept= new Department() { DeptId = 101, DepartmentName= "IT" };
+           
+            byte[] utf8bytesJson = JsonSerializer.SerializeToUtf8Bytes(dept);
+            string strJson = System.Text.Encoding.UTF8.GetString(utf8bytesJson);
+            Console.WriteLine(strJson);
+</xmp>
+								<div id="link19"></div>
+								<h3>Advantages Serialization - Deserialization:-</h3>
+								<p>1. The main benefit is the speed in populating an object as opposed to querying multiple tables in the case of database storage.</p>
+								<p>2. Simplicity in coding for serialization and deserialization is another benefit.</p>
+								<div id="link20"></div>
+								<h2>Using DataContractJsonSerializer</h2>
+								<p>To serialize and deserialize JSON, the DataContractJsonSerializer class is designed to assist. Through the use of the class, we can convert an object into JSON data and then deserialize the JSON data back into an object. Within the namespace System, it may be found existing. Within the assembly System, you will find the Serialization.Json file while it is running .dll file for serialization.</p>
+								<div id="link21"></div>
+								<h2>Using JavaScriptJsonSerializer</h2>
+								<p>It is possible to serialize and deserialize JSON with the assistance of a class called JavaScriptSerializer. Furthermore, it may be found under the namespace System.The Web.Script.System.Web.Extensions.dll is the assembly file that has serialization capabilities. The Serialize method is what you should use to convert a .Net object into a JSON string. Through the use of the Deserialize<T> or DeserializeObject methods, it is feasible to convert a JSON text into a .Net implementation.</p>
+								<div id="link22"></div>
+								<h2>How to get the Library</h2>
+								<p>As an element of the common framework, the library is included in .NET Core 3.0 and subsequent versions of the framework. When using.NET 6 and later versions, the source generation functionality is already included in the common framework as a standard component. Installation of the System is required for framework versions that are older than .NET Core 3.0. The Text.Json package under NuGet. Supported by the package are:</p>
+								<ul class="listing">
+								    <li>Standard 2.0 and subsequent versions of.NET</li>
+								    <li>Framework 4.6.2 and subsequent versions of.NET</li>
+								    <li>Core.NET version 2.1 and later</li>
+								    <li>At least.NET version 5</li>
+								</ul>
+								<div id="link23"></div>
+								<h3>Namespaces and APIs</h3>
+								<p>As for the System.Words.Every single entry point and the primary types are contained inside the JSON namespace. As for the System.Using Text.Json.Serialization namespace is comprised of properties and application programming interfaces (APIs) that are designed to accommodate complex situations and customizations that are particular to serialization and deserialization.</p>
+								<div id="link24"></div>
+								<h3>HttpClient and HttpContent extension methods</h3>
+								<p>It is normal practice to perform actions such as serializing and deserializing JSON payloads from the network. You may do these activities with only one line of code by using the extension methods that are available on HttpClient and HttpContent. When it comes to JsonSerializerOptions, these extension methods make use of the web defaults.</p>
+								<p>An illustration of the usage of HttpClientJsonExtensions is shown in the following example.HttpClientJsonExtensions and GetFromJsonAsync are two examples. Async Posting of JSON:</p>
+<xmp>
+using System.Net.Http.Json;
+namespace HttpClientExtensionMethods
+{
+    public class User
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string? Username { get; set; }
+        public string? Email { get; set; }
+    }
+    public class Program
+    {
+        public static async Task Main()
+        {
+            using HttpClient client = new()
+            {
+                BaseAddress = new Uri("https://jsonplaceholder.typicode.com")
+            };
+            // Get the user information.
+            User? user = await client.GetFromJsonAsync<User>("users/1");
+            Console.WriteLine($"Id: {user?.Id}");
+            Console.WriteLine($"Name: {user?.Name}");
+            Console.WriteLine($"Username: {user?.Username}");
+            Console.WriteLine($"Email: {user?.Email}");
+            // Post a new user.
+            HttpResponseMessage response = await client.PostAsJsonAsync("users", user);
+            Console.WriteLine(
+                $"{(response.IsSuccessStatusCode ? "Success" : "Error")} - {response.StatusCode}");
+        }
+    }
+}
+// Produces output like the following example but with different names:
+//
+//Id: 1
+//Name: Tyler King
+//Username: Tyler
+//Email: Tyler @contoso.com
+//Success – Created
+</xmp>
+								<div id="link25"></div>
+								<h3>Reflection vs Source Generation</h3>
+								<p>During runtime, System.Text.Json will automatically collect the information it needs to access the attributes of objects for serialization and deserialization. This is accomplished via the phenomenon of reflection. System.Text.Json can take advantage of the C# source generation function to enhance efficiency, decrease the amount of private memory that is used, and allow assembly trimming, which results in a smaller size for the application.</p>
+								<div id="link26"></div>
+								<h2>Explanation of Serialize and Deserialize using Python</h2>
+								<p>This format, known as JSON, is used to encode objects inside a string. A string is converted into an object by the process of serialization, while the opposite of serialization is deserialization, which is the process of converting a string into an object.</p>
+								<p>The data to be in the form of byte strings for them to be sent or stored in a file; yet, complex things are seldom in this format. For this application, serialization may transform these complicated objects into byte strings. Once the byte strings have been communicated, it will be necessary for the recipient to extract the original object from the byte string for further processing. This process is referred to as deserialization.</p>
+								<p>If you have an item, for example:</p>
+								<p>In the process of serializing into JSON, the string "foo: [1, 4, 7, 10], bar: "baz" will be converted into a string.</p>
+								<p>"foo":[1,4,7,10],"bar":"baz"', which may be stored or sent by wire to whatever location they are intended for. This string may then be deserialized by the recipient, which will allow them to get the initial object. The foo is [1, 4, 7, 10], and the bar is "baz".</p>
+								<div id="link27"></div>
+								<h3>Serialization using Pickle</h3>
+<xmp>
+import pickle
+#the object to serialize
+example_dic={1:"6",2:"2",3:"f"}
+#where the bytes after serializing end up at, wb stands for write byte
+pickle_out=open("dict.pickle","wb")
+#Time to dump
+pickle.dump(example_dic,pickle_out)
+#whatever you open, you must close
+pickle_out.close()
+Deserialization using pickle
+import pickle
+pickle_in=open("dict.pickle","rb")
+get_deserialized_data_back=pickle.load(pickle_in)
+print(get_deserialized_data_back)
+</xmp>
+								<div id="link28"></div>
+								<h3>Differences in Default Behavior</h3>
+								<p>To emphasize predictable behavior, JSON was designed to be strict by default. It does not allow the caller to make any guesses or interpretations. The library was purposefully created in this manner to maximize both performance and security. A significant number of the following particular variances in default behavior may be traced back to this original difference in design.</p>
+								<div class="between-box bg-green">
+                                    <div class="w-50">
+                                        <div class="head mb-1">Get Aegis Softtech expert advice and take your ASP.NET development skills to the next level!</div>
+                                    </div>
+                                    <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                                </div>
+                                <div id="link29"></div>
+								<h2>Case-insensitive Deserialization</h2>
+								<p>Case-insensitive property name matching is performed by default by Newtonsoft.Json throughout the deserialization process. As for the System.Words.Because it does an exact match, the default JSON format is case-sensitive, which results in improved speed. The article "Case-insensitive property matching" provides information on how to do matching that is not sensitive to the case.</p>
+								<p>If you are doing so to get behavior similar to that of Newtonsoft.Json, you may use Text.Json indirectly by using ASP.NET Core. When ASP.NET Core makes use of System.Text.Json, jsonconvert.serializeobject c# does so in a manner that defines the settings for camel-casing property names and case-specific matching. As an additional feature, ASP.NET Core provides the deserialization of quoted numbers by default.</p>
+								<div id="link30"></div>
+								<h3>Scenarios using JsonSerializer</h3>
+								<p>The following are some examples of situations that are not handled by the built-in capability. Nevertheless, there are workarounds that may be used. The solutions consist of custom converters, which may not give total parity with the capabilities of Newtonsoft.Json because of their limitations. Exemplifications in the form of sample codes are supplied for some of them. During the migration process, you will need to make updates to your.NET object models or other code changes if you depend on certain Newtonsoft.Json functionalities.</p>
+								<p>It is not feasible or practicable to find solutions for some of the cases that are in the following list. If you remain dependent on some Newtonsoft.Json functionalities, migration will not be feasible without considerable modifications.</p>
+								<div id="link31"></div>
+								<h3>Allow or write numbers in quotes</h3>
+								<p>Numbers that are represented by JSON strings (which are enclosed in quotation marks) may be serialized or deserialized using JSON. It is possible, for instance, for it to accept the following: {"DegreesCelsius":"23"} rather than {"DegreesCelsius":23}. Therefore, the behavior may be enabled in the System. Please set the JsonSerializerOptions for Text.Json.Make use of the [JsonNumberHandling] attribute, or change the NumberHandling property to either WriteAsString or AllowReadingFromString.</p>
+								<p>Whereas you are using System, you can achieve behavior similar to that of Newtonsoft.Json by utilizing Text.Json indirectly via the use of ASP.NET Core. There is no need to do anything more. The usage of System.Text.Json by ASP.NET Core results in the specification of web defaults, and web defaults permit the use of quoted numbers.</p>
+								<div id="link32"></div>
+								<h3>Specify the constructor to use when deserializing</h3>
+								<p>When deserializing to a POCO, you can choose the constructor constructor to invoke by using the Newtonsoft.Json [JsonConstructor] property. On top of that, Json has a property called [JsonConstructor]. Check out the article on immutable types and records for more details.</p>
+								<div id="link33"></div>
+								<h3>Preserve object references and handle loops</h3>
+								<p>Value-based serialization is the default behavior of Newtonsoft.Json. For instance, if an object has two properties, each of which has a reference to the same Person object, then the values of the properties that belong to that Person object will be repeated in the JSON. There is a feature on JsonSerializerSettings called PreserveReferencesHandling that allows you to serialize objects based on their references:</p>
+								<p>It is necessary to provide identifying information in the JSON that is prepared for the initial Person object. Instead of containing property values, the JSON generated for the second Person object includes a reference to the identifier that was used to construct the object. There is also a feature in JSON called ReferenceLoopHandling that allows you to tolerate circular references rather than throwing an exception. The purpose of this is to maintain references and manage circular references inside the System. Please set the JsonSerializerOptions for Text.Json.Regarding the ReferenceHandler to Store.</p>
+								<p>The Preserve setting is the same as the PreserveReferencesHandling = PreserveReferencesHandling condition expression. Everything is in Newtonsoft.Json format. The behavior of the IgnoreCycles option is similar to that of Newtonsoft. Ignore the JSON ReferenceLoopHandling request. One distinction is that the System is different. As an alternative to ignore the object reference, the JSON implementation substitutes reference loops with the null JSON token. See the article on "Ignore circular references" for more details.</p>
+								<p>Similar to the Newtonsoft.System, also known as the Json ReferenceResolver.Serialization that uses Text.Json. When serialization and deserialization are performed, the ReferenceResolver class is responsible for defining the behavior of maintaining references.</p>
+								<div id="link34"></div>
+								<h2>Deserialize String Enum Values</h2>
+								<p>The deserialization of string enum values is not supported by System.Text.Json by default, although Newtonsoft.Json does offer this functionality. Take, for instance, the code that follows, which generates a JsonException:</p>
+<xmp>
+string json = "{ \"Text\": \"Hello\", \"Enum\": \"Two\" }";
+var _ = JsonSerializer.Deserialize<MyObj>(json); // Throws exception.
+class MyObj
+{
+    public string Text { get; set; } = "";
+    public MyEnum Enum { get; set; }
+}
+enum MyEnum
+{
+    One,
+    Two,
+    Three
+}
+</xmp>
+								<div id="link35"></div>
+								<h2>Deserialization of Object Properties</h2>
+								<p>During the process of deserialization to Object, Newtonsoft.Json:</p>
+								<p>The stored text, long, double, boolean, or DateTime should be returned as a boxed object. This function infers the type of primitive values that are included in the JSON payload, assuming that they are not null. One kind of JSON value is referred to as a primitive value. Primitive values include a JSON integer, string, true, false, or null.</p>
+								<p>For complicated values included inside the JSON payload, returns either a JObject or a JArray. Comprised of JSON key-value pairs enclosed within brackets (\}) or lists of values enclosed inside brackets ([]), complex values are groups of values. In addition to the attributes and values included inside the braces or brackets, extra properties and values may also be present. If the payload contains the null JSON literal, then this function will return a null reference.</p>
+								<div id="link36"></div>
+								<h2>Deserialize Null to Non-Nullable Type</h2>
+								<p>When the following situation occurs, Newtonsoft.Json does not throw an exception:</p>
+								<p>The value of NullValueHandling is set to Ignore, and the JSON file includes a null value for a value type that is not nullable. This occurs throughout the deserialization process. The System is in the same situation as before. This is an exception that is thrown by Text.Json. It is the comparable null-handling setting in the System environment.JsonSerializerOptions is comprised of Text.Json."IgnoreNullValues" is set to true). If you are the owner of the target type, the most effective solution would be to make the property in question nullable (for instance, convert int to int?).</p>
+								<div id="link37"></div>
+								<h2>Deserialize to Immutable Classes and Structs</h2>
+								<p>Since it is possible to employ constructors that contain arguments, JSON is capable of deserializing to immutable classes and structs. Make use of the [JsonConstructor] property when working with System.Text.Json to express the use of a parameterized constructor. Immutable records are also supported as deserialization targets in C# 9, which means that they cannot be changed.</p>
+								<div id="link38"></div>
+								<h2>Conclusion</h2>
+								<p>Hope you can now use JSON serialization and deserialization in asp.net MVC development and design intuitive applications. Aegis experts have also shared advantages of serialization and deserialization. <a href="https://www.aegissofttech.com" target="_blank">Aegis Softtech</a> is a leading asp.net development company, if you have any specific requirement related to these section feel free to contact us.</p>
+								<p>For further information, mail us at <a rel="nofollow" href="mailto:info@aegissofttech.com"> info@aegissofttech.com</a></p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">Steps to use Newtonsoft JSON in MVC based application</a></div>
+								<div class="para2"><a href="#link2">Result of the Serialize Object:</a></div>
+								<div class="para1"><a href="#link3">Serialization Behavior</a></div>
+								<div class="para1"><a href="#link4">Serialize to UTF-8</a></div>
+								<div class="para1"><a href="#link5">Serialize to Formatted JSON</a></div>
+								<div class="para1"><a href="#link6">Serialize C# Object Into JSON Strings</a></div>
+								<div class="para2"><a href="#link7">Using Newtonsoft JSON.NET to Serialize C# Objects</a></div>
+								<div class="para1"><a href="#link8">How to Generate Pretty JSON Strings</a></div>
+								<div class="para2"><a href="#link9">Camel Case Property Names</a></div>
+								<div class="para1"><a href="#link10">How to Ignore Certain Properties When Serializing Objects</a></div>
+								<div class="para1"><a href="#link11">How to Serialize Anonymous and Dynamic Objects</a></div>
+								<div class="para1"><a href="#link12">How to Control Date and Time Format</a></div>
+								<div class="para2"><a href="#link13">Reference Loops</a></div>
+								<div class="para2"><a href="#link14">Options for Handling Reference Loops</a></div>
+								<div class="para1"><a href="#link15">Convert an Object to a Minified JSON String</a></div>
+								<div class="para1"><a href="#link16">Convert an Object to a Formatted JSON String</a></div>
+								<div class="para1"><a href="#link17">Convert a List to a JSON String</a></div>
+								<div class="para1"><a href="#link18">Convert an Object to a UTF-8 String</a></div>
+								<div class="para2"><a href="#link19">Advantages Serialization - Deserialization:-</a></div>
+								<div class="para1"><a href="#link20">Using DataContractJsonSerializer</a></div>
+								<div class="para1"><a href="#link21">Using JavaScriptJsonSerializer</a></div>
+								<div class="para1"><a href="#link22">How to get the Library</a></div>
+								<div class="para2"><a href="#link23">Namespaces and APIs</a></div>
+								<div class="para2"><a href="#link24">HttpClient and HttpContent extension methods</a></div>
+								<div class="para2"><a href="#link25">Reflection vs Source Generation</a></div>
+								<div class="para1"><a href="#link26">Explanation of Serialize and Deserialize using Python</a></div>
+								<div class="para2"><a href="#link27">Serialization using Pickle</a></div>
+								<div class="para2"><a href="#link28">Differences in Default Behavior</a></div>
+								<div class="para1"><a href="#link29">Case-insensitive Deserialization</a></div>
+								<div class="para2"><a href="#link30">Scenarios using JsonSerializer</a></div>
+								<div class="para2"><a href="#link31">Allow or write numbers in quotes</a></div>
+								<div class="para2"><a href="#link32">Specify the constructor to use when deserializing</a></div>
+								<div class="para2"><a href="#link33">Preserve object references and handle loops</a></div>
+								<div class="para1"><a href="#link34">Deserialize String Enum Values</a></div>
+								<div class="para1"><a href="#link35">Deserialization of Object Properties</a></div>
+								<div class="para1"><a href="#link36">Deserialize Null to Non-Nullable Type</a></div>
+								<div class="para1"><a href="#link37">Deserialize to Immutable Classes and Structs</a></div>
+								<div class="para1"><a href="#link38">Conclusion</a></div>
+							</div>
+						</div>
+						<div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="article-section spt spb">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="section-header">
+								<div class="article-head">Related article</div>
+							</div>
+						</div>
+					</div>
+					<div class="bs-row">
+						<div class="col-4 col-sm-12 col-md-6">
+							<div class="inner-new-blogs min-he bg_img7">
+								<div class="blog-heading">
+									<div class="b-head"><a href="how-to-fix-ajax-json-mvc-method-not-being-called-in-asp-net-web-development.html" target="_blank">How To Fix AJAX JSON MVC Method Not Being Called In Asp.Net Web Development?</a></div>
+								</div>
+								<div class="blog-short-desc">
+									<p>Asp.net web development team will explain the way to resolve issue related to not calling controller method. The experts will use AJAX JSON call from view page.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- # Blogs contain -->
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://www.aegissofttech.com/articles/json-serializtion-deserializaion-asp.net-mvc-development.html"
+			},
+			"headline": "How to serialize and deserialize JSON object in C# and ASP.NET MVC?",
+			"description": "It is very important to understand the data exchange format in asp.net. There are some crucial steps to follow. With the assistance of Aegis Softtech, engineers learn the tricks of JSon structure and applications.",
+			"image": "https://www.aegissofttech.com/articles/images/hide_display_ribbon_button.jpg",
+			"author": {
+			"@type": "Organization",
+			"name": "Aegis Softtech"
+			},
+			"publisher": {
+			"@type": "Organization",
+			"name": "Aegis Softtech",
+			"logo": {
+			"@type": "ImageObject",
+			"url": "https://www.aegissofttech.com/images/logo.webp"
+			}
+			},
+			"datePublished": "2020-09-23",
+			"dateModified": "2023-08-23"
+			}
+		</script>
+		
+	</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fjson-serializtion-deserializaion-asp.net-mvc-development.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How to serialize and deserialize json object in C# and Asp(dot)net MVC?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fjson-serializtion-deserializaion-asp.net-mvc-development.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fjson-serializtion-deserializaion-asp.net-mvc-development.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/json-serializtion-deserializaion-asp.net-mvc-development.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fjson-serializtion-deserializaion-asp.net-mvc-development.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How to serialize and deserialize json object in C# and Asp(dot)net MVC?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fjson-serializtion-deserializaion-asp.net-mvc-development.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fjson-serializtion-deserializaion-asp.net-mvc-development.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/json-serializtion-deserializaion-asp.net-mvc-development.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+</body>
+</html>

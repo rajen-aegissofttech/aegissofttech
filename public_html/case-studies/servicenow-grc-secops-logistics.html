@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+    <!-- title & metadata & discription -->
+    <title>Logistics SecOps & GRC Transformation on ServiceNow : Case Study</title>
+    <meta name="description" content="See how Aegis Softtech helped a global logistics enterprise transform risk, security, and fleet operations using ServiceNow GRC, SecOps, and custom apps." />
+    <link rel="canonical" href="https://www.aegissofttech.com/case-studies/servicenow-grc-secops-logistics.html" />
+    <!-- Standard Favicon -->
+    <link type="image/x-icon" href="../images/favicon.ico" rel="shortcut icon" />
+    <link rel="apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../images/site-icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="images/site-icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Custom - Common CSS -->
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- Header Section -->
+    <div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+    <header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                <div class="mobile-sticky-footer">
+                    <a href="tel:18008897020" aria-label="Phone"><i class="fa fa-phone"></i> <br/>Toll Free</a>
+                    <a href="mailto:hs@aegissofttech.com?subject=Enquiry&nbsp;from&nbsp;Aegissofttech" aria-label="Email"><i class="fa fa-envelope"></i> <br/>Email</a>
+                    <a href="https://api.whatsapp.com/send?phone=919824127020&text=Hi&sbquo;&nbsp;I&nbsp;am&nbsp;Connect&nbsp;through&nbsp;Aegissofttech" aria-label="whatsapp"><i class="fa fa-whatsapp"></i> <br/>WhatsApp</a>
+                    <a href="../contact-us.html" aria-label="contact"><i class="fa fa-address-book"></i> <br/>Contact</a>
+                </div>
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header><!-- Header Section /- -->
+    <a href="tel:18008897020"><div class="toll-free-fixed"><picture><img data-src="../images/tollfree-fixed.webp" class="lazyload img-fluid" width="80" height="80" title="Aegis Softtech Toll-Free Number" alt="Aegis Softtech toll-free number"/></picture> 1800-889-7020</div></a>
+    <div class="inquiry-backdrop"></div>
+    <div id="notification-bar2" class="b-notification-bar">
+        <div class="quick-inquiry-tab" id="quickInquiryToggle">
+            <div class="quick-inquiry-person">
+                <img src="../images/hire-developer.webp" alt="Talk to Our Expert" title="Expert available to discuss your project">
+            </div>
+            <strong class="desktop-expert-text">Talk to Our Expert</strong>
+            <strong class="mobile-inquiry-text">Quick Inquiry</strong>
+            <div class="quick-inquiry-icon">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="quick-inquiry-popup">
+            <div class="inquiry-header">
+                <div>
+                    <h3>Let’s Talk About Your Requirements</h3>
+                    <p>Share your details and our experts will get back to you shortly.</p>
+                </div>
+                <button type="button" class="inquiry-close" id="closeInquiry" aria-label="Close"> <i class="fa fa-times"></i> </button>
+            </div>
+            <div class="inquiry-body">
+                <form id="quickInquiryForm">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                            <input type="text" class="form-control" id="txtfullname" name="txtfullname" placeholder="Enter full name">
+                        </div>
+                        <div class="form-field">
+                            <label for="txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                            <input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="Enter email address">
+                        </div>
+                        <div class="form-field">
+                            <label for="txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                            <input type="text" class="form-control" id="txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                        </div>
+                        <div class="form-field">
+                            <label for="txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                            <input type="text" class="form-control" id="txtcompany" name="txtcompany" placeholder="Enter company name">
+                        </div>
+                        <div class="form-field full-width">
+                            <label for="txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                            <textarea class="form-control" id="txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                        </div>
+                        <div class="captcha-area full-width">
+                            <label> <i class="fa fa-refresh"></i>Captcha </label>
+                            <div class="captcha-row">
+                                <div class="captcha-code"><img id="imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                <input type="text" class="form-control captcha-input" id="txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                <button type="button" id="btnSubmit" value="Submit" name="Submit" class="btn-submit"> Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inquiry-message"><span id="lblInfo"><i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon. </span> </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <main class="site-main">
+        <!-- page Section -->
+        <div class="page-section case">
+            <div class="container">
+                <div class="spb"><picture><img src="images/integrated-resilience-secops-transformation.webp" class="img-fluid" loading="lazy" width="1920" height="200" title="Resilience and SecOps Transformation" alt="Aegis SoftTech resilience and SecOps transformation" /></picture></div>
+                <h1>Aegis Softtech’s Integrated Resilience & SecOps Transformation</h1>
+                <div class="spb">
+                    <h2 class="green-font bold">Customer Overview</h2>                    
+                </div>
+                <div class="bs-row">
+                    <div class="col-4 col-md-12">
+                        <div class="case-white-box">
+                            <h3>Organization</h3>
+                            <p>A leading Multinational <a href="https://www.aegissofttech.com/logistics" target="_blank">Logistics</a> and Transport Provider.</p>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-12">
+                        <div class="case-white-box">
+                            <h3>Scale</h3>
+                            <p>Operations in 150+ hubs, managing a fleet of 5,000+ vehicles and 20,000+ logistics personnel.</p>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-12">
+                        <div class="case-white-box">
+                            <h3>Sector</h3>
+                            <p>Transportation & Supply Chain.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-white-box">
+                    <h2>The Challenge</h2>
+                    <p>The organization faced a high-stakes environment where digital security and operational compliance directly impacted physical supply chains.</p>
+                    <ul class="listing">
+                        <li><strong>Fragmented Risk Silos</strong>: Risk assessments for logistics hubs were managed on localized spreadsheets, making it impossible for the Chief Risk Officer to see a "Global Risk Heatmap."</li>
+                        <li><strong>Slow Threat Response</strong>: Security incidents (SecOps) were manually reported. With the rise of IoT-connected vehicles, the firm was vulnerable to cyber-attacks that could halt the entire fleet.</li>
+                        <li><strong>Compliance Burden</strong>: Adhering to international transport regulations (e.g., ISO 28000 for supply chain security) required months of manual documentation for annual audits.</li>
+                        <li><strong>Inefficient Custom Processes</strong>: Fleet maintenance and driver safety checks were done on paper, causing data lags and preventing real-time decision-making.</li>
+                    </ul>                    
+                </div>
+                <div class="case-white-box">
+                    <h2>The Aegis Solution: Unified Security & Compliance Architecture</h2>
+                    <p><a href="https://www.aegissofttech.com" target="_blank">Aegis Softtech</a> implemented an integrated "Resilience Hub" by bridging the gap between security, compliance, and custom logistics operations. The project reflects a practical approach to <a href="https://www.aegissofttech.com/servicenow-services/consulting" target="_blank">our ServiceNow Consulting</a>, where governance, security, and operational workflows are brought together to improve visibility and response times.</p>
+
+                    <h3 class="mt-3">A. GRC & IRM (Integrated Risk Management)</h3>
+                    <p>Aegis moved the client from "Point-in-Time" compliance to "Continuous Monitoring."</p>
+                    <ul class="listing">
+                        <li><strong>Policy & Compliance Management:</strong> We mapped global transportation regulations (ISO, GDPR, local transport laws) to specific internal controls. ServiceNow now automatically tests these controls (e.g., "Is the driver certification updated?") and flags non-compliance in real-time.</li>
+                        <li><strong>Risk Hierarchy:</strong> Aegis configured a centralized Risk Register. High-level enterprise risks (e.g., fuel price volatility) are now linked to operational risks (e.g., vehicle maintenance failures), providing a top-down view of organizational health.</li>
+                        <li><strong>Automated Control Testing:</strong> We configured Indicators in ServiceNow GRC that automatically poll data from the fleet management system. If a driver’s license expires or a vehicle misses its 10,000-mile safety check, the system automatically marks the "Safety Control" as non-compliant and triggers a Remediation Task for the Hub Manager.</li>
+                        <li><strong>Advanced Risk Engine:</strong> Aegis implemented a Risk Hierarchy where operational failures (e.g., a localized warehouse fire) are automatically "rolled up" to show the impact on Enterprise Risk (e.g., Global Supply Chain Interruption).</li>
+                    </ul>
+
+                    <h3 class="mt-3">B. SecOps (Security Operations)</h3>
+                    <p>To protect the digital and physical fleet, Aegis implemented Security Incident Response (SIR) and Vulnerability Response (VR).</p>
+                    <ul class="listing">
+                        <li><strong>Automated Threat Triage:</strong> Aegis integrated the client’s Security Information and Event Management (SIEM) tool with ServiceNow. Alerts from the fleet's IoT sensors (e.g., unauthorized access to a vehicle's onboard computer) now automatically trigger a Security Incident with pre-defined playbooks.</li>
+                        <li><strong>Vulnerability Response:</strong></li>
+                            <ul class="listing pl-3">
+                                <li>The system automatically prioritizes "vulnerabilities" in the logistics software based on the business criticality of the affected hub, ensuring the most dangerous gaps are patched first.</li>
+                                <li>We integrated ServiceNow with the client’s vulnerability scanners. Aegis built a custom Risk Calculator that prioritizes patches not just based on the severity of the flaw, but on the "Business Criticality" of the hub. A vulnerability in a major port’s logistics server is automatically prioritized over an office printer in a small branch.</li>
+                            </ul>
+                        <li><strong>Security Incident Response (SIR):</strong> Aegis built automated Playbooks for "Vehicle Cyber-Hijack" scenarios. If the SIEM detects anomalous data from a truck’s onboard computer, ServiceNow automatically:</li>
+                        <ul class="listing pl-3">
+                            <li>Logs a Security Incident.</li>
+                            <li>Identifies the driver and vehicle location.</li>
+                            <li>Triggers a notification to the local fleet supervisor.</li>
+                        </ul>
+                    </ul>
+
+                    <h3 class="mt-3">C. Custom Application: "FleetGuard" Safety & Maintenance</h3>
+                    <p>Recognizing that no off-the-shelf module fit the client’s unique driver-safety requirements, Aegis developed a Custom App using App Engine.</p>
+                    <ul class="listing">
+                        <li><strong>Real-Time Safety Checks:</strong> We built a mobile-first application for drivers to perform pre-trip inspections. Results are instantly synced to the CMDB.</li>
+                        <li><strong>Fleet-IT Integration:</strong> The custom app links directly to the ITAM module. If a vehicle's onboard telematics unit is flagged as faulty during a safety check, a HAM (Hardware Asset Management) replacement task is automatically generated.</li>
+                        <li><strong>Mobile Inspection Framework:</strong> <a href="https://www.aegissofttech.com/servicenow-services" target="_blank">Using ServiceNow</a> Mobile App Builder, we created a "Pre-Trip Inspection" portal. Drivers scan QR codes on their vehicles to initiate a 20-point safety check.</li>
+                        <li><strong>Digital Twin Integration:</strong> Every safety check update is pushed to the vehicle's record in the Hardware Asset Management (HAM) module, creating a "Digital Twin" that tracks the health and compliance of every truck in real-time.</li>
+                    </ul>
+                    
+                </div>
+            </div>
+            <div class="case-green-box">
+                <div class="container">
+                    <h2>Results</h2>
+                    <p>The <a href="https://www.aegissofttech.com/servicenow-services/implementation" target="_blank">implementation</a> by Aegis provided the client with a "Digital Fortress" for their logistics operations.</p>
+                    <h3 class="mt-2">Risk & Compliance Impact</h3>
+                    <ul class="listing">
+                        <li><strong>75% Reduction in Audit Preparation</strong>: Automated evidence collection turned a 3-month audit cycle into a 2-week verification process.</li>
+                        <li><strong>Real-Time Risk Visibility</strong>: The executive leadership now has a live dashboard showing the compliance status of every global hub.</li>
+                    </ul>
+                    <h3 class="mt-2">Security & Response</h3>
+                    <ul class="listing">
+                        <li><strong>60% Faster Incident Resolution (MTTR)</strong>: Automated playbooks allowed the security team to contain threats to the fleet's digital infrastructure in minutes rather than hours.</li>
+                        <li><strong>Prioritized Vulnerability Management</strong>: Reduced the "backlog" of critical vulnerabilities by 40% within the first quarter.</li>
+                    </ul>
+                    <h3 class="mt-2">Operational Efficiency</h3>
+                    <ul class="listing">
+                        <li><strong>Zero Paper Records</strong>: The custom "FleetGuard" app eliminated 100% of paper-based safety logs, providing a digital audit trail for insurance and regulatory bodies.</li>
+                        <li><strong>Improved Fleet Uptime</strong>: Predictive maintenance requests generated via the custom app reduced unexpected vehicle breakdowns by 18%.</li>
+                    </ul>                    
+                </div>
+            </div>
+            <div class="container">
+                <div class="case-white-box">
+                    <h2>Technologies and Tools</h2>
+                    <ul class="listing">
+                        <li><strong>ServiceNow Modules</strong>: GRC (Policy & Compliance, Risk Management), SecOps (SIR, VR), Hardware Asset Management Pro, App Engine (Custom App Development).</li>
+                        <li><strong>AI/Automation</strong>: Predictive Intelligence for risk categorization and Flow Designer for security playbooks.</li>
+                        <li><strong>Integrations</strong>: IntegrationHub connecting to SIEM tools (Splunk/QRadar), GPS/Telematics APIs for the fleet, and HR Systems for driver data.</li>
+                        <li><strong>Aegis Differentiators</strong>: Implementation by Specialists in GRC and SecOps, ensuring the solution follows the "ServiceNow Out-of-the-Box" philosophy to minimize technical debt.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="spb">
+                <div class="container">
+                    <div class="section-header mb-0">
+                        <h2>More Success Stories</h2>
+                    </div>
+                    <div class="bs-row justify-content-center">
+                        <div class="col-4 col-md-6 col-sm-12">
+                            <div class="case-box text-left">
+                                <div class="case-box-img"><picture><img data-src="images/call-center.webp" class="lazyload img-fluid w-100" width="384" height="194" alt=""/></picture></div>
+                                <div class="spacing">
+                                    <ul class="listing">
+                                        <li><h3>Call Center</h3></li>
+                                    </ul>
+                                    <p>Our client is leading call center service provider in USA. Our client had multiple call center sites with hundreds of support team handling support for many bit MNCs in USA.</p>
+                                    <a class="case-link" href="call-center.html">Read Detailed Case Study <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-6 col-sm-12">
+                            <div class="case-box text-left">
+                                <div class="case-box-img"><picture><img data-src="images/data-warehousing.webp" class="lazyload img-fluid w-100" width="384" height="194" alt=""/></picture></div>
+                                <div class="spacing">
+                                    <ul class="listing">
+                                        <li><h3>Data Warehousing - Car Rental</h3></li>
+                                    </ul>
+                                    <p>They specialize in offering GPS-enabled vehicles to provide real-time tracking and monitoring capabilities to their customers.</p>
+                                    <a class="case-link" href="data-warehousing.html">Read Detailed Case Study <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-6 col-sm-12">
+                            <div class="case-box text-left">
+                                <div class="case-box-img"><picture><img data-src="images/cyber-security.webp" class="lazyload img-fluid w-100" width="384" height="194" alt=""/></picture></div>
+                                <div class="spacing">
+                                    <ul class="listing">
+                                        <li><h3>Cyber Security</h3></li>
+                                    </ul>
+                                    <p>Our client has created a Risk engine which will prepare a detailed report by analyzing different data received from different sources.</p>
+                                    <a class="case-link" href="cyber-security.html">Read Detailed Case Study <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        
+    </main>
+    
+    <footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/function2.js"></script>    
+</body>
+</html>

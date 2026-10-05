@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>How does the Bellman Equation help to solve Reinforcement Learning?</title>
+	<meta name="description" content="In this article, Bellman equation is incredible taking care of streamlining issues. Let's learn more about bellman equation in solving reinforcement learning." />
+	<link rel="canonical" href="https://www.aegissofttech.com/articles/derived-bellman-equation-for-solving-reinforcement-learning.html"/>
+	 
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+            <div class="hire-popup fix-top">
+            <i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+                <a href="../careers">
+                    <div class="hire-flexy">
+                        <div class="hiring-box">
+                            <div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+                            <div class="hiring-head">We are hiring!</div>
+                            <p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>What is the Bellman equation & How it is derived for Solving Reinforcement Learning?</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.jpg" class="img-fluid" loading="lazy" width="1920" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">What is the Bellman equation & How it is derived for Solving Reinforcement Learning?</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<div id="link1"></div>
+								<h2>Introduction to Probability Trees:</h2>
+								<p>One useful way to think about value functions is probability trees.  Although these are somewhat simplistic as you'll see very soon as a simple example consider a biased coin with probability of heads equals zero point six (0.6). The idea behind the probability tree is the root node is going to represent where I am now. All the child nodes represent the states I could possibly go next. Each branch of the tree has a way which tells us the probability of going through that state.  From this graph:</p>
+								<div class="single-article-img"><img class="lazyload" src="images/introduction-to-probability-trees.png" class="lazyload" alt="Introduction to Probability Trees" /></div>
+								<ul class="listing">
+									<li>
+										I can see that I have a 40 percent chance of going to the left and getting zero reward and I have a 60 percent chance of going right and getting a reward of 1 if heads equals 1 and tails you go zero. It's obvious that my expected reward will be one time zero point six plus zero times the point four  which is equal to zero point six(0.6). In other words, my expected reward is the weighted sum of all the possible rewards where those weights are given by the branches of the tree.
+										<div class="single-article-img"><img class="lazyload" src="images/probability-trees-equation.png" class="lazyload" alt="Probability Trees Equation" /></div>
+									</li>
+									<li>Note that the supplies to a tree that can have any number of children. The rule remains the same. The expected value is the weighted sum of each of the child node values weighted by the respective probabilities. Of course, this is just the definition of the expected value for a discrete random variable. If X is our random variable, then the expected value of x is just the sum over all possible values of x of X times P of X. </li>
+									<li>Of course, we can extend this concept even further. Let's look at a game of tic tac toe.  Previously we looked at a very simple tree where there was only a root node and then direct descendants of the root node with tic tac toe. We have to consider the fact that the game isn't over after just a single move in tic tac toe.</li>
+								</ul>
+								<div id="link2"></div>
+								<h3>Example of Game Tree:</h3>
+								<ul class="listing">
+									<li>A game is played by doing an entire sequence of moves and thus we have an entire sequence of states. Each leaf node in the tree represents a possible state that we might end up in. This <a href="https://en.wikipedia.org/wiki/Game_tree" target="_blank">game tree</a> represents all the different trajectories we might take from where we are in the tree at the current moment. Luckily the same thought process still applies. We want to do is calculate the expected some future rewards which ends up being some kind of weighted sum of the values of the descendants.</li>
+									<li>
+										The nice thing about trees is that they should remind us of recursion. Remember that a tree is a recursive data structure. We can pick any child node in our tree and the sub tree starting at that child node is also itself a tree.
+<xmp>
+Recursion:
+G1 = R2 + R3 + … + RT
+G2 = R3 + … + RT
+G1 = G2 + R2
+</xmp>
+									</li>
+									<li>Let's look carefully at the equation above for the return we say that it's the sum of future rewards. G1 will be equal to R2 plus our 3 all the way up to our big T. But what if we are at the next time step and we want to know what G2 is. Well using the definition G2 is just our three plus for all the way up to our big T.</li>
+									<li>Notice how g 2 is actually embedded into G 1. In other words, we can substitute G2 into the expression for G1. G1 is just R2 plus G2 in general we can say that g of T is equal to R of T plus 1 plus g of T plus 1.</li>
+								</ul>
+								<p>I would like you to prove to yourself that this applies to discounted returns as well.</p>
+								<div id="link3"></div>
+								<h4>With Discounting:</h4>
+								<div class="single-article-img"><img class="lazyload" src="images/game-tree-with-discounting.png" class="lazyload" alt="Game Tree With Discounting" /></div>
+								<ul class="listing">
+									<li>G of time t is equal to R of T plus 1 plus gamma times already plus two plus gamma squared times already plus three and so on. Yes T plus 1 is equal to Rof T plus two plus gamma times are T plus three plus gamma square at times are T plus four and so on. Therefore, G of time t Ziegler R T plus 1 plus gamma times G of T plus 1.</li>
+									<li>
+										We can summarize this by saying the return is recursive  but let's remember that we are not just interested in the return but rather the expected return having  an expected value makes this a bit more complicated. Still this shouldn't stop us from trying. We haven't expected value. Now let's try to expand our expression for the expected value using the relevant probabilities. To take our first step in deriving the Belmont equation.
+										<div class="single-article-img"><img class="lazyload" src="images/game-tree-with-discounting-1.png" class="lazyload" alt="Game Tree With Discounting-1" /></div>
+									</li>
+									<li>
+										Let's remember that the return is recursive so I can replace Gof time t with our R of time t plus 1 plus gamma times Gof time T plus 1. The next step is the trickiest step out of this entire derivation to understand this step. We first have to understand the law of total expectation in general.
+										<div class="single-article-img"><img class="lazyload" src="images/game-tree-with-discounting-2.png" class="lazyload" alt="Game Tree With Discounting-2" /></div>
+									</li>
+									<li>This says that the expected value of the expected value of x given a Y is just the expected value of x. That is if we take the expected value of a conditional expectation, it doesn't matter what we are conditioning on that thing disappears. To show you why this is true you only have to expand the expression by the definition of the expected value.</li>
+									<li>
+										We start by expanding the inner expected value which is a conditional expectation. The random variable here is X. So, we sum over x. The next step is to expand to the outer expected value since the inner expected value has already summed over x. The random variable now is Y. Thus, our outer sum should be over y. Since this is an expectation over the random variable Y, the appropriate probability distribution is p of Y.
+										<div class="single-article-img"><img class="lazyload" src="images/game-tree-with-discounting-3.png" class="lazyload" alt="Game Tree With Discounting-3" /></div>
+									</li>
+									<li>
+										In the next step. We remove the extraneous brackets since they don't affect the order of operation. In the next step we recognize that P of X given y times P of Y.
+										<div class="single-article-img"><img class="lazyload" src="images/game-tree-with-discounting-4.png" class="lazyload" alt="Game Tree With Discounting-4" /></div>
+									</li>
+									<li>
+										It's just the joint probability p of x and y in the next step. We move the sum over y inside past all the X's that's allowed. Since nothing to the left of Y depends on Y. Of course, this is just marginalization. The sum over p of x and y over y just gives us P of X. Now we have the sum over x of X times P of X which as we know is the expectation of x.
+										<div class="single-article-img"><img class="lazyload" src="images/game-tree-with-discounting-5.png" class="lazyload" alt="Game Tree With Discounting-5" /></div>
+									</li>
+								</ul>
+								<div id="link4"></div>
+								<h2>How to use Law of Total Expectation?</h2>
+								<ul class="listing">
+									<li>
+										So how can we use the law of total expectation to help us derive the rest of the Belmont equation? Well it might help to first recognize that the expectation is a linear operation. So, if we see a plus sign inside an expectation, we can split up the expectation. That expectation of a sum is the sum of expectations.
+										<div class="single-article-img"><img class="lazyload" src="images/law-of-total-expectation.png" class="lazyload" alt="Law of Total Expectation" /></div>
+									</li>
+									<li>We can also bring constants outside like gamma. The important part of this is the second term. The term with the return that g of T plus 1. This is like our X in the law of total expectation as you know we can replace g of T plus 1 with any conditional expectation.</li>
+									<li>
+										But obviously we want to replace it with something that makes sense. So how about the next state as prime at timest plus 1 of course this is nothing but the definition of the value function at the state as prime.
+										<div class="single-article-img"><img class="lazyload" src="images/law-of-total-expectation-1.png" class="lazyload" alt="Law of Total Expectation-1" /></div>
+									</li>
+									<li>And so, we can simply replace it with a symbol V of s prime and put both terms back together under the same expected value.</li>
+								</ul>
+								<br />
+								<div id="link5"></div>
+								<h2>What is The Bellman Equation: The Main Piece of Reinforce Learning</h2>
+								<div id="link6"></div>
+								<h3>Reinforcement Learning:</h3>
+								<p>Reinforcement Learning, basically a part of Machine Learning, is about making a reasonable move to discover the most ideal performance or path it should take in a particular circumstance. It also assists you to increase some part of the aggregate reward. Hiring professional team to robotize your business processes will gives you start to finish <a href="https://www.aegissofttech.com/ai-services/machine-learning-development" target="_blank">machine learning development services</a> depends on the most recent algorithms. Reinforcement algorithms are praised as the eventual fate of Machine Learning as these removes the expense of collecting and cleansing the data.</p>
+								<p><strong>Here, it is the Bellman equation for the value function: The centerpiece of reinforcement learning.</strong></p>
+								<div class="single-article-img"><img class="lazyload" src="images/bellman-equation.png" class="lazyload" alt="Bellman Equation" /></div>
+								<ul class="listing">
+									<li>Although it seems simple it has one key characteristic. This is that the computation of the value function is recursive. Calculating the value function at the current state “s” depends only on the possible next states as prime. There is no need to say traverse a possibly infinite number of future trajectories to estimate the expected value. In other words, you don't need to search an entire probability tree.</li>
+									<li>What this equation says is that in order to calculate V of s you only need to look at one step ahead. The value at as prime why is this remarkable. It means that our agent can plan without actually having to look very far in the future. Even if our goal is 1 million steps ahead, we can plan those entire 1 million steps simply by solving this equation that only looks at the next step.</li>
+								</ul>
+								<div id="link7"></div>
+								<h3>What are the distributions that you need to Sum Over?</h3>
+								<ul class="listing">
+									<li>
+										It's important to recognize what probability distributions in the Belmont equation we are actually summing over. As I have explained you earlier the value of a state is dependent on both the state but also the policy we are following. That's the probability distribution pie. And we even write this explicitly as a subscript.
+										<div class="single-article-img"><img class="lazyload" src="images/distributions-to-sum-over.png" class="lazyload" alt="Distributions to Sum Over" /></div>
+									</li>
+									<li>What is not is clear is that, the value also depends on the environment dynamics. Of course, now that I say this it's pretty obvious. Obviously, the expected sum of future rewards would depend on the environment itself. Recall that in an MVP there are two entities the agent and the environment and they both have their own respective probability distributions.</li>
+									<li>The agent is represented by pi of a given s and the environment is represented by P of as prime and “r” given S&A. Therefore, if we expand out the expression for the Belmont equation, both of these probabilities should appear. Note that in this above expression snapshot, the random variables we need to sum over are as prime. The next state are the reward and “a” the action.</li>
+									<li>It might not be clear exactly why expanding the Belmont equation like this is useful but later you'll do some exercises to help you see how to use it. One way to simplify this equation a bit is to recognize that the policy distribution pie does not depend on s prime or R so it can be brought outside those sums. Now we only have one outermost sum over and the sums over s primary NA can be brought further inside.</li>
+								</ul>
+								<div id="link8"></div>
+								<h3>Alternative Forms of Bellman Equation:</h3>
+								<ul class="listing">
+									<li>
+										I want to mention that there are some alternative forms of a Bell equation that you will see out in this blog. You recall I had mentioned earlier that sometimes the reward is not considered to be stochastic just the next state. In other words, the reward is dependent on these three values.
+										<div class="single-article-img"><img class="lazyload" src="images/alternative-forms-of-bellman-equation.png" class="lazyload" alt="Alternative Forms of Bellman Equation" /></div>
+									</li>
+									<li>In that case we can simplify Bowman's equation the environment dynamics are now represented by P of s prime given s.</li>
+									<li>
+										Another notation which is a little more verbose makes the dependence of the reward more explicit. Essentially, it's subscript the reward with a triple. The current state “s”, the action “a” and the next state as Prime.
+										<div class="single-article-img"><img class="lazyload" src="images/alternative-forms-of-bellman-equation-1.png" class="lazyload" alt="Alternative Forms of Bellman Equation-1" /></div>
+									</li>
+									<li>One alternative notation which is kind of odd in my opinion is to use <a href="https://en.wikipedia.org/wiki/Subscript_and_superscript" target="_blank">subscript and superscript</a> instead of explicitly stating: “what's the random variable in what's being conditioned on”. Of course, this is not ideal since we can't see what the meaning of any of these distributions is. It also confuses the policy as a joint distribution rather than a conditional distribution. I will never use this, but I want you to know that it exists. </li>
+								</ul>
+								<div id="link9"></div>
+								<h3>Idea of Probability Trees:</h3>
+								<ul class="listing">
+									<li>Finally, I want to bring this back to the idea of probability trees. The thing with probability trees is that we can only go in one direction, but we know that this is limited even in a game like chess. If the players just keep moving their pieces back and forth although you probably wouldn't want to do so your game will just go back and forth between states that were already visited.</li>
+									<li>
+										Another example of this is if you are modeling the weather. Suppose we have three states sunny rainy and cloudy.
+										<div class="single-article-img"><img class="lazyload" src="images/idea-of-probability-trees.png" class="lazyload" alt="Idea of Probability Trees" /></div>
+									</li>
+									<li>Obviously, we can go from any state to any other state from one day to the next including the option of staying in the same state. For example, it's sunny two days in a row as you already know previously, calculating expected values in a tree is easy you just some over the child knows. But what if you have a generic graph that has loops. Now there is no notion of child because you can have two nodes that are pointing at each other.</li>
+								</ul>
+								<div id="link10"></div>
+								<h2>What do you mean by Linear Equations and its usefulness?</h2>
+								<ul class="listing">
+									<li>My claim is that solving the Belmont equation becomes nothing but a system of linear equations to remind you of what these looks like although you should already know this. Consider a set of two equations:</li>
+<xmp>
+x + y = 7 and another is
+2x-y = 2
+</xmp>
+									<li>X plus Y equals 7 and 2 x minus y equals 2. This is two equations and two unknowns and so usually from these we can solve for x and y. Well the Bellman equation is the same.</li>
+								</ul>
+								<div id="link11"></div>
+								<h3>Detailed Explanation of Linear Equations Usefulness</h3>
+								<p>Suppose we have two states as one and as two we can go from S1 to S2 or vice versa and we can stay in the same state remember that for now we will consider that environment dynamics and policy distribution to be given.</p>
+								<ul class="listing">
+									<li>
+										If we look carefully at our Bellman equation what do we see. First let's consider pie since this is given, it's just a constant. It's just a number. Now let's consider P of s prime are given s in a since this is also given it is also a constant. Now let's consider ah well this is known since P of s prime are given us “s” and “a” is known.
+										<div class="single-article-img"><img class="lazyload" src="images/detailed-explanation-of-linear-equation.png" class="lazyload" alt="Detailed Explanation of Linear Equation" /></div>
+										<ul class="listing">
+											<li>Here Vπ(S′)  and Vπ(S) -> Variable</li>
+											<li>Here, s and a are assumed to be known</li>
+										</ul>
+									</li>
+									<li>We are just summing over all possible values of R. How about V of as prime? Well this can only take on it two possible values i.e. V of s1 or V of s 2. Therefore, it's easy to see that the Belmont equation boils down to two equations. The first equation is v of s 1 equals B1 plus c11 at times V of s1 one plus C12V of times s2.</li>
+									<li>
+										The second equation is v of s2 equals B2 plus C 21 at times V of s2 plus C 22 times V as 2.  Please find below the two equations:
+										<div class="single-article-img"><img class="lazyload" src="images/detailed-explanation-of-linear-equation-1.png" class="lazyload" alt="Detailed Explanation of Linear Equation-1" /></div>
+									</li>
+									<li>Here are the bees and Caesar constants and thus the Belmont equation is really nothing but a set of linear equations. So, what's wrong with solving the Bellman equation using a system of linear equations? Well the problem is that the number of variables is the number of possible states.</li>
+									<li>What would we do for games like chess or go which have tens of the 50 or 10 to the 170 states (10 50 or 10 170). In cases like these solving systems of linear equations is not possible. Unfortunately, problems like these are also the kinds of problems that we care about. We also haven't yet discussed problems with a state space are infinite. Thus, in our Bellman advance blog you can go through for learning how to solve the Bellman equation also how to solve in a way that is also scalable.</li>
+								</ul>
+								<div id="link12"></div>
+								<h2>Last Words</h2>
+								<p>Recalling about twenty years prior, the software development market in those days had a totally dissimilar situation contrasted with what it is presently. Software development is difficult and maintaining the apps through different advancement levels is very much hard. A <a href="https://www.aegissofttech.com/software-development" target="_blank">custom software application development</a> company will help to grow your business with cutting-edge <a href="https://www.aegissofttech.com/insights/top-16-software-development-tools/" target="_blank">development tools</a> and achieves the utmost potential of building the software at their fingertips.</p>
+								<p>The significant changes that Software Company discovers now are the freedom to build up the applications. They have the ability to establish the particular and tailor-make apps for your business platform. Custom Software will turn into a spine to your business movement and the Software Development organizations will back you with their responsive, powerful and high-performing services.</p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex"> 
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">Introduction to Probability Trees</a></div>
+								<div class="para2"><a href="#link2">Example of Game Tree</a></div>
+								<div class="para3"><a href="#link3">With Discounting</a></div>
+								<div class="para1"><a href="#link4">How to use Law of Total Expectation</a></div>
+								<div class="para1"><a href="#link5">What is The Bellman Equation</a></div>
+								<div class="para2"><a href="#link6">Reinforcement Learning</a></div>
+								<div class="para2"><a href="#link7">Distributions that you need to Sum Over</a></div>
+								<div class="para2"><a href="#link8">Alternative Forms of Bellman Equation</a></div>
+								<div class="para2"><a href="#link9">Idea of Probability Trees</a></div>
+								<div class="para1"><a href="#link10">What do you mean by Linear Equations and its usefulness</a></div>
+								<div class="para2"><a href="#link11">Detailed Explanation of Linear Equations Usefulness</a></div>
+								<div class="para1"><a href="#link12">Last Words</a></div>
+							</div>
+						</div>
+                        <div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="article-section spt spb">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="section-header">
+									<div class="article-head">Related article</div>
+								</div>
+							</div>
+						</div>
+						<div class="bs-row">
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img9">
+									<div class="blog-heading">
+										<div class="b-head"><a href="learn-machine-learning.html" target="_blank">5 Step Process to Learn Machine Learning in 3 Months</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>An interdisciplinary field, data science uses scientific systems, algorithms, processes, and other methods to gain insight and knowledge from data in different forms,</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img1">
+									<div class="blog-heading">
+										<div class="b-head"><a href="machine-learning-algorithms-using-linear-algebra.html" target="_blank">Understanding of Machine Learning algorithms using Linear algebra</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>Creating an algorithm that can learn from  data to make a prediction is what Machine Learning is all about.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- # Blogs contain -->
+			<script type="application/ld+json">
+				{
+				"@context": "https://schema.org",
+				"@type": "Article",
+				"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": "https://www.aegissofttech.com/articles/derived-bellman-equation-for-solving-reinforcement-learning.html"
+				},
+				"headline": "How does the Bellman Equation help to solve Reinforcement Learning?",
+				"description": "In this article, Bellman equation is incredible taking care of streamlining issues. Let's learn more about bellman equation in solving reinforcement learning.",
+				"image": "https://www.aegissofttech.com/articles/images/introduction-to-probability-trees.png",
+				"author": {
+				"@type": "Organization",
+				"name": "Aegis Softtech"
+				},
+				"publisher": {
+				"@type": "Organization",
+				"name": "Aegis Softtech",
+				"logo": {
+				"@type": "ImageObject",
+				"url": "https://www.aegissofttech.com/images/logo.webp"
+				}
+				},
+				"datePublished": "2021-04-19",
+				"dateModified": "2021-04-19"
+				}
+			</script>
+			
+</main>
+	<div id="ast-note"><img data-src="../images/ast.jpg" class="lazyload" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fderived-bellman-equation-for-solving-reinforcement-learning.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How does the Bellman Equation help to solve Reinforcement Learning?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fderived-bellman-equation-for-solving-reinforcement-learning.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fderived-bellman-equation-for-solving-reinforcement-learning.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/derived-bellman-equation-for-solving-reinforcement-learning.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fderived-bellman-equation-for-solving-reinforcement-learning.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How does the Bellman Equation help to solve Reinforcement Learning?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fderived-bellman-equation-for-solving-reinforcement-learning.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fderived-bellman-equation-for-solving-reinforcement-learning.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/derived-bellman-equation-for-solving-reinforcement-learning.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+	<!-- title & metadata & discription -->
+	<title>What is custom model binding in ASP.NET core MVC Pattern?</title>
+	<meta name="description" content="Custom model binding in ASP.NET Core MVC provides you to determine your own logic for mapping incoming HTTP request data to steps method parameters or model classes." />
+    <link rel="canonical" href="https://www.aegissofttech.com/articles/custom-model-binding-in-asp-net-core-mvc-pattern.html" />
+    
+	<!-- Standard Favicon -->
+	<link type="image/x-icon" href="../favicon.ico" rel="shortcut icon" />
+	<link rel="prerender apple-touch-icon" sizes="57x57" href="../images/site-icons/apple-icon-57x57.png">
+	<link rel="prerender apple-touch-icon" sizes="60x60" href="../images/site-icons/apple-icon-60x60.png">
+	<link rel="prerender apple-touch-icon" sizes="72x72" href="../images/site-icons/apple-icon-72x72.png">
+	<link rel="prerender apple-touch-icon" sizes="76x76" href="../images/site-icons/apple-icon-76x76.png">
+	<link rel="prerender apple-touch-icon" sizes="114x114" href="../images/site-icons/apple-icon-114x114.png">
+	<link rel="prerender apple-touch-icon" sizes="120x120" href="../images/site-icons/apple-icon-120x120.png">
+	<link rel="prerender apple-touch-icon" sizes="144x144" href="../images/site-icons/apple-icon-144x144.png">
+	<link rel="prerender apple-touch-icon" sizes="152x152" href="../images/site-icons/apple-icon-152x152.png">
+	<link rel="prerender apple-touch-icon" sizes="180x180" href="../images/site-icons/apple-icon-180x180.png">
+	<link rel="prerender icon" type="image/png" sizes="192x192"  href="../images/site-icons/android-icon-192x192.png">
+	<link rel="prerender icon" type="image/png" sizes="32x32" href="../images/site-icons/favicon-32x32.png">
+	<link rel="prerender icon" type="image/png" sizes="96x96" href="../images/site-icons/favicon-96x96.png">
+	<link rel="prerender icon" type="image/png" sizes="16x16" href="../images/site-icons/favicon-16x16.png">
+	<link rel="manifest" href="../manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../images/site-icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Custom - Common CSS -->
+	<link rel="prerender stylesheet" type="text/css" href="../style.css" />
+	<!-- Google Tag Manager -->
+    <script>function initGTMOnEvent(t){initGTM(),t.currentTarget.removeEventListener(t.type,initGTMOnEvent)}function initGTM(){if(window.gtmDidInit)return!1;window.gtmDidInit=!0;let t=document.createElement("script");t.type="text/javascript",t.async=!0,t.onload=()=>{dataLayer.push({event:"gtm.js","gtm.start":new Date().getTime(),"gtm.uniqueEventId":0})},t.src="https://www.googletagmanager.com/gtm.js?id=GTM-MNRJGC7M",document.head.appendChild(t)}document.addEventListener("DOMContentLoaded",()=>{setTimeout(initGTM,3500)}),document.addEventListener("scroll",initGTMOnEvent),document.addEventListener("mousemove",initGTMOnEvent),document.addEventListener("touchstart",initGTMOnEvent);</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+    window.addEventListener('scroll', initGTM, { once: true });
+    window.addEventListener('mousemove', initGTM, { once: true });
+    window.addEventListener('touchstart', initGTM, { once: true });
+
+    function initGTM() {
+        var script = document.createElement('script');
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-L1KMMVTSQZ";
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L1KMMVTSQZ');
+    }
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNRJGC7M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- Header Section -->
+	<div id="return-to-top"><i class="fa fa-angle-up"></i></div>
+	<header class="header_s">
+        <div class="container-fluid">
+            <div class="menu-block">
+                
+                <div class="container">
+                    <nav class="menu-navigation">
+                        <div class="logo-block" itemscope itemtype="https://schema.org/Organization">
+                            <a itemprop="url" class="navbar-brand" href="https://www.aegissofttech.com">
+                                <picture><img src="../images/logo.webp" fetchpriority="high" width="162" height="52" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo" /></picture>
+                            </a>
+                        </div>
+                        <a class="menuswitch" href="#" aria-label="Menu">
+                            <span class="menuline bar1"></span>
+                            <span class="menuline bar2"></span>
+                            <span class="menuline bar3"></span>
+                        </a>
+                        <div class="menu-collapse">
+                            <ul class="navigation-menu">
+                                <li><a itemprop="url" href="../about-us.html"><span itemprop="name">About</span></a></li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Services</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">AI & Automation</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../ai-services"><span itemprop="name">AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/integration"><span itemprop="name">AI Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/adaptive-ai-development"><span itemprop="name">Adaptive AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/conversational-ai-development"><span itemprop="name">Conversational AI Development</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/voice-bot-development"><span itemprop="name">Voice Bot Development</span></a></li>
+                                                    <li><a itemprop="url" href="../generative-ai-services"><span itemprop="name">Generative AI</span></a></li>
+                                                    <li><a itemprop="url" href="../ai-services/machine-learning-development"><span itemprop="name">Machine Learning</span></a></li>
+                                                    <li><a itemprop="url" href="../data/nlp-development"><span itemprop="name">NLP (Natural Language Processing)</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/robotic-process-automation"><span itemprop="name">Robotics Process Automation (RPA)</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & Analytics</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/data-engineering-services"><span itemprop="name">Data Engineering</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-streaming-services"><span itemprop="name">Data Streaming</span></a></li>
+                                                    <li><a itemprop="url" href="../data/big-data-consulting-services"><span itemprop="name">Big Data Solutions</span></a></li>
+                                                    <li><a itemprop="url" href="../data/data-science-consulting-services"><span itemprop="name">Data Science</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence"><span itemprop="name">Business Intelligence</span></a></li>
+                                                    <li><a itemprop="url" href="../data-warehouse-services"><span itemprop="name">Data Warehousing</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/consulting"><span itemprop="name">Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/migration"><span itemprop="name">Migration</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/cloud"><span itemprop="name">Cloud</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../data-warehouse-services/modernization"><span itemprop="name">Modernization</span></a></li>
+                                                </ul>                                                
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Software & App Development</p>        
+                                                <ul class="dropdown-menubox">
+                                                    
+                                                    <li><a itemprop="url" href="../application"><span itemprop="name">Application Development</span></a></li>
+                                                    <li><a itemprop="url" href="../software-development/integration"><span itemprop="name">Software Integration</span></a></li>
+                                                    <li><a itemprop="url" href="../software-testing-services"><span itemprop="name">Software Testing</span></a></li>
+                                                    <li><a itemprop="url" href="../automation-testing-services"><span itemprop="name">Automation Testing Services</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Cloud & Infrastructure</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud"><span itemprop="name">Cloud Services</span></a></li>
+                                                    <li><a itemprop="url" href="../devops-services"><span itemprop="name">DevOps</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-synapse-analytics-services"><span itemprop="name">Azure Synapse</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Enterprise & Digital Services</p>        
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../digital-transformation-services"><span itemprop="name">Digital Transformation</span></a></li>
+                                                    <li><a itemprop="url" href="../cyber-security-services"><span itemprop="name">Cybersecurity</span></a></li>
+                                                    <li><a itemprop="url" href="../business-process-outsourcing.html"><span itemprop="name">BPO (Business Process Outsourcing)</span></a></li>
+                                                    <li><a itemprop="url" href="../media/3d-animation-services"><span itemprop="name">3D Animation Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <i class="ddl-switch"></i>
+                                    <a href="#">Technologies</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="main-head">Development Stack</p>
+                                                <p class="color-head">Core Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/java"><picture><img src="../images/java.svg" class="img-fluid" width="30" height="30" alt="Java"/></picture> Java</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/nodejs"><picture><img src="../images/node-js.svg" class="img-fluid" width="30" height="30" alt="Node.js"/></picture> Node.js</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/reactjs"><picture><img src="../images/react-js.svg" class="img-fluid" width="30" height="30" alt="ReactJS"/></picture> ReactJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/angularjs"><picture><img src="../images/angular.svg" class="img-fluid" width="30" height="30" alt="AngularJS"/></picture> AngularJS</a></li>
+                                                    <li class="image"><a class="d-flex" itemprop="url" href="../software-development/python"><picture><img src="../images/python.svg" class="img-fluid" width="30" height="30" alt="Python"/></picture> Python</a></li>                                            
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Big Data & Analytics</p>
+                                                <p class="color-head">Platforms & Tools</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../data/apache-spark-consulting-services"><span itemprop="name">Apache Spark</span></a></li>
+                                                    
+                                                    <li><a itemprop="url" href="../data/cloudera-consulting"><span itemprop="name">Cloudera</span></a></li>
+                                                    <li><a itemprop="url" href="../data/databricks-managed-services"><span itemprop="name">Databricks</span></a></li>
+                                                    <li><a itemprop="url" href="../business-intelligence/tableau/development-services"><span itemprop="name">Tableau</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">Snowflake</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../snowflake-services"><span itemprop="name">Snowflake Services</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/consulting"><span itemprop="name">Snowflake Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/implementation"><span itemprop="name">Snowflake Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../snowflake-services/migration"><span itemprop="name">Snowflake Migration</span></a></li>                                                
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Cloud & Platforms</p>
+                                                <p class="color-head">Cloud Platforms</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../cloud/aws/data-analytics-services"><span itemprop="name">AWS</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft"><span itemprop="name">Microsoft</span></a></li>
+                                                    <li><a itemprop="url" href="../cloud/oracle-solutions.html"><span itemprop="name">Oracle</span></a></li>                                                    
+                                                </ul>
+                                                <p class="color-head mt-1">ServiceNow</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../servicenow-services"><span itemprop="name">ServiceNow Services</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/consulting"><span itemprop="name">ServiceNow Consulting</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/implementation"><span itemprop="name">ServiceNow Implementation</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/migration"><span itemprop="name">ServiceNow Migration</span></a></li>
+                                                    <li><a itemprop="url" href="../servicenow-services/managed-services"><span itemprop="name">ServiceNow Managed Services</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="main-head">Microsoft</p>
+                                                <p class="color-head">Technologies & Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../microsoft/dotnet-development"><span itemprop="name">.NET</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-bi-consulting"><span itemprop="name">Power BI</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/power-platform-consulting"><span itemprop="name">Power Platform</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/azure-analytics-services"><span itemprop="name">Azure</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/sql-server-consulting"><span itemprop="name">SQL Server</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/fabric-consulting"><span itemprop="name">Microsoft Fabric</span></a></li>
+                                                    <li><a itemprop="url" href="../microsoft/dataverse-consulting"><span itemprop="name">Dataverse Consulting</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Dynamics 365</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365"><span itemprop="name">Dynamics 365 Services</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/crm"><span itemprop="name">Dynamics CRM Consulting</span></a></li>
+                                                    <li class="round-dot"><a itemprop="url" href="../dynamics-365/business-central-consulting"><span itemprop="name">Business Central Consulting</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../industries">Industries</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part">
+                                                <p class="color-head">Technology & Digital</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../fintech"><span itemprop="name">Fintech</span></a></li>
+                                                    <li><a itemprop="url" href="../healthcare"><span itemprop="name">Healthcare IT</span></a></li>
+                                                    <li><a itemprop="url" href="../digital-publishing"><span itemprop="name">Digital Publishing</span></a></li>
+                                                    <li><a itemprop="url" href="../media"><span itemprop="name">Media & Entertainment</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Manufacturing & Engineering</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../defense"><span itemprop="name">Aerospace & Defence</span></a></li>
+                                                    <li><a itemprop="url" href="../automotive"><span itemprop="name">Automotive</span></a></li>
+                                                    <li><a itemprop="url" href="../manufacturing"><span itemprop="name">Industrial Manufacturing</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Logistics & Agriculture</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../agriculture"><span itemprop="name">Agriculture</span></a></li>
+                                                    <li><a itemprop="url" href="../logistics"><span itemprop="name">Logistics & Distribution</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Consumer & Commercial</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../insurance"><span itemprop="name">Insurance</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Education & Public Services</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../education"><span itemprop="name">Education</span></a></li>
+                                                    <li><a itemprop="url" href="../telecommunications"><span itemprop="name">Communication Services</span></a></li>
+                                                    <li><a itemprop="url" href="../life-sciences"><span itemprop="name">Life Sciences</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                <i class="ddl-switch"></i>
+                                    <a href="../hire">Hire Developers</a>
+                                    <div class="dropdown-menu">
+                                        <div class="nav-flex">
+                                            <div class="nav-part new-bg-gred">
+                                                <p class="color-head">Backend & Full-Stack</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/java-developers"><span itemprop="name">Hire Java Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-developers"><span itemprop="name">Hire ASP.NET Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dotnet-core-developers"><span itemprop="name">Hire ASP.NET Core Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/nodejs-developers"><span itemprop="name">Hire Node.js Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/python-developers"><span itemprop="name">Hire Python Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microservices-developers"><span itemprop="name">Hire Microservices Developers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Frontend</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/reactjs-developers"><span itemprop="name">Hire ReactJS Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/angularjs-developers"><span itemprop="name">Hire AngularJS Developers</span></a></li>
+                                                </ul>
+                                            </div>                                            
+                                            <div class="nav-part">
+                                                <p class="color-head">Data & BI</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/tableau-developers"><span itemprop="name">Hire Tableau Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/power-bi-developers"><span itemprop="name">Hire Power BI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/microsoft-sql-server-developers"><span itemprop="name">Hire SQL Server Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/pl-sql-developers"><span itemprop="name">Hire PL/SQL Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/data-warehouse-developers"><span itemprop="name">Hire Data Warehouse Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/big-data-developers"><span itemprop="name">Hire Big Data Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/apache-spark-developers"><span itemprop="name">Hire Apache Spark Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/servicenow-developers"><span itemprop="name">Hire ServiceNow Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">Cloud & DevOps</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/aws-devops-engineers"><span itemprop="name">Hire AWS DevOps Engineers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/azure-devops-engineers"><span itemprop="name">Hire Azure DevOps Engineers</span></a></li>
+                                                </ul>
+                                                <p class="color-head mt-1">Microsoft Technologies</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-business-central-developers"><span itemprop="name">Hire Dynamics 365 Business Central Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-crm-developers"><span itemprop="name">Hire Dynamics 365 CRM Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/dynamics-365-finance-and-operations-developers"><span itemprop="name">Hire Dynamics 365 FO Developers</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nav-part">
+                                                <p class="color-head">AI & Machine Learning</p>
+                                                <ul class="dropdown-menubox">
+                                                    <li><a itemprop="url" href="../hire/ai-developers"><span itemprop="name">Hire AI Developers</span></a></li>
+                                                    <li><a itemprop="url" href="../hire/machine-learning-developers"><span itemprop="name">Hire Machine Learning Developers</span></a></li>                                                    
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a itemprop="url" href="../testimonials"><span itemprop="name">Testimonials</span></a></li>
+                                <li><a itemprop="url" href="../case-studies"><span itemprop="name">Case Studies</span></a></li>
+                            </ul>
+                        </div>
+                        <ul class="navigation-menu new">
+                            <li class="separate">
+                                <div><a itemprop="url" href="../contact-us.html" class="nav-red-btn"><span itemprop="name">Contact Us</span></a></div>
+                           </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+	<!-- Header Section /- -->
+	
+	<main class="site-main" id="article-home">
+		<div class="container">
+            <div class="hire-popup fix-top">
+            <i class="fa fa-times-circle" id="hire-box" aria-hidden="true"></i>
+                <a href="../careers">
+                    <div class="hire-flexy">
+                        <div class="hiring-box">
+                            <div class=""><picture><img src="../images/hire-img.webp" class="img-fluid" loading="lazy" width="133" height="46" alt="image"></picture></div>
+                            <div class="hiring-head">We are hiring!</div>
+                            <p class="hire-btn">Explore More <i class="fa fa-angle-right" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+		<!-- page Section -->
+		<div class="page-section">
+			<div class="container">
+				<h1>Custom Model Binding In ASP.NET Core MVC Pattern</h1>
+			</div>
+			<div class="slider-img"><picture><img src="images/index-banner.webp" loading="lazy" width="1917" height="200" alt="banner" /></picture></div>
+		</div><!-- page Section /- -->
+		<!-- bredcrume -->
+		<div class="blog-bredcrume">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li><a href="https://www.aegissofttech.com" title="Home">Home</a></li>
+					<li><a href="https://www.aegissofttech.com/articles" title="Articles">Articles</a></li>
+					<li class="active">Custom Model Binding In ASP.NET Core MVC Pattern</li>
+				</ol>					
+			</div>
+		</div>
+		<!-- # bredcrume -->
+		<!-- Blogs contain-->
+		<div class="blog-section">
+			<div class="container">
+				<div class="bs-row reserve">
+					<div class="col-8 col-md-12">
+						<div class="content-area">
+							<div class="singleblog-content">
+								<div id="link1"></div>
+								<h3>Introduction</h3>
+								<p>In the MVC pattern, Model binding maps the HTTP request data to  the parameters of a Controllers action method. The parameter can be of a simple  type like integers, strings, double, etc. or they may be complex types. Modelbinder MVC then  binds the request data to the action parameter by using the parameter name.</p>
+								<p>Model binder provides a mapping between the request data and the application model. The default model binder which is provided by ASP.NET Core MVC supports most of the common data types and would also meet most of our needs. With custom model binding, you get the freedom to describe your individual instructions and rationality for mapping the inward data to your convention model. The built-in model binding functionality can be extended by implementing a custom model binder which transform the input prior to binding it to a model.</p>
+								<div id="link2"></div>
+								<h3>Solution</h3>
+								<p>For creating a custom model binder class, we have to inherit from IModelBinder interface. This interface has an async method named "BindModelAsync" and it has a parameter of type ModelBindingContext. The ModelBindingContext class provides the context that model on which the binder acts.</p>
+<xmp class="codding-box">
+Using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
+using System.Threading.Tasks;
+namespace ModelBinder.ModelBinder
+{
+public class CustomModelBinder : IModelBinder
+{
+public Task BindModelAsync(ModelBindingContext bindingContext)
+{
+throw new NotImplementedException();
+}
+}
+}
+</xmp>
+								<div id="link3"></div>
+								<h3>Example</h3>
+								<p>Let us implement a custom model binder that can convert incoming request data which is passed as query string to a user defined class. The request data is the one which contains all model properties separated with pipe (|) and even our custom model binder and it will separate the data and assign them to the repspective model property. ModelBindingContext shortens and improves the data binding procedure, authorising programming to proficiently grip and procedure data in their website apps.</p>
+								
+                                <div id="link3-1"></div>
+                                <h2>Model Binders: Why, How, and How to Test</h2>
+                                
+                                <div id="link3-2"></div>
+                                <h3>1. Model Binders, why?</h3>
+                                <p>In ASP.NET Core, Model Binders are called to play a pivotal role in making the procedure of data binding simple. It is important to know the binders serve the purpose of a bridge that fixes the course of application and requests of incoming HTTP. When developers make use of the model binders, they can chart out incoming data which they can submit without any hassle. Through model binders, developers can also question strings and make the parameters of the action controller.</p>
+                                <p>Moreover, Imodelbinder caters to pliability when developers tackle numerous formats of sources and data. It lets developers personalize behavior binding based on particular needs. Whether you tackle complicated items or normal types of data, model binders make the method of charting out inward data to the related parameters which further help developers get accurate methods of data.</p>
+                                
+                                <div id="link3-3"></div>
+                                <h3>2. Model Binders, How?</h3>
+                                <p>While dealing with ASP.NET Core, using integrated they could make the data binding process simpler. Model binders are important in playing an imperative part in charting out data from requests of HTTP to the process of action restrictions. Developers should know model binders make the procedure of executing and accepting data from other foundations.</p>
+                                <p>ASP.NET Core offers various integrated model binders that could easily deal with various types of data that can be transformed into suitable types that are expected from your process of action. When you make use of integrated model binders, developers can concentrate on developing logic apps instead of changing inward data.</p>
+                                <p>Whether you are operating with normal data such as complicated items or strings, it is necessary to know and effectively use integrated model binders. It will also help increase the efficacy and sustain applications of ASP.NET Core. As you become proficient in model binders, you can make the process of data binding simple. You can also make the process of data binding strong.</p>
+                                <div class="between-box bg-green">
+                                    <div class="w-50">
+                                        <div class="head mb-1">Let's work together to unlock your success! Reach out to us to learn more about how we can help.</div>
+                                    </div>
+                                    <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                                </div>
+                                <div id="link3-4"></div>
+                                <h3>3. Model Binders, How to test?</h3>
+                                <p>The tests are rather easy to understand: primary. After that, we get a duplicate of the obligated, and later we give an instance of the DbHelper to the constructor. Next, we make a mock of the ModelBindingContext After that, we create the title of the data element as well as the query language.</p>
+                                
+                                <div id="link3-5"></div>
+                                <h2>Model Binder Basics</h2>
+                                <p>All developers understand the worth of clean and efficient code. With the help of powerful tools ASP.NET MVC and Core are pivotal to dataflow. It encompasses its movement between your views, controllers, and replicas.</p>
+                                <p>Model binders act as intermediaries by taking data through many sources in an HTTP request (such as type fields, way data, or query threads). They automatically mapp it to your application's model objects. The primary 3 tasks are to handle:</p>
+                                <p><strong>1. Data retrieval:</strong> They fetch data from different request parts based on naming conventions (e.g., form field names matching model properties).</p>
+                                <p><strong>2. Type conversion:</strong> They transform string data from the request into the appropriate .NET types required by your model properties (e.g., converting a string "25" to an integer).</p>
+                                <p><strong>3. Model population:</strong> They populate instances of your model classes with the converted data.</p>
+                                
+                                <div id="link3-6"></div>
+                                <h2>The WeekOfYear ModelBinder</h2>
+                                <p> Let's say you have a model property called ‘Week’ that needs to store the current year’s week. The built-in model binding system doesn't have a specific binder for ‘WeekOfYear’ by default. You can leverage the extensibility of model binders to create a custom one. It would understand how to extract the current week number from the date provided in another field of your form. Then it would populate the ‘Week’ property accordingly.</p>
+                                
+                                <div id="link3-7"></div>
+                                <h2>Model Binder Providers</h2>
+                                <p>The expanding functionality of model binder providers applies to The ASP.NET MVC framework. A custom model can be created for specific cases. Specific binding logic and integration are possible with 3rd party integration or libraries in case data manipulation is required.</p>
+                                <p>Developers can unlock the potential of model binder basics by learning the mechanisms. Dataflow can be simplified and streamlined in different applications. If you are a developer looking to save effort and time, this is the best method.</p>
+                                
+                                <div id="link3-8"></div>
+                                <h2>Default Model Binder Limitations</h2>
+                                <p>It is essential to fulfill the requirements of developers when it comes to defraud model binders which keep up various types of NET Core data. Developers should know how to insert instructions that are basically on content. The content-targeted input needs to be inserted in various kinds of models in one go. Developers have to convert data before attaching it. For instance, if developers have a way out that could be made into use in model data, they have the leverage to implement a customized model binder which will help derive news through the right process.</p>
+                                <p>Steps involved in creating a custom model binder.</p>
+								<p>First step</p>
+<xmp class="codding-box">
+namespace ModelBinder
+{
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ModelBinder.Model;
+using System;
+using System.Threading.Tasks;
+public class CustomModelBinder : IModelBinder
+{
+public Task BindModelAsync(ModelBindingContext bindingContext)
+{
+if (bindingContext == null)
+throw new ArgumentNullException(nameof(bindingContext));
+var values = bindingContext.ValueProvider.GetValue("Value");
+if (values.Length == 0)
+return Task.CompletedTask;
+var splitData = values.FirstValue.Split(new char[] { '|' });
+if (splitData.Length >= 2)
+{
+var result = new User
+{
+Id = Convert.ToInt32(splitData[0]),
+Name = splitData[1]
+};
+bindingContext.Result = ModelBindingResult.Success(result);
+}
+return Task.CompletedTask;
+}
+}
+}
+</xmp>
+								<p>Once the model is created using the request data, we then have to assign this model to Result property of  the binding context using ModelBindingResult.Success method. This method represents model binding operation was successful. Same as the Success Method, It has also a method name “Failed” it represent a fail model binding operation. As a whole, with the use of custom model binder in <a href="http://asp.net/" rel="nofollow" target="_blank">asp.net</a> core gives developers with a controlling tool having data binding procedure and safeguarding where their app precisely captures and procedures user involvement.</p>
+								<div class="between-box bg-green">
+                                    <div class="w-50">
+                                        <div class="head mb-1">Reach out to us and let's take your ASP.NET Core MVC development to the next level!</div>
+                                    </div>
+                                    <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                                </div>
+								<p>Now, the next step is to register a Model binder. We have two ways to register Model binder:</p>
+								<ol class="listing">
+									<li>Using the ModelBinder attribute</li>
+									<li>By defining model binder provider and then register it in startup class</li>
+								</ol>
+								<div id="link4"></div>
+								<h3>Register custom model binder using ModelBinder Attribute</h3>
+								<p>We can apply a custom model binder using ModelBinder attribute by defining attributes on an action method or model. Whenever we are using this method  that is applying attribute on action method, we need to define this attribute on every action method which we want use this custom binding on. Also, we can apply this attribute on model it-self.</p>
+								<div id="link5"></div>
+								<h3>Applying the ModelBinder Attribute on a Model</h3>
+<xmp class="codding-box">
+namespace ModelBinder.Model
+{
+using Microsoft.AspNetCore.Mvc;
+[ModelBinder(BinderType = typeof(CustomModelBinder))]
+public class User
+{
+public int Id { get; set; }
+public string Address { get; set; }
+public string Name { get; set; }
+}
+}
+</xmp>
+								<div id="link6"></div>
+								<h3>Applying ModelBinding Attribute on Action method</h3>
+<xmp class="codding-box">
+[HttpGet]
+[Route("test")]
+public IActionResult Index([ModelBinder(BinderType = typeof(CustomModelBinder))]User u)
+{
+return View();
+}
+</xmp>
+								<div id="link7"></div>
+								<h3>Register custom Model binder in startup class</h3>
+								<p>Also, we can register our custom model binder in a startup class which will then be available for all action methods. To register a custom model binder, we have to create a binder provider. This model binder provider class implements an interface called IModelBinderProvider interface. The built-in model binders, it should be noted that, have also have their own model binder providers. With model binding in mvc c# process of capturing and manipulating data from user inputs. We can also specify the type of arguments model binder produces, not the input of our model binder. In following example, provider works just with "CustomModelBinder".</p>
+								<div id="link8"></div>
+								<h3>Custom Model binder provider</h3>
+<xmp class="codding-box">
+namespace ModelBinder
+{
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ModelBinder.Model;
+public class CustomModelBinderProvider : IModelBinderProvider
+{
+public IModelBinder GetBinder(ModelBinderProviderContext context)
+{
+if (context.Metadata.ModelType == typeof(User))
+return new CustomModelBinder();
+return null;
+}
+}
+}
+</xmp>
+								<p>Now, we have to add this provider to MVC model binder provider collection.Then we can add custom model binder provider to MVC model binder collection. i.e. in the  ConfigureServices methods of the Startup class.</p>
+<xmp class="codding-box">
+public void ConfigureServices(IServiceCollection services)
+{
+// Add framework services.
+services.AddMvc(
+config => config.ModelBinderProviders.Insert(0, new CustomModelBinderProvider())
+);
+}
+</xmp>
+								<div id="link9"></div>
+								<h4>Output</h4>
+								<div class="single-article-img"><img class="lazyload" src="images/custom-model-1.jpg" alt="custom-model" /></div>
+								<p>In the above example, we are receiving the required data from the request (query-string). In the same way,  we can also get the data from request body. With the post method, we need to post the data within request body. In the following example, I have read the request body data and converted it in to required form-data.</p>
+								<div class="between-box bg-green">
+                                    <div class="w-50">
+                                        <div class="head mb-1">Whether you're looking to accelerate your product development in ASP.NET we've got you covered.</div>
+                                    </div>
+                                    <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                                </div>
+                                <div id="link10"></div>
+								<h3>Model Binder</h3>
+<xmp class="codding-box">
+namespace ModelBinder
+{
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ModelBinder.Model;
+using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+public class CustomModelBinder1 : IModelBinder
+{
+public Task BindModelAsync(ModelBindingContext bindingContext)
+{
+if (bindingContext == null)
+throw new ArgumentNullException(nameof(bindingContext));
+string valueFromBody = string.Empty;
+using (var sr = new StreamReader(bindingContext.HttpContext.Request.Body))
+{
+valueFromBody = sr.ReadToEnd();
+}
+if (string.IsNullOrEmpty(valueFromBody))
+{
+return Task.CompletedTask;
+}
+string values = Convert.ToString(((JValue)JObject.Parse(valueFromBody)["value"]).Value);
+var splitData = values.Split(new char[] { '|' });
+if (splitData.Length >= 2)
+{
+var result = new User1
+{
+Id = Convert.ToInt32(splitData[0]),
+Name = splitData[1]
+};
+bindingContext.Result = ModelBindingResult.Success(result);
+}
+return Task.CompletedTask;
+}
+}
+}
+</xmp>
+								<div id="link11"></div>
+								<h4>Output</h4>
+								<div class="single-article-img">
+									<img class="lazyload" src="images/custom-model-net-core-2.jpg" alt="custom-model" />
+								</div>
+								<div id="link12"></div>
+								<h3>Impact</h3>
+								<p>With Customer binders, we can get data whose properties are not primitive. This gives us a better control of the data and thus helps us in some scenarios. Overall, the model binder in ASP.NET Core is crucial tool for effortlessly handling data, creating the development procedure evener and more useful.</p>
+                                <div id="link12-1"></div>
+                                <h2>Model Binding Simple and Complex Types</h2>
+                                <p>When it comes to binding models, developers need particular clarifications or annotations that would meet specific types of operations. But making use of TypeConverter, a simple method is transformed with the help of a string. Complicated types of models are transformed from countless data uses. It is a structure that decides the distinction depending on the presence in TryParse. Developers are suggested to make a type of converter by implementing TryParse. To change it, you would not need outside sources.</p>
+                                
+                                <div id="link12-2"></div>
+                                <h2>List of types that the Model Binder can Convert from Strings</h2>
+                                <p>Before deciding to make a personalized model binder, one needs to assess the current model binders that will be incorporated. Take into consideration ByteArrayModelBinder which can be utilized to transform strings into byte arrays.</p>
+                                <div class="between-box bg-green">
+                                    <div class="w-50">
+                                        <div class="head mb-1">Contact us now to learn more about our custom model binding services and let us help you achieve your project goals!</div>
+                                    </div>
+                                    <div><a href="../contact-us.html" class="contact-btn">Let's Talk</a></div>
+                                </div>
+                                <div id="link12-3"></div>
+                                <h3>Working with the ByteArrayModelBinder</h3>
+                                <p>It is necessary to personalize Byte Array Model Binder which lets developers match the functions which in turn will meet the particular needs that will be distinct to the ap The modernized level of personalization permits developers to tackle plots with effectiveness and accuracy.</p>
+                                
+                                <div id="link12-4"></div>
+                                <h3>Polymorphic model binding</h3>
+                                <p>If you connect various kinds of models of distinct types is known as polymorphic model binding. It is needed when the value is attached to a particular kind of model. It is not classic for a REST API which is tailored to concord with various types of languages. As a result, it turns out to be tough to cause deduce bound models. A REST API that is intended to be compatible with all languages does not often behave in this manner. In this way, it becomes more challenging to reason about the bound models.</p>
+                                
+                                <div id="link12-5"></div>
+                                <h2>Recommendations and Best Practices</h2>
+                                <ol class="listing">
+                                    <li>It must not be utilized to transform a string into a type of custom which proves to be the right choice.</li>
+                                    <li>They are quite useful and can remove repetitive code from methods of action.</li>
+                                </ol>
+                                <p>Make sure not to try to make use of status codes. In case model binders do not function, an action filter which is in the method needs to tackle the errors effectively.</p>
+								
+                                <div id="link13"></div>
+								<h3>Conclusion</h3>
+								<p>ASP.NET Core has many built-in model binders and their providers that meet almost all our needs. However, a custom model binder provides a way to bind data that is in a specific format to our model classes or action parameters. For more advanced development solutions, you can also explore services from a <a href="https://www.aegissofttech.com/microsoft/dotnet-development" target="_blank">ASP.net development company</a> like Aegis Softtech.</p>
+								<p><a href="../hire/dotnet-developers">.Net developers India</a> have shared this to understand the concept of Custom Model Binding in ASP.NET Core pattern and its use in MVC based application development.</p>
+							</div><!-- # -->
+						</div>
+					</div>
+					<div class="col-4 col-md-12">
+						<div class="right-toc">
+							<div class="toc-flex">
+								<div class="toc-title">Table of Content</div>
+								<div class="tog-btn"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
+							</div>
+							<div class="toc-hide">
+								<div class="para1"><a href="#link1">Introduction</a></div>
+								<div class="para1"><a href="#link2">Solution</a></div>
+								<div class="para1"><a href="#link3">Example</a></div>
+                                <div class="para1"><a href="#link3-1">Model Binders: Why, How, and How to Test</a></div>
+                                <div class="para2"><a href="#link3-2">Model Binders, why?</a></div>
+                                <div class="para2"><a href="#link3-3">Model Binders, How?</a></div>
+                                <div class="para2"><a href="#link3-4">Model Binders, How to test?</a></div>
+                                <div class="para1"><a href="#link3-5">Model Binder Basics</a></div>
+                                <div class="para1"><a href="#link3-6">The WeekOfYear ModelBinder</a></div>
+                                <div class="para1"><a href="#link3-7">Model Binder Providers</a></div>
+                                <div class="para1"><a href="#link3-8">Default Model Binder Limitations</a></div>
+								<div class="para1"><a href="#link4">Custom model binder using ModelBinder Attribute</a></div>
+								<div class="para2"><a href="#link5">Applying ModelBinder Attribute on a Model</a></div>
+								<div class="para2"><a href="#link6">Applying ModelBinding Attribute on Action method</a></div>
+								<div class="para1"><a href="#link7">Custom Model binder in startup class</a></div>
+								<div class="para2"><a href="#link8">Custom Model binder provider</a></div>
+								<div class="para3"><a href="#link9">Output</a></div>
+								<div class="para2"><a href="#link10">Model Binder</a></div>
+								<div class="para3"><a href="#link11">Output</a></div>
+								<div class="para2"><a href="#link12">Impact</a></div>
+                                <div class="para1"><a href="#link12-1">Model Binding Simple and Complex Types</a></div>
+                                <div class="para1"><a href="#link12-2">List of types that the Model Binder can Convert from Strings</a></div>
+                                <div class="para2"><a href="#link12-3">Working with the ByteArrayModelBinder</a></div>
+                                <div class="para2"><a href="#link12-4">Polymorphic model binding</a></div>
+                                <div class="para1"><a href="#link12-5">Recommendations and Best Practices</a></div>
+								<div class="para1"><a href="#link13">Conclusion</a></div>
+							</div>
+						</div>
+                        <div class="sticky-top1">
+							<div class="right-inquiry">
+	                            <div class="inquiry-head">Empower your Business with Team Aegis, <span class="green-font bold">CONNECT NOW!</span></div>
+	                            <form>
+	                                <input type="text" name="txtConName" id="txtConName" placeholder="Name">
+	                                <input type="text" name="txtConEmail" id="txtConEmail" placeholder="Email Id">
+	                                <input type="text" name="txtConPhone" id="txtConPhone" placeholder="Phone Number">
+	                                <textarea rows="2" placeholder="Message" id="txtConMessage" name="txtConMessage"></textarea>
+	                                <div class="bs-row">
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <img id="imgConCaptcha" alt="captcha" src="" width="150px" height="35px" />
+	                                    </div>
+	                                    <div class="col-lg-6 col-md-12">
+	                                        <input class="form-control" type="text" placeholder="Captcha" id="txtConCaptcha" name="txtConCaptcha" />
+	                                    </div>
+	                                </div>
+	                                <p><button type="button" id="btnConSubmit" class="btn_default">Submit</button></p>
+                                    <label id="lblConInfo" class="green-font"></label>
+	                            </form>
+	                        </div>
+							<div class="bg-blue-box">
+								<div>Scale your Business with our <span class="green-font1">Software Services</span> Now!</div>
+								<div class="cta-man"><picture><img data-src="images/cta-man.webp" class="lazyload img-fluid" width="155" height="207" alt=""/></picture></div>
+								<div class="talk-btn-area"><a href="../contact-us.html" class="btn_default" target="_blank">Let's Talk</a></div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="article-section spt spb">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="section-header">
+									<div class="article-head">Related article</div>
+								</div>
+							</div>
+						</div>
+						<div class="bs-row">
+							<div class="col-4 col-sm-12 col-md-6">
+								<div class="inner-new-blogs min-he bg_img3">
+									<div class="blog-heading">
+										<div class="b-head"><a href="boost-website-performance-with-asp-net-mvc-development.html" target="_blank">ASP.NET MVC: Boosting Your Website with a Responsive Framework</a></div>
+									</div>
+									<div class="blog-short-desc">
+										<p>Designing website applications which meet the MVC (Model-View-Controller) project design was tough to be executed along the ASP.NET.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- # Blogs contain -->
+			<script type="application/ld+json">
+				{
+				"@context": "https://schema.org",
+				"@type": "Article",
+				"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": "https://www.aegissofttech.com/articles/custom-model-binding-in-asp-net-core-mvc-pattern.html"
+				},
+				"headline": "Custom Model Binding In ASP.NET Core MVC Pattern",
+				"description": "Asp.net core MVC pattern is very portable",
+				"image": "https://www.aegissofttech.com/articles/images/custom-model-net-core-2.jpg",
+				"author": {
+				"@type": "Organization",
+				"name": "Aegis Softtech"
+				},
+				"publisher": {
+				"@type": "Organization",
+				"name": "Aegis Softtech",
+				"logo": {
+				"@type": "ImageObject",
+				"url": "https://www.aegissofttech.com/images/logo.webp"
+				}
+				},
+				"datePublished": "2018-09-15",
+				"dateModified": "2024-01-05"
+				}
+			</script>
+			
+</main>
+	<div id="ast-note"><img class="lazyload" src="../images/ast.jpg" alt="DMCA Logo do not copy"></div>
+	<footer class="footer-main spt">
+        <div class="container">
+            <div class="footer-from">
+                <div class="footer-from-top">
+                    <p class="head">Talk with a technology expert</p>
+                    <p>We will be happy to answer your questions. Fill out the form and we will get back to you shortly.</p>
+                </div>
+                <div class="bs-row reverse">
+                    <div class="col-5 col-md-12">
+                        <div class="text-center align-items-end"><picture><img data-src="https://www.aegissofttech.com/images/footer-form-girl.webp" class="lazyload img-fluid footer-form-girl" width="600" height="600" title="Talk with a Technology Expert" alt="Technology expert"/></picture></div>
+                    </div>
+                    <div class="col-7 col-md-12">
+                        <div class="inquiry-body">
+                            <form id="footerInquiryForm">
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="footer_txtfullname"><i class="fa fa-user-o"></i> Full Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtfullname" name="txtfullname" placeholder="Enter full name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtemail"><i class="fa fa-envelope-o"></i> Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="footer_txtemail" name="txtemail" placeholder="Enter email address">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtphone"><i class="fa fa-phone"></i> Phone Number <span>*</span></label>
+                                        <input type="text" class="form-control" id="footer_txtphone" name="txtphone" placeholder="Enter phone number" onkeypress="return checkIt(event);">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="footer_txtcompany"><i class="fa fa-building-o"></i> Company Name </label>
+                                        <input type="text" class="form-control" id="footer_txtcompany" name="txtcompany" placeholder="Enter company name">
+                                    </div>
+                                    <div class="form-field full-width">
+                                        <label for="footer_txtcomments"><i class="fa fa-commenting-o"></i> Your Message <span>*</span></label>
+                                        <textarea class="form-control" id="footer_txtcomments" name="txtcomments" placeholder="Enter your requirements here"></textarea>
+                                    </div>
+                                    <div class="captcha-area full-width">
+                                        <label><i class="fa fa-refresh"></i> Captcha</label>
+                                        <div class="captcha-row">
+                                            <div class="captcha-code"> <img id="footer_imgCaptcha" src="/captcha.ashx" alt="captcha"> </div>
+                                            <input type="text" class="form-control captcha-input" id="footer_txtCaptcha" name="txtCaptcha" placeholder="captcha">
+                                            <button type="button" id="footer_btnSubmit" value="Submit" name="Submit" class="btn-submit">
+                                                Submit Now <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inquiry-message"><span id="footer_lblInfo"> <i class="fa fa-check"></i> Thank you for reaching out. Our experts will be in touch soon.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+            <div class="footer-navigation">
+                <div class="navigation-part">
+                    <div><picture><img data-src="https://www.aegissofttech.com/images/logo.webp" class="lazyload img-fluid" width="150" height="60" title="Aegis Softtech - Software Development Company" alt="Aegis Softtech logo"/></picture></div>
+                    <p class="pad-right20">We build custom software, cloud solutions, and digital experiences that help businesses innovate, scale, and lead.</p>
+                    <div class="border-bot-green"></div>
+                    <p class="indent"><i class="fa fa-globe" aria-hidden="true"></i> Global Delivery</p>
+                    <p class="indent"><i class="fa fa-shield" aria-hidden="true"></i> Secure & Compliant</p>
+                    <p class="indent"><i class="fa fa-users" aria-hidden="true"></i> Client-First Approach</p>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Quick Links</div>
+                    <div class="border-bot-green"></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/about-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> About Us</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/careers"><i class="fa fa-angle-right" aria-hidden="true"></i> Careers</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/articles"><i class="fa fa-angle-right" aria-hidden="true"></i> Blogs</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/insights/"><i class="fa fa-angle-right" aria-hidden="true"></i> Insights</a></div>
+                    <div class="pb-2"><a href="https://www.aegissofttech.com/contact-us.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Contact Us</a></div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Contact Us</div>
+                    <div class="border-bot-green"></div>
+
+                    <div class="cont-flex">
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        <div>
+                        <a aria-label="email" href="mailto:info@aegissofttech.com">info@aegissofttech.com</a>
+                        <a aria-label="hs-email" href="mailto:hs@aegissofttech.com">hs@aegissofttech.com</a>
+                    </div>
+                    </div>
+                    <div class="cont-flex">
+                        <div><i class="fa fa-phone" aria-hidden="true"></i></div>
+                        <div><a aria-label="tollfree" href="tel:18008897020">Toll Free: 1800 889 7020</a></div>
+                    </div>
+                    <div class="cont-flex align-items-start">
+                        <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div><p class="mb-0">"Royal Square", 1st Floor, Off No. 110, Nr. Shilp Tower, Tagore Road, Rajkot - 360 001, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-part">
+                    <div class="foot-head">Follow Us</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-social">
+                        <a href="https://www.facebook.com/AegisSoftTech" aria-label="facebook" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://x.com/AegisSoftTech" aria-label="twitter" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/company/aegis-softtech" aria-label="linkedin" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/@aegissofttech" aria-label="youtube" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/aegissofttechusa/" aria-label="instagram" rel="nofollow" target="_blank" class="social-item"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>                            
+                    <div class="foot-head mt-3">Recognition</div>
+                    <div class="border-bot-green"></div>
+                    <div class="foot-inq-certi"><picture><img src="https://www.aegissofttech.com/images/inq-certi-footer.webp" loading="lazy" width="300" height="80" alt="inq-certi"/></picture></div>
+                </div>
+            </div>            
+            <div class="copyright-block">
+                <div>Copyright &copy; Aegis Softtech 2026, All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+ 	<div class="mobile-sticky-footer"> 
+		<div><a class="facebook" aria-label="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fcustom-model-binding-in-asp-net-core-mvc-pattern.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" aria-label="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=What is custom model binding in ASP(dot)NET core MVC Pattern?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fcustom-model-binding-in-asp-net-core-mvc-pattern.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" aria-label="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fcustom-model-binding-in-asp-net-core-mvc-pattern.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" aria-label="Email" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/custom-model-binding-in-asp-net-core-mvc-pattern.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<div class="mobile-sticky-social">
+		<div><a class="facebook" target="_blank" href="https://www.facebook.com/v3.3/dialog/share?redirect_uri=http%3A%2F%2Fs7.addthis.com%2Fstatic%2Fthankyou.html&display=popup&href=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fcustom-model-binding-in-asp-net-core-mvc-pattern.html%23.YL4ruKpniLg.facebook&client_id=140586622674265&ret=login&ext=1623079379&hash=AeaBGMtVaLGLsOdGoNo"><i class="fa fa-facebook" aria-hidden="true"></i></a></div>
+		<div><a class="twitter" target="_blank" href="https://twitter.com/intent/tweet?text=What is custom model binding in ASP(dot)NET core MVC Pattern?&url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fcustom-model-binding-in-asp-net-core-mvc-pattern.html&related="><i class="fa fa-twitter" aria-hidden="true"></i></a></div>
+		<div><a class="linkedin" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.aegissofttech.com%2Farticles%2Fcustom-model-binding-in-asp-net-core-mvc-pattern.html%23.YL4s380UeFU.linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></div>
+		<div><a class="gmail" target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to&su=Latest+Blogs+on+Software,+Big+Data,+Java,+Testing,+Hadoop,+and+Many+More&body=https://www.aegissofttech.com/articles/custom-model-binding-in-asp-net-core-mvc-pattern.html&ui=2&tf=cm"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+	</div>
+	<!-- JS -->
+	<script src="../js/lib.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="../js/function2.js"></script>
+ 
+</body>
+</html>

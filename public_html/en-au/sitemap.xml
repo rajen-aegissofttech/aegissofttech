@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Main URL (EN AU) -->
+  <url>
+    <loc>https://www.aegissofttech.com/en-au</loc>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://www.aegissofttech.com/en-au" />
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.aegissofttech.com" />
+    <xhtml:link rel="alternate" hreflang="en-sg" href="https://www.aegissofttech.com/en-sg" />
+	<xhtml:link rel="alternate" hreflang="x-default" href="https://www.aegissofttech.com" />
+	<changefreq>daily</changefreq>
+	<priority>1.00</priority>
+	<lastmod>2025-03-10</lastmod>
+  </url>
+
+  <!-- EN AU URLs -->
+  <url>
+    <loc>https://www.aegissofttech.com/en-au/asp-dot-net-development.html</loc>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://www.aegissofttech.com/en-au/asp-dot-net-development.html" />
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.aegissofttech.com/asp-dot-net-development-company.html" />
+    <xhtml:link rel="alternate" hreflang="en-sg" href="https://www.aegissofttech.com/en-sg/net-application-development-services.html" />
+	<xhtml:link rel="alternate" hreflang="x-default" href="https://www.aegissofttech.com/asp-dot-net-development-company.html" />
+	<changefreq>daily</changefreq>
+	<priority>0.90</priority>
+	<lastmod>2025-03-10</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.aegissofttech.com/en-au/big-data-analytics-consulting.html</loc>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://www.aegissofttech.com/en-au/big-data-analytics-consulting.html" />
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.aegissofttech.com/big-data-consulting.html" />
+    <xhtml:link rel="alternate" hreflang="en-sg" href="https://www.aegissofttech.com/en-sg/big-data-analytics-consulting.html" />
+	<xhtml:link rel="alternate" hreflang="x-default" href="https://www.aegissofttech.com/big-data-consulting.html" />
+	<changefreq>daily</changefreq>
+	<priority>0.90</priority>
+	<lastmod>2025-03-10</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.aegissofttech.com/en-au/java-application-development-services.html</loc>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://www.aegissofttech.com/en-au/java-application-development-services.html" />
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.aegissofttech.com/java-application-development-services.html" />
+    <xhtml:link rel="alternate" hreflang="en-sg" href="https://www.aegissofttech.com/en-sg/java-application-development-services.html" />
+	<xhtml:link rel="alternate" hreflang="x-default" href="https://www.aegissofttech.com/java-application-development-services.html" />
+	<changefreq>daily</changefreq>
+	<priority>0.90</priority>
+	<lastmod>2025-03-10</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.aegissofttech.com/en-au/microsoft-crm-development-services.html</loc>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://www.aegissofttech.com/en-au/microsoft-crm-development-services.html" />
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.aegissofttech.com/dynamics-365/crm" />
+    <xhtml:link rel="alternate" hreflang="en-sg" href="https://www.aegissofttech.com/en-sg/microsoft-crm-development-services.html" />
+	<xhtml:link rel="alternate" hreflang="x-default" href="https://www.aegissofttech.com/dynamics-365/crm" />
+	<changefreq>daily</changefreq>
+	<priority>0.90</priority>
+	<lastmod>2025-03-10</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.aegissofttech.com/en-au/python-development-services.html</loc>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://www.aegissofttech.com/en-au/python-development-services.html" />
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.aegissofttech.com/python-development-services.html" />
+    <xhtml:link rel="alternate" hreflang="en-sg" href="https://www.aegissofttech.com/en-sg/python-development.html" />
+	<xhtml:link rel="alternate" hreflang="x-default" href="https://www.aegissofttech.com/python-development-services.html" />
+	<changefreq>daily</changefreq>
+	<priority>0.90</priority>
+	<lastmod>2025-03-10</lastmod>
+  </url>
+
+  <url>
+    <loc>https://www.aegissofttech.com/en-au/tableau-consulting-services.html</loc>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://www.aegissofttech.com/en-au/tableau-consulting-services.html" />
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://www.aegissofttech.com/tableau-bi-development-services.html" />
+    <xhtml:link rel="alternate" hreflang="en-sg" href="https://www.aegissofttech.com/en-sg/tableau-bi-development-services.html" />
+	<xhtml:link rel="alternate" hreflang="x-default" href="https://www.aegissofttech.com/tableau-bi-development-services.html" />
+	<changefreq>daily</changefreq>
+	<priority>0.90</priority>
+	<lastmod>2025-03-10</lastmod>
+  </url>
+  </urlset>
